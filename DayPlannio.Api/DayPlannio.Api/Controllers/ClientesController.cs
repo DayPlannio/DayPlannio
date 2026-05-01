@@ -23,18 +23,34 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Cliente cliente)
         {
+            if (cliente == null)
+                return BadRequest(new { message = "Dados inválidos." });
+
+            if (string.IsNullOrWhiteSpace(cliente.Nome))
+                return BadRequest(new { message = "O nome é obrigatório." });
+
+            if (string.IsNullOrWhiteSpace(cliente.Telefone))
+                return BadRequest(new { message = "O telefone é obrigatório." });
+
             cliente.Id = Guid.NewGuid();
             cliente.CreatedAt = DateTime.UtcNow;
 
             await _context.Cliente.InsertOneAsync(cliente);
+
             return Ok(new { message = "Cliente cadastrado com sucesso.", id = cliente.Id });
         }
-
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> Edit(Guid id, [FromBody] Cliente cliente)
         {
             var existing = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
-            if (existing == null) return NotFound(new { message = "Cliente não encontrado." });
+            if (existing == null)
+                return NotFound(new { message = "Cliente não encontrado." });
+
+            if (string.IsNullOrWhiteSpace(cliente.Nome))
+                return BadRequest(new { message = "O nome é obrigatório." });
+
+            if (string.IsNullOrWhiteSpace(cliente.Telefone))
+                return BadRequest(new { message = "O telefone é obrigatório." });
 
             existing.Nome = cliente.Nome;
             existing.Telefone = cliente.Telefone;
@@ -42,6 +58,7 @@ namespace DayPlannio.Api.Controllers
             existing.Observacoes = cliente.Observacoes;
 
             await _context.Cliente.ReplaceOneAsync(c => c.Id == id, existing);
+
             return Ok(new { message = "Cliente atualizado com sucesso." });
         }
 

@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:DayPlannio.App.Models"
              x:Class="DayPlannio.App.Views.Clientes"
              BackgroundColor="#F5F5F5"
              Title="Lista de Clientes">
 
     <Grid RowDefinitions="Auto, *">
 
-        <Border Grid.Row="0" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 10" Margin="15,10" Padding="10,0">
-            <Entry x:Name="txt_busca" Placeholder="Procure por nome..."/>
+        <Border Grid.Row="0"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 10"
+                Margin="15,10"
+                Padding="10,0">
+
+            <Entry x:Name="txt_busca"
+                   Placeholder="Procure por nome"/>
         </Border>
 
-        <CollectionView Grid.Row="1" x:Name="listaClientes" Margin="15,0">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15" Margin="0,5">
-                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto,Auto">
+        <CollectionView Grid.Row="1"
+                        x:Name="listaClientes"
+                        Margin="15,0">
 
-                            <Label Grid.Row="0" Grid.Column="0"
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Cliente">
+
+                    <Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="15"
+                            Margin="0,5">
+
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                              ColumnDefinitions="*,Auto,Auto">
+
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
                                    Text="{Binding Nome}"
                                    FontSize="16"
                                    FontAttributes="Bold"
                                    TextColor="#181C1C"/>
-                            
-                            <ImageButton Grid.Row="0" Grid.Column="1"
+
+                            <ImageButton Grid.Row="0"
+                                         Grid.Column="1"
                                          Source="icon_edit.png"
                                          HeightRequest="20"
                                          WidthRequest="20"
@@ -31,7 +51,8 @@
                                          Clicked="OnEditarClicked"
                                          CommandParameter="{Binding .}"/>
 
-                            <ImageButton Grid.Row="0" Grid.Column="2"
+                            <ImageButton Grid.Row="0"
+                                         Grid.Column="2"
                                          Source="icon_delete.png"
                                          HeightRequest="20"
                                          WidthRequest="20"
@@ -40,34 +61,45 @@
                                          Clicked="OnDeletarClicked"
                                          CommandParameter="{Binding .}"/>
 
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
                                    Text="{Binding Telefone, StringFormat='📞 {0}'}"
                                    FontSize="13"
                                    TextColor="#3E4948"/>
 
-                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
                                    Text="{Binding Endereco, StringFormat='🏠 {0}'}"
                                    FontSize="13"
                                    TextColor="#3E4948"/>
 
-                            <BoxView Grid.Row="3" Grid.ColumnSpan="3"
+                            <BoxView Grid.Row="3"
+                                     Grid.ColumnSpan="3"
                                      HeightRequest="1"
                                      Color="#EBEBEB"
-                                     Margin="0,8"/>
+                                     Margin="0,10,0,6"/>
 
-                            <Label Grid.Row="3" Grid.Column="0"
+                            <Label Grid.Row="4"
+                                   Grid.Column="0"
                                    Text="{Binding CreatedAt, StringFormat='Última Visita: {0:MMM dd, yyyy}'}"
                                    FontSize="12"
                                    TextColor="Gray"/>
 
-                            <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                            <Label Grid.Row="4"
+                                   Grid.Column="1"
+                                   Grid.ColumnSpan="2"
                                    Text="Ver Histórico →"
                                    FontSize="12"
                                    TextColor="#006260"
                                    FontAttributes="Bold">
+
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnHistoricoClicked" CommandParameter="{Binding .}"/>
+                                    <TapGestureRecognizer Tapped="OnHistoricoClicked"
+                                                          CommandParameter="{Binding .}"/>
                                 </Label.GestureRecognizers>
+
                             </Label>
 
                         </Grid>
@@ -87,12 +119,15 @@
                 HorizontalOptions="End"
                 Margin="0,0,20,20"
                 Clicked="OnNovoClienteClicked">
+
             <Button.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <LinearGradientBrush StartPoint="0,0"
+                                      EndPoint="1,0">
                     <GradientStop Color="#006260" Offset="0.0"/>
                     <GradientStop Color="#1E7C7A" Offset="1.0"/>
                 </LinearGradientBrush>
             </Button.Background>
+
         </Button>
 
     </Grid>

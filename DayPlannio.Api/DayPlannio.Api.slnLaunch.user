@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "..\\DayPlannio.App\\DayPlannio.App.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "DayPlannio.Api\\DayPlannio.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

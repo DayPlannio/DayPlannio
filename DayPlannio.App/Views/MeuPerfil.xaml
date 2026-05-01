@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayPlannio.App.Views.MeuPerfil"
+             BackgroundColor="#F5F5F5"
+             Title="Meu Perfil">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15">
+            <Label Text="Meu Perfil" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" TextColor=  "{StaticResource PrimaryColor}"/>
+            <Border BackgroundColor="{StaticResource White}" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="25" Margin="0,30,0,0">
+
+                <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                    <Image Source="logo.png" HeightRequest="80" HorizontalOptions="Center" Margin="0,0,0,5"/>
+
+                    <Label Text="Nome" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                        <Entry x:Name="txt_nome" Text="{Binding NomeCompleto}"/>
+                    </Border>
+
+                    <Label Text="E-mail" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                        <Entry x:Name="txt_email" Text="{Binding Email}"/>
+                    </Border>
+
+                    <Label Text="Telefone" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                        <Entry x:Name="txt_telefone" Text="{Binding Telefone}"/>
+                    </Border>
+
+                    <Label x:Name="ErroLabel" TextColor="#BA1A1A" IsVisible="False"/>
+
+                    <Button Text="Salvar" TextColor="White" Clicked="OnSalvarClicked" CornerRadius="20">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#006260" Offset="0.0"/>
+                                <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                </VerticalStackLayout>
+            </Border>
+            <Button Text="Encerrar Sessão" TextColor="Red" Clicked="OnSairClicked" BackgroundColor="Transparent"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

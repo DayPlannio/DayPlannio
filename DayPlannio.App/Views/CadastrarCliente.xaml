@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayPlannio.App.Views.CadastrarCliente"
+             BackgroundColor="#F5F5F5"
+             Title="Novo Cliente">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <VerticalStackLayout Grid.Row="0" Padding="20,20,20,0">
+            <Label Text="Crie seu Cliente" FontSize="22" FontAttributes="Bold" TextColor="#181C1C"/>
+            <Label Text="Preencha as informações para criar o cliente." FontSize="13" TextColor="#3E4948"/>
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+
+                <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="20" Margin="20,15,20,0">
+                    <VerticalStackLayout Spacing="8">
+
+                        <Label Text="NOME COMPLETO" FontSize="11" TextColor="#3E4948"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Entry x:Name="txt_nome" Placeholder="Ex: José Silva"/>
+                        </Border>
+
+                        <Label Text="TELEFONE" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Entry x:Name="txt_telefone" Placeholder="Ex: (14) 99999-9999" Keyboard="Telephone"/>
+                        </Border>
+
+                        <Label Text="ENDEREÇO" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Entry x:Name="txt_endereco" Placeholder="Ex: Rua Arnaldo, 191"/>
+                        </Border>
+
+                        <Label Text="OBSERVAÇÕES ADICIONAIS" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Editor x:Name="txt_observacoes"
+                            Placeholder="Detalhes específicos para este cliente..."
+                            HeightRequest="100"
+                            BackgroundColor="Transparent"/>
+                        </Border>
+
+                        <Label x:Name="ErroLabel" TextColor="#BA1A1A" IsVisible="False"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <VerticalStackLayout Padding="20,10,20,20" Spacing="5">
+                    <Button Text="Criar Cliente"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    Clicked="OnCriarClicked">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#006260" Offset="0.0"/>
+                                <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                    <Button Text="Cancelar"
+                    BackgroundColor="Transparent"
+                    TextColor="Gray"
+                    Clicked="OnCancelarClicked"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,3 @@
+# Somente arquivos de ambiente local
+appsettings.Development.json
+appsettings.Local.json

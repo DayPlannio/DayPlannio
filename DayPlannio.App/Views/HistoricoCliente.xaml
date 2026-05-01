@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayPlannio.App.Views.HistoricoCliente"
+             BackgroundColor="#F5F5F5"
+             Title="Histórico do Cliente">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <Label Grid.Row="0"
+               x:Name="lbl_nome"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="#181C1C"
+               Margin="20,10"/>
+
+        <CollectionView Grid.Row="1" x:Name="listaHistorico" Margin="15,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="15" Margin="0,5">
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label Text="{Binding TipoServico}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#181C1C"/>
+
+                            <Label Text="DATA DO ATENDIMENTO" FontSize="11" TextColor="Gray"/>
+                            <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="10,8">
+                                <Label Text="{Binding DataHora, StringFormat='📅 {0:dd/MM/yyyy}'}" FontSize="14"/>
+                            </Border>
+
+                            <Label Text="HORÁRIO" FontSize="11" TextColor="Gray"/>
+                            <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="10,8">
+                                <Label Text="{Binding DataHora, StringFormat='🕐 {0:HH:mm}'}" FontSize="14"/>
+                            </Border>
+
+                            <Border BackgroundColor="#F0FAFA" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="15">
+                                <VerticalStackLayout Spacing="8">
+                                    <Label Text="💳 Valores e Custos" TextColor="#006260" FontAttributes="Bold" FontSize="14"/>
+
+                                    <Label Text="VALOR COBRADO" FontSize="11" TextColor="Gray"/>
+                                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="10,8">
+                                        <Label Text="{Binding ValorCobrado, StringFormat='R$  {0:F2}'}" FontSize="14"/>
+                                    </Border>
+
+                                    <Label Text="CUSTO DE MATERIAL" FontSize="11" TextColor="Gray"/>
+                                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="10,8">
+                                        <Label Text="{Binding CustoMaterial, StringFormat='R$  {0:F2}'}" FontSize="14"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <Label Text="OBSERVAÇÕES ADICIONAIS" FontSize="11" TextColor="Gray"/>
+                            <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="10,8">
+                                <Label Text="{Binding Observacoes}" FontSize="13" TextColor="#3E4948"/>
+                            </Border>
+
+                            <Label Text="{Binding Status}"
+                                   HorizontalOptions="Center"
+                                   TextColor="#006260"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   BackgroundColor="#E0F5F5"
+                                   Padding="15,5"/>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

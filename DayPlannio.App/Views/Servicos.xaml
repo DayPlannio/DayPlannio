@@ -2,11 +2,74 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DayPlannio.App.Views.Servicos"
-             Title="Servicos">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="#F5F5F5"
+             Title="Serviços">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <VerticalStackLayout Grid.Row="1" Padding="20,10,20,0">
+            <Label Text="Gestão de Serviços" FontSize="22" FontAttributes="Bold" TextColor="#181C1C"/>
+            <Label Text="Lista de Tipo de Serviços" FontSize="13" TextColor="#3E4948"/>
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="2" x:Name="listaServicos" Margin="15,10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 15"
+                            Padding="15" Margin="0,5">
+                        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto,Auto">
+
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Tipo}"
+                                   FontSize="16" FontAttributes="Bold" TextColor="#181C1C"/>
+
+                            <ImageButton Grid.Row="0" Grid.Column="1"
+                                         Source="icon_edit.png"
+                                         HeightRequest="20" WidthRequest="20"
+                                         BackgroundColor="Transparent"
+                                         Clicked="OnEditarClicked"
+                                         CommandParameter="{Binding .}"/>
+
+                            <ImageButton Grid.Row="0" Grid.Column="2"
+                                         Source="icon_delete.png"
+                                         HeightRequest="20" WidthRequest="20"
+                                         BackgroundColor="Transparent"
+                                         Margin="10,0,0,0"
+                                         Clicked="OnDeletarClicked"
+                                         CommandParameter="{Binding .}"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                   Text="{Binding Descricao}"
+                                   FontSize="13" TextColor="#3E4948" Margin="0,5,0,10"/>
+
+                            <Border Grid.Row="2" Grid.Column="0"
+                                    BackgroundColor="#E8F5F5" StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 20" Padding="10,4">
+                                <Label Text="{Binding TempoEstimado, StringFormat=' {0}min estimados'}"
+                                       FontSize="12" TextColor="#006260"/>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2"
+                Text="+"
+                FontSize="24" TextColor="White"
+                WidthRequest="55" HeightRequest="55"
+                CornerRadius="28"
+                VerticalOptions="End" HorizontalOptions="End"
+                Margin="0,0,20,20"
+                Clicked="OnNovoServicoClicked">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#006260" Offset="0.0"/>
+                    <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+    </Grid>
 </ContentPage>

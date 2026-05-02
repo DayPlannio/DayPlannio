@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:DayPlannio.App.Models"
              x:Class="DayPlannio.App.Views.Clientes"
              BackgroundColor="#F5F5F5"
              Title="Lista de Clientes">
@@ -24,7 +23,7 @@
                         Margin="15,0">
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Cliente">
+                <DataTemplate>
 
                     <Border BackgroundColor="White"
                             StrokeThickness="0"

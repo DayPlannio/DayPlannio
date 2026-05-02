@@ -23,10 +23,20 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] TipoServico tipoServico)
         {
+            if (tipoServico == null)
+                return BadRequest(new { message = "Dados inválidos." });
+
+            if (string.IsNullOrWhiteSpace(tipoServico.Tipo))
+                return BadRequest(new { message = "O nome é obrigatório." });
+
+            if (tipoServico.TempoEstimado <= 0)
+                return BadRequest(new { message = "O tempo estimado deve ser maior que zero." });
+
             tipoServico.Id = Guid.NewGuid();
             tipoServico.CreatedAt = DateTime.UtcNow;
 
             await _context.TipoServico.InsertOneAsync(tipoServico);
+
             return Ok(new { message = "Tipo de serviço cadastrado com sucesso.", id = tipoServico.Id });
         }
 
@@ -34,13 +44,21 @@ namespace DayPlannio.Api.Controllers
         public async Task<IActionResult> Edit(Guid id, [FromBody] TipoServico tipoServico)
         {
             var existing = await _context.TipoServico.Find(t => t.Id == id).FirstOrDefaultAsync();
-            if (existing == null) return NotFound(new { message = "Tipo de serviço não encontrado." });
+            if (existing == null)
+                return NotFound(new { message = "Tipo de serviço não encontrado." });
+
+            if (string.IsNullOrWhiteSpace(tipoServico.Tipo))
+                return BadRequest(new { message = "O nome é obrigatório." });
+
+            if (tipoServico.TempoEstimado <= 0)
+                return BadRequest(new { message = "O tempo estimado deve ser maior que zero." });
 
             existing.Tipo = tipoServico.Tipo;
             existing.Descricao = tipoServico.Descricao;
             existing.TempoEstimado = tipoServico.TempoEstimado;
 
             await _context.TipoServico.ReplaceOneAsync(t => t.Id == id, existing);
+
             return Ok(new { message = "Tipo de serviço atualizado com sucesso." });
         }
 

@@ -16,4 +16,8 @@ public partial class EditarCliente : ContentPage
     {
         await DisplayAlertAsync("Edição", "Edição cancelada.", "OK");
     }
+
+    private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
+    {
+    }
 }

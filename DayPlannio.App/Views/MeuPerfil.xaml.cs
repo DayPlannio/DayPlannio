@@ -24,7 +24,19 @@ public partial class MeuPerfil : ContentPage
 
     private async void OnSairClicked(object sender, EventArgs e)
     {
-        await DisplayAlertAsync("Perfil", "Sessão encerrada com sucesso!", "OK");
+        bool confirmar = await DisplayAlertAsync(
+            "Sair da conta",
+            "Tem certeza que deseja encerrar a sessão?",
+            "Sim",
+            "Cancelar"
+        );
+
+        if (!confirmar)
+            return;
         await Navigation.PushAsync(new Views.Login());
+    }
+
+    private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
+    {
     }
 }

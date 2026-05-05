@@ -7,77 +7,77 @@
              NavigationPage.HasNavigationBar="False"
              Title="Meu Perfil">
 
-	<Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="*,Auto">
 
-		<ScrollView Grid.Row="0">
+        <ScrollView Grid.Row="0">
 
-			<VerticalStackLayout Padding="15">
+            <VerticalStackLayout Padding="15">
 
-				<Label Text="Meu Perfil"
+                <Label Text="Meu Perfil"
                        FontSize="24"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        TextColor="{StaticResource PrimaryColor}"/>
 
-				<Border BackgroundColor="{StaticResource White}"
+                <Border BackgroundColor="{StaticResource White}"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 15"
                         Padding="25"
                         Margin="0,30,0,0">
 
-					<VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="8">
 
-						<Image Source="logo.png"
+                        <Image Source="logo.png"
                                HeightRequest="80"
                                HorizontalOptions="Center"
                                Margin="0,0,0,5"/>
 
-						<Label Text="Nome" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-							<Entry x:Name="txt_nome" Text="{Binding NomeCompleto}"/>
-						</Border>
+                        <Label Text="Nome" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Entry x:Name="txt_nome" Text="{Binding NomeCompleto}"/>
+                        </Border>
 
-						<Label Text="E-mail" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-							<Entry x:Name="txt_email" Text="{Binding Email}"/>
-						</Border>
+                        <Label Text="E-mail" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Entry x:Name="txt_email" Text="{Binding Email}"/>
+                        </Border>
 
-						<Label Text="Telefone" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-							<Entry x:Name="txt_telefone" Text="{Binding Telefone}"/>
-						</Border>
+                        <Label Text="Telefone" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Entry x:Name="txt_telefone" Text="{Binding Telefone}" TextChanged="OnTelefoneTextChanged"/>
+                        </Border>
 
-						<Label x:Name="ErroLabel"
+                        <Label x:Name="ErroLabel"
                                TextColor="#BA1A1A"
                                IsVisible="False"/>
 
-						<Button Text="Salvar"
+                        <Button Text="Salvar"
                                 TextColor="White"
                                 CornerRadius="20"
                                 Clicked="OnSalvarClicked">
-							<Button.Background>
-								<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-									<GradientStop Color="#006260" Offset="0.0"/>
-									<GradientStop Color="#1E7C7A" Offset="1.0"/>
-								</LinearGradientBrush>
-							</Button.Background>
-						</Button>
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#006260" Offset="0.0"/>
+                                    <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
-					</VerticalStackLayout>
+                    </VerticalStackLayout>
 
-				</Border>
+                </Border>
 
-				<Button Text="Encerrar Sessão"
+                <Button Text="Encerrar Sessão"
                         TextColor="Red"
                         BackgroundColor="Transparent"
                         Clicked="OnSairClicked"/>
 
-			</VerticalStackLayout>
+            </VerticalStackLayout>
 
-		</ScrollView>
+        </ScrollView>
 
-		<views:CustomTabBar Grid.Row="1"/>
+        <views:CustomTabBar Grid.Row="1"/>
 
-	</Grid>
+    </Grid>
 
 </ContentPage>

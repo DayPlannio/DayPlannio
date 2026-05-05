@@ -31,4 +31,8 @@ public partial class Clientes : ContentPage
     {
         await DisplayAlertAsync("Cliente", "Novo cliente adicionado com sucesso!", "OK");
     }
+
+    private void OnBuscaTextChanged(object sender, TextChangedEventArgs e)
+    {
+    }
 }

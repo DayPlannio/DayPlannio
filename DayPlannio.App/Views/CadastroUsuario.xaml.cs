@@ -19,4 +19,8 @@ public partial class CadastroUsuario : ContentPage
     {
         await Navigation.PushAsync(new Views.Login());
     }
+
+    private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
+    {
+    }
 }

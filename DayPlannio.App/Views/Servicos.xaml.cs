@@ -24,4 +24,8 @@ public partial class Servicos : ContentPage
     private void OnNovoServicoClicked(object sender, EventArgs e)
     {
     }
+
+    private void OnBuscaTextChanged(object sender, TextChangedEventArgs e)
+    {
+    }
 }

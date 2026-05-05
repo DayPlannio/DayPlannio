@@ -16,4 +16,8 @@ public partial class CadastrarCliente : ContentPage
     {
         await DisplayAlertAsync("Cancelar", "Cadastro cancelado!", "OK");
     }
+
+    private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
+    {
+    }
 }

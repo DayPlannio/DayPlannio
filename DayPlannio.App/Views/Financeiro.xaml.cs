@@ -6,4 +6,10 @@ public partial class Financeiro : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		CustomTabBar.AbaAtual = "financeiro";
+	}
 }

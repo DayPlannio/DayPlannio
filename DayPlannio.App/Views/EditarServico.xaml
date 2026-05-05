@@ -1,58 +1,79 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:DayPlannio.App.Views"
              x:Class="DayPlannio.App.Views.EditarServico"
              BackgroundColor="#F5F5F5"
-             Title="Editar Serviço">
+             Title="Editar Serviço"
+             NavigationPage.HasNavigationBar="False">
 
-    <Grid RowDefinitions="Auto, *">
+	<Grid RowDefinitions="*,Auto">
 
-        <VerticalStackLayout Grid.Row="0" Padding="20,20,20,0">
-            <Label Text="Edite seu Serviço" FontSize="22" FontAttributes="Bold" TextColor="#181C1C"/>
-        </VerticalStackLayout>
+		<ScrollView Grid.Row="0">
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout>
-                <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 15"
-                        Padding="20" Margin="20,15,20,0">
-                    <VerticalStackLayout Spacing="8">
+			<VerticalStackLayout>
 
-                        <Label Text="NOME" FontSize="11" TextColor="#3E4948"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_tipo"/>
-                        </Border>
+				<VerticalStackLayout Padding="20,20,20,0">
+					<Label Text="Edite seu Serviço" FontSize="22" FontAttributes="Bold" TextColor="#181C1C"/>
+				</VerticalStackLayout>
 
-                        <Label Text="DESCRIÇÃO" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Editor x:Name="txt_descricao"
-                                    HeightRequest="100"
-                                    BackgroundColor="Transparent"/>
-                        </Border>
+				<Border BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="20"
+                        Margin="20,15,20,0">
 
-                        <Label Text="TEMPO ESTIMADO (MIN)" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_tempo" Keyboard="Numeric"/>
-                        </Border>
+					<VerticalStackLayout Spacing="8">
 
-                        <Label x:Name="ErroLabel" TextColor="#BA1A1A" IsVisible="False"/>
+						<Label Text="NOME" FontSize="11" TextColor="#3E4948"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Entry x:Name="txt_tipo"/>
+						</Border>
 
-                    </VerticalStackLayout>
-                </Border>
+						<Label Text="DESCRIÇÃO" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Editor x:Name="txt_descricao" HeightRequest="100" BackgroundColor="Transparent"/>
+						</Border>
 
-                <VerticalStackLayout Padding="20,10,20,20" Spacing="5">
-                    <Button Text="Salvar" TextColor="White" CornerRadius="25"
-                            HeightRequest="50" Clicked="OnSalvarClicked">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="#006260" Offset="0.0"/>
-                                <GradientStop Color="#1E7C7A" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
-                    <Button Text="Cancelar" BackgroundColor="Transparent"
-                            TextColor="Gray" Clicked="OnCancelarClicked"/>
-                </VerticalStackLayout>
-            </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+						<Label Text="TEMPO ESTIMADO (MIN)" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Entry x:Name="txt_tempo" Keyboard="Numeric"/>
+						</Border>
+
+						<Label x:Name="ErroLabel" TextColor="#BA1A1A" IsVisible="False"/>
+
+					</VerticalStackLayout>
+
+				</Border>
+
+				<VerticalStackLayout Padding="20,10,20,20" Spacing="5">
+
+					<Button Text="Salvar"
+                            TextColor="White"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            Clicked="OnSalvarClicked">
+						<Button.Background>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+								<GradientStop Color="#006260" Offset="0.0"/>
+								<GradientStop Color="#1E7C7A" Offset="1.0"/>
+							</LinearGradientBrush>
+						</Button.Background>
+					</Button>
+
+					<Button Text="Cancelar"
+                            BackgroundColor="Transparent"
+                            TextColor="Gray"
+                            Clicked="OnCancelarClicked"/>
+
+				</VerticalStackLayout>
+
+			</VerticalStackLayout>
+
+		</ScrollView>
+
+		<views:CustomTabBar Grid.Row="1"/>
+
+	</Grid>
+
 </ContentPage>

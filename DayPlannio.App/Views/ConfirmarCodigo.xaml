@@ -1,40 +1,63 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DayPlannio.App.Views.ConfirmarCodigo"
              BackgroundColor="#F5F5F5"
              NavigationPage.HasNavigationBar="False"
              Title="Confirmar Código">
-    <VerticalStackLayout Padding="15">
 
-        <Border BackgroundColor="{StaticResource White}" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="25" Margin="0,45,0,0">
+	<VerticalStackLayout Padding="15">
 
-            <VerticalStackLayout Spacing="8">
-                <Image Source="logo.png" HeightRequest="80" HorizontalOptions="Center" Margin="0,0,0,5"/>
+		<Border BackgroundColor="{StaticResource White}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 15"
+                Padding="25"
+                Margin="0,45,0,0">
 
-                <Label Text="Digite o código enviado para o seu e-mail"
+			<VerticalStackLayout Spacing="8">
+
+				<Image Source="logo.png" HeightRequest="80" HorizontalOptions="Center" Margin="0,0,0,5"/>
+
+				<Label Text="Digite o código enviado para o seu e-mail"
                        FontSize="14"
                        TextColor="{StaticResource LabelColor}"
                        HorizontalOptions="Center"
                        HorizontalTextAlignment="Center"/>
 
-                <Label Text="Código" FontSize="14" TextColor="{StaticResource LabelColor}" Margin="0,10,0,0"/>
-                <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                    <Entry x:Name="txt_codigo" Placeholder="Digite o código" Keyboard="Numeric" MaxLength="6"/>
-                </Border>
+				<Label Text="Código"
+                       FontSize="14"
+                       TextColor="{StaticResource LabelColor}"
+                       Margin="0,10,0,0"/>
 
-                <Label x:Name="ErroLabel" TextColor="Red" IsVisible="False"/>
+				<Border BackgroundColor="#EBEBEB"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 10">
+					<Entry x:Name="txt_codigo"
+                           Placeholder="Digite o código"
+                           Keyboard="Numeric"
+                           MaxLength="6"/>
+				</Border>
 
-                <Button Text="Confirmar" TextColor="White" Clicked="OnConfirmarClicked" CornerRadius="20">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <GradientStop Color="#006260" Offset="0.0"/>
-                            <GradientStop Color="#1E7C7A" Offset="1.0"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
+				<Label x:Name="ErroLabel"
+                       TextColor="Red"
+                       IsVisible="False"/>
 
-            </VerticalStackLayout>
-        </Border>
-    </VerticalStackLayout>
+				<Button Text="Confirmar"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Clicked="OnConfirmarClicked">
+					<Button.Background>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+							<GradientStop Color="#006260" Offset="0.0"/>
+							<GradientStop Color="#1E7C7A" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Button.Background>
+				</Button>
+
+			</VerticalStackLayout>
+
+		</Border>
+
+	</VerticalStackLayout>
+
 </ContentPage>

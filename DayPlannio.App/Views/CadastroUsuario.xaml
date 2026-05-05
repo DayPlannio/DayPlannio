@@ -1,66 +1,83 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:DayPlannio.App.Views"
              x:Class="DayPlannio.App.Views.CadastroUsuario"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F5F5F5">
-    <ScrollView>
-        <VerticalStackLayout Padding="20">
 
-            <Border BackgroundColor="{StaticResource White}" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="25">
+	<Grid RowDefinitions="*,Auto">
 
-                <VerticalStackLayout VerticalOptions="Center" Spacing="8">
-                    <Image Source="logo.png" HeightRequest="80" HorizontalOptions="Center" Margin="0,0,0,5"/>
+		<ScrollView Grid.Row="0">
 
-                    <Label Text="Nome" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                        <Entry x:Name="txt_nome" Placeholder="Digite seu nome completo"/>
-                    </Border>
+			<VerticalStackLayout Padding="20">
 
-                    <Label Text="E-mail" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                        <Entry x:Name="txt_email" Placeholder="Digite seu e-mail" Keyboard="Email"/>
-                    </Border>
+				<Border BackgroundColor="{StaticResource White}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="25">
 
-                    <Label Text="Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                        <Entry x:Name="txt_senha" Placeholder="Crie uma senha" IsPassword="True"/>
-                    </Border>
+					<VerticalStackLayout VerticalOptions="Center" Spacing="8">
 
-                    <Label Text="Confirmar Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                        <Entry x:Name="txt_confirmar_senha" Placeholder="Repita a senha" IsPassword="True"/>
-                    </Border>
+						<Image Source="logo.png" HeightRequest="80" HorizontalOptions="Center" Margin="0,0,0,5"/>
 
-                    <Label Text="Telefone" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                    <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                        <Entry x:Name="txt_telefone" Placeholder="Digite seu telefone" Keyboard="Telephone"/>
-                    </Border>
+						<Label Text="Nome" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Entry x:Name="txt_nome" Placeholder="Digite seu nome completo"/>
+						</Border>
 
-                    <Label x:Name="ErroLabel" TextColor="Red" IsVisible="False"/>
+						<Label Text="E-mail" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Entry x:Name="txt_email" Placeholder="Digite seu e-mail" Keyboard="Email"/>
+						</Border>
 
-                    <Button Text="Cadastrar" TextColor="White" Clicked="OnCadastrarClicked" CornerRadius="20">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="#006260" Offset="0.0"/>
-                                <GradientStop Color="#1E7C7A" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+						<Label Text="Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Entry x:Name="txt_senha" Placeholder="Crie uma senha" IsPassword="True"/>
+						</Border>
 
-                    <Label Text="OU" HorizontalOptions="Center" TextColor="#6E7978" FontSize="12" Margin="0,10,0,0"/>
+						<Label Text="Confirmar Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Entry x:Name="txt_confirmar_senha" Placeholder="Repita a senha" IsPassword="True"/>
+						</Border>
 
-                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                        <Label Text="Já possui uma conta?" TextColor="#3E4948" FontSize="13"/>
-                        <Label Text="Faça Login" TextColor="{StaticResource PrimaryColor}" FontAttributes="Bold" FontSize="13">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnLoginClicked"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </HorizontalStackLayout>
+						<Label Text="Telefone" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+						<Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+							<Entry x:Name="txt_telefone" Placeholder="Digite seu telefone" Keyboard="Telephone"/>
+						</Border>
 
-                </VerticalStackLayout>
-            </Border>
-        </VerticalStackLayout>
-    </ScrollView>
+						<Label x:Name="ErroLabel" TextColor="Red" IsVisible="False"/>
+
+						<Button Text="Cadastrar" TextColor="White" CornerRadius="20" Clicked="OnCadastrarClicked">
+							<Button.Background>
+								<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+									<GradientStop Color="#006260" Offset="0.0"/>
+									<GradientStop Color="#1E7C7A" Offset="1.0"/>
+								</LinearGradientBrush>
+							</Button.Background>
+						</Button>
+
+						<Label Text="OU" HorizontalOptions="Center" TextColor="#6E7978" FontSize="12" Margin="0,10,0,0"/>
+
+						<HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+							<Label Text="Já possui uma conta?" TextColor="#3E4948" FontSize="13"/>
+							<Label Text="Faça Login" TextColor="{StaticResource PrimaryColor}" FontAttributes="Bold" FontSize="13">
+								<Label.GestureRecognizers>
+									<TapGestureRecognizer Tapped="OnLoginClicked"/>
+								</Label.GestureRecognizers>
+							</Label>
+						</HorizontalStackLayout>
+
+					</VerticalStackLayout>
+
+				</Border>
+
+			</VerticalStackLayout>
+
+		</ScrollView>
+
+		<views:CustomTabBar Grid.Row="1"/>
+
+	</Grid>
+
 </ContentPage>

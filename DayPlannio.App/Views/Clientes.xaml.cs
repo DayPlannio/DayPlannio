@@ -7,7 +7,13 @@ public partial class Clientes : ContentPage
 		InitializeComponent();
 	}
 
-    private async void OnDeletarClicked(object sender, EventArgs e)
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		CustomTabBar.AbaAtual = "clientes";
+	}
+
+	private async void OnDeletarClicked(object sender, EventArgs e)
     {
         await DisplayAlertAsync("Deleção", "Cliente deletado com sucesso!", "OK");
     }

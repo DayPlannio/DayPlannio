@@ -11,7 +11,13 @@ public partial class MeuPerfil : ContentPage
         InitializeComponent();
     }
 
-    private async void OnSalvarClicked(object sender, EventArgs e)
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		CustomTabBar.AbaAtual = "perfil";
+	}
+
+	private async void OnSalvarClicked(object sender, EventArgs e)
     {
         await DisplayAlertAsync("Perfil", "Perfil atualizado com sucesso!", "OK");
     }

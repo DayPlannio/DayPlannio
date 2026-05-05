@@ -1,43 +1,60 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DayPlannio.App.Views.ExcluirServico"
              BackgroundColor="#80000000">
 
-    <Grid VerticalOptions="Center" Margin="30">
-        <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 20" Padding="25">
-            <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+	<Grid VerticalOptions="Center" Margin="30">
 
-                <Border BackgroundColor="#FFE8E8" StrokeThickness="0" StrokeShape="RoundRectangle 50"
-                        HeightRequest="60" WidthRequest="60" HorizontalOptions="Center">
-                    <Label Text="⚠️" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center"/>
-                </Border>
+		<Border BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Padding="25">
 
-                <Label Text="Excluir Tipo de Serviço?"
+			<VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+
+				<Border BackgroundColor="#FFE8E8"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 50"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        HorizontalOptions="Center">
+
+					<Label Text="⚠️"
+                           FontSize="28"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+				</Border>
+
+				<Label Text="Excluir Tipo de Serviço?"
                        FontSize="18"
                        FontAttributes="Bold"
                        TextColor="#181C1C"
                        HorizontalOptions="Center"/>
 
-                <Label x:Name="lbl_mensagem"
+				<Label x:Name="lbl_mensagem"
                        FontSize="14"
                        TextColor="#3E4948"
                        HorizontalOptions="Center"
                        HorizontalTextAlignment="Center"/>
 
-                <Button Text="EXCLUIR"
+				<Button Text="EXCLUIR"
                         TextColor="White"
                         BackgroundColor="#BA1A1A"
                         CornerRadius="25"
                         HeightRequest="50"
                         Clicked="OnExcluirClicked"/>
 
-                <Button Text="Cancelar"
+				<Button Text="Cancelar"
                         BackgroundColor="Transparent"
                         TextColor="Gray"
                         Clicked="OnCancelarClicked"/>
 
-            </VerticalStackLayout>
-        </Border>
-    </Grid>
+			</VerticalStackLayout>
+
+		</Border>
+
+	</Grid>
+
 </ContentPage>

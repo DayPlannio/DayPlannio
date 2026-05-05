@@ -7,7 +7,13 @@ public partial class Servicos : ContentPage
         InitializeComponent();
     }
 
-    private void OnEditarClicked(object sender, EventArgs e)
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+		CustomTabBar.AbaAtual = "servicos";
+	}
+
+	private void OnEditarClicked(object sender, EventArgs e)
     {
     }
 

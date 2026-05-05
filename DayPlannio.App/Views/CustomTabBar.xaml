@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayPlannio.App.Views.CustomTabBar">
+
+	<Grid ColumnDefinitions="*,*,*,*,*"
+          BackgroundColor="White"
+          HeightRequest="70"
+          Padding="5">
+
+		<Border x:Name="TabAgenda"
+                Grid.Column="0"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 12"
+                BackgroundColor="Transparent"
+                Padding="10">
+
+			<VerticalStackLayout Spacing="2"
+                                 HorizontalOptions="Center">
+
+				<VerticalStackLayout.GestureRecognizers>
+					<TapGestureRecognizer Tapped="OnAgendaTapped"/>
+				</VerticalStackLayout.GestureRecognizers>
+
+				<Image Source="icon_agenda.png"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       HorizontalOptions="Center"/>
+
+				<Label x:Name="AgendaLabel"
+                       Text="Agenda"
+                       FontSize="10"
+                       HorizontalOptions="Center"/>
+			</VerticalStackLayout>
+
+		</Border>
+
+		<Border x:Name="TabServicos"
+                Grid.Column="1"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 12"
+                BackgroundColor="Transparent"
+                Padding="10">
+
+			<VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+
+				<VerticalStackLayout.GestureRecognizers>
+					<TapGestureRecognizer Tapped="OnServicosTapped"/>
+				</VerticalStackLayout.GestureRecognizers>
+
+				<Image Source="icon_servicos.png"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       HorizontalOptions="Center"/>
+
+				<Label x:Name="ServicosLabel"
+                       Text="Serviços"
+                       FontSize="10"
+                       HorizontalOptions="Center"/>
+			</VerticalStackLayout>
+
+		</Border>
+
+		<Border x:Name="TabClientes"
+                Grid.Column="2"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 12"
+                BackgroundColor="Transparent"
+                Padding="10">
+
+			<VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+
+				<VerticalStackLayout.GestureRecognizers>
+					<TapGestureRecognizer Tapped="OnClientesTapped"/>
+				</VerticalStackLayout.GestureRecognizers>
+
+				<Image Source="icon_clientes.png"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       HorizontalOptions="Center"/>
+
+				<Label x:Name="ClientesLabel"
+                       Text="Clientes"
+                       FontSize="10"
+                       HorizontalOptions="Center"/>
+			</VerticalStackLayout>
+
+		</Border>
+
+		<Border x:Name="TabFinanceiro"
+                Grid.Column="3"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 12"
+                BackgroundColor="Transparent"
+                Padding="10">
+
+			<VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+
+				<VerticalStackLayout.GestureRecognizers>
+					<TapGestureRecognizer Tapped="OnFinanceiroTapped"/>
+				</VerticalStackLayout.GestureRecognizers>
+
+				<Image Source="icon_dinheiro.png"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       HorizontalOptions="Center"/>
+
+				<Label x:Name="FinanceiroLabel"
+                       Text="Financeiro"
+                       FontSize="10"
+                       HorizontalOptions="Center"/>
+			</VerticalStackLayout>
+
+		</Border>
+
+		<Border x:Name="TabPerfil"
+                Grid.Column="4"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 12"
+                BackgroundColor="Transparent"
+                Padding="10">
+
+			<VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+
+				<VerticalStackLayout.GestureRecognizers>
+					<TapGestureRecognizer Tapped="OnPerfilTapped"/>
+				</VerticalStackLayout.GestureRecognizers>
+
+				<Image Source="icon_perfil.png"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       HorizontalOptions="Center"/>
+
+				<Label x:Name="PerfilLabel"
+                       Text="Perfil"
+                       FontSize="10"
+                       HorizontalOptions="Center"/>
+			</VerticalStackLayout>
+
+		</Border>
+
+	</Grid>
+
+</ContentView>

@@ -42,7 +42,7 @@
                             <Entry x:Name="txt_email" Text="{Binding Email}"/>
                         </Border>
 
-                        <Label Text="Telefone" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                        <Label Text="Telefone (Opcional)" FontSize="14" TextColor="{StaticResource LabelColor}"/>
                         <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
                             <Entry x:Name="txt_telefone" Text="{Binding Telefone}" TextChanged="OnTelefoneTextChanged"/>
                         </Border>

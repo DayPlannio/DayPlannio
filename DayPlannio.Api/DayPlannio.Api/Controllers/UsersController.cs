@@ -13,10 +13,11 @@ namespace DayPlannio.Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public UsersController(UserManager<ApplicationUser> userManager)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -66,7 +67,14 @@ namespace DayPlannio.Api.Controllers
             var result = await _userManager.CreateAsync(appuser, user.Senha);
 
             if (result.Succeeded)
-                return Ok(new { message = "Usuário cadastrado com sucesso.", id = appuser.Id });
+            {
+                await _signInManager.SignInAsync(appuser, isPersistent: false);
+
+                return Ok(new
+                {
+                    message = "Usuário cadastrado com sucesso.", id = appuser.Id
+                });
+            }
 
             var errors = result.Errors.Select(e => e.Description);
             return BadRequest(new { errors });

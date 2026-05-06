@@ -33,15 +33,38 @@
 
                         <Label Text="Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
                         <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_senha" Placeholder="Crie uma senha" IsPassword="True"/>
+                            <Entry x:Name="txt_senha" Placeholder="Crie uma senha" IsPassword="True" TextChanged="OnSenhaTextChanged"/>
                         </Border>
 
                         <Label Text="Confirmar Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
                         <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_confirmar_senha" Placeholder="Repita a senha" IsPassword="True"/>
+                            <Entry x:Name="txt_confirmar_senha" Placeholder="Crie uma senha" IsPassword="True"/>
                         </Border>
 
-                        <Label Text="Telefone" FontSize="14" TextColor="{StaticResource LabelColor}"/>
+                        <VerticalStackLayout x:Name="requisitos_senha" Spacing="4" Margin="0,5,0,0">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label x:Name="req_tamanho" Text="○" TextColor="Gray" FontSize="12"/>
+                                <Label Text="Mínimo 6 caracteres" TextColor="Gray" FontSize="12"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6">
+                                <Label x:Name="req_maiusculo" Text="○" TextColor="Gray" FontSize="12"/>
+                                <Label Text="Uma letra maiúscula" TextColor="Gray" FontSize="12"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6">
+                                <Label x:Name="req_minusculo" Text="○" TextColor="Gray" FontSize="12"/>
+                                <Label Text="Uma letra minúscula" TextColor="Gray" FontSize="12"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6">
+                                <Label x:Name="req_especial" Text="○" TextColor="Gray" FontSize="12"/>
+                                <Label Text="Um caractere especial" TextColor="Gray" FontSize="12"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6">
+                                <Label x:Name="req_numero" Text="○" TextColor="Gray" FontSize="12"/>
+                                <Label Text="Um número" TextColor="Gray" FontSize="12"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+
+                        <Label Text="Telefone (Opcional)" FontSize="14" TextColor="{StaticResource LabelColor}"/>
                         <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
                             <Entry x:Name="txt_telefone" Placeholder="Digite seu telefone" Keyboard="Telephone" TextChanged="OnTelefoneTextChanged"/>
                         </Border>

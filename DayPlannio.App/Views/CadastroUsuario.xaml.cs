@@ -23,4 +23,9 @@ public partial class CadastroUsuario : ContentPage
     private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
     {
     }
+
+    private void OnSenhaTextChanged(object sender, TextChangedEventArgs e)
+    {
+    }
+
 }

@@ -13,6 +13,29 @@
 
             <VerticalStackLayout>
 
+                <Grid Padding="20,20,20,0"
+                      VerticalOptions="Center">
+
+                    <Label
+                        Text="Novo Cliente"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource PrimaryColor}"/>
+
+                    <ImageButton
+                        Source="icon_seta_esquerda.png"
+                        WidthRequest="10"
+                        HeightRequest="10"
+                        Padding="2"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Clicked="OnBackClicked"/>
+
+                </Grid>
+
                 <VerticalStackLayout Padding="20,20,20,0">
                     <Label Text="Crie seu Cliente" FontSize="22" FontAttributes="Bold" TextColor="#181C1C"/>
                     <Label Text="Preencha as informações para criar o cliente." FontSize="13" TextColor="#3E4948"/>
@@ -32,7 +55,7 @@
 
                             <Label Text="TELEFONE" FontSize="11" TextColor="Gray" Margin="0,10,0,0"/>
 
-                            <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10" >
+                            <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
                                 <Entry x:Name="txt_telefone" Placeholder="Ex: (14) 99999-9999" Keyboard="Telephone" TextChanged="OnTelefoneTextChanged"/>
                             </Border>
 

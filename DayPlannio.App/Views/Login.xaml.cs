@@ -23,4 +23,6 @@ public partial class Login : ContentPage
 	{
 		await Navigation.PushAsync(new Views.RedefinirSenha());
 	}
+
+    
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.ConcluirAgendamento"
+    BackgroundColor="#80000000">
+
+    <Grid
+        VerticalOptions="Center"
+        Margin="30">
+
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            Padding="25">
+
+            <VerticalStackLayout
+                Spacing="15"
+                HorizontalOptions="Center">
+
+                <Border
+                    BackgroundColor="#DFF3E3"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 50"
+                    HeightRequest="60"
+                    WidthRequest="60"
+                    HorizontalOptions="Center">
+
+                    <Label
+                        Text="✓"
+                        FontSize="30"
+                        TextColor="#2E7D32"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+
+                </Border>
+
+                <Label
+                    Text="Concluir Agendamento?"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="#181C1C"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    x:Name="lbl_mensagem"
+                    FontSize="14"
+                    TextColor="#3E4948"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"/>
+
+                <Button
+                    Text="Concluir"
+                    TextColor="White"
+                    BackgroundColor="#2E7D32"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    Clicked="OnConcluirClicked"/>
+
+                <Button
+                    Text="Voltar"
+                    BackgroundColor="Transparent"
+                    TextColor="Gray"
+                    Clicked="OnCancelarClicked"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

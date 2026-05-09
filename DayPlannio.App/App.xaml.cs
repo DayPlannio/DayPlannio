@@ -11,7 +11,7 @@ namespace DayPlannio.App
 
 		protected override Window CreateWindow(IActivationState? activationState)
 		{
-			var navigationPage = new NavigationPage(new Login());
+			var navigationPage = new NavigationPage(new Agendamentos());
 
 			Window w = new Window(navigationPage)
 			{

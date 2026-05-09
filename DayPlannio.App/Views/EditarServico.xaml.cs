@@ -14,4 +14,9 @@ public partial class EditarServico : ContentPage
     private void OnCancelarClicked(object sender, EventArgs e)
     {
     }
+
+    private async void OnBackClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }

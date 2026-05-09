@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:DayPlannio.App.Views"
+             x:Class="DayPlannio.App.Views.CadastrarAgendamento"
+             BackgroundColor="#F5F5F5"
+             NavigationPage.HasNavigationBar="False"
+             Title="Novo Agendamento">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+
+            <VerticalStackLayout>
+
+                <Grid Padding="20,20,20,0"
+                      VerticalOptions="Center">
+
+                    <Label Text="Novo Agendamento"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="{StaticResource PrimaryColor}"/>
+
+                    <ImageButton Source="icon_seta_esquerda.png"
+                                 WidthRequest="10"
+                                 HeightRequest="10"
+                                 Padding="2"
+                                 BackgroundColor="Transparent"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Center"
+                                 Clicked="OnBackClicked"/>
+
+                </Grid>
+
+                <VerticalStackLayout Padding="20,20,20,0">
+
+                    <Label Text="Crie seu Agendamento"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#181C1C"/>
+
+                    <Label Text="Preencha as informações para reservar o horário no calendário."
+                           FontSize="13"
+                           TextColor="#3E4948"/>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Padding="20"
+                                     Spacing="15">
+
+                    <Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="20">
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label Text="CLIENTE"
+                                   FontSize="11"
+                                   TextColor="#3E4948"/>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <Label x:Name="lblCliente"
+                                           Text="Selecione um cliente"
+                                           FontSize="14"
+                                           TextColor="#555"
+                                           VerticalOptions="Center"/>
+
+                                    <Image Grid.Column="1"
+                                           Source="icon_seta_baixo.png"
+                                           WidthRequest="12"
+                                           HeightRequest="12"
+                                           VerticalOptions="Center"/>
+
+                                    <Picker x:Name="picker_cliente"
+                                            Opacity="0.01"
+                                            HeightRequest="45"
+                                            BackgroundColor="Transparent"
+                                            Title="Selecione um cliente"
+                                            SelectedIndexChanged="OnClienteChanged"/>
+                                </Grid>
+
+                            </Border>
+
+                            <Label Text="TIPO DE SERVIÇO"
+                                   FontSize="11"
+                                   TextColor="#3E4948"
+                                   Margin="0,10,0,0"/>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <Label x:Name="lblServico"
+                                           Text="Selecione um serviço"
+                                           FontSize="14"
+                                           TextColor="#555"
+                                           VerticalOptions="Center"/>
+
+                                    <Image Grid.Column="1"
+                                           Source="icon_seta_baixo.png"
+                                           WidthRequest="12"
+                                           HeightRequest="12"
+                                           VerticalOptions="Center"/>
+
+                                    <Picker x:Name="picker_servico"
+                                            Opacity="0.01"
+                                            HeightRequest="45"
+                                            BackgroundColor="Transparent"
+                                            Title="Selecione um serviço"
+                                            SelectedIndexChanged="OnServicoChanged"/>
+                                </Grid>
+
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="20">
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label Text="DATA DO ATENDIMENTO"
+                                   FontSize="11"
+                                   TextColor="#3E4948"/>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <Label x:Name="lblData"
+                                           Text="Selecionar data"
+                                           FontSize="14"
+                                           TextColor="#555"
+                                           VerticalOptions="Center"/>
+
+                                    <Image Grid.Column="1"
+                                           Source="icon_seta_baixo.png"
+                                           WidthRequest="12"
+                                           HeightRequest="12"
+                                           VerticalOptions="Center"/>
+
+                                    <DatePicker x:Name="date_atendimento"
+                                                Opacity="0.01"
+                                                HeightRequest="45"
+                                                BackgroundColor="Transparent"
+                                                DateSelected="OnDataChanged"/>
+                                </Grid>
+
+                            </Border>
+
+                            <Label Text="HORÁRIO"
+                                   FontSize="11"
+                                   TextColor="#3E4948"
+                                   Margin="0,10,0,0"/>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <Label x:Name="lblHorario"
+                                           Text="Selecionar horário"
+                                           FontSize="14"
+                                           TextColor="#555"
+                                           VerticalOptions="Center"/>
+
+                                    <Image Grid.Column="1"
+                                           Source="icon_seta_baixo.png"
+                                           WidthRequest="12"
+                                           HeightRequest="12"
+                                           VerticalOptions="Center"/>
+
+                                    <TimePicker x:Name="time_horario"
+                                                Opacity="0.01"
+                                                HeightRequest="45"
+                                                BackgroundColor="Transparent"
+                                                Format="HH:mm"
+                                                PropertyChanged="OnHorarioChanged"/>
+                                </Grid>
+
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Border BackgroundColor="#F0FAFA"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="20">
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <HorizontalStackLayout Spacing="8">
+
+                                <Image Source="icon_nota.png"
+                                       WidthRequest="18"
+                                       HeightRequest="18"/>
+
+                                <Label Text="Valores e Custos"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#006260"/>
+
+                            </HorizontalStackLayout>
+
+                            <Label Text="VALOR COBRADO"
+                                   FontSize="11"
+                                   TextColor="#3E4948"
+                                   Margin="0,8,0,0"/>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="8">
+
+                                    <Label Text="R$"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#006260"
+                                           VerticalOptions="Center"/>
+
+                                    <Entry Grid.Column="1"
+                                           x:Name="txt_valor"
+                                           Placeholder="0,00"
+                                           Keyboard="Numeric"
+                                           HeightRequest="45"
+                                           TextColor="#006260"
+                                           PlaceholderColor="#7A9998"
+                                           BackgroundColor="Transparent"/>
+
+                                </Grid>
+
+                            </Border>
+
+                            <Label Text="CUSTO DE MATERIAL"
+                                   FontSize="11"
+                                   TextColor="#3E4948"
+                                   Margin="0,10,0,0"/>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="8">
+
+                                    <Label Text="R$"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#854627"
+                                           VerticalOptions="Center"/>
+
+                                    <Entry Grid.Column="1"
+                                           x:Name="txt_custo"
+                                           Placeholder="0,00"
+                                           Keyboard="Numeric"
+                                           HeightRequest="45"
+                                           TextColor="#854627"
+                                           PlaceholderColor="#A17B66"
+                                           BackgroundColor="Transparent"/>
+
+                                </Grid>
+
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="20">
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Label Text="OBSERVAÇÕES ADICIONAIS"
+                                   FontSize="11"
+                                   TextColor="#3E4948"/>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10">
+
+                                <Editor x:Name="txt_observacoes"
+                                        Placeholder="Detalhes específicos para este agendamento..."
+                                        HeightRequest="100"
+                                        BackgroundColor="Transparent"/>
+
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Button Text="Confirmar Agendamento"
+                            TextColor="White"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            Clicked="OnConfirmarClicked">
+
+                        <Button.Background>
+
+                            <LinearGradientBrush StartPoint="0,0"
+                                                 EndPoint="1,0">
+
+                                <GradientStop Color="#006260"
+                                              Offset="0.0"/>
+
+                                <GradientStop Color="#1E7C7A"
+                                              Offset="1.0"/>
+
+                            </LinearGradientBrush>
+
+                        </Button.Background>
+
+                    </Button>
+
+                    <Button Text="Cancelar"
+                            BackgroundColor="Transparent"
+                            TextColor="Gray"
+                            Clicked="OnCancelarClicked"/>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <views:CustomTabBar Grid.Row="1"/>
+
+    </Grid>
+
+</ContentPage>

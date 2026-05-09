@@ -78,15 +78,37 @@
 
                             </HorizontalStackLayout>
 
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                   Text="{Binding Telefone, StringFormat='📞 {0}'}"
-                                   FontSize="13"
-                                   TextColor="#3E4948"/>
+                            <HorizontalStackLayout Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
+                                                   Margin="0,6,0,0"
+                                                   Spacing="6">
 
-                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                                   Text="{Binding Endereco, StringFormat='🏠 {0}'}"
-                                   FontSize="13"
-                                   TextColor="#3E4948"/>
+                                <Image Source="icon_telefone.png"
+                                       WidthRequest="14"
+                                       HeightRequest="14"/>
+
+                                <Label Text="{Binding Telefone}"
+                                       FontSize="13"
+                                       TextColor="#3E4948"/>
+
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
+                                                   Margin="0,4,0,0"
+                                                   Spacing="6">
+
+                                <Image Source="icon_localizacao.png"
+                                       WidthRequest="14"
+                                       HeightRequest="14"/>
+
+                                <Label Text="{Binding Endereco}"
+                                       FontSize="13"
+                                       TextColor="#3E4948"/>
+
+                            </HorizontalStackLayout>
 
                             <BoxView Grid.Row="3" Grid.ColumnSpan="2"
                                      HeightRequest="1"

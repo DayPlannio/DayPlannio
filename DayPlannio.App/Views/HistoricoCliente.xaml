@@ -1,140 +1,296 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:DayPlannio.App.Views"
-             x:Class="DayPlannio.App.Views.HistoricoCliente"
-             BackgroundColor="#F5F5F5"
-             Title="Histórico do Cliente"
-             NavigationPage.HasNavigationBar="False">
+<?xml version="1.0" encoding="utf-8" ?>
 
-	<Grid RowDefinitions="*,Auto">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.HistoricoCliente"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F3F3F3">
 
-		<CollectionView Grid.Row="0"
-                        x:Name="listaHistorico"
-                        Margin="15,10,15,0">
+    <Grid RowDefinitions="*,Auto">
 
-			<CollectionView.Header>
-				<Label x:Name="lbl_nome"
-                       FontSize="20"
-                       FontAttributes="Bold"
-                       TextColor="#181C1C"
-                       Margin="5,0,0,10"/>
-			</CollectionView.Header>
+        <ScrollView Grid.Row="0">
 
-			<CollectionView.ItemTemplate>
+            <VerticalStackLayout Padding="0,0,0,100">
 
-				<DataTemplate>
+                <Grid
+                    Padding="20,20,20,10"
+                    ColumnDefinitions="Auto,*">
 
-					<Border BackgroundColor="White"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 15"
-                            Padding="15"
-                            Margin="0,5">
+                    <ImageButton
+                        Source="icon_seta_esquerda.png"
+                        WidthRequest="14"
+                        HeightRequest="14"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Center"
+                        Clicked="OnBackClicked"/>
 
-						<VerticalStackLayout Spacing="8">
+                    <Label
+                        Grid.Column="1"
+                        Text="Histórico do Cliente"
+                        HorizontalOptions="Center"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="#006260"/>
 
-							<Label Text="{Binding TipoServico}"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   TextColor="#181C1C"/>
+                </Grid>
 
-							<Label Text="DATA DO ATENDIMENTO"
-                                   FontSize="11"
-                                   TextColor="Gray"/>
+                <Label
+                    x:Name="lbl_nome"
+                    Margin="0,5,0,18"
+                    HorizontalOptions="Center"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="#1D1D1D"/>
 
-							<Border BackgroundColor="#EBEBEB"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 10"
-                                    Padding="10,8">
-								<Label Text="{Binding DataHora, StringFormat='📅 {0:dd/MM/yyyy}'}"
-                                       FontSize="14"/>
-							</Border>
+                <CollectionView
+                    x:Name="listaHistorico"
+                    Margin="10,0,10,0"
+                    SelectionMode="None">
 
-							<Label Text="HORÁRIO"
-                                   FontSize="11"
-                                   TextColor="Gray"/>
+                    <CollectionView.ItemsLayout>
 
-							<Border BackgroundColor="#EBEBEB"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 10"
-                                    Padding="10,8">
-								<Label Text="{Binding DataHora, StringFormat='🕐 {0:HH:mm}'}"
-                                       FontSize="14"/>
-							</Border>
+                        <LinearItemsLayout
+                            Orientation="Vertical"
+                            ItemSpacing="14"/>
 
-							<Border BackgroundColor="#F0FAFA"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 10"
-                                    Padding="15">
+                    </CollectionView.ItemsLayout>
 
-								<VerticalStackLayout Spacing="8">
+                    <CollectionView.ItemTemplate>
 
-									<Label Text="💳 Valores e Custos"
-                                           TextColor="#006260"
-                                           FontAttributes="Bold"
-                                           FontSize="14"/>
+                        <DataTemplate>
 
-									<Label Text="VALOR COBRADO"
-                                           FontSize="11"
-                                           TextColor="Gray"/>
+                            <Border
+                                BackgroundColor="#FAFAFA"
+                                Stroke="#EAEAEA"
+                                StrokeThickness="1"
+                                Padding="16"
+                                StrokeShape="RoundRectangle 20">
 
-									<Border BackgroundColor="#EBEBEB"
+                                <VerticalStackLayout Spacing="12">
+
+                                    <Label
+                                        Text="{Binding TipoServico}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        TextColor="#404040"/>
+
+                                    <VerticalStackLayout Spacing="5">
+
+                                        <Label
+                                            Text="DATA DO ATENDIMENTO"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#666"/>
+
+                                        <Border
+                                            BackgroundColor="#E5E5E5"
                                             StrokeThickness="0"
-                                            StrokeShape="RoundRectangle 10"
-                                            Padding="10,8">
-										<Label Text="{Binding ValorCobrado, StringFormat='R$  {0:F2}'}"
-                                               FontSize="14"/>
-									</Border>
+                                            Padding="12,10"
+                                            StrokeShape="RoundRectangle 18">
 
-									<Label Text="CUSTO DE MATERIAL"
-                                           FontSize="11"
-                                           TextColor="Gray"/>
+                                            <HorizontalStackLayout Spacing="8">
 
-									<Border BackgroundColor="#EBEBEB"
+                                                <Image
+                                                    Source="icon_agenda.png"
+                                                    WidthRequest="17"
+                                                    HeightRequest="17"/>
+
+                                                <Label
+                                                    Text="{Binding DataHora, StringFormat='{0:dd/MM/yyyy}'}"
+                                                    FontSize="14"
+                                                    TextColor="#333"
+                                                    VerticalOptions="Center"/>
+
+                                            </HorizontalStackLayout>
+
+                                        </Border>
+
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Spacing="5">
+
+                                        <Label
+                                            Text="HORÁRIO"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#666"/>
+
+                                        <Border
+                                            BackgroundColor="#E5E5E5"
                                             StrokeThickness="0"
-                                            StrokeShape="RoundRectangle 10"
-                                            Padding="10,8">
-										<Label Text="{Binding CustoMaterial, StringFormat='R$  {0:F2}'}"
-                                               FontSize="14"/>
-									</Border>
+                                            Padding="12,10"
+                                            StrokeShape="RoundRectangle 18">
 
-								</VerticalStackLayout>
+                                            <HorizontalStackLayout Spacing="8">
 
-							</Border>
+                                                <Image
+                                                    Source="icon_relogio.png"
+                                                    WidthRequest="17"
+                                                    HeightRequest="17"/>
 
-							<Label Text="OBSERVAÇÕES ADICIONAIS"
-                                   FontSize="11"
-                                   TextColor="Gray"/>
+                                                <Label
+                                                    Text="{Binding DataHora, StringFormat='{0:HH:mm}'}"
+                                                    FontSize="14"
+                                                    TextColor="#333"
+                                                    VerticalOptions="Center"/>
 
-							<Border BackgroundColor="#EBEBEB"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 10"
-                                    Padding="10,8">
-								<Label Text="{Binding Observacoes}"
-                                       FontSize="13"
-                                       TextColor="#3E4948"/>
-							</Border>
+                                            </HorizontalStackLayout>
 
-							<Label Text="{Binding Status}"
-                                   HorizontalOptions="Center"
-                                   TextColor="#006260"
-                                   FontSize="13"
-                                   FontAttributes="Bold"
-                                   BackgroundColor="#E0F5F5"
-                                   Padding="15,5"/>
+                                        </Border>
 
-						</VerticalStackLayout>
+                                    </VerticalStackLayout>
 
-					</Border>
+                                    <Border
+                                        BackgroundColor="#EEF5F5"
+                                        Stroke="#D7E6E6"
+                                        StrokeThickness="1"
+                                        Padding="14"
+                                        StrokeShape="RoundRectangle 18">
 
-				</DataTemplate>
+                                        <VerticalStackLayout Spacing="10">
 
-			</CollectionView.ItemTemplate>
+                                            <HorizontalStackLayout Spacing="6">
 
-		</CollectionView>
+                                                <Image
+                                                    Source="icon_nota.png"
+                                                    WidthRequest="18"
+                                                    HeightRequest="18"/>
 
-		<views:CustomTabBar Grid.Row="1"/>
+                                                <Label
+                                                    Text="Valores e Custos"
+                                                    FontSize="12"
+                                                    FontAttributes="Bold"
+                                                    TextColor="#006260"/>
 
-	</Grid>
+                                            </HorizontalStackLayout>
+
+                                            <VerticalStackLayout Spacing="5">
+
+                                                <Label
+                                                    Text="VALOR COBRADO"
+                                                    FontSize="10"
+                                                    FontAttributes="Bold"
+                                                    TextColor="#666"/>
+
+                                                <Border
+                                                    BackgroundColor="#F7F7F7"
+                                                    StrokeThickness="0"
+                                                    Padding="12,10"
+                                                    StrokeShape="RoundRectangle 18">
+
+                                                    <HorizontalStackLayout Spacing="6">
+
+                                                        <Label
+                                                            Text="R$"
+                                                            FontSize="14"
+                                                            FontAttributes="Bold"
+                                                            TextColor="#006260"/>
+
+                                                        <Label
+                                                            Text="{Binding ValorCobrado, StringFormat='{0:F2}'}"
+                                                            FontSize="14"
+                                                            TextColor="#333"/>
+
+                                                    </HorizontalStackLayout>
+
+                                                </Border>
+
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Spacing="5">
+
+                                                <Label
+                                                    Text="CUSTO DE MATERIAL"
+                                                    FontSize="10"
+                                                    FontAttributes="Bold"
+                                                    TextColor="#666"/>
+
+                                                <Border
+                                                    BackgroundColor="#F7F7F7"
+                                                    StrokeThickness="0"
+                                                    Padding="12,10"
+                                                    StrokeShape="RoundRectangle 18">
+
+                                                    <HorizontalStackLayout Spacing="6">
+
+                                                        <Label
+                                                            Text="R$"
+                                                            FontSize="14"
+                                                            FontAttributes="Bold"
+                                                            TextColor="#A65B2A"/>
+
+                                                        <Label
+                                                            Text="{Binding CustoMaterial, StringFormat='{0:F2}'}"
+                                                            FontSize="14"
+                                                            TextColor="#333"/>
+
+                                                    </HorizontalStackLayout>
+
+                                                </Border>
+
+                                            </VerticalStackLayout>
+
+                                        </VerticalStackLayout>
+
+                                    </Border>
+
+                                    <VerticalStackLayout Spacing="5">
+
+                                        <Label
+                                            Text="OBSERVAÇÕES ADICIONAIS"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#666"/>
+
+                                        <Border
+                                            BackgroundColor="#E5E5E5"
+                                            StrokeThickness="0"
+                                            Padding="12"
+                                            StrokeShape="RoundRectangle 18">
+
+                                            <Label
+                                                Text="{Binding Observacoes}"
+                                                FontSize="13"
+                                                TextColor="#3E4948"/>
+
+                                        </Border>
+
+                                    </VerticalStackLayout>
+
+                                    <Border
+                                        HorizontalOptions="Center"
+                                        Padding="16,6"
+                                        BackgroundColor="{Binding CorFundoStatus}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 18">
+
+                                        <Label
+                                            Text="{Binding StatusTexto}"
+                                            FontSize="11"
+                                            FontAttributes="Bold"
+                                            TextColor="{Binding CorStatus}"/>
+
+                                    </Border>
+
+                                </VerticalStackLayout>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <views:CustomTabBar Grid.Row="1"/>
+
+    </Grid>
 
 </ContentPage>

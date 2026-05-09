@@ -20,4 +20,9 @@ public partial class EditarCliente : ContentPage
     private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
     {
     }
+
+    private async void OnBackClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }

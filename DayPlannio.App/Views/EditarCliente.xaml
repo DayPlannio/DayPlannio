@@ -13,7 +13,31 @@
 
 			<VerticalStackLayout>
 
-				<VerticalStackLayout Padding="20,20,20,0">
+
+                <Grid Padding="20,20,20,0"
+                      VerticalOptions="Center">
+
+                    <Label
+                        Text="Editar Cliente"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource PrimaryColor}"/>
+
+                    <ImageButton
+                        Source="icon_seta_esquerda.png"
+                        WidthRequest="10"
+                        HeightRequest="10"
+                        Padding="2"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Clicked="OnBackClicked"/>
+
+                </Grid>
+                
+                <VerticalStackLayout Padding="20,20,20,0">
 					<Label Text="Edite seu Cliente" FontSize="22" FontAttributes="Bold" TextColor="#181C1C"/>
 				</VerticalStackLayout>
 

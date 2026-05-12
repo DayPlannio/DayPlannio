@@ -1,12 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\",
+  "WorkspaceRootPath": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cadastraragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cadastraragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,26 +23,23 @@
               "DocumentIndex": 0,
               "Title": "CadastrarAgendamento.xaml",
               "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
               "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
-              "ViewState": "AgIAAEwBAAAAAAAAAAAYwGYBAAAOAAAAAAAAAA==",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-07T20:09:36.896Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-07T20:09:36.896Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "CadastrarAgendamento.xaml.cs",
               "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
               "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-07T20:09:35.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-07T20:09:35.608Z"
             }
           ]
         }

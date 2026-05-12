@@ -1,57 +1,61 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\",
+  "WorkspaceRootPath": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\excluiragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\excluiragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\editaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\editaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\excluiragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\excluiragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\editaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\editaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cancelaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\cancelaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cancelaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\cancelaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\agendamentos.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\agendamentos.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\agendamentos.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\agendamentos.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\agendamentos.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\agendamentos.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cadastraragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\excluiragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\excluiragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\editaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\editaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\excluiragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\excluiragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\editaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\editaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cancelaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\cancelaragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cancelaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\cancelaragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cadastraragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\cadastraragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cadastraragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\cadastraragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\cadastraragendamento.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\clientes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\clientes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\clientes.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\historicocliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\historicocliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\historicocliente.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\historicocliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|c:\\users\\raiss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\views\\historicocliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4B6F4E73-7B5F-F937-37E3-D74853691071}|DayPlannio.App.csproj|solutionrelative:views\\historicocliente.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -67,49 +71,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T18:53:05.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ExcluirAgendamento.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml.cs",
               "RelativeDocumentMoniker": "Views\\ExcluirAgendamento.xaml.cs",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml.cs",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml.cs",
               "RelativeToolTip": "Views\\ExcluirAgendamento.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-09T21:03:50.891Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ExcluirAgendamento.xaml",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml",
-              "RelativeDocumentMoniker": "Views\\ExcluirAgendamento.xaml",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml",
-              "RelativeToolTip": "Views\\ExcluirAgendamento.xaml",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAowB4AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-09T21:03:19.555Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EditarAgendamento.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml.cs",
-              "RelativeDocumentMoniker": "Views\\EditarAgendamento.xaml.cs",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml.cs",
-              "RelativeToolTip": "Views\\EditarAgendamento.xaml.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAswCYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-09T21:02:41.493Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "EditarAgendamento.xaml",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml",
               "RelativeDocumentMoniker": "Views\\EditarAgendamento.xaml",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml",
               "RelativeToolTip": "Views\\EditarAgendamento.xaml",
               "ViewState": "AgIAAGgAAAAAAAAAAAAowIUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
@@ -118,24 +109,74 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "CancelarAgendamento.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml.cs",
               "RelativeDocumentMoniker": "Views\\CancelarAgendamento.xaml.cs",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml.cs",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml.cs",
               "RelativeToolTip": "Views\\CancelarAgendamento.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-09T21:02:22.989Z",
+              "WhenOpened": "2026-05-09T21:02:22.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Agendamentos.xaml",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml",
+              "RelativeDocumentMoniker": "Views\\Agendamentos.xaml",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml",
+              "RelativeToolTip": "Views\\Agendamentos.xaml",
+              "ViewState": "AgIAALQAAAAAAAAAAAAlwMIAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-09T21:01:55.915Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Agendamentos.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\Agendamentos.xaml.cs",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml.cs",
+              "RelativeToolTip": "Views\\Agendamentos.xaml.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAACQAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T21:02:02.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EditarAgendamento.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\EditarAgendamento.xaml.cs",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\EditarAgendamento.xaml.cs",
+              "RelativeToolTip": "Views\\EditarAgendamento.xaml.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAswCYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T21:02:41.493Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "ExcluirAgendamento.xaml",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml",
+              "RelativeDocumentMoniker": "Views\\ExcluirAgendamento.xaml",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\ExcluirAgendamento.xaml",
+              "RelativeToolTip": "Views\\ExcluirAgendamento.xaml",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAowB4AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-09T21:03:19.555Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "CancelarAgendamento.xaml",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml",
               "RelativeDocumentMoniker": "Views\\CancelarAgendamento.xaml",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CancelarAgendamento.xaml",
               "RelativeToolTip": "Views\\CancelarAgendamento.xaml",
               "ViewState": "AgIAAB4AAAAAAAAAAAAowDsAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
@@ -144,50 +185,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Agendamentos.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml.cs",
-              "RelativeDocumentMoniker": "Views\\Agendamentos.xaml.cs",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml.cs",
-              "RelativeToolTip": "Views\\Agendamentos.xaml.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "CadastrarAgendamento.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\CadastrarAgendamento.xaml.cs",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
+              "RelativeToolTip": "Views\\CadastrarAgendamento.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-09T21:02:02.798Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Agendamentos.xaml",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml",
-              "RelativeDocumentMoniker": "Views\\Agendamentos.xaml",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml",
-              "RelativeToolTip": "Views\\Agendamentos.xaml",
-              "ViewState": "AgIAAFkBAAAAAAAAAAAowHkBAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-09T21:01:55.915Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-09T21:01:53.376Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "CadastrarAgendamento.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
-              "RelativeDocumentMoniker": "Views\\CadastrarAgendamento.xaml.cs",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml.cs",
-              "RelativeToolTip": "Views\\CadastrarAgendamento.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-09T21:01:53.376Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
               "Title": "CadastrarAgendamento.xaml",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
               "RelativeDocumentMoniker": "Views\\CadastrarAgendamento.xaml",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
               "RelativeToolTip": "Views\\CadastrarAgendamento.xaml",
               "ViewState": "AgIAADgBAAAAAAAAAAAowGcBAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
@@ -196,11 +210,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Clientes.xaml",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Clientes.xaml",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Clientes.xaml",
               "RelativeDocumentMoniker": "Views\\Clientes.xaml",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Clientes.xaml",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\Clientes.xaml",
               "RelativeToolTip": "Views\\Clientes.xaml",
               "ViewState": "AgIAAIkAAAAAAAAAAAAowKYAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
@@ -209,11 +223,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "HistoricoCliente.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml.cs",
               "RelativeDocumentMoniker": "Views\\HistoricoCliente.xaml.cs",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml.cs",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml.cs",
               "RelativeToolTip": "Views\\HistoricoCliente.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -221,11 +235,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "HistoricoCliente.xaml",
-              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml",
+              "DocumentMoniker": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml",
               "RelativeDocumentMoniker": "Views\\HistoricoCliente.xaml",
-              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml",
+              "ToolTip": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Views\\HistoricoCliente.xaml",
               "RelativeToolTip": "Views\\HistoricoCliente.xaml",
               "ViewState": "AgIAAAEBAAAAAAAAAAAgwCcBAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj": {}
+    "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj": {
+    "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj",
+        "projectUniqueName": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj",
         "projectName": "DayPlannio.Api",
-        "projectPath": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj",
-        "packagesPath": "C:\\Users\\aliss\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\obj\\",
+        "projectPath": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj",
+        "packagesPath": "C:\\Users\\raiss\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\raiss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\aliss\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\raiss\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -31,6 +31,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -45,10 +46,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "AspNetCore.Identity.MongoDbCore": {
@@ -105,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

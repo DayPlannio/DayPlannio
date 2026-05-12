@@ -30,6 +30,10 @@ public partial class Agendamentos : ContentPage
     {
     }
 
+    private void OnExcluirClicked(object sender, EventArgs e)
+    {
+    }
+
     private void OnNovoAgendamentoClicked(object sender, EventArgs e)
     {
     }

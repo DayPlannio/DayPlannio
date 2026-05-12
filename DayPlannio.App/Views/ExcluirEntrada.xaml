@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayPlannio.App.Views.ExcluirEntrada"
+             xmlns:views="clr-namespace:DayPlannio.App.Views"
+             BackgroundColor="#F5F5F5"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <Grid Grid.Row="0"
+          VerticalOptions="Center"
+          Margin="30">
+
+            <Border BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Padding="25">
+
+                <VerticalStackLayout Spacing="15"
+                                 HorizontalOptions="Center">
+
+                    <Border BackgroundColor="#FFE8E8"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 50"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        HorizontalOptions="Center">
+
+                        <Label Text="⚠️"
+                           FontSize="28"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                    </Border>
+
+                    <Label Text="Excluir Entrada?"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#181C1C"
+                       HorizontalOptions="Center"/>
+
+                    <Label x:Name="lbl_mensagem"
+                       FontSize="14"
+                       TextColor="#3E4948"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+
+                    <Button Text="EXCLUIR"
+                        TextColor="White"
+                        BackgroundColor="#BA1A1A"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        Clicked="OnExcluirClicked"/>
+
+                    <Button Text="Cancelar"
+                        BackgroundColor="Transparent"
+                        TextColor="Gray"
+                        Clicked="OnCancelarClicked"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+        </Grid>
+
+        <views:CustomTabBar Grid.Row="1"/>
+
+    </Grid>
+
+</ContentPage>

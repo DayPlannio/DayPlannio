@@ -1,27 +1,532 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:DayPlannio.App.Views"
-             x:Class="DayPlannio.App.Views.Financeiro"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#F5F5F5"
-             Title="Financeiro">
+<?xml version="1.0" encoding="utf-8" ?>
 
-	<Grid RowDefinitions="*,Auto">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.Financeiro"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#EDEDED">
 
-		<VerticalStackLayout Grid.Row="0"
-                             VerticalOptions="Center"
-                             HorizontalOptions="Center">
+    <Grid RowDefinitions="*,Auto">
 
-			<Label Text="Financeiro"
-                   FontSize="22"
-                   FontAttributes="Bold"
-                   TextColor="#181C1C"/>
+        <ScrollView Grid.Row="0">
 
-		</VerticalStackLayout>
+            <VerticalStackLayout Padding="18,20,18,120">
 
-		<views:CustomTabBar Grid.Row="1"/>
+                <Label
+                    Text="Financeiro"
+                    HorizontalOptions="Center"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="#006260"/>
 
-	</Grid>
+                <Border
+                    Margin="0,22,0,0"
+                    Padding="6"
+                    BackgroundColor="#D7D7D7"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 22">
+
+                    <Grid ColumnDefinitions="*,*,*">
+
+                        <Border
+                            x:Name="btnDiario"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <Label
+                                x:Name="txtDiario"
+                                Text="Diário"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Padding="0,12"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#006260"/>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDiarioClicked"/>
+                            </Border.GestureRecognizers>
+
+                        </Border>
+
+                        <Border
+                            x:Name="btnSemanal"
+                            Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <Label
+                                x:Name="txtSemanal"
+                                Text="Semanal"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Padding="0,12"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#4F4F4F"/>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSemanalClicked"/>
+                            </Border.GestureRecognizers>
+
+                        </Border>
+
+                        <Border
+                            x:Name="btnMensal"
+                            Grid.Column="2"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <Label
+                                x:Name="txtMensal"
+                                Text="Mensal"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Padding="0,12"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#4F4F4F"/>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMensalClicked"/>
+                            </Border.GestureRecognizers>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+                <Border
+                    Margin="0,18,0,0"
+                    Padding="5"
+                    BackgroundColor="#D7D7D7"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 22">
+
+                    <Grid ColumnDefinitions="*,*">
+
+                        <Border
+                            x:Name="btnMovimentacoes"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <Label
+                                x:Name="txtMovimentacoes"
+                                Text="Movimentações"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Padding="0,12"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#006260"/>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMovimentacoesClicked"/>
+                            </Border.GestureRecognizers>
+
+                        </Border>
+
+                        <Border
+                            x:Name="btnResumo"
+                            Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <Label
+                                x:Name="txtResumo"
+                                Text="Resumo"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Padding="0,12"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#4F4F4F"/>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnResumoClicked"/>
+                            </Border.GestureRecognizers>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+                <VerticalStackLayout
+                    x:Name="layoutResumo"
+                    IsVisible="False"
+                    Spacing="22">
+
+                    <Border
+                        Margin="0,22,0,0"
+                        Padding="22,20"
+                        BackgroundColor="#006260"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 18">
+
+                        <VerticalStackLayout Spacing="14">
+
+                            <Label
+                                Text="SALDO TOTAL"
+                                FontSize="15"
+                                TextColor="#BFE6E4"/>
+
+                            <HorizontalStackLayout Spacing="10">
+
+                                <Label
+                                    Text="R$"
+                                    FontSize="22"
+                                    VerticalTextAlignment="End"
+                                    TextColor="#E8F6F5"/>
+
+                                <Label
+                                    Text="142.850,00"
+                                    FontSize="34"
+                                    FontAttributes="Bold"
+                                    TextColor="White"/>
+
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Border
+                        Margin="6,0"
+                        Padding="22,22"
+                        BackgroundColor="#F5F5F5"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+
+                        <Border.Shadow>
+
+                            <Shadow
+                                Brush="#22000000"
+                                Offset="0,4"
+                                Radius="10"/>
+
+                        </Border.Shadow>
+
+                        <VerticalStackLayout Spacing="20">
+
+                            <Label
+                                Text="LUCRO BRUTO"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#454545"/>
+
+                            <Label
+                                Text="R$ 142.850,00"
+                                FontSize="26"
+                                FontAttributes="Bold"
+                                TextColor="#1E1E1E"/>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Border
+                        Margin="6,0"
+                        Padding="22,22"
+                        BackgroundColor="#F5F5F5"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+
+                        <Border.Shadow>
+
+                            <Shadow
+                                Brush="#22000000"
+                                Offset="0,4"
+                                Radius="10"/>
+
+                        </Border.Shadow>
+
+                        <VerticalStackLayout Spacing="20">
+
+                            <Label
+                                Text="LUCRO LÍQUIDO"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#454545"/>
+
+                            <Label
+                                Text="R$ 48.150,00"
+                                FontSize="26"
+                                FontAttributes="Bold"
+                                TextColor="#1E1E1E"/>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Button
+                        Text="Gerar Relatório PDF"
+                        Margin="34,0,34,0"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        Clicked="OnGerarPdfClicked">
+
+                        <Button.Background>
+
+                            <LinearGradientBrush
+                                StartPoint="0,0"
+                                EndPoint="1,0">
+
+                                <GradientStop
+                                    Color="#006260"
+                                    Offset="0"/>
+
+                                <GradientStop
+                                    Color="#1B8A86"
+                                    Offset="1"/>
+
+                            </LinearGradientBrush>
+
+                        </Button.Background>
+
+                    </Button>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    x:Name="layoutMovimentacoes"
+                    Spacing="20">
+
+                    <Border
+                        Margin="0,22,0,0"
+                        Padding="18"
+                        BackgroundColor="#006260"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 18">
+
+                        <VerticalStackLayout Spacing="18">
+
+                            <VerticalStackLayout Spacing="10">
+
+                                <Label
+                                    Text="SALDO DOS SERVIÇOS"
+                                    FontSize="14"
+                                    TextColor="#BFE6E4"/>
+
+                                <HorizontalStackLayout Spacing="8">
+
+                                    <Label
+                                        Text="R$"
+                                        FontSize="20"
+                                        TextColor="#E8F6F5"/>
+
+                                    <Label
+                                        Text="42.850,00"
+                                        FontSize="32"
+                                        FontAttributes="Bold"
+                                        TextColor="White"/>
+
+                                </HorizontalStackLayout>
+
+                            </VerticalStackLayout>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+
+                                <Border
+                                    Grid.Column="0"
+                                    Padding="14"
+                                    BackgroundColor="#1D7A77"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12">
+
+                                    <VerticalStackLayout Spacing="10">
+
+                                        <Label
+                                            Text="Valor Cobrado"
+                                            FontSize="12"
+                                            TextColor="#E9FFFF"/>
+
+                                        <Label
+                                            Text="+ R$ 12.400"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="Center"
+                                            TextColor="#BFFFE7"/>
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+                                <Border
+                                    Grid.Column="1"
+                                    Padding="14"
+                                    BackgroundColor="#1D7A77"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12">
+
+                                    <VerticalStackLayout Spacing="10">
+
+                                        <Label
+                                            Text="Custos"
+                                            FontSize="12"
+                                            TextColor="#E9FFFF"/>
+
+                                        <Label
+                                            Text="- R$ 4.150"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="Center"
+                                            TextColor="#FFBE9B"/>
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Label
+                        Text="Entradas e Saídas"
+                        Margin="10,0,0,0"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="#1E1E1E"/>
+
+                    <CollectionView
+                        SelectionMode="None">
+
+                        <CollectionView.ItemsLayout>
+
+                            <LinearItemsLayout
+                                Orientation="Vertical"
+                                ItemSpacing="16"/>
+
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemsSource>
+
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>1</x:String>
+                                <x:String>2</x:String>
+                                <x:String>3</x:String>
+                                <x:String>4</x:String>
+                            </x:Array>
+
+                        </CollectionView.ItemsSource>
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    Padding="16,14"
+                                    BackgroundColor="#F8F8F8"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 16">
+
+                                    <Grid
+                                        RowDefinitions="Auto,Auto"
+                                        ColumnDefinitions="*,Auto">
+
+                                        <Label
+                                            Text="Conserto de Máquina"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            TextColor="#1E1E1E"/>
+
+                                        <HorizontalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="10">
+
+                                            <ImageButton
+                                                Source="icon_editar.png"
+                                                BackgroundColor="Transparent"
+                                                WidthRequest="16"
+                                                HeightRequest="16"/>
+
+                                            <ImageButton
+                                                Source="icon_excluir.png"
+                                                BackgroundColor="Transparent"
+                                                WidthRequest="16"
+                                                HeightRequest="16"/>
+
+                                        </HorizontalStackLayout>
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Text="- R$ 4.150"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            TextColor="#D91C1C"/>
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Text="14:20"
+                                            HorizontalOptions="End"
+                                            HorizontalTextAlignment="End"
+                                            Margin="18,0,0,0"
+                                            FontSize="11"
+                                            TextColor="#5F5F5F"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                    <Button
+                        Text="Adicionar"
+                        Margin="14,0,14,0"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        Clicked="OnAdicionarClicked">
+
+                        <Button.Background>
+
+                            <LinearGradientBrush
+                                StartPoint="0,0"
+                                EndPoint="1,0">
+
+                                <GradientStop
+                                    Color="#006260"
+                                    Offset="0"/>
+
+                                <GradientStop
+                                    Color="#1B8A86"
+                                    Offset="1"/>
+
+                            </LinearGradientBrush>
+
+                        </Button.Background>
+
+                    </Button>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <views:CustomTabBar Grid.Row="1"/>
+
+    </Grid>
 
 </ContentPage>

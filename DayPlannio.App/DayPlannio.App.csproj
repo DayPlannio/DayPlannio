@@ -79,8 +79,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\CadastrarFinanceiro.xaml.cs">
+	    <DependentUpon>CadastrarFinanceiro.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\CancelarAgendamento.xaml.cs">
 	    <DependentUpon>CancelarAgendamento.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\EditarFinanceiro.xaml.cs">
+	    <DependentUpon>EditarFinanceiro.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ExcluirFinanceiro.xaml.cs">
+	    <DependentUpon>ExcluirFinanceiro.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -94,7 +103,7 @@
 	  <MauiXaml Update="Views\CadastrarCliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CadastrarEntrada.xaml">
+	  <MauiXaml Update="Views\CadastrarFinanceiro.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CadastrarServico.xaml">
@@ -121,7 +130,7 @@
 	  <MauiXaml Update="Views\EditarCliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\EditarEntrada.xaml">
+	  <MauiXaml Update="Views\EditarFinanceiro.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EditarServico.xaml">
@@ -136,7 +145,7 @@
 	  <MauiXaml Update="Views\ExcluirCliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ExcluirEntrada.xaml">
+	  <MauiXaml Update="Views\ExcluirFinanceiro.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ExcluirServico.xaml">

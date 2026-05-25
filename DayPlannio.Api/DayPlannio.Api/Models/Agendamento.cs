@@ -23,7 +23,7 @@ namespace DayPlannio.Api.Models
 
         [Required(ErrorMessage = "O tipo de serviço é obrigatório.")]
         public Guid TipoServicoId { get; set; }
-
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         [Required(ErrorMessage = "O campo Data e Hora é obrigatório.")]
         public DateTime DataHora { get; set; }
 

@@ -4,57 +4,57 @@
              x:Class="DayPlannio.App.Views.ExcluirServico"
              BackgroundColor="#80000000">
 
-	<Grid VerticalOptions="Center" Margin="30">
+    <Grid VerticalOptions="Center" Margin="30">
 
-		<Border BackgroundColor="White"
+        <Border BackgroundColor="White"
                 StrokeThickness="0"
                 StrokeShape="RoundRectangle 20"
                 Padding="25">
 
-			<VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
 
-				<Border BackgroundColor="#FFE8E8"
+                <Border BackgroundColor="#FFE8E8"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 50"
                         HeightRequest="60"
                         WidthRequest="60"
                         HorizontalOptions="Center">
 
-					<Label Text="⚠️"
+                    <Label Text="⚠️"
                            FontSize="28"
                            HorizontalOptions="Center"
                            VerticalOptions="Center"/>
 
-				</Border>
+                </Border>
 
-				<Label Text="Excluir Tipo de Serviço?"
+                <Label Text="Excluir Tipo de Serviço?"
                        FontSize="18"
                        FontAttributes="Bold"
                        TextColor="#181C1C"
                        HorizontalOptions="Center"/>
 
-				<Label x:Name="lbl_mensagem"
+                <Label FormattedText="{Binding Mensagem}"
                        FontSize="14"
                        TextColor="#3E4948"
                        HorizontalOptions="Center"
                        HorizontalTextAlignment="Center"/>
 
-				<Button Text="EXCLUIR"
+                <Button Text="EXCLUIR"
                         TextColor="White"
                         BackgroundColor="#BA1A1A"
                         CornerRadius="25"
                         HeightRequest="50"
-                        Clicked="OnExcluirClicked"/>
+                        Command="{Binding ExcluirCommand}"/>
 
-				<Button Text="Cancelar"
+                <Button Text="Cancelar"
                         BackgroundColor="Transparent"
                         TextColor="Gray"
-                        Clicked="OnCancelarClicked"/>
+                        Command="{Binding CancelarCommand}"/>
 
-			</VerticalStackLayout>
+            </VerticalStackLayout>
 
-		</Border>
+        </Border>
 
-	</Grid>
+    </Grid>
 
 </ContentPage>

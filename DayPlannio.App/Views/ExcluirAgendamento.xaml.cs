@@ -1,17 +1,22 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class ExcluirAgendamento : ContentPage
 {
-    public ExcluirAgendamento()
+    private readonly ExcluirAgendamentoViewModel _viewModel;
+
+    public bool Confirmado => _viewModel.Confirmado;
+
+    public ExcluirAgendamento(string nomeCliente, string servico)
     {
         InitializeComponent();
-    }
 
-    private async void OnExcluirClicked(object sender, EventArgs e)
-    {
-    }
+        _viewModel = new ExcluirAgendamentoViewModel(
+            nomeCliente,
+            servico,
+            Navigation);
 
-    private async void OnCancelarClicked(object sender, EventArgs e)
-    {
+        BindingContext = _viewModel;
     }
 }

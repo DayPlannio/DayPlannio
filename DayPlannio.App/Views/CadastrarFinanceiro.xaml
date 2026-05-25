@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -34,7 +35,7 @@
                         BackgroundColor="Transparent"
                         HorizontalOptions="Start"
                         VerticalOptions="Center"
-                        Clicked="OnBackClicked" />
+                        Command="{Binding VoltarCommand}" />
 
                 </Grid>
 
@@ -74,7 +75,7 @@
 
                                 <Label
                                     x:Name="lblTipo"
-                                    Text="Entrada/Saida"
+                                    Text="{Binding TipoSelecionado}"
                                     FontSize="14"
                                     TextColor="#555"
                                     VerticalOptions="Center" />
@@ -88,10 +89,11 @@
 
                                 <Picker
                                     x:Name="picker_"
+                                    ItemsSource="{Binding Tipos}"
+                                    SelectedItem="{Binding TipoSelecionado}"
                                     Opacity="0.01"
                                     HeightRequest="45"
-                                    Title="Selecione um cliente"
-                                    SelectedIndexChanged="OnTipoChanged" />
+                                    Title="Selecione o tipo" />
 
                             </Grid>
 
@@ -113,6 +115,7 @@
 
                             <Editor
                                 x:Name="txt_observacoes"
+                                Text="{Binding Descricao}"
                                 Placeholder="Descreva sobre a entrada ou saida..."
                                 HeightRequest="100"
                                 BackgroundColor="Transparent" />
@@ -124,7 +127,7 @@
                     <VerticalStackLayout Spacing="8">
 
                         <Label
-                            Text="DATA DO ATENDIMENTO"
+                            Text="DATA"
                             FontSize="11"
                             TextColor="#3E4948" />
 
@@ -137,11 +140,11 @@
                             <Grid ColumnDefinitions="*,Auto">
 
                                 <Label
-                                    x:Name="lblData"
-                                    Text="Selecionar data"
-                                    FontSize="14"
-                                    TextColor="#555"
-                                    VerticalOptions="Center" />
+                                x:Name="lblData"
+                                Text="{Binding DataTexto}"
+                                FontSize="14"
+                                TextColor="#555"
+                                VerticalOptions="Center" />
 
                                 <Image
                                     Grid.Column="1"
@@ -152,9 +155,9 @@
 
                                 <DatePicker
                                     x:Name="date_atendimento"
+                                    DateSelected="OnDateSelected"
                                     Opacity="0.01"
-                                    HeightRequest="45"
-                                    DateSelected="OnDataChanged" />
+                                    HeightRequest="45" />
 
                             </Grid>
 
@@ -176,7 +179,7 @@
 
                                 <Label
                                     x:Name="lblHorario"
-                                    Text="Selecionar horário"
+                                    Text="{Binding HorarioTexto}"
                                     FontSize="14"
                                     TextColor="#555"
                                     VerticalOptions="Center" />
@@ -190,10 +193,10 @@
 
                                 <TimePicker
                                     x:Name="time_horario"
+                                    PropertyChanged="OnTimeChanged"
                                     Opacity="0.01"
                                     HeightRequest="45"
-                                    Format="HH:mm"
-                                    PropertyChanged="OnHorarioChanged" />
+                                    Format="HH:mm" />
 
                             </Grid>
 
@@ -229,6 +232,7 @@
                                 <Entry
                                     Grid.Column="1"
                                     x:Name="txt_valor"
+                                    Text="{Binding Valor}"
                                     Placeholder="0,00"
                                     Keyboard="Numeric"
                                     HeightRequest="45"
@@ -238,6 +242,10 @@
 
                         </Border>
 
+                        <Label Text="{Binding Erro}"
+                               TextColor="#BA1A1A"
+                               IsVisible="{Binding ErroVisivel}"/>
+                        
                     </VerticalStackLayout>
 
                     <Button
@@ -245,7 +253,7 @@
                         TextColor="White"
                         CornerRadius="25"
                         HeightRequest="50"
-                        Clicked="OnConfirmarClicked">
+                        Command="{Binding ConfirmarCommand}">
 
                         <Button.Background>
 
@@ -271,7 +279,7 @@
                         Text="Cancelar"
                         BackgroundColor="Transparent"
                         TextColor="Gray"
-                        Clicked="OnCancelarClicked" />
+                        Command="{Binding CancelarCommand}" />
 
                 </VerticalStackLayout>
 

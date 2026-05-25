@@ -32,12 +32,15 @@
                         BackgroundColor="Transparent"
                         HorizontalOptions="Start"
                         VerticalOptions="Center"
-                        Clicked="OnBackClicked"/>
+                        Command="{Binding VoltarCommand}"/>
 
                 </Grid>
 
                 <VerticalStackLayout Padding="20,20,20,0">
-                    <Label Text="Edite seu Serviço" FontSize="22" FontAttributes="Bold" TextColor="#181C1C"/>
+                    <Label Text="Edite seu Serviço"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="#181C1C"/>
                 </VerticalStackLayout>
 
                 <Border BackgroundColor="White"
@@ -48,46 +51,77 @@
 
                     <VerticalStackLayout Spacing="8">
 
-                        <Label Text="NOME" FontSize="11" TextColor="#3E4948"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_tipo"/>
+                        <Label Text="NOME"
+                               FontSize="11"
+                               TextColor="#3E4948"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10">
+
+                            <Entry Text="{Binding Tipo}"/>
+
                         </Border>
 
-                        <Label Text="DESCRIÇÃO" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Editor x:Name="txt_descricao" HeightRequest="100" BackgroundColor="Transparent"/>
+                        <Label Text="DESCRIÇÃO"
+                               FontSize="11"
+                               TextColor="#3E4948"
+                               Margin="0,10,0,0"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10">
+
+                            <Editor Text="{Binding Descricao}"
+                                    HeightRequest="100"
+                                    BackgroundColor="Transparent"/>
+
                         </Border>
 
-                        <Label Text="TEMPO ESTIMADO (MIN)" FontSize="11" TextColor="#3E4948" Margin="0,10,0,0"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_tempo" Keyboard="Numeric"/>
+                        <Label Text="TEMPO ESTIMADO (MIN)"
+                               FontSize="11"
+                               TextColor="#3E4948"
+                               Margin="0,10,0,0"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10">
+
+                            <Entry Text="{Binding Tempo}"
+                                   Keyboard="Numeric"/>
+
                         </Border>
 
-                        <Label x:Name="ErroLabel" TextColor="#BA1A1A" IsVisible="False"/>
+                        <Label Text="{Binding ErroMensagem}"
+                               TextColor="#BA1A1A"
+                               IsVisible="{Binding ErroVisivel}"/>
 
                     </VerticalStackLayout>
 
                 </Border>
 
-                <VerticalStackLayout Padding="20,10,20,20" Spacing="5">
+                <VerticalStackLayout Padding="20,10,20,20"
+                                     Spacing="5">
 
                     <Button Text="Salvar"
                             TextColor="White"
                             CornerRadius="25"
                             HeightRequest="50"
-                            Clicked="OnSalvarClicked">
+                            Command="{Binding SalvarCommand}">
+
                         <Button.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop Color="#006260" Offset="0.0"/>
                                 <GradientStop Color="#1E7C7A" Offset="1.0"/>
                             </LinearGradientBrush>
                         </Button.Background>
+
                     </Button>
 
                     <Button Text="Cancelar"
                             BackgroundColor="Transparent"
                             TextColor="Gray"
-                            Clicked="OnCancelarClicked"/>
+                            Command="{Binding CancelarCommand}"/>
 
                 </VerticalStackLayout>
 

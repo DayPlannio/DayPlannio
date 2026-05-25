@@ -1,17 +1,24 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class CancelarAgendamento : ContentPage
 {
-    public CancelarAgendamento()
+    public CancelarAgendamentoViewModel ViewModel =>
+        (CancelarAgendamentoViewModel)BindingContext;
+
+    public bool Confirmado => ViewModel.Confirmado;
+
+    public CancelarAgendamento(
+        string nomeCliente,
+        string servico)
     {
         InitializeComponent();
-    }
 
-    private void OnExcluirClicked(object sender, EventArgs e)
-    {
-    }
-
-    private void OnCancelarClicked(object sender, EventArgs e)
-    {
+        BindingContext =
+            new CancelarAgendamentoViewModel(
+                Navigation,
+                nomeCliente,
+                servico);
     }
 }

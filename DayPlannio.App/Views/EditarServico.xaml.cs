@@ -1,22 +1,17 @@
+using DayPlannio.App.Models;
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class EditarServico : ContentPage
 {
-    public EditarServico()
+    public EditarServico(Servico servico)
     {
         InitializeComponent();
-    }
 
-    private void OnSalvarClicked(object sender, EventArgs e)
-    {
-    }
-
-    private void OnCancelarClicked(object sender, EventArgs e)
-    {
-    }
-
-    private async void OnBackClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
+        BindingContext = new EditarServicoViewModel(
+            servico,
+            Navigation,
+            this);
     }
 }

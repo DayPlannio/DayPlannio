@@ -1,31 +1,23 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class Servicos : ContentPage
 {
+    private readonly ServicosViewModel _viewModel;
+
     public Servicos()
     {
         InitializeComponent();
+
+        _viewModel = new ServicosViewModel(this, Navigation);
+
+        BindingContext = _viewModel;
     }
 
-	protected override void OnAppearing()
-	{
-		base.OnAppearing();
-		CustomTabBar.AbaAtual = "servicos";
-	}
-
-	private void OnEditarClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-    }
-
-    private void OnDeletarClicked(object sender, EventArgs e)
-    {
-    }
-
-    private void OnNovoServicoClicked(object sender, EventArgs e)
-    {
-    }
-
-    private void OnBuscaTextChanged(object sender, TextChangedEventArgs e)
-    {
+        base.OnAppearing();
+        await _viewModel.CarregarServicos();
     }
 }

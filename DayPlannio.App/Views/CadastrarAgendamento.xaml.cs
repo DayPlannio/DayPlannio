@@ -1,37 +1,35 @@
+using DayPlannio.App.ViewModels;
+using System.ComponentModel;
+
 namespace DayPlannio.App.Views;
 
 public partial class CadastrarAgendamento : ContentPage
 {
+    private readonly CadastrarAgendamentoViewModel _viewModel;
+
     public CadastrarAgendamento()
     {
         InitializeComponent();
+        _viewModel = new CadastrarAgendamentoViewModel(Navigation);
+        BindingContext = _viewModel;
     }
 
-    private void OnBackClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
+        base.OnAppearing();
+        await _viewModel.CarregarDados();
     }
 
-    private void OnClienteChanged(object sender, EventArgs e)
+    private void OnDateSelected(object sender, DateChangedEventArgs e)
     {
+        if (BindingContext is CadastrarAgendamentoViewModel vm)
+            vm.DataAtendimento = e.NewDate;
     }
 
-    private void OnServicoChanged(object sender, EventArgs e)
+    private void OnTimeChanged(object sender, PropertyChangedEventArgs e)
     {
-    }
-
-    private void OnDataChanged(object sender, DateChangedEventArgs e)
-    {
-    }
-
-    private void OnHorarioChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-    }
-
-    private void OnConfirmarClicked(object sender, EventArgs e)
-    {
-    }
-
-    private void OnCancelarClicked(object sender, EventArgs e)
-    {
+        if (e.PropertyName == nameof(TimePicker.Time) && sender is TimePicker tp)
+            if (BindingContext is CadastrarAgendamentoViewModel vm)
+                vm.Horario = tp.Time;
     }
 }

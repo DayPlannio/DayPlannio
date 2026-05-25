@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -28,23 +26,22 @@
                     <VerticalStackLayout Spacing="1">
 
                         <Label
-                            x:Name="lblMes"
+                            Text="{Binding Mes}"
                             FontSize="22"
                             FontAttributes="Bold"
                             TextColor="#1D1D1D"/>
 
                         <Label
-                            x:Name="lblResumo"
+                            Text="{Binding Resumo}"
                             FontSize="12"
                             TextColor="#5F5F5F"/>
 
                     </VerticalStackLayout>
 
                     <CollectionView
-                        x:Name="listaDias"
-                        HeightRequest="78"
-                        SelectionMode="Single"
-                        SelectionChanged="OnDiaSelecionado">
+                        ItemsSource="{Binding Dias}"
+                        SelectionMode="None"
+                        HeightRequest="78">
 
                         <CollectionView.ItemsLayout>
 
@@ -64,6 +61,14 @@
                                     BackgroundColor="{Binding CorFundo}"
                                     StrokeThickness="0"
                                     StrokeShape="RoundRectangle 14">
+
+                                    <Border.GestureRecognizers>
+
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelecionarDiaCommand}"
+                                            CommandParameter="{Binding .}"/>
+
+                                    </Border.GestureRecognizers>
 
                                     <VerticalStackLayout
                                         VerticalOptions="Center"
@@ -92,7 +97,8 @@
 
                     </CollectionView>
 
-                    <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                    <Grid ColumnDefinitions="*,Auto"
+                          VerticalOptions="Center">
 
                         <Label
                             Grid.Column="0"
@@ -113,8 +119,7 @@
                             StrokeShape="RoundRectangle 18">
 
                             <Label
-                                x:Name="lblTotalAgendados"
-                                Text="0 Agendados"
+                                Text="{Binding TotalAgendados}"
                                 HorizontalTextAlignment="Center"
                                 VerticalTextAlignment="Center"
                                 FontSize="10"
@@ -128,7 +133,7 @@
                 </VerticalStackLayout>
 
                 <CollectionView
-                    x:Name="listaAgendamentos"
+                    ItemsSource="{Binding Agendamentos}"
                     Margin="16,0,16,100"
                     SelectionMode="None">
 
@@ -168,7 +173,7 @@
                                             Grid.ColumnSpan="2"
                                             HorizontalOptions="Center"
                                             Text="{Binding Hora}"
-                                            FontSize="19"
+                                            FontSize="16"
                                             FontAttributes="Bold"
                                             TextColor="#006260"/>
 
@@ -182,17 +187,18 @@
                                                 Source="icon_editar.png"
                                                 HeightRequest="16"
                                                 WidthRequest="16"
+                                                IsVisible="{Binding PodeEditar}"
                                                 BackgroundColor="Transparent"
-                                                CommandParameter="{Binding .}"
-                                                Clicked="OnEditarClicked"/>
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditarCommand}"
+                                                CommandParameter="{Binding .}"/>
 
                                             <ImageButton
                                                 Source="icon_excluir.png"
                                                 HeightRequest="16"
                                                 WidthRequest="16"
                                                 BackgroundColor="Transparent"
-                                                CommandParameter="{Binding .}"
-                                                Clicked="OnExcluirClicked"/>
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ExcluirCommand}"
+                                                CommandParameter="{Binding .}"/>
 
                                         </HorizontalStackLayout>
 
@@ -202,7 +208,7 @@
                                             Margin="0,8,0,0"
                                             HorizontalOptions="Center"
                                             Text="{Binding Servico}"
-                                            FontSize="14"
+                                            FontSize="12"
                                             TextColor="#666666"/>
 
                                         <Label
@@ -210,7 +216,7 @@
                                             Grid.Column="0"
                                             Margin="0,14,0,0"
                                             Text="{Binding Cliente}"
-                                            FontSize="17"
+                                            FontSize="14"
                                             FontAttributes="Bold"
                                             TextColor="#1D1D1D"/>
 
@@ -225,7 +231,7 @@
 
                                             <Label
                                                 Text="{Binding StatusTexto}"
-                                                FontSize="11"
+                                                FontSize="10"
                                                 FontAttributes="Bold"
                                                 TextColor="{Binding CorStatus}"/>
 
@@ -275,7 +281,7 @@
                                             IsVisible="{Binding TemObservacoes}">
 
                                             <Image
-                                                Source="icon_descricao.png"
+                                                Source="icon_observacao.png"
                                                 WidthRequest="14"
                                                 HeightRequest="14"/>
 
@@ -302,7 +308,7 @@
                                                 FontAttributes="Bold"
                                                 TextColor="White"
                                                 BackgroundColor="#1E7C7A"
-                                                Clicked="OnConcluirClicked"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ConcluirCommand}"
                                                 CommandParameter="{Binding .}"
                                                 IsVisible="{Binding PodeConcluir}"/>
 
@@ -315,7 +321,7 @@
                                                 FontAttributes="Bold"
                                                 TextColor="#C77700"
                                                 BackgroundColor="#FFE1B3"
-                                                Clicked="OnCancelarClicked"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CancelarCommand}"
                                                 CommandParameter="{Binding .}"
                                                 IsVisible="{Binding PodeCancelar}"/>
 
@@ -351,7 +357,7 @@
             HorizontalOptions="End"
             Margin="0,0,18,18"
             ZIndex="10"
-            Clicked="OnNovoAgendamentoClicked">
+            Command="{Binding NovoAgendamentoCommand}">
 
             <Button.Background>
 

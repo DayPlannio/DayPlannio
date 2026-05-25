@@ -1,17 +1,21 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class ExcluirServico : ContentPage
 {
-    public ExcluirServico()
+    private readonly ExcluirServicoViewModel _viewModel;
+
+    public bool Confirmado => _viewModel.Confirmado;
+
+    public ExcluirServico(string nomeServico)
     {
         InitializeComponent();
-    }
 
-    private void OnExcluirClicked(object sender, EventArgs e)
-    {
-    }
+        _viewModel = new ExcluirServicoViewModel(
+            nomeServico,
+            Navigation);
 
-    private void OnCancelarClicked(object sender, EventArgs e)
-    {
+        BindingContext = _viewModel;
     }
 }

@@ -1,30 +1,52 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.Api\\",
+  "WorkspaceRootPath": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\views\\cadastrarfinanceiro.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.api\\dayplannio.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\views\\editarfinanceiro.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.api\\dayplannio.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\views\\financeiro.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.api\\dayplannio.api\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\views\\financeiro.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.api\\dayplannio.api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\views\\cadastraragendamento.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.api\\dayplannio.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.app\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\views\\agendamentos.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.app\\viewmodel\\novasenhaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\0201392411027\\downloads\\dayplannio\\dayplannio.app\\views\\excluirfinanceiro.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.app\\viewmodel\\redefinirsenhaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.app\\viewmodel\\confirmarcodigoviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.app\\viewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.app\\views\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.api\\dayplannio.api\\controllers\\agendamentoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\controllers\\agendamentoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio1\\dayplannio1\\dayplannio.api\\dayplannio.api\\dayplannio.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\dayplannio.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,111 +56,173 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CadastrarAgendamento.xaml",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\CadastrarAgendamento.xaml",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAAAMUAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-13T13:43:05.883Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\App.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\App.xaml",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\App.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\App.xaml",
+              "DocumentIndex": 1,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "DayPlannio.Api\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\appsettings.Development.json",
+              "RelativeToolTip": "DayPlannio.Api\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-13T13:36:24.357Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Financeiro.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\Financeiro.xaml.cs",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\Financeiro.xaml.cs",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\Financeiro.xaml.cs",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\Financeiro.xaml.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAlwHEAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-13T13:31:56.713Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Financeiro.xaml",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\Financeiro.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\Financeiro.xaml",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\Financeiro.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\Financeiro.xaml",
-              "ViewState": "AgIAAEcBAAAAAAAAAAAswBMCAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-13T13:30:21.093Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Agendamentos.xaml",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\Agendamentos.xaml",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\Agendamentos.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\Agendamentos.xaml",
-              "ViewState": "AgIAAEkBAAAAAAAAAAAswHkBAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-13T13:29:15.759Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-25T17:32:34.486Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CadastrarFinanceiro.xaml",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\CadastrarFinanceiro.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\CadastrarFinanceiro.xaml",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\CadastrarFinanceiro.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\CadastrarFinanceiro.xaml",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAswOEAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-13T13:18:15.255Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "DayPlannio.Api\\appsettings.json",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\appsettings.json",
+              "RelativeToolTip": "DayPlannio.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-25T17:32:31.691Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EditarFinanceiro.xaml",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\EditarFinanceiro.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\EditarFinanceiro.xaml",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\EditarFinanceiro.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\EditarFinanceiro.xaml",
-              "ViewState": "AgIAAMAAAAAAAAAAAAAAAOAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-13T13:17:56.087Z",
+              "DocumentIndex": 2,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "DayPlannio.Api\\Services\\EmailService.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Services\\EmailService.cs",
+              "RelativeToolTip": "DayPlannio.Api\\Services\\EmailService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAiwC0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:32:09.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "DayPlannio.Api\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "DayPlannio.Api\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAIkAAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:31:42.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UsuarioService.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "RelativeToolTip": "..\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAcwGoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:31:22.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NovaSenhaViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\NovaSenhaViewModel.cs",
+              "RelativeDocumentMoniker": "..\\DayPlannio.App\\ViewModel\\NovaSenhaViewModel.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\NovaSenhaViewModel.cs",
+              "RelativeToolTip": "..\\DayPlannio.App\\ViewModel\\NovaSenhaViewModel.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAiwEcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:30:33.839Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "ExcluirFinanceiro.xaml",
-              "DocumentMoniker": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\ExcluirFinanceiro.xaml",
-              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\ExcluirFinanceiro.xaml",
-              "ToolTip": "C:\\Users\\0201392411027\\Downloads\\DayPlannio\\DayPlannio.App\\Views\\ExcluirFinanceiro.xaml",
-              "RelativeToolTip": "..\\DayPlannio.App\\Views\\ExcluirFinanceiro.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-13T13:17:44.35Z",
+              "Title": "RedefinirSenhaViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\RedefinirSenhaViewModel.cs",
+              "RelativeDocumentMoniker": "..\\DayPlannio.App\\ViewModel\\RedefinirSenhaViewModel.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\RedefinirSenhaViewModel.cs",
+              "RelativeToolTip": "..\\DayPlannio.App\\ViewModel\\RedefinirSenhaViewModel.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAiwDsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:30:25.623Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "DayPlannio.Api\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "DayPlannio.Api\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAcwHQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T13:08:41.534Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ConfirmarCodigoViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\ConfirmarCodigoViewModel.cs",
+              "RelativeDocumentMoniker": "..\\DayPlannio.App\\ViewModel\\ConfirmarCodigoViewModel.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\ConfirmarCodigoViewModel.cs",
+              "RelativeToolTip": "..\\DayPlannio.App\\ViewModel\\ConfirmarCodigoViewModel.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAiwDYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:30:01.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "..\\DayPlannio.App\\ViewModel\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\ViewModel\\LoginViewModel.cs",
+              "RelativeToolTip": "..\\DayPlannio.App\\ViewModel\\LoginViewModel.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAA3wAwAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T17:24:27.302Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Login.xaml",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\Views\\Login.xaml",
+              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Views\\Login.xaml",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.App\\Views\\Login.xaml",
+              "RelativeToolTip": "..\\DayPlannio.App\\Views\\Login.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-25T17:24:19.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AgendamentosController.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Controllers\\AgendamentosController.cs",
+              "RelativeDocumentMoniker": "DayPlannio.Api\\Controllers\\AgendamentosController.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\Controllers\\AgendamentosController.cs",
+              "RelativeToolTip": "DayPlannio.Api\\Controllers\\AgendamentosController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAUwAwAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T13:08:44.671Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DayPlannio.Api.csproj",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj",
+              "RelativeDocumentMoniker": "DayPlannio.Api\\DayPlannio.Api.csproj",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio1\\DayPlannio1\\DayPlannio.Api\\DayPlannio.Api\\DayPlannio.Api.csproj",
+              "RelativeToolTip": "DayPlannio.Api\\DayPlannio.Api.csproj",
+              "ViewState": "AgIAAAEAAAAAAAAAAABBwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-21T13:08:20.82Z"
             }
           ]
         }

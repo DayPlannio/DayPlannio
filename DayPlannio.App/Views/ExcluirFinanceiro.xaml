@@ -1,80 +1,59 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:DayPlannio.App.Views"
-    x:Class="DayPlannio.App.Views.ExcluirFinanceiro"
-    BackgroundColor="#F5F5F5"
-    NavigationPage.HasNavigationBar="False">
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayPlannio.App.Views.ExcluirFinanceiro"
+             BackgroundColor="#80000000">
 
-    <Grid RowDefinitions="*,Auto">
+    <Grid VerticalOptions="Center" Margin="30">
 
-        <Grid
-            Grid.Row="0"
-            VerticalOptions="Center"
-            Margin="30">
-
-            <Border
-                BackgroundColor="White"
+        <Border BackgroundColor="White"
                 StrokeThickness="0"
                 StrokeShape="RoundRectangle 20"
                 Padding="25">
 
-                <VerticalStackLayout
-                    Spacing="15"
-                    HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
 
-                    <Border
-                        BackgroundColor="#FFE8E8"
+                <Border BackgroundColor="#FFE8E8"
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 50"
                         HeightRequest="60"
                         WidthRequest="60"
                         HorizontalOptions="Center">
 
-                        <Label
-                            Text="⚠️"
-                            FontSize="28"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center" />
+                    <Label Text="⚠️"
+                           FontSize="28"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
 
-                    </Border>
+                </Border>
 
-                    <Label
-                        Text="Excluir Entrada?"
-                        FontSize="18"
-                        FontAttributes="Bold"
-                        TextColor="#181C1C"
-                        HorizontalOptions="Center" />
+                <Label Text="Excluir Registro?"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#181C1C"
+                       HorizontalOptions="Center"/>
 
-                    <Label
-                        x:Name="lbl_mensagem"
-                        FontSize="14"
-                        TextColor="#3E4948"
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center" />
+                <Label FormattedText="{Binding Mensagem}"
+                       FontSize="14"
+                       TextColor="#3E4948"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
 
-                    <Button
-                        Text="EXCLUIR"
+                <Button Text="EXCLUIR"
                         TextColor="White"
                         BackgroundColor="#BA1A1A"
                         CornerRadius="25"
                         HeightRequest="50"
-                        Clicked="OnExcluirClicked" />
+                        Command="{Binding ExcluirCommand}"/>
 
-                    <Button
-                        Text="Cancelar"
+                <Button Text="Cancelar"
                         BackgroundColor="Transparent"
                         TextColor="Gray"
-                        Clicked="OnCancelarClicked" />
+                        Command="{Binding CancelarCommand}"/>
 
-                </VerticalStackLayout>
+            </VerticalStackLayout>
 
-            </Border>
-
-        </Grid>
-
-        <views:CustomTabBar Grid.Row="1" />
+        </Border>
 
     </Grid>
 

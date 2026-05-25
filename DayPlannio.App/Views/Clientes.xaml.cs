@@ -1,38 +1,27 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class Clientes : ContentPage
 {
-	public Clientes()
-	{
-		InitializeComponent();
-	}
+    private readonly ClientesViewModel _viewModel;
 
-	protected override void OnAppearing()
-	{
-		base.OnAppearing();
-		CustomTabBar.AbaAtual = "clientes";
-	}
-
-	private async void OnDeletarClicked(object sender, EventArgs e)
+    public Clientes()
     {
-        await DisplayAlertAsync("Deleção", "Cliente deletado com sucesso!", "OK");
+        InitializeComponent();
+
+        _viewModel =
+            new ClientesViewModel(
+                this,
+                Navigation);
+
+        BindingContext = _viewModel;
     }
 
-    private async void OnEditarClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        await DisplayAlertAsync("Edição", "Cliente editado com sucesso!", "OK");
-    }
+        base.OnAppearing();
 
-    private async void OnHistoricoClicked(object sender, EventArgs e)
-    {
-        await DisplayAlertAsync("Histórico", "Histórico do cliente exibido com sucesso!", "OK");
-    }
-         private async void OnNovoClienteClicked(object sender, EventArgs e)
-    {
-        await DisplayAlertAsync("Cliente", "Novo cliente adicionado com sucesso!", "OK");
-    }
-
-    private void OnBuscaTextChanged(object sender, TextChangedEventArgs e)
-    {
+        await _viewModel.CarregarClientes();
     }
 }

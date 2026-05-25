@@ -5,27 +5,56 @@
              BackgroundColor="#80000000">
 
     <Grid VerticalOptions="Center" Margin="30">
-        <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 20" Padding="25">
+
+        <Border BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Padding="25">
+
             <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
 
-                <Border BackgroundColor="#FFE8E8" StrokeThickness="0" StrokeShape="RoundRectangle 50"
-                        HeightRequest="60" WidthRequest="60" HorizontalOptions="Center">
-                    <Label Text="⚠️" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Border BackgroundColor="#FFE8E8"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 50"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        HorizontalOptions="Center">
+
+                    <Label Text="⚠️"
+                           FontSize="28"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
                 </Border>
 
-                <Label Text="Excluir Agendamento?" FontSize="18" FontAttributes="Bold"
-                       TextColor="#181C1C" HorizontalOptions="Center"/>
+                <Label Text="Excluir Agendamento?"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#181C1C"
+                       HorizontalOptions="Center"/>
 
-                <Label x:Name="lbl_mensagem" FontSize="14" TextColor="#3E4948"
-                       HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Label FormattedText="{Binding Mensagem}"
+                       FontSize="14"
+                       TextColor="#3E4948"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
 
-                <Button Text="EXCLUIR" TextColor="White" BackgroundColor="#BA1A1A"
-                        CornerRadius="25" HeightRequest="50" Clicked="OnExcluirClicked"/>
+                <Button Text="EXCLUIR"
+                        TextColor="White"
+                        BackgroundColor="#BA1A1A"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        Command="{Binding ExcluirCommand}"/>
 
-                <Button Text="Cancelar" BackgroundColor="Transparent" TextColor="Gray"
-                        Clicked="OnCancelarClicked"/>
+                <Button Text="Cancelar"
+                        BackgroundColor="Transparent"
+                        TextColor="Gray"
+                        Command="{Binding CancelarCommand}"/>
 
             </VerticalStackLayout>
+
         </Border>
+
     </Grid>
+
 </ContentPage>

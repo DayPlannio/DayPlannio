@@ -1,28 +1,16 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class CadastrarCliente : ContentPage
 {
-	public CadastrarCliente()
-	{
-		InitializeComponent();
-	}
-
-    private async void OnCriarClicked(object sender, EventArgs e)
+    public CadastrarCliente()
     {
-        await DisplayAlertAsync("Cadastro", "Cliente cadastrado com sucesso!", "OK");
-    }
+        InitializeComponent();
 
-    private async void OnCancelarClicked(object sender, EventArgs e)
-    {
-        await DisplayAlertAsync("Cancelar", "Cadastro cancelado!", "OK");
-    }
-
-    private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
-    {
-    }
-
-    private async void OnBackClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
+        BindingContext =
+            new CadastrarClienteViewModel(
+                this,
+                Navigation);
     }
 }

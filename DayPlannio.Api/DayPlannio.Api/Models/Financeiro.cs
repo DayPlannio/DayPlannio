@@ -28,10 +28,8 @@ namespace DayPlannio.Api.Models
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "A data é obrigatória.")]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public DateTime Data { get; set; }
-
-        [MaxLength(100, ErrorMessage = "A categoria deve ter no máximo 100 caracteres.")]
-        public string? Categoria { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

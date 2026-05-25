@@ -45,7 +45,7 @@
                     HorizontalOptions="Center"/>
 
                 <Label
-                    x:Name="lbl_mensagem"
+                    Text="{Binding Mensagem}"
                     FontSize="14"
                     TextColor="#3E4948"
                     HorizontalOptions="Center"
@@ -57,13 +57,13 @@
                     BackgroundColor="#2E7D32"
                     CornerRadius="25"
                     HeightRequest="50"
-                    Clicked="OnConcluirClicked"/>
+                    Command="{Binding ConcluirCommand}"/>
 
                 <Button
                     Text="Voltar"
                     BackgroundColor="Transparent"
                     TextColor="Gray"
-                    Clicked="OnCancelarClicked"/>
+                    Command="{Binding CancelarCommand}"/>
 
             </VerticalStackLayout>
 

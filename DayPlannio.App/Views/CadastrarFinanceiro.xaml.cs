@@ -1,3 +1,6 @@
+using DayPlannio.App.ViewModels;
+using System.ComponentModel;
+
 namespace DayPlannio.App.Views;
 
 public partial class CadastrarFinanceiro : ContentPage
@@ -5,43 +8,19 @@ public partial class CadastrarFinanceiro : ContentPage
     public CadastrarFinanceiro()
     {
         InitializeComponent();
-
-        picker_.Items.Add("Entrada");
-        picker_.Items.Add("Saída");
-
+        BindingContext = new CadastrarFinanceiroViewModel(this, Navigation);
     }
 
-    private async void OnBackClicked(object sender, EventArgs e)
+    private void OnDateSelected(object sender, DateChangedEventArgs e)
     {
-
+        if (BindingContext is CadastrarFinanceiroViewModel vm)
+            vm.DataSelecionada = e.NewDate;
     }
 
-    private async void OnTipoChanged(object sender, EventArgs e)
+    private void OnTimeChanged(object sender, PropertyChangedEventArgs e)
     {
-        var tipoSelecionado = picker_.SelectedItem?.ToString();
-
-        lblTipo.Text = tipoSelecionado;
-    }
-
-    private async void OnDataChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    private async void OnHorarioChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    private async void OnConfirmarClicked(object sender, EventArgs e)
-    {
-
-    }
-
-    private async void OnCancelarClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
+        if (e.PropertyName == nameof(TimePicker.Time) && sender is TimePicker tp)
+            if (BindingContext is CadastrarFinanceiroViewModel vm)
+                vm.HorarioSelecionado = tp.Time;
     }
 }
-
-

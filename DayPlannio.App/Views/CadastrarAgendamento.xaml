@@ -13,8 +13,7 @@
 
             <VerticalStackLayout>
 
-                <Grid Padding="20,20,20,0"
-                      VerticalOptions="Center">
+                <Grid Padding="20,20,20,0" VerticalOptions="Center">
 
                     <Label Text="Novo Agendamento"
                            FontSize="17"
@@ -30,8 +29,7 @@
                                  BackgroundColor="Transparent"
                                  HorizontalOptions="Start"
                                  VerticalOptions="Center"
-                                 Clicked="OnBackClicked"/>
-
+                                 Command="{Binding VoltarCommand}"/>
                 </Grid>
 
                 <VerticalStackLayout Padding="20,20,20,0">
@@ -41,14 +39,13 @@
                            FontAttributes="Bold"
                            TextColor="#181C1C"/>
 
-                    <Label Text="Preencha as informações para reservar o horário no calendário."
+                    <Label Text="Preencha as informações para reservar o horário."
                            FontSize="13"
                            TextColor="#3E4948"/>
 
                 </VerticalStackLayout>
 
-                <VerticalStackLayout Padding="20"
-                                     Spacing="15">
+                <VerticalStackLayout Padding="20" Spacing="15">
 
                     <Border BackgroundColor="White"
                             StrokeThickness="0"
@@ -68,8 +65,7 @@
 
                                 <Grid ColumnDefinitions="*,Auto">
 
-                                    <Label x:Name="lblCliente"
-                                           Text="Selecione um cliente"
+                                    <Label Text="{Binding ClienteTexto}"
                                            FontSize="14"
                                            TextColor="#555"
                                            VerticalOptions="Center"/>
@@ -80,12 +76,11 @@
                                            HeightRequest="12"
                                            VerticalOptions="Center"/>
 
-                                    <Picker x:Name="picker_cliente"
+                                    <Picker ItemsSource="{Binding Clientes}"
+                                            SelectedIndex="{Binding ClienteSelecionado}"
                                             Opacity="0.01"
                                             HeightRequest="45"
-                                            BackgroundColor="Transparent"
-                                            Title="Selecione um cliente"
-                                            SelectedIndexChanged="OnClienteChanged"/>
+                                            BackgroundColor="Transparent"/>
                                 </Grid>
 
                             </Border>
@@ -102,8 +97,7 @@
 
                                 <Grid ColumnDefinitions="*,Auto">
 
-                                    <Label x:Name="lblServico"
-                                           Text="Selecione um serviço"
+                                    <Label Text="{Binding ServicoTexto}"
                                            FontSize="14"
                                            TextColor="#555"
                                            VerticalOptions="Center"/>
@@ -114,12 +108,11 @@
                                            HeightRequest="12"
                                            VerticalOptions="Center"/>
 
-                                    <Picker x:Name="picker_servico"
+                                    <Picker ItemsSource="{Binding Servicos}"
+                                            SelectedIndex="{Binding ServicoSelecionado}"
                                             Opacity="0.01"
                                             HeightRequest="45"
-                                            BackgroundColor="Transparent"
-                                            Title="Selecione um serviço"
-                                            SelectedIndexChanged="OnServicoChanged"/>
+                                            BackgroundColor="Transparent"/>
                                 </Grid>
 
                             </Border>
@@ -133,7 +126,7 @@
                             StrokeShape="RoundRectangle 15"
                             Padding="20">
 
-                        <VerticalStackLayout Spacing="8">
+                        <VerticalStackLayout Spacing="10">
 
                             <Label Text="DATA DO ATENDIMENTO"
                                    FontSize="11"
@@ -146,8 +139,7 @@
 
                                 <Grid ColumnDefinitions="*,Auto">
 
-                                    <Label x:Name="lblData"
-                                           Text="Selecionar data"
+                                    <Label Text="{Binding DataTexto}"
                                            FontSize="14"
                                            TextColor="#555"
                                            VerticalOptions="Center"/>
@@ -158,11 +150,11 @@
                                            HeightRequest="12"
                                            VerticalOptions="Center"/>
 
-                                    <DatePicker x:Name="date_atendimento"
+                                    <DatePicker DateSelected="OnDateSelected"
+                                                MinimumDate="{Binding DataMinima}"
                                                 Opacity="0.01"
                                                 HeightRequest="45"
-                                                BackgroundColor="Transparent"
-                                                DateSelected="OnDataChanged"/>
+                                                BackgroundColor="Transparent"/>
                                 </Grid>
 
                             </Border>
@@ -179,8 +171,7 @@
 
                                 <Grid ColumnDefinitions="*,Auto">
 
-                                    <Label x:Name="lblHorario"
-                                           Text="Selecionar horário"
+                                    <Label Text="{Binding HorarioTexto}"
                                            FontSize="14"
                                            TextColor="#555"
                                            VerticalOptions="Center"/>
@@ -191,12 +182,11 @@
                                            HeightRequest="12"
                                            VerticalOptions="Center"/>
 
-                                    <TimePicker x:Name="time_horario"
+                                    <TimePicker PropertyChanged="OnTimeChanged"
                                                 Opacity="0.01"
                                                 HeightRequest="45"
                                                 BackgroundColor="Transparent"
-                                                Format="HH:mm"
-                                                PropertyChanged="OnHorarioChanged"/>
+                                                Format="HH:mm"/>
                                 </Grid>
 
                             </Border>
@@ -245,16 +235,14 @@
                                            VerticalOptions="Center"/>
 
                                     <Entry Grid.Column="1"
-                                           x:Name="txt_valor"
+                                           Text="{Binding Valor}"
                                            Placeholder="0,00"
                                            Keyboard="Numeric"
                                            HeightRequest="45"
                                            TextColor="#006260"
                                            PlaceholderColor="#7A9998"
                                            BackgroundColor="Transparent"/>
-
                                 </Grid>
-
                             </Border>
 
                             <Label Text="CUSTO DE MATERIAL"
@@ -277,7 +265,7 @@
                                            VerticalOptions="Center"/>
 
                                     <Entry Grid.Column="1"
-                                           x:Name="txt_custo"
+                                           Text="{Binding Custo}"
                                            Placeholder="0,00"
                                            Keyboard="Numeric"
                                            HeightRequest="45"
@@ -286,7 +274,6 @@
                                            BackgroundColor="Transparent"/>
 
                                 </Grid>
-
                             </Border>
 
                         </VerticalStackLayout>
@@ -308,44 +295,45 @@
                                     StrokeThickness="0"
                                     StrokeShape="RoundRectangle 10">
 
-                                <Editor x:Name="txt_observacoes"
+                                <Editor Text="{Binding Observacoes}"
                                         Placeholder="Detalhes específicos para este agendamento..."
                                         HeightRequest="100"
                                         BackgroundColor="Transparent"/>
-
                             </Border>
 
                         </VerticalStackLayout>
 
                     </Border>
 
+                    <Label Text="{Binding ErroMensagem}"
+                           TextColor="#BA1A1A"
+                           FontSize="13"
+                           IsVisible="{Binding ErroVisivel}"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"/>
+
                     <Button Text="Confirmar Agendamento"
+                            Command="{Binding ConfirmarCommand}"
                             TextColor="White"
                             CornerRadius="25"
-                            HeightRequest="50"
-                            Clicked="OnConfirmarClicked">
+                            HeightRequest="50">
 
                         <Button.Background>
-
                             <LinearGradientBrush StartPoint="0,0"
                                                  EndPoint="1,0">
 
-                                <GradientStop Color="#006260"
-                                              Offset="0.0"/>
-
-                                <GradientStop Color="#1E7C7A"
-                                              Offset="1.0"/>
+                                <GradientStop Color="#006260" Offset="0"/>
+                                <GradientStop Color="#1E7C7A" Offset="1"/>
 
                             </LinearGradientBrush>
-
                         </Button.Background>
 
                     </Button>
 
                     <Button Text="Cancelar"
+                            Command="{Binding CancelarCommand}"
                             BackgroundColor="Transparent"
-                            TextColor="Gray"
-                            Clicked="OnCancelarClicked"/>
+                            TextColor="Gray"/>
 
                 </VerticalStackLayout>
 

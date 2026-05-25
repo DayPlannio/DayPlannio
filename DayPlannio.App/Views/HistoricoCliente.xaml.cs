@@ -1,13 +1,28 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class HistoricoCliente : ContentPage
 {
-    public HistoricoCliente()
+    private readonly HistoricoClienteViewModel _viewModel;
+
+    public HistoricoCliente(string clienteId, string nomeCliente)
     {
         InitializeComponent();
+
+        _viewModel = new HistoricoClienteViewModel(
+            clienteId,
+            nomeCliente,
+            Navigation,
+            this);
+
+        BindingContext = _viewModel;
     }
 
-    private void OnBackClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
+        base.OnAppearing();
+
+        await _viewModel.CarregarHistorico();
     }
 }

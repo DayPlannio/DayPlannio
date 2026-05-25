@@ -1,42 +1,22 @@
-using System.Text;
-using System.Text.Json;
+using DayPlannio.App.ViewModels;
 
 namespace DayPlannio.App.Views;
 
 public partial class MeuPerfil : ContentPage
 {
+    private readonly MeuPerfilViewModel _viewModel;
 
     public MeuPerfil()
     {
         InitializeComponent();
+
+        _viewModel = new MeuPerfilViewModel(this);
+        BindingContext = _viewModel;
     }
 
-	protected override void OnAppearing()
-	{
-		base.OnAppearing();
-		CustomTabBar.AbaAtual = "perfil";
-	}
-
-	private async void OnSalvarClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        await DisplayAlertAsync("Perfil", "Perfil atualizado com sucesso!", "OK");
-    }
-
-    private async void OnSairClicked(object sender, EventArgs e)
-    {
-        bool confirmar = await DisplayAlertAsync(
-            "Sair da conta",
-            "Tem certeza que deseja encerrar a sessão?",
-            "Sim",
-            "Cancelar"
-        );
-
-        if (!confirmar)
-            return;
-        await Navigation.PushAsync(new Views.Login());
-    }
-
-    private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
-    {
+        base.OnAppearing();
+        await _viewModel.CarregarPerfil();
     }
 }

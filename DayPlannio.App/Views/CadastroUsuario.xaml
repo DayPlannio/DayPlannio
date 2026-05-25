@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:DayPlannio.App.Views"
-             x:Class="DayPlannio.App.Views.CadastroUsuario"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#F5F5F5">
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.CadastroUsuario"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F5F5F5">
 
     <Grid RowDefinitions="*">
 
@@ -12,83 +14,246 @@
 
             <VerticalStackLayout Padding="20">
 
-                <Border BackgroundColor="{StaticResource White}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 15"
-                        Padding="25">
+                <Border
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="25">
 
-                    <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                    <VerticalStackLayout
+                        VerticalOptions="Center"
+                        Spacing="8">
 
-                        <Image Source="logo.png" HeightRequest="80" HorizontalOptions="Center" Margin="0,0,0,5"/>
+                        <Image
+                            Source="logo.png"
+                            HeightRequest="80"
+                            HorizontalOptions="Center"
+                            Margin="0,0,0,5"/>
 
-                        <Label Text="Nome" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_nome" Placeholder="Digite seu nome completo"/>
+                        <Label Text="Nome"
+                               FontSize="14"
+                               TextColor="{StaticResource LabelColor}"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10">
+
+                            <Entry Placeholder="Digite seu nome completo"
+                                   Text="{Binding Nome}"/>
                         </Border>
 
-                        <Label Text="E-mail" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_email" Placeholder="Digite seu e-mail" Keyboard="Email"/>
+                        <Label Text="E-mail"
+                               FontSize="14"
+                               TextColor="{StaticResource LabelColor}"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10">
+
+                            <Entry Placeholder="Digite seu e-mail"
+                                   Keyboard="Email"
+                                   Text="{Binding Email}"/>
                         </Border>
 
-                        <Label Text="Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_senha" Placeholder="Crie uma senha" IsPassword="True" TextChanged="OnSenhaTextChanged"/>
+                        <Label Text="Senha"
+                               FontSize="14"
+                               TextColor="{StaticResource LabelColor}"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+
+                        <Grid ColumnDefinitions="*,40">
+
+                            <Entry Grid.Column="0"
+                                   Placeholder="Crie uma senha"
+                                   IsPassword="{Binding SenhaOculta}"
+                                   Text="{Binding Senha}"
+                                   BackgroundColor="Transparent"/>
+
+                            <ImageButton Grid.Column="1"
+                                         Source="{Binding IconeSenha}"
+                                         WidthRequest="22"
+                                         HeightRequest="22"
+                                         BackgroundColor="Transparent"
+                                         Command="{Binding MostrarOcultarSenhaCommand}"/>
+                        </Grid>
+                    </Border>
+
+                        <Label Text="Confirmar Senha"
+                               FontSize="14"
+                               TextColor="{StaticResource LabelColor}"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10">
+
+                            <Grid ColumnDefinitions="*,40">
+
+                                <Entry Grid.Column="0"
+                                       Placeholder="Confirme sua senha"
+                                       IsPassword="{Binding ConfirmarSenhaOculta}"
+                                       Text="{Binding ConfirmarSenha}"
+                                       BackgroundColor="Transparent"/>
+
+                                <ImageButton Grid.Column="1"
+                                             Source="{Binding IconeConfirmarSenha}"
+                                             WidthRequest="22"
+                                             HeightRequest="22"
+                                             BackgroundColor="Transparent"
+                                             Command="{Binding MostrarOcultarConfirmarSenhaCommand}"/>
+                            </Grid>
                         </Border>
 
-                        <Label Text="Confirmar Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_confirmar_senha" Placeholder="Crie uma senha" IsPassword="True"/>
-                        </Border>
+                        <VerticalStackLayout Spacing="6" Margin="0,5,0,0">
 
-                        <VerticalStackLayout x:Name="requisitos_senha" Spacing="4" Margin="0,5,0,0">
                             <HorizontalStackLayout Spacing="6">
-                                <Label x:Name="req_tamanho" Text="○" TextColor="Gray" FontSize="12"/>
-                                <Label Text="Mínimo 6 caracteres" TextColor="Gray" FontSize="12"/>
+                                <Label Text="●"
+                                       FontSize="12"
+                                       TextColor="#CFCFCF">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding ReqTamanho}"
+                                                     Value="True">
+                                            <Setter Property="TextColor" Value="#006260"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label Text="Mínimo 6 caracteres"
+                                       TextColor="Gray"
+                                       FontSize="12"/>
                             </HorizontalStackLayout>
+
                             <HorizontalStackLayout Spacing="6">
-                                <Label x:Name="req_maiusculo" Text="○" TextColor="Gray" FontSize="12"/>
-                                <Label Text="Uma letra maiúscula" TextColor="Gray" FontSize="12"/>
+                                <Label Text="●"
+                                       FontSize="12"
+                                       TextColor="#CFCFCF">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding ReqMaiusculo}"
+                                                     Value="True">
+                                            <Setter Property="TextColor" Value="#006260"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label Text="Uma letra maiúscula"
+                                       TextColor="Gray"
+                                       FontSize="12"/>
                             </HorizontalStackLayout>
+
                             <HorizontalStackLayout Spacing="6">
-                                <Label x:Name="req_minusculo" Text="○" TextColor="Gray" FontSize="12"/>
-                                <Label Text="Uma letra minúscula" TextColor="Gray" FontSize="12"/>
+                                <Label Text="●"
+                                       FontSize="12"
+                                       TextColor="#CFCFCF">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding ReqMinusculo}"
+                                                     Value="True">
+                                            <Setter Property="TextColor" Value="#006260"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label Text="Uma letra minúscula"
+                                       TextColor="Gray"
+                                       FontSize="12"/>
                             </HorizontalStackLayout>
+
                             <HorizontalStackLayout Spacing="6">
-                                <Label x:Name="req_especial" Text="○" TextColor="Gray" FontSize="12"/>
-                                <Label Text="Um caractere especial" TextColor="Gray" FontSize="12"/>
+                                <Label Text="●"
+                                       FontSize="12"
+                                       TextColor="#CFCFCF">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding ReqEspecial}"
+                                                     Value="True">
+                                            <Setter Property="TextColor" Value="#006260"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label Text="Um caractere especial"
+                                       TextColor="Gray"
+                                       FontSize="12"/>
                             </HorizontalStackLayout>
+
                             <HorizontalStackLayout Spacing="6">
-                                <Label x:Name="req_numero" Text="○" TextColor="Gray" FontSize="12"/>
-                                <Label Text="Um número" TextColor="Gray" FontSize="12"/>
+                                <Label Text="●"
+                                       FontSize="12"
+                                       TextColor="#CFCFCF">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding ReqNumero}"
+                                                     Value="True">
+                                            <Setter Property="TextColor" Value="#006260"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label Text="Um número"
+                                       TextColor="Gray"
+                                       FontSize="12"/>
                             </HorizontalStackLayout>
+
                         </VerticalStackLayout>
 
-                        <Label Text="Telefone (Opcional)" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                            <Entry x:Name="txt_telefone" Placeholder="Digite seu telefone" Keyboard="Telephone" TextChanged="OnTelefoneTextChanged"/>
+                        <Label Text="Telefone (Opcional)"
+                               FontSize="14"
+                               TextColor="{StaticResource LabelColor}"/>
+
+                        <Border BackgroundColor="#EBEBEB"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10">
+
+                            <Entry Placeholder="Digite seu telefone"
+                                   Keyboard="Telephone"
+                                   Text="{Binding Telefone}"/>
                         </Border>
 
-                        <Label x:Name="ErroLabel" TextColor="Red" IsVisible="False"/>
+                        <Label Text="{Binding ErroMensagem}"
+                               TextColor="Red"
+                               IsVisible="{Binding ErroVisivel}"/>
 
-                        <Button Text="Cadastrar" TextColor="White" CornerRadius="20" Clicked="OnCadastrarClicked">
+                        <Button Text="Cadastrar"
+                                TextColor="White"
+                                CornerRadius="20"
+                                Command="{Binding CadastrarCommand}">
+
                             <Button.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                     <GradientStop Color="#006260" Offset="0.0"/>
                                     <GradientStop Color="#1E7C7A" Offset="1.0"/>
                                 </LinearGradientBrush>
                             </Button.Background>
+
                         </Button>
 
-                        <Label Text="OU" HorizontalOptions="Center" TextColor="#6E7978" FontSize="12" Margin="0,10,0,0"/>
+                        <Label Text="OU"
+                               HorizontalOptions="Center"
+                               TextColor="#6E7978"
+                               FontSize="12"
+                               Margin="0,10,0,0"/>
 
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Label Text="Já possui uma conta?" TextColor="#3E4948" FontSize="13"/>
-                            <Label Text="Faça Login" TextColor="{StaticResource PrimaryColor}" FontAttributes="Bold" FontSize="13">
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                               Spacing="5">
+
+                            <Label Text="Já possui uma conta?"
+                                   TextColor="#3E4948"
+                                   FontSize="13"/>
+
+                            <Label Text="Faça Login"
+                                   TextColor="{StaticResource PrimaryColor}"
+                                   FontAttributes="Bold"
+                                   FontSize="13">
+
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnLoginClicked"/>
+                                    <TapGestureRecognizer Command="{Binding LoginCommand}"/>
                                 </Label.GestureRecognizers>
+
                             </Label>
+
                         </HorizontalStackLayout>
 
                     </VerticalStackLayout>

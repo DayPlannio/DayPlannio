@@ -1,5 +1,4 @@
-using System.Text;
-using System.Text.Json;
+using DayPlannio.App.ViewModels;
 
 namespace DayPlannio.App.Views;
 
@@ -8,24 +7,12 @@ public partial class CadastroUsuario : ContentPage
     public CadastroUsuario()
     {
         InitializeComponent();
+        BindingContext = new CadastroUsuarioViewModel(Navigation);
     }
 
-    private async void OnCadastrarClicked(object sender, EventArgs e)
+    protected override void OnAppearing()
     {
-        await DisplayAlertAsync("Cadastro", "Usuário cadastrado com sucesso!", "OK");   
+        base.OnAppearing();
+        Shell.SetNavBarIsVisible(this, false);
     }
-
-    private async void OnLoginClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new Views.Login());
-    }
-
-    private void OnTelefoneTextChanged(object sender, TextChangedEventArgs e)
-    {
-    }
-
-    private void OnSenhaTextChanged(object sender, TextChangedEventArgs e)
-    {
-    }
-
 }

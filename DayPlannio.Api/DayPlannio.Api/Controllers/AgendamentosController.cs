@@ -56,6 +56,16 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Agendamento.Find(a => a.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Agendamento não encontrado." });
 
+            var conflito = await _context.Agendamento
+                .Find(a => a.UsuarioId == existing.UsuarioId
+                        && a.DataHora == agendamento.DataHora
+                        && a.Status != StatusAgendamento.Cancelado
+                        && a.Id != id)
+                .FirstOrDefaultAsync();
+
+            if (conflito != null)
+                return BadRequest(new { message = "Já existe um agendamento para este horário." });
+
             existing.ClienteId = agendamento.ClienteId;
             existing.TipoServicoId = agendamento.TipoServicoId;
             existing.DataHora = agendamento.DataHora;
@@ -142,6 +152,7 @@ namespace DayPlannio.Api.Controllers
         public async Task<IActionResult> GetAgenda(Guid usuarioId, [FromQuery] string periodo = "mensal")
         {
             var agora = DateTime.UtcNow;
+
             DateTime dataInicio;
             DateTime dataFim;
 
@@ -151,24 +162,27 @@ namespace DayPlannio.Api.Controllers
                     dataInicio = agora.Date;
                     dataFim = agora.Date.AddDays(1);
                     break;
+
                 case "semanal":
-                    dataInicio = agora.Date;
-                    dataFim = agora.Date.AddDays(7);
+                    dataInicio = agora.Date.AddDays(-(int)agora.DayOfWeek);
+                    dataFim = dataInicio.AddDays(7);
                     break;
+
                 case "mensal":
-                    dataInicio = agora.Date;
-                    dataFim = agora.Date.AddMonths(1);
+                    dataInicio = new DateTime(agora.Year, agora.Month, 1);
+                    dataFim = dataInicio.AddMonths(1);
                     break;
+
                 default:
-                    dataInicio = agora.Date;
-                    dataFim = agora.Date.AddMonths(1);
+                    dataInicio = new DateTime(agora.Year, agora.Month, 1);
+                    dataFim = dataInicio.AddMonths(1);
                     break;
             }
 
             var agendamentos = await _context.Agendamento
                 .Find(a => a.UsuarioId == usuarioId
                        && a.DataHora >= dataInicio
-                       && a.DataHora <= dataFim)
+                       && a.DataHora < dataFim)
                 .SortBy(a => a.DataHora)
                 .ToListAsync();
 

@@ -25,7 +25,7 @@
                         Padding="0"
                         BackgroundColor="Transparent"
                         VerticalOptions="Center"
-                        Clicked="OnBackClicked"/>
+                        Command="{Binding VoltarCommand}"/>
 
                     <Label
                         Grid.Column="1"
@@ -38,7 +38,7 @@
                 </Grid>
 
                 <Label
-                    x:Name="lbl_nome"
+                    Text="{Binding NomeCliente}"
                     Margin="0,5,0,18"
                     HorizontalOptions="Center"
                     FontSize="18"
@@ -46,7 +46,7 @@
                     TextColor="#1D1D1D"/>
 
                 <CollectionView
-                    x:Name="listaHistorico"
+                    ItemsSource="{Binding Historico}"
                     Margin="10,0,10,0"
                     SelectionMode="None">
 

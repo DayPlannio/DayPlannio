@@ -1,34 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:DayPlannio.App.Views"
-             x:Class="DayPlannio.App.Views.Servicos"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#F5F5F5">
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.Servicos"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F5F5F5">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-        <Border Grid.Row="0"
-                BackgroundColor="White"
-                StrokeThickness="0"
-                StrokeShape="RoundRectangle 10"
-                Margin="15,10"
-                Padding="10,0">
-            <Entry x:Name="txt_busca"
-                   Placeholder="Procure por nome"
-                   TextChanged="OnBuscaTextChanged"/>
+        <Border
+            Grid.Row="0"
+            BackgroundColor="White"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 10"
+            Margin="15,10"
+            Padding="10,0">
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <Entry
+                    Grid.Column="0"
+                    Placeholder="Procure por nome"
+                    Text="{Binding Busca}"
+                    VerticalOptions="Center"/>
+
+                <ImageButton
+                    Grid.Column="1"
+                    Source="icon_pesquisa.png"
+                    WidthRequest="16"
+                    HeightRequest="16"
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="Center"/>
+
+            </Grid>
+
         </Border>
 
-        <VerticalStackLayout Grid.Row="1" Padding="20,10,20,0">
-            <Label Text="Gestão de Serviços"
-                   FontSize="22"
-                   FontAttributes="Bold"
-                   TextColor="#181C1C"/>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Padding="20,10,20,0">
+
+            <Label
+                Text="Gestão de Serviços"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="#181C1C"/>
         </VerticalStackLayout>
 
-        <CollectionView Grid.Row="2"
-                        x:Name="listaServicos"
-                        Margin="15,10">
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding Servicos}"
+            Margin="15,10">
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="8"/>
@@ -36,83 +61,100 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border BackgroundColor="White"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 15"
-                            Padding="20">
 
-                        <Grid RowDefinitions="Auto,Auto,Auto"
-                              ColumnDefinitions="*,Auto,Auto">
+                    <Border
+                        BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="20">
 
-                            <Label Grid.Row="0" Grid.Column="0"
-                                   Text="{Binding Tipo}"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   TextColor="#181C1C"
-                                   VerticalOptions="Center"/>
+                        <Grid
+                            RowDefinitions="Auto,Auto,Auto"
+                            ColumnDefinitions="*,Auto,Auto">
 
-                            <ImageButton Grid.Row="0" Grid.Column="1"
-                                         Source="icon_editar.png"
-                                         HeightRequest="16"
-                                         WidthRequest="16"
-                                         MinimumHeightRequest="0"
-                                         MinimumWidthRequest="0"
-                                         Padding="0"
-                                         BackgroundColor="Transparent"
-                                         VerticalOptions="Center"
-                                         Clicked="OnEditarClicked"
-                                         CommandParameter="{Binding .}"/>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="{Binding Tipo}"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#181C1C"
+                                VerticalOptions="Center"/>
 
-                            <ImageButton Grid.Row="0" Grid.Column="2"
-                                         Source="icon_excluir.png"
-                                         HeightRequest="16"
-                                         WidthRequest="16"
-                                         MinimumHeightRequest="0"
-                                         MinimumWidthRequest="0"
-                                         Padding="0"
-                                         BackgroundColor="Transparent"
-                                         Margin="10,0,0,0"
-                                         VerticalOptions="Center"
-                                         Clicked="OnDeletarClicked"
-                                         CommandParameter="{Binding .}"/>
+                            <ImageButton
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Source="icon_editar.png"
+                                HeightRequest="16"
+                                WidthRequest="16"
+                                MinimumHeightRequest="0"
+                                MinimumWidthRequest="0"
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Center"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditarCommand}"
+                                CommandParameter="{Binding .}"/>
 
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                                   Text="{Binding Descricao}"
-                                   FontSize="13"
-                                   TextColor="#3E4948"
-                                   Margin="0,5,0,10"/>
+                            <ImageButton
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Source="icon_excluir.png"
+                                HeightRequest="16"
+                                WidthRequest="16"
+                                MinimumHeightRequest="0"
+                                MinimumWidthRequest="0"
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                Margin="10,0,0,0"
+                                VerticalOptions="Center"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeletarCommand}"
+                                CommandParameter="{Binding .}"/>
 
-                            <Border Grid.Row="2" Grid.Column="0"
-                                    BackgroundColor="#E8F5F5"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 20"
-                                    Padding="10,4">
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Text="{Binding Descricao}"
+                                FontSize="13"
+                                TextColor="#3E4948"
+                                Margin="0,5,0,10"/>
 
-                                <Label Text="{Binding TempoEstimado, StringFormat=' {0}min estimados'}"
-                                       FontSize="12"
-                                       TextColor="#006260"/>
+                            <Border
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                BackgroundColor="#E8F5F5"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10,4">
+
+                                <Label
+                                    Text="{Binding TempoEstimado, StringFormat=' {0}min estimados'}"
+                                    FontSize="12"
+                                    TextColor="#006260"/>
 
                             </Border>
 
                         </Grid>
 
                     </Border>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
         </CollectionView>
 
-        <Button Grid.Row="2"
-                Text="+"
-                FontSize="24"
-                TextColor="White"
-                WidthRequest="55"
-                HeightRequest="55"
-                CornerRadius="28"
-                VerticalOptions="End"
-                HorizontalOptions="End"
-                Margin="0,0,20,20"
-                Clicked="OnNovoServicoClicked">
+        <Button
+            Grid.Row="2"
+            Text="+"
+            FontSize="24"
+            TextColor="White"
+            WidthRequest="55"
+            HeightRequest="55"
+            CornerRadius="28"
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            Margin="0,0,20,20"
+            Command="{Binding NovoServicoCommand}">
 
             <Button.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">

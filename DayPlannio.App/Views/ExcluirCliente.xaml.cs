@@ -1,19 +1,21 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class ExcluirCliente : ContentPage
 {
-	public ExcluirCliente()
-	{
-		InitializeComponent();
-	}
+    private readonly ExcluirClienteViewModel _viewModel;
 
-    private async void OnExcluirClicked(object sender, EventArgs e)
-    {
-        await DisplayAlertAsync("Exclusão", "Cliente excluído com sucesso!", "OK");
-    }
+    public bool Confirmado => _viewModel.Confirmado;
 
-    private async void OnCancelarClicked(object sender, EventArgs e)
+    public ExcluirCliente(string nomeCliente)
     {
-        await DisplayAlertAsync("Exclusão", "Operação cancelada!", "OK");
+        InitializeComponent();
+
+        _viewModel = new ExcluirClienteViewModel(
+            nomeCliente,
+            Navigation);
+
+        BindingContext = _viewModel;
     }
 }

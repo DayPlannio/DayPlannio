@@ -2,24 +2,28 @@
 
 namespace DayPlannio.App
 {
-	public partial class App : Application
-	{
-		public App()
-		{
-			InitializeComponent();
-		}
+    public partial class App : Application
+    {
+        public static HttpClient HttpClient { get; } = new HttpClient
+        {
+#if ANDROID
+            BaseAddress = new Uri("http://10.0.2.2:5143/")
+#else
+            BaseAddress = new Uri("http://localhost:5143/")
+#endif
+        };
 
-		protected override Window CreateWindow(IActivationState? activationState)
-		{
-			var navigationPage = new NavigationPage(new Financeiro());
+        public App()
+        {
+            InitializeComponent();
+        }
 
-			Window w = new Window(navigationPage)
-			{
-				Height = 600,
-				Width = 400
-			};
-
-			return w;
-		}
-	}
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            Window w = new Window(new NavigationPage(new CadastroUsuario()));
+            w.Height = 600;
+            w.Width = 400;
+            return w;
+        }
+    }
 }

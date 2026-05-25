@@ -1,17 +1,23 @@
+using DayPlannio.App.ViewModels;
+
 namespace DayPlannio.App.Views;
 
 public partial class ConcluirAgendamento : ContentPage
 {
-    public ConcluirAgendamento()
+    public ConcluirAgendamentoViewModel ViewModel { get; }
+
+    public ConcluirAgendamento(
+        string nomeCliente,
+        string servico)
     {
         InitializeComponent();
-    }
 
-    private void OnConcluirClicked(object sender, EventArgs e)
-    {
-    }
+        ViewModel =
+            new ConcluirAgendamentoViewModel(
+                Navigation,
+                nomeCliente,
+                servico);
 
-    private void OnCancelarClicked(object sender, EventArgs e)
-    {
+        BindingContext = ViewModel;
     }
 }

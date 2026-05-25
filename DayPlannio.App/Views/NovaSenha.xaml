@@ -1,30 +1,90 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DayPlannio.App.Views.NovaSenha"
-             BackgroundColor="#F5F5F5"
-             NavigationPage.HasNavigationBar="False"
-             Title="Nova Senha">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.NovaSenha"
+    BackgroundColor="#F5F5F5"
+    NavigationPage.HasNavigationBar="False">
+
     <VerticalStackLayout Padding="15">
 
-        <Border BackgroundColor="{StaticResource White}" StrokeThickness="0" StrokeShape="RoundRectangle 15" Padding="25" Margin="0,45,0,0">
+        <Border
+            BackgroundColor="{StaticResource White}"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 15"
+            Padding="25"
+            Margin="0,45,0,0">
 
             <VerticalStackLayout Spacing="8">
-                <Image Source="logo.png" HeightRequest="80" HorizontalOptions="Center" Margin="0,0,0,5"/>
 
-                <Label Text="Nova Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                    <Entry x:Name="txt_nova_senha" Placeholder="Digite sua nova senha" IsPassword="True"/>
+                <Image
+                    Source="logo.png"
+                    HeightRequest="80"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,5"/>
+
+                <Label
+                    Text="Nova Senha"
+                    FontSize="14"
+                    TextColor="{StaticResource LabelColor}"/>
+
+                <Border
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="*,40">
+                        <Entry
+                            Grid.Column="0"
+                            Placeholder="Crie uma senha"
+                            IsPassword="{Binding SenhaOculta}"
+                            Text="{Binding NovaSenha}"
+                            BackgroundColor="Transparent"/>
+                        <ImageButton
+                            Grid.Column="1"
+                            Source="{Binding IconeSenha}"
+                            WidthRequest="22"
+                            HeightRequest="22"
+                            BackgroundColor="Transparent"
+                            Command="{Binding MostrarOcultarSenhaCommand}"/>
+                    </Grid>
                 </Border>
 
-                <Label Text="Confirmar Nova Senha" FontSize="14" TextColor="{StaticResource LabelColor}"/>
-                <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                    <Entry x:Name="txt_confirmar_senha" Placeholder="Repita a nova senha" IsPassword="True"/>
+                <Label
+                    Text="Confirmar Senha"
+                    FontSize="14"
+                    TextColor="{StaticResource LabelColor}"/>
+
+                <Border
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="*,40">
+                        <Entry
+                            Grid.Column="0"
+                            Placeholder="Confirme sua senha"
+                            IsPassword="{Binding ConfirmarSenhaOculta}"
+                            Text="{Binding ConfirmarSenha}"
+                            BackgroundColor="Transparent"/>
+                        <ImageButton
+                            Grid.Column="1"
+                            Source="{Binding IconeConfirmarSenha}"
+                            WidthRequest="22"
+                            HeightRequest="22"
+                            BackgroundColor="Transparent"
+                            Command="{Binding MostrarOcultarConfirmarSenhaCommand}"/>
+                    </Grid>
                 </Border>
 
-                <Label x:Name="ErroLabel" TextColor="Red" IsVisible="False"/>
+                <Label
+                    Text="{Binding ErroMensagem}"
+                    TextColor="Red"
+                    IsVisible="{Binding ErroVisivel}"/>
 
-                <Button Text="Salvar" TextColor="White" Clicked="OnSalvarClicked" CornerRadius="20">
+                <Button
+                    Text="Salvar"
+                    TextColor="White"
+                    Command="{Binding SalvarCommand}"
+                    CornerRadius="20">
                     <Button.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                             <GradientStop Color="#006260" Offset="0.0"/>
@@ -35,5 +95,6 @@
 
             </VerticalStackLayout>
         </Border>
+
     </VerticalStackLayout>
 </ContentPage>

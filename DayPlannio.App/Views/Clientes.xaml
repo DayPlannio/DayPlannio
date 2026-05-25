@@ -1,161 +1,251 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:DayPlannio.App.Views"
-             x:Class="DayPlannio.App.Views.Clientes"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#F5F5F5">
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.Clientes"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F5F5F5">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-        <Border Grid.Row="0"
-                BackgroundColor="White"
-                StrokeThickness="0"
-                StrokeShape="RoundRectangle 10"
-                Margin="15,15,15,5"
-                Padding="10,0">
-            <Entry x:Name="txt_busca"
-                   Placeholder="Procure por nome"
-                   TextChanged="OnBuscaTextChanged"/>
+        <Border
+            Grid.Row="0"
+            BackgroundColor="White"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 10"
+            Margin="15,10"
+            Padding="10,0">
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <Entry
+            Grid.Column="0"
+            Placeholder="Procure por nome"
+            Text="{Binding Busca}"
+            VerticalOptions="Center"/>
+
+                <ImageButton
+            Grid.Column="1"
+            Source="icon_pesquisa.png"
+            WidthRequest="16"
+            HeightRequest="16"
+            Padding="0"
+            BackgroundColor="Transparent"
+            VerticalOptions="Center"/>
+
+            </Grid>
+
         </Border>
 
-        <VerticalStackLayout Grid.Row="1" Padding="20,15,20,0">
-            <Label Text="Gestão de Clientes"
-                   FontSize="22"
-                   FontAttributes="Bold"
-                   TextColor="#181C1C"/>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Padding="20,15,20,0">
+
+            <Label
+                Text="Gestão de Clientes"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="#181C1C"/>
+
         </VerticalStackLayout>
 
-        <CollectionView Grid.Row="2"
-                        x:Name="listaClientes"
-                        Margin="15,10">
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding Clientes}"
+            Margin="15,10">
 
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8"/>
+
+                <LinearItemsLayout
+                    Orientation="Vertical"
+                    ItemSpacing="8"/>
+
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
+
                 <DataTemplate>
-                    <Border BackgroundColor="White"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 15"
-                            Padding="15">
 
-                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
-                              ColumnDefinitions="*,Auto">
+                    <Border
+                        BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="15">
 
-                            <Label Grid.Row="0" Grid.Column="0"
-                                   Text="{Binding Nome}"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   TextColor="#181C1C"
-                                   VerticalOptions="Center"/>
+                        <Grid
+                            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                            ColumnDefinitions="*,Auto">
 
-                            <HorizontalStackLayout Grid.Row="0" Grid.Column="1"
-                                                   Spacing="8"
-                                                   HorizontalOptions="End"
-                                                   VerticalOptions="Center">
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="{Binding Nome}"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#181C1C"
+                                VerticalOptions="Center"/>
 
-                                <ImageButton Source="icon_editar.png"
-                                             HeightRequest="16"
-                                             WidthRequest="16"
-                                             MinimumHeightRequest="0"
-                                             MinimumWidthRequest="0"
-                                             Padding="0"
-                                             BackgroundColor="Transparent"
-                                             Clicked="OnEditarClicked"
-                                             CommandParameter="{Binding .}"/>
+                            <HorizontalStackLayout
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Spacing="8"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center">
 
-                                <ImageButton Source="icon_excluir.png"
-                                             HeightRequest="16"
-                                             WidthRequest="16"
-                                             MinimumHeightRequest="0"
-                                             MinimumWidthRequest="0"
-                                             Padding="0"
-                                             BackgroundColor="Transparent"
-                                             Clicked="OnDeletarClicked"
-                                             CommandParameter="{Binding .}"/>
+                                <ImageButton
+                                    Source="icon_editar.png"
+                                    HeightRequest="16"
+                                    WidthRequest="16"
+                                    MinimumHeightRequest="0"
+                                    MinimumWidthRequest="0"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type views:Clientes}}, Path=BindingContext.EditarCommand}"
+                                    CommandParameter="{Binding .}"/>
 
-                            </HorizontalStackLayout>
-
-                            <HorizontalStackLayout Grid.Row="1"
-                                                   Grid.Column="0"
-                                                   Grid.ColumnSpan="2"
-                                                   Margin="0,6,0,0"
-                                                   Spacing="6">
-
-                                <Image Source="icon_telefone.png"
-                                       WidthRequest="14"
-                                       HeightRequest="14"/>
-
-                                <Label Text="{Binding Telefone}"
-                                       FontSize="13"
-                                       TextColor="#3E4948"/>
+                                <ImageButton
+                                    Source="icon_excluir.png"
+                                    HeightRequest="16"
+                                    WidthRequest="16"
+                                    MinimumHeightRequest="0"
+                                    MinimumWidthRequest="0"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type views:Clientes}}, Path=BindingContext.DeletarCommand}"
+                                    CommandParameter="{Binding .}"/>
 
                             </HorizontalStackLayout>
 
-                            <HorizontalStackLayout Grid.Row="2"
-                                                   Grid.Column="0"
-                                                   Grid.ColumnSpan="2"
-                                                   Margin="0,4,0,0"
-                                                   Spacing="6">
+                            <HorizontalStackLayout
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Margin="0,6,0,0"
+                                Spacing="6">
 
-                                <Image Source="icon_localizacao.png"
-                                       WidthRequest="14"
-                                       HeightRequest="14"/>
+                                <Image
+                                    Source="icon_telefone.png"
+                                    WidthRequest="14"
+                                    HeightRequest="14"/>
 
-                                <Label Text="{Binding Endereco}"
-                                       FontSize="13"
-                                       TextColor="#3E4948"/>
+                                <Label
+                                    Text="{Binding Telefone}"
+                                    FontSize="13"
+                                    TextColor="#3E4948"/>
 
                             </HorizontalStackLayout>
 
-                            <BoxView Grid.Row="3" Grid.ColumnSpan="2"
-                                     HeightRequest="1"
-                                     Color="#EBEBEB"
-                                     Margin="0,10,0,6"/>
+                            <HorizontalStackLayout
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Margin="0,4,0,0"
+                                Spacing="6">
 
-                            <Label Grid.Row="4" Grid.Column="0"
-                                   Text="{Binding CreatedAt, StringFormat='Última Visita: {0:MMM dd, yyyy}'}"
-                                   FontSize="12"
-                                   TextColor="Gray"/>
+                                <Image
+                                    Source="icon_localizacao.png"
+                                    WidthRequest="14"
+                                    HeightRequest="14"/>
 
-                            <Label Grid.Row="4" Grid.Column="1"
-                                   Text="Ver Histórico →"
-                                   FontSize="12"
-                                   TextColor="#006260"
-                                   FontAttributes="Bold">
+                                <Label
+                                    Text="{Binding Endereco}"
+                                    FontSize="13"
+                                    TextColor="#3E4948"/>
+
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout
+                                Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                Margin="0,5,0,0"
+                                Spacing="6"
+                                IsVisible="{Binding TemObservacoes}">
+
+                                <Image
+                                    Source="icon_observacao.png"
+                                    WidthRequest="14"
+                                    HeightRequest="14"/>
+
+                                <Label
+                                    Text="{Binding Observacoes}"
+                                    FontSize="12"
+                                    TextColor="#4F4F4F"/>
+
+                            </HorizontalStackLayout>
+
+                            <BoxView
+                                Grid.Row="4"
+                                Grid.ColumnSpan="2"
+                                HeightRequest="1"
+                                Color="#EBEBEB"
+                                Margin="0,10,0,6"/>
+
+                            <Label
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                Text="{Binding UltimaVisitaTexto}"
+                                FontSize="12"
+                                TextColor="Gray"/>
+
+                            <Label
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                Text="Ver Histórico →"
+                                FontSize="12"
+                                TextColor="#006260"
+                                FontAttributes="Bold">
+
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnHistoricoClicked"
-                                                          CommandParameter="{Binding .}"/>
+
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type views:Clientes}}, Path=BindingContext.HistoricoCommand}"
+                                        CommandParameter="{Binding .}"/>
+
                                 </Label.GestureRecognizers>
+
                             </Label>
 
                         </Grid>
 
                     </Border>
+
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
 
         </CollectionView>
 
-        <Button Grid.Row="2"
-                Text="+"
-                FontSize="24"
-                TextColor="White"
-                WidthRequest="55"
-                HeightRequest="55"
-                CornerRadius="28"
-                VerticalOptions="End"
-                HorizontalOptions="End"
-                Margin="0,0,20,20"
-                Clicked="OnNovoClienteClicked">
+        <Button
+            Grid.Row="2"
+            Text="+"
+            FontSize="24"
+            TextColor="White"
+            WidthRequest="55"
+            HeightRequest="55"
+            CornerRadius="28"
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            Margin="0,0,20,20"
+            Command="{Binding NovoClienteCommand}">
 
             <Button.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#006260" Offset="0.0"/>
-                    <GradientStop Color="#1E7C7A" Offset="1.0"/>
+
+                <LinearGradientBrush
+                    StartPoint="0,0"
+                    EndPoint="1,0">
+
+                    <GradientStop
+                        Color="#006260"
+                        Offset="0.0"/>
+
+                    <GradientStop
+                        Color="#1E7C7A"
+                        Offset="1.0"/>
+
                 </LinearGradientBrush>
+
             </Button.Background>
 
         </Button>

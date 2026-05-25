@@ -7,21 +7,25 @@ namespace DayPlannio.Api.Services
 {
     public class RelatorioPdfService
     {
+
+        private static readonly TimeZoneInfo _fuso =
+    TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
+
         public byte[] GerarRelatorioFinanceiro(
-            string periodo,
-            DateTime dataInicio,
-            DateTime dataFim,
-            decimal receitaAgendamentos,
-            decimal custoAgendamentos,
-            decimal entradasAvulsas,
-            decimal saidasAvulsas,
-            decimal lucroBruto,
-            decimal lucroLiquido,
-            int totalServicos,
-            List<Agendamento> agendamentos,
-            List<Financeiro> registros,
-            List<Cliente> clientes,
-            List<TipoServico> tiposServico)
+    string periodo,
+    DateTime dataInicio,
+    DateTime dataFim,
+    decimal receitaAgendamentos,
+    decimal custoAgendamentos,
+    decimal entradasAvulsas,
+    decimal saidasAvulsas,
+    decimal lucroBruto,
+    decimal lucroLiquido,
+    int totalServicos,
+    List<Agendamento> agendamentos,
+    List<Financeiro> registros,
+    List<Cliente> clientes,
+    List<TipoServico> tiposServico)
         {
             QuestPDF.Settings.License = LicenseType.Community;
 
@@ -35,150 +39,119 @@ namespace DayPlannio.Api.Services
 
                     page.Header().Column(col =>
                     {
-                        col.Item()
-                            .Text("DayPlannio — Relatório Financeiro")
-                            .FontSize(18)
-                            .Bold()
-                            .AlignCenter();
+                        col.Item().Text("DayPlannio — Relatório Financeiro")
+                            .FontSize(18).Bold().AlignCenter();
 
-                        col.Item()
-                            .Text($"Período: {periodo.ToUpper()} | {dataInicio:dd/MM/yyyy} até {dataFim:dd/MM/yyyy}")
-                            .FontSize(10)
-                            .AlignCenter();
+                        var inicioLocal = TimeZoneInfo.ConvertTimeFromUtc(dataInicio, _fuso);
+                        var fimLocal = TimeZoneInfo.ConvertTimeFromUtc(dataFim, _fuso);
 
-                        col.Item()
-                            .PaddingTop(5)
-                            .LineHorizontal(1);
+                        col.Item().Text($"Período: {periodo.ToUpper()} | {inicioLocal:dd/MM/yyyy} até {fimLocal:dd/MM/yyyy}")
+                            .FontSize(10).AlignCenter();
+                        col.Item().PaddingTop(5).LineHorizontal(1);
                     });
 
                     page.Content().Column(col =>
                     {
-                        col.Item()
-                            .PaddingTop(15)
-                            .Text("Resumo")
-                            .FontSize(14)
-                            .Bold();
-
-                        col.Item()
-                            .PaddingTop(5)
-                            .Table(table =>
+                        col.Item().PaddingTop(15).Text("Resumo").FontSize(14).Bold();
+                        col.Item().PaddingTop(5).Table(table =>
+                        {
+                            table.ColumnsDefinition(c =>
                             {
-                                table.ColumnsDefinition(c =>
-                                {
-                                    c.RelativeColumn();
-                                    c.RelativeColumn();
-                                });
-
-                                table.Cell().Text("Receita dos Agendamentos");
-                                table.Cell().Text($"R$ {receitaAgendamentos:F2}");
-
-                                table.Cell().Text("Custo dos Agendamentos");
-                                table.Cell().Text($"R$ {custoAgendamentos:F2}");
-
-                                table.Cell().Text("Entradas Avulsas");
-                                table.Cell().Text($"R$ {entradasAvulsas:F2}");
-
-                                table.Cell().Text("Saídas Avulsas");
-                                table.Cell().Text($"R$ {saidasAvulsas:F2}");
-
-                                table.Cell().Text("Lucro Bruto").Bold();
-                                table.Cell().Text($"R$ {lucroBruto:F2}").Bold();
-
-                                table.Cell().Text("Lucro Líquido").Bold();
-                                table.Cell().Text($"R$ {lucroLiquido:F2}").Bold();
-
-                                table.Cell().Text("Total de Serviços");
-                                table.Cell().Text($"{totalServicos}");
+                                c.RelativeColumn();
+                                c.RelativeColumn();
                             });
 
-                        col.Item()
-                            .PaddingTop(20)
-                            .Text("Agendamentos Concluídos")
-                            .FontSize(14)
-                            .Bold();
+                            table.Cell().Text("Receita dos Agendamentos");
+                            table.Cell().Text($"R$ {receitaAgendamentos:F2}");
 
-                        col.Item()
-                            .PaddingTop(5)
-                            .Table(table =>
+                            table.Cell().Text("Custo dos Agendamentos");
+                            table.Cell().Text($"R$ {custoAgendamentos:F2}");
+
+                            table.Cell().Text("Entradas Avulsas");
+                            table.Cell().Text($"R$ {entradasAvulsas:F2}");
+
+                            table.Cell().Text("Saídas Avulsas");
+                            table.Cell().Text($"R$ {saidasAvulsas:F2}");
+
+                            table.Cell().Text("Lucro Bruto").Bold();
+                            table.Cell().Text($"R$ {lucroBruto:F2}").Bold();
+
+                            table.Cell().Text("Lucro Líquido").Bold();
+                            table.Cell().Text($"R$ {lucroLiquido:F2}").Bold();
+
+                            table.Cell().Text("Total de Serviços");
+                            table.Cell().Text($"{totalServicos}");
+                        });
+
+                        col.Item().PaddingTop(20).Text("Agendamentos Concluídos").FontSize(14).Bold();
+                        col.Item().PaddingTop(5).Table(table =>
+                        {
+                            table.ColumnsDefinition(c =>
                             {
-                                table.ColumnsDefinition(c =>
-                                {
-                                    c.RelativeColumn(2);
-                                    c.RelativeColumn(2);
-                                    c.RelativeColumn(2);
-                                    c.RelativeColumn();
-                                    c.RelativeColumn();
-                                });
-
-                                table.Header(header =>
-                                {
-                                    header.Cell().Text("Data").Bold();
-                                    header.Cell().Text("Cliente").Bold();
-                                    header.Cell().Text("Serviço").Bold();
-                                    header.Cell().Text("Valor Cobrado").Bold();
-                                    header.Cell().Text("Custo Material").Bold();
-                                });
-
-                                foreach (var a in agendamentos)
-                                {
-                                    var cliente = clientes.FirstOrDefault(c => c.Id == a.ClienteId);
-                                    var tipoServico = tiposServico.FirstOrDefault(t => t.Id == a.TipoServicoId);
-
-                                    table.Cell().Text(a.DataHora.ToString("dd/MM/yyyy HH:mm"));
-                                    table.Cell().Text(cliente?.Nome ?? "-");
-                                    table.Cell().Text(tipoServico?.Tipo ?? "-");
-                                    table.Cell().Text($"R$ {a.ValorCobrado:F2}");
-                                    table.Cell().Text($"R$ {a.CustoMaterial:F2}");
-                                }
+                                c.RelativeColumn(2);
+                                c.RelativeColumn(2);
+                                c.RelativeColumn(2);
+                                c.RelativeColumn();
+                                c.RelativeColumn();
                             });
 
-                        col.Item()
-                            .PaddingTop(20)
-                            .Text("Registros Financeiros Avulsos")
-                            .FontSize(14)
-                            .Bold();
-
-                        col.Item()
-                            .PaddingTop(5)
-                            .Table(table =>
+                            table.Header(header =>
                             {
-                                table.ColumnsDefinition(c =>
-                                {
-                                    c.RelativeColumn();
-                                    c.RelativeColumn();
-                                    c.RelativeColumn();
-                                    c.RelativeColumn();
-                                });
-
-                                table.Header(header =>
-                                {
-                                    header.Cell().Text("Data").Bold();
-                                    header.Cell().Text("Descrição").Bold();
-                                    header.Cell().Text("Categoria").Bold();
-                                    header.Cell().Text("Valor").Bold();
-                                });
-
-                                foreach (var f in registros)
-                                {
-                                    table.Cell().Text(f.Data.ToString("dd/MM/yyyy"));
-                                    table.Cell().Text(f.Descricao);
-                                    table.Cell().Text(f.Categoria ?? "-");
-                                    table.Cell().Text(
-                                        $"{(f.Tipo == TipoFinanceiro.Entrada ? "+" : "-")} R$ {f.Valor:F2}"
-                                    );
-                                }
+                                header.Cell().Text("Data").Bold();
+                                header.Cell().Text("Cliente").Bold();
+                                header.Cell().Text("Serviço").Bold();
+                                header.Cell().Text("Valor Cobrado").Bold();
+                                header.Cell().Text("Custo Material").Bold();
                             });
+
+                            foreach (var a in agendamentos)
+                            {
+                                var cliente = clientes.FirstOrDefault(c => c.Id == a.ClienteId);
+                                var tipoServico = tiposServico.FirstOrDefault(t => t.Id == a.TipoServicoId);
+                                var dataLocal = TimeZoneInfo.ConvertTimeFromUtc(a.DataHora, _fuso);
+
+                                table.Cell().Text(dataLocal.ToString("dd/MM/yyyy HH:mm"));
+                                table.Cell().Text(cliente?.Nome ?? "-");
+                                table.Cell().Text(tipoServico?.Tipo ?? "-");
+                                table.Cell().Text($"R$ {a.ValorCobrado:F2}");
+                                table.Cell().Text($"R$ {a.CustoMaterial:F2}");
+                            }
+                        });
+
+                        col.Item().PaddingTop(20).Text("Registros Financeiros Avulsos").FontSize(14).Bold();
+                        col.Item().PaddingTop(5).Table(table =>
+                        {
+                            table.ColumnsDefinition(c =>
+                            {
+                                c.RelativeColumn(2);
+                                c.RelativeColumn(3);
+                                c.RelativeColumn(2);
+                            });
+
+                            table.Header(header =>
+                            {
+                                header.Cell().Text("Data").Bold();
+                                header.Cell().Text("Descrição").Bold();
+                                header.Cell().Text("Valor").Bold();
+                            });
+
+                            foreach (var f in registros)
+                            {
+                                var dataLocal = TimeZoneInfo.ConvertTimeFromUtc(f.Data, _fuso);
+                                table.Cell().Text(dataLocal.ToString("dd/MM/yyyy"));
+                                table.Cell().Text(f.Descricao);
+                                table.Cell().Text($"{(f.Tipo == TipoFinanceiro.Entrada ? "+" : "-")} R$ {f.Valor:F2}");
+                            }
+                        });
                     });
 
-                    page.Footer()
-                        .AlignCenter()
-                        .Text(x =>
-                        {
-                            x.Span("Página ");
-                            x.CurrentPageNumber();
-                            x.Span(" de ");
-                            x.TotalPages();
-                        });
+                    page.Footer().AlignCenter().Text(x =>
+                    {
+                        x.Span("Página ");
+                        x.CurrentPageNumber();
+                        x.Span(" de ");
+                        x.TotalPages();
+                    });
                 });
             }).GeneratePdf();
         }

@@ -1,39 +1,23 @@
-using System.ComponentModel;
+using DayPlannio.App.ViewModel;
+using DayPlannio.App.ViewModels;
 
 namespace DayPlannio.App.Views;
 
 public partial class EditarAgendamento : ContentPage
 {
-    public EditarAgendamento()
+    private readonly EditarAgendamentoViewModel _viewModel;
+
+    public EditarAgendamento(AgendamentoItemViewModel agendamento)
     {
         InitializeComponent();
+
+        _viewModel = new EditarAgendamentoViewModel(agendamento, Navigation);
+        BindingContext = _viewModel;
     }
 
-    private async void OnBackClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-    }
-
-    private void OnClienteChanged(object sender, EventArgs e)
-    {
-    }
-
-    private void OnServicoChanged(object sender, EventArgs e)
-    {
-    }
-
-    private void OnDataChanged(object sender, DateChangedEventArgs e)
-    {
-    }
-
-    private void OnHorarioChanged(object sender, PropertyChangedEventArgs e)
-    {
-    }
-
-    private async void OnSalvarClicked(object sender, EventArgs e)
-    {
-    }
-
-    private async void OnCancelarClicked(object sender, EventArgs e)
-    {
+        base.OnAppearing();
+        await _viewModel.CarregarDadosCommand.ExecuteAsync(null);
     }
 }

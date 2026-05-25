@@ -7,13 +7,25 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddDbContext<DayPlannioContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DayPlannioContext") ?? throw new InvalidOperationException("Connection string 'DayPlannioContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DayPlannioContext")
+        ?? throw new InvalidOperationException("Connection string 'DayPlannioContext' not found.")));
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+        options.JsonSerializerOptions.Converters.Add(
+            new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
 
 builder.Services.AddSingleton<ContextMongodb>();
@@ -24,13 +36,16 @@ ContextMongodb.IsSSL = Convert.ToBoolean(builder.Configuration.GetSection("Mongo
 
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
     .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(
-    ContextMongodb.ConnectionString, ContextMongodb.Database).AddDefaultTokenProviders();
+        ContextMongodb.ConnectionString, ContextMongodb.Database)
+    .AddDefaultTokenProviders();
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<EmailService>();
 builder.Services.AddScoped<RelatorioPdfService>();
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();

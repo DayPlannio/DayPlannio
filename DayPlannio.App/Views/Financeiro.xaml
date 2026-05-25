@@ -356,7 +356,8 @@
 
                     <CollectionView
                         ItemsSource="{Binding Registros}"
-                        SelectionMode="None">
+                        SelectionMode="None"
+                        MinimumHeightRequest="100">
 
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout
@@ -389,17 +390,27 @@
 
                                             <ImageButton
                                                 Source="icon_editar.png"
-                                                BackgroundColor="Transparent"
-                                                WidthRequest="16"
                                                 HeightRequest="16"
+                                                WidthRequest="16"
+                                                MinimumHeightRequest="0"
+                                                MinimumWidthRequest="0"
+                                                Padding="0"
+                                                BackgroundColor="Transparent"
+                                                Margin="10,0,0,0"
+                                                VerticalOptions="Center"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditarCommand}"
                                                 CommandParameter="{Binding .}"/>
 
                                             <ImageButton
                                                 Source="icon_excluir.png"
-                                                BackgroundColor="Transparent"
-                                                WidthRequest="16"
                                                 HeightRequest="16"
+                                                WidthRequest="16"
+                                                MinimumHeightRequest="0"
+                                                MinimumWidthRequest="0"
+                                                Padding="0"
+                                                BackgroundColor="Transparent"
+                                                Margin="10,0,0,0"
+                                                VerticalOptions="Center"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ExcluirCommand}"
                                                 CommandParameter="{Binding .}"/>
 

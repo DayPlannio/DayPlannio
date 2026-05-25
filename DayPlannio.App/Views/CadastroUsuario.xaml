@@ -63,22 +63,27 @@
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 10">
 
-                        <Grid ColumnDefinitions="*,40">
+                            <Grid ColumnDefinitions="*,40">
 
-                            <Entry Grid.Column="0"
+                                <Entry Grid.Column="0"
                                    Placeholder="Crie uma senha"
                                    IsPassword="{Binding SenhaOculta}"
                                    Text="{Binding Senha}"
                                    BackgroundColor="Transparent"/>
 
-                            <ImageButton Grid.Column="1"
+                                <ImageButton Grid.Column="1"
                                          Source="{Binding IconeSenha}"
-                                         WidthRequest="22"
-                                         HeightRequest="22"
+                                         HeightRequest="16"
+                                         WidthRequest="16"
+                                         MinimumHeightRequest="0"
+                                         MinimumWidthRequest="0"
+                                         Padding="0"
+                                         Margin="10,0,0,0"
+                                         VerticalOptions="Center"
                                          BackgroundColor="Transparent"
                                          Command="{Binding MostrarOcultarSenhaCommand}"/>
-                        </Grid>
-                    </Border>
+                            </Grid>
+                        </Border>
 
                         <Label Text="Confirmar Senha"
                                FontSize="14"
@@ -98,8 +103,13 @@
 
                                 <ImageButton Grid.Column="1"
                                              Source="{Binding IconeConfirmarSenha}"
-                                             WidthRequest="22"
-                                             HeightRequest="22"
+                                             HeightRequest="16"
+                                             WidthRequest="16"
+                                             MinimumHeightRequest="0"
+                                             MinimumWidthRequest="0"
+                                             Padding="0"
+                                             Margin="10,0,0,0"
+                                             VerticalOptions="Center"
                                              BackgroundColor="Transparent"
                                              Command="{Binding MostrarOcultarConfirmarSenhaCommand}"/>
                             </Grid>

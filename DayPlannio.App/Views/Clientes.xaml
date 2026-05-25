@@ -21,19 +21,22 @@
             <Grid ColumnDefinitions="*,Auto">
 
                 <Entry
-            Grid.Column="0"
-            Placeholder="Procure por nome"
-            Text="{Binding Busca}"
-            VerticalOptions="Center"/>
+                    Grid.Column="0"
+                    Placeholder="Procure por nome"
+                    Text="{Binding Busca}"
+                    VerticalOptions="Center"/>  
 
                 <ImageButton
-            Grid.Column="1"
-            Source="icon_pesquisa.png"
-            WidthRequest="16"
-            HeightRequest="16"
-            Padding="0"
-            BackgroundColor="Transparent"
-            VerticalOptions="Center"/>
+                    Grid.Column="1"
+                    Source="icon_pesquisa.png"
+                    HeightRequest="16"
+                    WidthRequest="16"
+                    MinimumHeightRequest="0"
+                    MinimumWidthRequest="0"
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    Margin="10,0,0,0"
+                    VerticalOptions="Center"/>
 
             </Grid>
 

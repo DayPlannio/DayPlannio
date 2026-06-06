@@ -46,6 +46,12 @@ public partial class LoginViewModel : ObservableObject
             {
                 Preferences.Set("userId", userId);
 
+                await App.Db.Insert(new Models.SessaoLocal  
+                {
+                    UserId = userId,
+                    UltimoAcesso = DateTime.Now
+                });
+
                 Application.Current.Windows[0].Page =
                     new NavigationPage(new Views.Agendamentos());
             }

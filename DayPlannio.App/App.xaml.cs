@@ -1,9 +1,29 @@
-﻿using DayPlannio.App.Views;
+﻿using DayPlannio.App.Helpers;
+using DayPlannio.App.Views;
 
 namespace DayPlannio.App
 {
     public partial class App : Application
     {
+        static SQLiteDatabaseHelper? _db;
+
+        public static SQLiteDatabaseHelper Db
+        {
+            get
+            {
+                if (_db == null)
+                {
+                    string caminho_do_arquivo = Path.Combine(
+                        Environment.GetFolderPath(
+                            Environment.SpecialFolder.LocalApplicationData),
+                        "banco_sqlite_compras.db3"
+                            );
+
+                    _db = new SQLiteDatabaseHelper(caminho_do_arquivo);
+                }
+                return _db;
+            }
+        }
         public static HttpClient HttpClient { get; } = new HttpClient
         {
 #if ANDROID

@@ -34,7 +34,7 @@ namespace DayPlannio.Api.Controllers
         public async Task<IActionResult> Create([FromBody] Agendamento agendamento)
         {
             var agendamentoExistente = await _context.Agendamento
-                .Find(a => a.UsuarioId == agendamento.UsuarioId && a.DataHora == agendamento.DataHora && a.Status != StatusAgendamento.Cancelado)
+                .Find(a => a.UsuarioId == agendamento.UsuarioId && a.DataHora == agendamento.DataHora && a.Status != StatusAgendamento.Cancelado && a.Status != StatusAgendamento.Concluido)
                 .FirstOrDefaultAsync();
 
             if (agendamentoExistente != null)

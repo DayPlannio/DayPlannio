@@ -17,7 +17,7 @@ public class SQLiteDatabaseHelper
     public async Task<int> Insert(SessaoLocal s)
     {
         var resultado = await conexao.InsertAsync(s);
-        Debug.WriteLine($"[DB] Sessão salva — UserId: {s.UserId}, Acesso: {s.UltimoAcesso}");
+        Debug.WriteLine($"[DB] Sessão salva — Acesso: {s.UltimoAcesso}");
         return resultado;
     }
 

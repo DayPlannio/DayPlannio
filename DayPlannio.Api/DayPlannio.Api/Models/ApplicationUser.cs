@@ -12,5 +12,8 @@ namespace DayPlannio.Api.Models
 
         [Phone]
         public string? Telefone { get; set; }
+
+        public string? CodigoRecuperacao { get; set; }
+        public DateTime? CodigoRecuperacaoExpira { get; set; }
     }
 }

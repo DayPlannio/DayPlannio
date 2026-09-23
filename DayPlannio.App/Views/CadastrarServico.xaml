@@ -40,9 +40,15 @@
                     <VerticalStackLayout Spacing="8">
 
                         <Label
-                            Text="NOME"
                             FontSize="11"
-                            TextColor="#3E4948"/>
+                            TextColor="#3E4948">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="NOME " />
+                                    <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
                         <Border
                             BackgroundColor="#EBEBEB"
@@ -75,10 +81,16 @@
                         </Border>
 
                         <Label
-                            Text="TEMPO ESTIMADO (MIN)"
                             FontSize="11"
                             TextColor="#3E4948"
-                            Margin="0,10,0,0"/>
+                            Margin="0,10,0,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="TEMPO ESTIMADO (MIN) " />
+                                    <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
                         <Border
                             BackgroundColor="#EBEBEB"
@@ -96,6 +108,22 @@
                             Text="{Binding Erro}"
                             TextColor="#BA1A1A"
                             IsVisible="{Binding ErroVisivel}"/>
+
+                        <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
+                            <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
+                            <Label FontSize="11"
+                                   FontAttributes="Italic"
+                                   TextColor="#6E7978"
+                                   VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Campos com " />
+                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold,Italic" />
+                                        <Span Text="  são obrigatórios" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </HorizontalStackLayout>
 
                     </VerticalStackLayout>
 

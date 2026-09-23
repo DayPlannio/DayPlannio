@@ -12,7 +12,6 @@ namespace DayPlannio.Api.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly EmailService _emailService;
-        private static Dictionary<string, (string Code, DateTime Expiry)> _resetCodes = new();
 
         public AccountController(UserManager<ApplicationUser> userManager,
                                  SignInManager<ApplicationUser> signInManager,
@@ -49,8 +48,21 @@ namespace DayPlannio.Api.Controllers
             if (user == null)
                 return Ok(new { message = "Se o e-mail estiver cadastrado, você receberá as instruções." });
 
-            var code = new Random().Next(100000, 999999).ToString();
-            _resetCodes[model.Email] = (code, DateTime.UtcNow.AddMinutes(15));
+            string code;
+
+            if (user.CodigoRecuperacaoExpira != null
+                && DateTime.UtcNow <= user.CodigoRecuperacaoExpira
+                && !string.IsNullOrWhiteSpace(user.CodigoRecuperacao))
+            {
+                code = user.CodigoRecuperacao!;
+            }
+            else
+            {
+                code = new Random().Next(100000, 999999).ToString();
+                user.CodigoRecuperacao = code;
+                user.CodigoRecuperacaoExpira = DateTime.UtcNow.AddMinutes(15);
+                await _userManager.UpdateAsync(user);
+            }
 
             string corpo = $@"
             <h2>Redefinição de Senha</h2>
@@ -67,25 +79,27 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPassword model)
         {
-            if (!_resetCodes.TryGetValue(model.Email, out var codeData))
-                return BadRequest(new { message = "Código inválido ou expirado." });
-
-            if (codeData.Code != model.Code || DateTime.UtcNow > codeData.Expiry)
-            {
-                _resetCodes.Remove(model.Email);
-                return BadRequest(new { message = "Código inválido ou expirado." });
-            }
-
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
                 return BadRequest(new { message = "Usuário não encontrado." });
+
+            if (string.IsNullOrWhiteSpace(user.CodigoRecuperacao)
+                || user.CodigoRecuperacao != model.Code
+                || user.CodigoRecuperacaoExpira == null
+                || DateTime.UtcNow > user.CodigoRecuperacaoExpira)
+            {
+                return BadRequest(new { message = "Código inválido ou expirado." });
+            }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
 
             if (result.Succeeded)
             {
-                _resetCodes.Remove(model.Email);
+                user.CodigoRecuperacao = null;
+                user.CodigoRecuperacaoExpira = null;
+                await _userManager.UpdateAsync(user);
+
                 return Ok(new { message = "Senha redefinida com sucesso." });
             }
 
@@ -94,12 +108,16 @@ namespace DayPlannio.Api.Controllers
         }
 
         [HttpPost("verify-code")]
-        public IActionResult VerifyCode([FromBody] ResetPassword model)
+        public async Task<IActionResult> VerifyCode([FromBody] ResetPassword model)
         {
-            if (!_resetCodes.TryGetValue(model.Email, out var codeData))
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
                 return BadRequest(new { message = "Código inválido ou expirado." });
 
-            if (codeData.Code != model.Code || DateTime.UtcNow > codeData.Expiry)
+            if (string.IsNullOrWhiteSpace(user.CodigoRecuperacao)
+                || user.CodigoRecuperacao != model.Code
+                || user.CodigoRecuperacaoExpira == null
+                || DateTime.UtcNow > user.CodigoRecuperacaoExpira)
             {
                 return BadRequest(new { message = "Código inválido ou expirado." });
             }

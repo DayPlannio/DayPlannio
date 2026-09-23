@@ -24,9 +24,15 @@
                     Margin="0,0,0,5"/>
 
                 <Label
-                    Text="Nova Senha"
                     FontSize="14"
-                    TextColor="{StaticResource LabelColor}"/>
+                    TextColor="{StaticResource LabelColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Nova Senha " />
+                            <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
 
                 <Border
                     BackgroundColor="#EBEBEB"
@@ -55,9 +61,15 @@
                 </Border>
 
                 <Label
-                    Text="Confirmar Senha"
                     FontSize="14"
-                    TextColor="{StaticResource LabelColor}"/>
+                    TextColor="{StaticResource LabelColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Confirmar Senha " />
+                            <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
 
                 <Border
                     BackgroundColor="#EBEBEB"
@@ -89,6 +101,22 @@
                     Text="{Binding ErroMensagem}"
                     TextColor="Red"
                     IsVisible="{Binding ErroVisivel}"/>
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
+                    <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
+                    <Label FontSize="11"
+                           FontAttributes="Italic"
+                           TextColor="#6E7978"
+                           VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Campos com " />
+                                <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold,Italic" />
+                                <Span Text="  são obrigatórios" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </HorizontalStackLayout>
 
                 <Button
                     Text="Salvar"

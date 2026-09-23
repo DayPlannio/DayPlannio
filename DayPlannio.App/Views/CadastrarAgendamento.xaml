@@ -54,9 +54,15 @@
 
                         <VerticalStackLayout Spacing="8">
 
-                            <Label Text="CLIENTE"
-                                   FontSize="11"
-                                   TextColor="#3E4948"/>
+                            <Label FontSize="11"
+                                   TextColor="#3E4948">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="CLIENTE " />
+                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
                             <Border BackgroundColor="#EBEBEB"
                                     StrokeThickness="0"
@@ -85,10 +91,16 @@
 
                             </Border>
 
-                            <Label Text="TIPO DE SERVIÇO"
-                                   FontSize="11"
+                            <Label FontSize="11"
                                    TextColor="#3E4948"
-                                   Margin="0,10,0,0"/>
+                                   Margin="0,10,0,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="TIPO DE SERVIÇO " />
+                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
                             <Border BackgroundColor="#EBEBEB"
                                     StrokeThickness="0"
@@ -128,9 +140,15 @@
 
                         <VerticalStackLayout Spacing="10">
 
-                            <Label Text="DATA DO ATENDIMENTO"
-                                   FontSize="11"
-                                   TextColor="#3E4948"/>
+                            <Label FontSize="11"
+                                   TextColor="#3E4948">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="DATA DO ATENDIMENTO " />
+                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
                             <Border BackgroundColor="#EBEBEB"
                                     StrokeThickness="0"
@@ -159,10 +177,16 @@
 
                             </Border>
 
-                            <Label Text="HORÁRIO"
-                                   FontSize="11"
+                            <Label FontSize="11"
                                    TextColor="#3E4948"
-                                   Margin="0,10,0,0"/>
+                                   Margin="0,10,0,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="HORÁRIO " />
+                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
                             <Border BackgroundColor="#EBEBEB"
                                     StrokeThickness="0"
@@ -215,10 +239,16 @@
 
                             </HorizontalStackLayout>
 
-                            <Label Text="VALOR COBRADO"
-                                   FontSize="11"
+                            <Label FontSize="11"
                                    TextColor="#3E4948"
-                                   Margin="0,8,0,0"/>
+                                   Margin="0,8,0,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="VALOR COBRADO " />
+                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
                             <Border BackgroundColor="#EBEBEB"
                                     StrokeThickness="0"
@@ -311,6 +341,22 @@
                            IsVisible="{Binding ErroVisivel}"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center"/>
+
+                    <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
+                        <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
+                        <Label FontSize="11"
+                               FontAttributes="Italic"
+                               TextColor="#6E7978"
+                               VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Campos com " />
+                                    <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold,Italic" />
+                                    <Span Text="  são obrigatórios" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </HorizontalStackLayout>
 
                     <Button Text="Confirmar Agendamento"
                             Command="{Binding ConfirmarCommand}"

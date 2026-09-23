@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4D7B0EFA-47F6-435C-91FB-248CEC418C84}|..\\DayPlannio.App\\DayPlannio.App.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.app\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|c:\\users\\aliss\\onedrive\\desktop\\dayplannio\\dayplannio.api\\dayplannio.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{27347179-0304-6365-46AC-F09BF18369E2}|DayPlannio.Api\\DayPlannio.Api.csproj|solutionrelative:dayplannio.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
@@ -19,12 +22,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "UsuarioService.cs",
+              "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "RelativeDocumentMoniker": "..\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "RelativeToolTip": "..\\DayPlannio.App\\Services\\UsuarioService.cs",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAqwIgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T14:32:09.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\appsettings.json",
               "RelativeDocumentMoniker": "DayPlannio.Api\\appsettings.json",
               "ToolTip": "C:\\Users\\aliss\\OneDrive\\Desktop\\DayPlannio\\DayPlannio.Api\\DayPlannio.Api\\appsettings.json",
               "RelativeToolTip": "DayPlannio.Api\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-09-23T14:28:45.726Z",
               "EditorCaption": ""

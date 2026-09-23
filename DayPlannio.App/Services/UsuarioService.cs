@@ -134,7 +134,6 @@ namespace DayPlannio.App.Services
             }
             catch
             {
-                // corpo não-JSON
             }
 
             return "";

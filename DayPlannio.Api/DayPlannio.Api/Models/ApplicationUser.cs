@@ -15,5 +15,6 @@ namespace DayPlannio.Api.Models
 
         public string? CodigoRecuperacao { get; set; }
         public DateTime? CodigoRecuperacaoExpira { get; set; }
+        public int TentativasCodigo { get; set; }
     }
 }

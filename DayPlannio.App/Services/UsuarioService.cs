@@ -86,22 +86,58 @@ namespace DayPlannio.App.Services
             return response.IsSuccessStatusCode;
         }
 
-        public static async Task<bool> RedefinirSenha(string email, string code, string newPassword, string confirmPassword)
+        public static async Task<(bool sucesso, string erro)> RedefinirSenha(string email, string code, string newPassword, string confirmPassword)
         {
             var body = new { email, code, newPassword, confirmPassword };
             var json = JsonSerializer.Serialize(body);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await App.HttpClient.PostAsync("api/account/reset-password", content);
-            return response.IsSuccessStatusCode;
+
+            if (response.IsSuccessStatusCode)
+                return (true, "");
+
+            var responseJson = await response.Content.ReadAsStringAsync();
+            return (false, ExtrairMensagemErro(responseJson));
         }
 
-        public static async Task<bool> VerificarCodigo(string email, string code)
+        public static async Task<(bool valido, string erro)> VerificarCodigo(string email, string code)
         {
             var body = new { email, code, newPassword = "TempValidacao@123", confirmPassword = "TempValidacao@123" };
             var json = JsonSerializer.Serialize(body);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await App.HttpClient.PostAsync("api/account/verify-code", content);
-            return response.IsSuccessStatusCode;
+
+            if (response.IsSuccessStatusCode)
+                return (true, "");
+
+            var responseJson = await response.Content.ReadAsStringAsync();
+            return (false, ExtrairMensagemErro(responseJson));
+        }
+
+        private static string ExtrairMensagemErro(string responseJson)
+        {
+            try
+            {
+                using var doc = JsonDocument.Parse(responseJson);
+                if (doc.RootElement.TryGetProperty("message", out var msg))
+                    return msg.GetString() ?? "";
+
+                if (doc.RootElement.TryGetProperty("errors", out var errors) &&
+                    errors.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var erro in errors.EnumerateArray())
+                    {
+                        if (erro.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(erro.GetString()))
+                            return erro.GetString()!;
+                    }
+                }
+            }
+            catch
+            {
+                // corpo não-JSON
+            }
+
+            return "";
         }
     }
 }

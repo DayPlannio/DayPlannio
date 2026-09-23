@@ -22,6 +22,25 @@ namespace DayPlannio.Api.Controllers
             _emailService = emailService;
         }
 
+        private const int MaxTentativasCodigo = 5;
+
+        private static bool CodigoCorreto(string? codigoArmazenado, string? codigoEnviado)
+        {
+            if (string.IsNullOrWhiteSpace(codigoArmazenado) || string.IsNullOrWhiteSpace(codigoEnviado))
+                return false;
+
+            var a = System.Text.Encoding.UTF8.GetBytes(codigoArmazenado);
+            var b = System.Text.Encoding.UTF8.GetBytes(codigoEnviado);
+            return System.Security.Cryptography.CryptographicOperations.FixedTimeEquals(a, b);
+        }
+
+        private static string GerarCodigo()
+        {
+            var bytes = System.Security.Cryptography.RandomNumberGenerator.GetBytes(4);
+            var valor = BitConverter.ToUInt32(bytes, 0) % 900000 + 100000;
+            return valor.ToString();
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
@@ -48,19 +67,21 @@ namespace DayPlannio.Api.Controllers
             if (user == null)
                 return Ok(new { message = "Se o e-mail estiver cadastrado, você receberá as instruções." });
 
+            bool reenviado = false;
             string code;
-
             if (user.CodigoRecuperacaoExpira != null
                 && DateTime.UtcNow <= user.CodigoRecuperacaoExpira
                 && !string.IsNullOrWhiteSpace(user.CodigoRecuperacao))
             {
+                reenviado = true;
                 code = user.CodigoRecuperacao!;
             }
             else
             {
-                code = new Random().Next(100000, 999999).ToString();
+                code = GerarCodigo();
                 user.CodigoRecuperacao = code;
                 user.CodigoRecuperacaoExpira = DateTime.UtcNow.AddMinutes(15);
+                user.TentativasCodigo = 0;
                 await _userManager.UpdateAsync(user);
             }
 
@@ -73,7 +94,12 @@ namespace DayPlannio.Api.Controllers
 
             await _emailService.SendEmailAsync(model.Email, "Redefinição de Senha - DayPlannio", corpo);
 
-            return Ok(new { message = "Se o e-mail estiver cadastrado, você receberá as instruções." });
+            return Ok(new
+            {
+                message = reenviado
+                ? "Reenviamos o mesmo código. Ele continua válido por 15 minutos."
+                : "Se o e-mail estiver cadastrado, você receberá as instruções."
+            });
         }
 
         [HttpPost("reset-password")]
@@ -83,11 +109,28 @@ namespace DayPlannio.Api.Controllers
             if (user == null)
                 return BadRequest(new { message = "Usuário não encontrado." });
 
-            if (string.IsNullOrWhiteSpace(user.CodigoRecuperacao)
-                || user.CodigoRecuperacao != model.Code
-                || user.CodigoRecuperacaoExpira == null
-                || DateTime.UtcNow > user.CodigoRecuperacaoExpira)
+            if (user.CodigoRecuperacaoExpira != null && DateTime.UtcNow > user.CodigoRecuperacaoExpira)
             {
+                user.CodigoRecuperacao = null;
+                user.CodigoRecuperacaoExpira = null;
+                user.TentativasCodigo = 0;
+                await _userManager.UpdateAsync(user);
+                return BadRequest(new { message = "Código inválido ou expirado." });
+            }
+
+            if (user.TentativasCodigo >= MaxTentativasCodigo)
+            {
+                user.CodigoRecuperacao = null;
+                user.CodigoRecuperacaoExpira = null;
+                user.TentativasCodigo = 0;
+                await _userManager.UpdateAsync(user);
+                return BadRequest(new { message = "Número de tentativas excedido. Solicite um novo código." });
+            }
+
+            if (!CodigoCorreto(user.CodigoRecuperacao, model.Code))
+            {
+                user.TentativasCodigo++;
+                await _userManager.UpdateAsync(user);
                 return BadRequest(new { message = "Código inválido ou expirado." });
             }
 
@@ -98,6 +141,7 @@ namespace DayPlannio.Api.Controllers
             {
                 user.CodigoRecuperacao = null;
                 user.CodigoRecuperacaoExpira = null;
+                user.TentativasCodigo = 0;
                 await _userManager.UpdateAsync(user);
 
                 return Ok(new { message = "Senha redefinida com sucesso." });
@@ -114,11 +158,28 @@ namespace DayPlannio.Api.Controllers
             if (user == null)
                 return BadRequest(new { message = "Código inválido ou expirado." });
 
-            if (string.IsNullOrWhiteSpace(user.CodigoRecuperacao)
-                || user.CodigoRecuperacao != model.Code
-                || user.CodigoRecuperacaoExpira == null
-                || DateTime.UtcNow > user.CodigoRecuperacaoExpira)
+            if (user.CodigoRecuperacaoExpira != null && DateTime.UtcNow > user.CodigoRecuperacaoExpira)
             {
+                user.CodigoRecuperacao = null;
+                user.CodigoRecuperacaoExpira = null;
+                user.TentativasCodigo = 0;
+                await _userManager.UpdateAsync(user);
+                return BadRequest(new { message = "Código inválido ou expirado." });
+            }
+
+            if (user.TentativasCodigo >= MaxTentativasCodigo)
+            {
+                user.CodigoRecuperacao = null;
+                user.CodigoRecuperacaoExpira = null;
+                user.TentativasCodigo = 0;
+                await _userManager.UpdateAsync(user);
+                return BadRequest(new { message = "Número de tentativas excedido. Solicite um novo código." });
+            }
+
+            if (!CodigoCorreto(user.CodigoRecuperacao, model.Code))
+            {
+                user.TentativasCodigo++;
+                await _userManager.UpdateAsync(user);
                 return BadRequest(new { message = "Código inválido ou expirado." });
             }
 

@@ -55,7 +55,7 @@ public partial class NovaSenhaViewModel : ObservableObject
             if (NovaSenha != ConfirmarSenha)
                 throw new Exception("As senhas não coincidem.");
 
-            bool sucesso = await UsuarioService.RedefinirSenha(
+            var (sucesso, erro) = await UsuarioService.RedefinirSenha(
                 _email,
                 _codigo,
                 NovaSenha,
@@ -72,7 +72,7 @@ public partial class NovaSenhaViewModel : ObservableObject
             }
             else
             {
-                throw new Exception("Código inválido ou expirado.");
+                throw new Exception(string.IsNullOrWhiteSpace(erro) ? "Código inválido ou expirado." : erro);
             }
         }
         catch (Exception ex)

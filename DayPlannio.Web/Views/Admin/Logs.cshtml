@@ -1,0 +1,82 @@
+﻿@model DayPlannio.Web.Models.AdminPainelViewModel
+
+@{
+    ViewData["Title"] = "Log do Sistema";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 1200px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <div class="d-flex gap-2">
+            <a asp-controller="Admin" asp-action="Logout" class="btn btn-sair">Sair</a>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Log do Sistema</h2>
+        <a asp-controller="Admin" asp-action="Painel" class="btn btn-dp-outline">Voltar ao painel</a>
+    </div>
+
+    <div class="dp-card p-3 mb-4">
+        @if (Model.Logs.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-dp align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                            <th>Origem</th>
+                            <th>Usuário</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var l in Model.Logs)
+                        {
+                            <tr>
+                                <td>@FormatHelper.FormatarDataLocal(l.Data)</td>
+                                <td>
+                                    @{
+                                        var tipoLower = l.Tipo.ToLowerInvariant();
+                                        var badgeClass =
+                                            tipoLower.Contains("login") ? "concluido"
+                                            : tipoLower.Contains("criado") ? "concluido"
+                                            : tipoLower.Contains("concluido") ? "concluido"
+                                            : tipoLower.Contains("aprovada") ? "concluido"
+                                            : tipoLower.Contains("iniciado") ? "concluido"
+                                            : tipoLower.Contains("retomado") ? "concluido"
+                                            : tipoLower.Contains("senha") ? "pendente"
+                                            : tipoLower.Contains("recuperacao") ? "pendente"
+                                            : tipoLower.Contains("pausado") ? "pendente"
+                                            : tipoLower.Contains("editado") ? "pendente"
+                                            : tipoLower.Contains("logout") ? "cancelado"
+                                            : tipoLower.Contains("deletado") ? "cancelado"
+                                            : tipoLower.Contains("rejeitada") ? "cancelado"
+                                            : tipoLower.Contains("finalizado") ? "cancelado"
+                                            : "neutro";
+                                    }
+                                    <span class="badge badge-status @badgeClass">@l.Tipo</span>
+                                </td>
+                                <td>@l.Descricao</td>
+                                <td>@l.Origem</td>
+                                <td>@(string.IsNullOrEmpty(l.UsuarioNome) ? "-" : l.UsuarioNome)</td>
+                                <td>@(string.IsNullOrEmpty(l.Email) ? "-" : l.Email)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 11h6M9 15h4"/></svg></span>
+                <p class="empty-titulo">Nenhum registro no log</p>
+                <p class="empty-texto">As ações dos usuários aparecerão aqui automaticamente.</p>
+            </div>
+        }
+    </div>
+</div>

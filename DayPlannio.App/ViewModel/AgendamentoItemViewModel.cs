@@ -24,8 +24,43 @@ namespace DayPlannio.App.ViewModel
         public bool PodeCancelar { get; set; }
         public bool PodeConcluir { get; set; }
 
+    public string? EnderecoAtendimento { get; set; }
+    public DateTime? Inicio { get; set; }
+        public DateTime? Fim { get; set; }
+        public double? DuracaoMinutos { get; set; }
+
         public bool TemObservacoes =>
             !string.IsNullOrWhiteSpace(Observacoes);
+
+        public bool TemTempo => !string.IsNullOrWhiteSpace(TempoTexto);
+
+        public string TempoTexto
+        {
+            get
+            {
+                if (Inicio.HasValue && DuracaoMinutos.HasValue)
+                    return $"Início {Inicio.Value.ToLocalTime():HH:mm} • Duração {FormatarDuracao(DuracaoMinutos.Value)}";
+
+                if (Inicio.HasValue)
+                    return $"Início {Inicio.Value.ToLocalTime():HH:mm} • Em andamento";
+
+                return string.Empty;
+            }
+        }
+
+        private static string FormatarDuracao(double minutos)
+        {
+            var total = (int)Math.Round(minutos);
+
+            if (total < 60)
+                return $"{total}min";
+
+            var horas = total / 60;
+            var restantes = total % 60;
+
+            return restantes > 0 ? $"{horas}h {restantes}min" : $"{horas}h";
+        }
+
         public bool PodeEditar => StatusTexto == "AGENDADO";
     }
 }

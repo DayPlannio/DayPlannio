@@ -56,8 +56,14 @@ public partial class ClientesViewModel : ObservableObject
                 await ClienteService.GetClientes(_userId)
                 ?? new();
 
+            var podeGerarCredenciais =
+                await PlanoAppService.PermiteAsync(PlanoAppService.Full);
+
             foreach (var cliente in _todosClientes)
             {
+                cliente.PodeGerarCredenciais =
+                    podeGerarCredenciais && !cliente.TemAcessoWeb;
+
                 var historico =
                     await AgendamentoService.GetHistorico(cliente.Id)
                     ?? new();
@@ -156,5 +162,43 @@ public partial class ClientesViewModel : ObservableObject
             new HistoricoCliente(
                 cliente.Id,
                 cliente.Nome));
+    }
+
+    [RelayCommand]
+    private async Task GerarCredenciais(Cliente cliente)
+    {
+        try
+        {
+            if (!await PlanoAppService.ExigirPlanoAsync(PlanoAppService.Full))
+                return;
+
+            var confirmar = await _page.DisplayAlertAsync(
+                "Gerar email e senha",
+                $"Será criado um e-mail e uma senha provisória para {cliente.Nome} acessar o portal web. Deseja continuar?",
+                "Sim", "Nao");
+
+            if (!confirmar) return;
+
+            var resultado = await ClienteService.GerarCredenciais(cliente.Id);
+
+            if (!resultado.sucesso)
+                throw new Exception(string.IsNullOrWhiteSpace(resultado.erro)
+                    ? "Não foi possível gerar o acesso do cliente."
+                    : resultado.erro);
+
+            await _page.DisplayAlertAsync(
+                "Acesso gerado",
+                $"Acesso do cliente ao portal web:\n\nE-mail: {resultado.email}\nSenha provisória: {resultado.senha}\n\nEnvie esses dados para o cliente. Ele deverá trocar a senha no primeiro acesso.",
+                "OK");
+
+            await CarregarClientes();
+        }
+        catch (Exception ex)
+        {
+            await _page.DisplayAlertAsync(
+                "Erro",
+                ex.Message,
+                "OK");
+        }
     }
 }

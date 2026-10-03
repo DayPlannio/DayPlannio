@@ -1,0 +1,65 @@
+@model DayPlannio.Web.Models.RecusarPoliticaViewModel
+
+@{
+    ViewData["Title"] = "Não concordar com a política";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 860px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <a asp-controller="Account" asp-action="Perfil" class="btn btn-dp-outline">Voltar</a>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Você não concorda mais</h2>
+    </div>
+
+    <div class="dp-card p-4 mb-4" style="border-color:#f0c9c8;">
+        <div class="section-title" style="color:#d64541;">Se você não concordar, a sua conta será encerrada</div>
+
+        <p class="form-text mb-3">
+            A concordância com a Política de Privacidade é livre e revogável. Como você marcou
+            <strong>Não concordar</strong>, precisamos avisar antes de qualquer ação: encerrar a conta
+            remove os seus dados do DayPlannio.
+        </p>
+
+        @if (Model.AgendamentosFuturos > 0)
+        {
+            <div class="dp-card p-3 mb-3" style="background:#fff8e6; border:#f0dca8;">
+                <div class="form-text">
+                    Você possui <strong>@Model.AgendamentosFuturos @(Model.AgendamentosFuturos == 1 ? "agendamento futuro" : "agendamentos futuros")</strong>
+                    na agenda do profissional que atendeu você. O profissional será avisado e poderá
+                    cancelar esses agendamentos.
+                </div>
+            </div>
+        }
+
+        <div class="dp-card p-3 mb-3" style="background:#fdf3f2; border:none;">
+            <div class="form-text mb-2"><strong>O que será removido:</strong></div>
+            <ul class="form-text mb-2">
+                <li>seu cadastro de cliente e o e-mail usado para entrar no portal;</li>
+                <li>sua senha de acesso e o e-mail de recuperação;</li>
+                <li>os registros de acesso e as atividades vinculadas ao seu e-mail.</li>
+            </ul>
+            <div class="form-text mb-0">
+                <strong>O que continua existindo:</strong> os agendamentos que você já realizou
+                continuam visíveis para o prestador que atendeu você, por serem registros de atendimento.
+            </div>
+        </div>
+
+        <form method="post" asp-action="RecusarPoliticaPrivacidade">
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <a asp-controller="Account" asp-action="PoliticaPrivacidade" class="btn btn-dp-outline">
+                    Voltar e reler a política
+                </a>
+                <button type="submit" class="btn btn-sair">Sim, encerrar minha conta</button>
+            </div>
+        </form>
+
+        <p class="form-text text-center mt-3 mb-0">
+            Se não quiser encerrar nada, é só fechar esta página: a sua conta continua ativa.
+        </p>
+    </div>
+</div>

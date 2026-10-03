@@ -9,6 +9,10 @@
       {
         "Path": "DayPlannio.Api\\DayPlannio.Api.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "..\\DayPlannio.Web\\DayPlannio.Web.csproj",
+        "Action": "Start"
       }
     ]
   }

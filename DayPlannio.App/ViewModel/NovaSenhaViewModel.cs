@@ -34,6 +34,19 @@ public partial class NovaSenhaViewModel : ObservableObject
     [ObservableProperty]
     private bool confirmarSenhaOculta = true;
 
+    public bool SenhasDiferentes =>
+        !string.IsNullOrEmpty(ConfirmarSenha) && NovaSenha != ConfirmarSenha;
+
+    partial void OnNovaSenhaChanged(string value)
+    {
+        OnPropertyChanged(nameof(SenhasDiferentes));
+    }
+
+    partial void OnConfirmarSenhaChanged(string value)
+    {
+        OnPropertyChanged(nameof(SenhasDiferentes));
+    }
+
     public string IconeSenha =>
         SenhaOculta ? "icon_olho_aberto.png" : "icon_olho_fechado.png";
 
@@ -55,11 +68,21 @@ public partial class NovaSenhaViewModel : ObservableObject
             if (NovaSenha != ConfirmarSenha)
                 throw new Exception("As senhas não coincidem.");
 
-            bool sucesso = await UsuarioService.RedefinirSenha(
-                _email,
-                _codigo,
-                NovaSenha,
-                ConfirmarSenha);
+            bool sucesso;
+            string mensagem = "";
+            try
+            {
+                (sucesso, mensagem) = await UsuarioService.RedefinirSenha(
+                    _email,
+                    _codigo,
+                    NovaSenha,
+                    ConfirmarSenha);
+            }
+            catch
+            {
+                mensagem = "Código inválido ou expirado.";
+                sucesso = false;
+            }
 
             if (sucesso)
             {
@@ -72,7 +95,7 @@ public partial class NovaSenhaViewModel : ObservableObject
             }
             else
             {
-                throw new Exception("Código inválido ou expirado.");
+                throw new Exception(string.IsNullOrWhiteSpace(mensagem) ? "Código inválido ou expirado." : mensagem);
             }
         }
         catch (Exception ex)

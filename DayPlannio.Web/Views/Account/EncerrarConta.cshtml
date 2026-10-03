@@ -1,0 +1,72 @@
+@model DayPlannio.Web.Models.EncerrarContaViewModel
+
+@{
+    ViewData["Title"] = "Encerrar conta";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 860px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <a asp-controller="Account" asp-action="Perfil" class="btn btn-dp-outline">Voltar</a>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Encerrar conta</h2>
+    </div>
+
+    <div class="dp-card p-4 mb-4" style="border-color:#f0c9c8;">
+        <div class="section-title" style="color:#d64541;">Tem certeza que deseja encerrar a sua conta?</div>
+
+        <p class="form-text mb-3">
+            O encerramento é permanente. Leia o que acontece com os seus dados antes de confirmar.
+        </p>
+
+        @if (TempData["Erro"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Erro"]</div>
+        }
+
+        @if (Model.AgendamentosFuturos > 0)
+        {
+            <div class="dp-card p-3 mb-3" style="background:#fff8e6; border:#f0dca8;">
+                <div class="form-text">
+                    Você possui <strong>@Model.AgendamentosFuturos @(Model.AgendamentosFuturos == 1 ? "agendamento futuro" : "agendamentos futuros")</strong>
+                    na agenda do profissional que atendeu você. Ao encerrar a conta, o profissional será
+                    avisado e poderá cancelar esses agendamentos. Se preferir manter o atendimento,
+                    não encerre a conta agora.
+                </div>
+            </div>
+        }
+
+        <div class="dp-card p-3 mb-3" style="background:#fdf3f2; border:none;">
+            <div class="form-text mb-2"><strong>O que será removido:</strong></div>
+            <ul class="form-text mb-2">
+                <li>seu cadastro de cliente e o e-mail usado para entrar no portal;</li>
+                <li>sua senha de acesso e o e-mail de recuperação;</li>
+                <li>os registros de acesso e as atividades vinculadas ao seu e-mail.</li>
+            </ul>
+            <div class="form-text mb-0">
+                <strong>O que continua existindo:</strong> os agendamentos que você já realizou
+                continuam visíveis para o prestador que atendeu você, por serem registros de atendimento.
+            </div>
+        </div>
+
+        <form method="post" asp-action="EncerrarConta">
+            <div class="mb-3">
+                <label for="Confirmacao" class="form-label">Digite <span class="obrigatorio">ENCERRAR</span> para confirmar</label>
+                <input id="Confirmacao" name="Confirmacao" type="text" class="form-control" placeholder="ENCERRAR" autocomplete="off" />
+                <div class="form-text">Esta ação é permanente e não pode ser desfeita.</div>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <a asp-controller="Account" asp-action="Perfil" class="btn btn-dp-outline">Cancelar</a>
+                <button type="submit" class="btn btn-sair">Encerrar minha conta</button>
+            </div>
+        </form>
+    </div>
+
+    <p class="form-text text-center">
+        Também é possível revisar a <a asp-controller="Account" asp-action="PoliticaPrivacidade" class="auth-link">Política de Privacidade</a>.
+    </p>
+</div>

@@ -58,8 +58,7 @@
 
                         <VerticalStackLayout Spacing="12">
 
-                            <Label FontSize="11"
-                                   TextColor="#3E4948">
+                            <Label FontSize="11" TextColor="#3E4948">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="CLIENTE " />
@@ -96,9 +95,7 @@
 
                             </Border>
 
-                            <Label FontSize="11"
-                                   TextColor="#3E4948"
-                                   Margin="0,10,0,0">
+                            <Label FontSize="11" TextColor="#3E4948" Margin="0,10,0,0">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="TIPO DE SERVIÇO " />
@@ -146,8 +143,7 @@
 
                         <VerticalStackLayout Spacing="12">
 
-                            <Label FontSize="11"
-                                   TextColor="#3E4948">
+                            <Label FontSize="11" TextColor="#3E4948">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="DATA DO ATENDIMENTO " />
@@ -177,9 +173,7 @@
 
                             </Border>
 
-                            <Label FontSize="11"
-                                   TextColor="#3E4948"
-                                   Margin="0,10,0,0">
+                            <Label FontSize="11" TextColor="#3E4948" Margin="0,10,0,0">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="HORÁRIO " />
@@ -213,6 +207,46 @@
 
                     </Border>
 
+                    <Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="20">
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <HorizontalStackLayout Spacing="8">
+                                <Image Source="icon_localizacao.png" WidthRequest="18" HeightRequest="18"/>
+                                <Label Text="Local do Atendimento" FontSize="14" FontAttributes="Bold" TextColor="#006260"/>
+                            </HorizontalStackLayout>
+
+                            <Label FontSize="11" TextColor="#3E4948" Margin="0,8,0,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="ENDEREÇO DE ATENDIMENTO " />
+                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Border BackgroundColor="#EBEBEB"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                <Entry Text="{Binding EnderecoAtendimento}"
+                                       Placeholder="Rua, número, bairro, cidade - UF"
+                                       HeightRequest="45"
+                                       FontSize="13"
+                                       TextColor="#333"
+                                       PlaceholderColor="#999"
+                                       BackgroundColor="Transparent"/>
+
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
                     <Border BackgroundColor="#F0FAFA"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 15"
@@ -225,9 +259,7 @@
                                 <Label Text="Valores e Custos" FontSize="14" FontAttributes="Bold" TextColor="#006260"/>
                             </HorizontalStackLayout>
 
-                            <Label FontSize="11"
-                                   TextColor="#3E4948"
-                                   Margin="0,8,0,0">
+                            <Label FontSize="11" TextColor="#3E4948" Margin="0,8,0,0">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="VALOR COBRADO " />

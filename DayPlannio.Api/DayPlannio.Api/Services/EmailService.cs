@@ -15,7 +15,7 @@ namespace DayPlannio.Api.Services
             _emailSettings = emailSettings.Value;
         }
 
-        public async Task SendEmailAsync(string toEmail, string subject, string message)
+        public virtual async Task SendEmailAsync(string toEmail, string subject, string message)
         {
             try
             {

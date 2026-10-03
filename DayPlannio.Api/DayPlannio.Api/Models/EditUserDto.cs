@@ -12,5 +12,11 @@ namespace DayPlannio.Api.Models
 
         [Phone(ErrorMessage = "Telefone inválido.")]
         public string? Telefone { get; set; }
+
+        [MaxLength(100, ErrorMessage = "Cidade muito longa.")]
+        public string? Cidade { get; set; }
+
+        public bool? CidadeVisivel { get; set; }
+        public bool? TelefoneVisivel { get; set; }
     }
 }

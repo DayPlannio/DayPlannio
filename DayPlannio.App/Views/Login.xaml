@@ -27,9 +27,7 @@
                     HorizontalOptions="Center"
                     Margin="0,0,0,5"/>
 
-                <Label
-                    FontSize="14"
-                    TextColor="{StaticResource LabelColor}">
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="E-mail " />
@@ -49,9 +47,7 @@
                         Text="{Binding Email}"/>
                 </Border>
 
-                <Label
-                    FontSize="14"
-                    TextColor="{StaticResource LabelColor}">
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Senha " />
@@ -94,7 +90,7 @@
                     TextColor="Red"
                     IsVisible="{Binding ErroVisivel}"/>
 
-                <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,4,0,4">
                     <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
                     <Label FontSize="11"
                            FontAttributes="Italic"

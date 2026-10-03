@@ -1,0 +1,113 @@
+﻿@model DayPlannio.Web.Models.PerfilViewModel
+
+@{
+    ViewData["Title"] = "Meu Perfil";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 860px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <div class="d-flex gap-2">
+            <a asp-controller="Dashboard" asp-action="Metricas" class="btn btn-dp-outline">Voltar</a>
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-sair">Sair</a>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Meu Perfil</h2>
+    </div>
+
+    <form method="post" asp-action="Perfil">
+        <div class="dp-card p-4 mb-4">
+            <div class="section-title">Dados da Conta</div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">E-mail de acesso</label>
+                    <div class="input-readonly">@Model.Email</div>
+                    <div class="form-text">E-mail usado para entrar no portal.</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Situação</label>
+                    <div class="d-flex align-items-center gap-2 pt-1">
+                        <span class="badge badge-status concluido">Ativo</span>
+                    </div>
+                    <div class="form-text">Sua conta está ativa e liberada para uso.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dp-card p-4 mb-4">
+            <div class="section-title">Recuperação de Senha</div>
+
+            <div class="mb-1">
+                <label asp-for="EmailSecundario" class="form-label">E-mail de recuperação <span class="obrigatorio">*</span></label>
+                <input asp-for="EmailSecundario" type="email" class="form-control" placeholder="onde deseja receber códigos de recuperação" />
+                <div class="form-text">Se esquecer a senha, o código de recuperação será enviado para este e-mail.</div>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Mensagem))
+        {
+            <div class="alert alert-success">@Model.Mensagem</div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Erro))
+        {
+            <div class="alert alert-danger">@Model.Erro</div>
+        }
+
+        <div class="text-center mt-2 mb-2">
+            <div class="obrigatorio-texto">Campos com <span class="obrigatorio">*</span> são obrigatórios</div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a asp-controller="Dashboard" asp-action="Metricas" class="btn btn-dp-outline">Cancelar</a>
+            <button type="submit" class="btn btn-dp">Salvar e-mail de recuperação</button>
+        </div>
+    </form>
+
+<div class="dp-card p-4 mt-4 mb-4">
+    <div class="section-title">Privacidade</div>
+
+    <p class="form-text mb-3">
+        Você pode reler a Política de Privacidade quando quiser e confirmar se continua de acordo.
+        Se você não concordar mais, escolha a opção de encerrar a conta no card abaixo.
+    </p>
+
+    <p class="form-text mb-3">
+        Suporte: suporte.dayplannio@gmail.com
+    </p>
+
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+        <a asp-controller="Account" asp-action="PoliticaPrivacidade" class="btn btn-dp-outline">Ler a Política de Privacidade</a>
+    </div>
+</div>
+
+<div class="dp-card p-4 mb-4" style="border-color:#f0c9c8;">
+    <div class="section-title" style="color:#d64541;">Encerrar conta</div>
+
+    <p class="form-text mb-3">
+        Se você não quiser mais usar o DayPlannio, pode encerrar a sua conta a qualquer momento.
+        Ao apertar o botão, você será levado para outra página, com os avisos e o que será apagado,
+        para confirmar o encerramento com segurança.
+    </p>
+
+    @if (Model.AgendamentosFuturos > 0)
+    {
+        <div class="dp-card p-3 mb-3" style="background:#fff8e6; border:#f0dca8;">
+            <div class="form-text">
+                Você possui <strong>@Model.AgendamentosFuturos @(Model.AgendamentosFuturos == 1 ? "agendamento futuro" : "agendamentos futuros")</strong>
+                na agenda do profissional que atendeu você. Ao encerrar a conta, o profissional será
+                avisado e poderá cancelar esses agendamentos. Se preferir manter o atendimento,
+                não encerre a conta agora.
+            </div>
+        </div>
+    }
+
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+        <a asp-controller="Account" asp-action="EncerrarConta" class="btn btn-sair">Encerrar minha conta</a>
+    </div>
+</div>
+</div>
+

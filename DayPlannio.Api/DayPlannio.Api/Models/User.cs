@@ -24,6 +24,10 @@ namespace DayPlannio.Api.Models
         public string? Telefone { get; set; }
         public bool IsAdmin { get; set; }
 
+        public string? Plano { get; set; }
+
+        public bool UsarTesteGratuito { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

@@ -39,9 +39,7 @@
                             HorizontalOptions="Center"
                             Margin="0,0,0,5"/>
 
-                        <Label
-                            FontSize="14"
-                            TextColor="{StaticResource LabelColor}">
+                        <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Nome " />
@@ -59,9 +57,7 @@
                                 Text="{Binding NomeCompleto}"/>
                         </Border>
 
-                        <Label
-                            FontSize="14"
-                            TextColor="{StaticResource LabelColor}">
+                        <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="E-mail " />
@@ -92,6 +88,74 @@
                             <Entry
                                 Keyboard="Telephone"
                                 Text="{Binding Telefone}"/>
+                        </Border>
+
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" Margin="2,2,0,0">
+                            <Switch
+                                Grid.Column="0"
+                                IsToggled="{Binding TelefoneVisivel}"
+                                ThumbColor="White"
+                                OnColor="#006260"
+                                Scale="0.85"
+                                VerticalOptions="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                Text="Mostrar meu WhatsApp no portfólio público"
+                                FontSize="12"
+                                LineBreakMode="WordWrap"
+                                TextColor="#6E7978"
+                                VerticalOptions="Center"/>
+                        </Grid>
+
+                        <Label
+                            Text="Cidade (Opcional)"
+                            FontSize="14"
+                            TextColor="{StaticResource LabelColor}"/>
+
+                        <Border
+                            BackgroundColor="#EBEBEB"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+
+                            <Entry
+                                Text="{Binding Cidade}"/>
+                        </Border>
+
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" Margin="2,2,0,8">
+                            <Switch
+                                Grid.Column="0"
+                                IsToggled="{Binding CidadeVisivel}"
+                                ThumbColor="White"
+                                OnColor="#006260"
+                                Scale="0.85"
+                                VerticalOptions="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                Text="Mostrar minha cidade no portfólio público"
+                                FontSize="12"
+                                LineBreakMode="WordWrap"
+                                TextColor="#6E7978"
+                                VerticalOptions="Center"/>
+                        </Grid>
+
+                        <Border
+                            BackgroundColor="#F1F7F6"
+                            StrokeShape="RoundRectangle 10"
+                            Stroke="#D5E3E1"
+                            Padding="12,10"
+                            Margin="0,2,0,8">
+                            <VerticalStackLayout Spacing="2">
+                                <Label
+                                    Text="🚧 Geolocalização (geofencing)"
+                                    FontSize="12"
+                                    FontAttributes="Bold"
+                                    TextColor="#006260"/>
+                                <Label
+                                    Text="Em construção. Em breve você poderá registrar automaticamente a entrada e a saída dos atendimentos."
+                                    FontSize="11"
+                                    LineBreakMode="WordWrap"
+                                    TextColor="#6E7978"/>
+                            </VerticalStackLayout>
                         </Border>
 
                         <Label
@@ -133,6 +197,137 @@
 
                 </Border>
 
+                <Border
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="20"
+                    Margin="0,15,0,0">
+
+                    <VerticalStackLayout Spacing="6">
+
+                        <Label
+                            Text="Meu Plano"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryColor}"/>
+
+                        <Label
+                            Text="{Binding PlanoAtual}"
+                            FontSize="28"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource LabelColor}"/>
+
+                        <Label
+                            Text="{Binding PlanoDetalhe}"
+                            FontSize="12"
+                            TextColor="#6E7978"/>
+
+                        <Label
+                            Text="{Binding PlanoPendenteTexto}"
+                            FontSize="12"
+                            FontAttributes="Italic"
+                            TextColor="#B26A00"
+                            IsVisible="{Binding PlanoPendenteVisivel}"
+                            LineBreakMode="WordWrap"/>
+
+                        <Button
+                            Text="Escolher plano"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Margin="0,6,0,0"
+                            Command="{Binding EscolherPlanoCommand}">
+
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#006260" Offset="0.0"/>
+                                    <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="20"
+                    Margin="0,15,0,0">
+
+                    <VerticalStackLayout Spacing="8">
+
+                <Label
+                    Text="Privacidade"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource PrimaryColor}"/>
+
+                <Label
+                    Text="Você pode reler a Política de Privacidade quando quiser. Se não concordar, escolha a opção de encerrar a conta abaixo."
+                    FontSize="12"
+                    LineBreakMode="WordWrap"
+                    TextColor="#6E7978"/>
+
+
+                        <Label
+                            Text="Ler a Política de Privacidade"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#006260"
+                            Margin="0,4,0,0"
+                            HorizontalOptions="Start">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AbrirPoliticaPrivacidadeCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label
+                            Text="Suporte: suporte.dayplannio@gmail.com"
+                            FontSize="12"
+                            TextColor="#6E7978"/>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border BackgroundColor="#FFF4F3"
+                        Stroke="#F0C9C8"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="20"
+                        Margin="0,15,0,0">
+
+                    <VerticalStackLayout Spacing="8">
+
+                        <Label
+                            Text="Encerrar conta"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="#BA1A1A"/>
+
+                        <Label
+                            Text="Se você não quiser mais usar o DayPlannio, pode encerrar a sua conta a qualquer momento. Todos os seus dados serão removidos permanentemente e esta ação não pode ser desfeita."
+                            FontSize="12"
+                            LineBreakMode="WordWrap"
+                            TextColor="#6E7978"/>
+
+                        <Button
+                            Text="Encerrar minha conta"
+                            TextColor="White"
+                            BackgroundColor="#BA1A1A"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            Margin="0,8,0,0"
+                            Command="{Binding AbrirEncerrarContaCommand}"/>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
                 <Button
                     Text="Encerrar Sessão"
                     TextColor="Red"
@@ -144,6 +339,8 @@
         </ScrollView>
 
         <views:CustomTabBar Grid.Row="1"/>
+
+        <views:ToastBanner x:Name="Toast" Grid.Row="0" Grid.RowSpan="2"/>
 
     </Grid>
 

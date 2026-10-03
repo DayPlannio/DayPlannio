@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:DayPlannio.App.ViewModels"
+    x:Class="DayPlannio.App.Views.Notificacoes"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F3F3F3">
+
+    <ContentPage.BindingContext>
+        <vm:NotificacoesViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid
+            Padding="20,20,20,10"
+            ColumnDefinitions="Auto,*">
+
+            <ImageButton
+                Source="icon_seta_esquerda.png"
+                WidthRequest="14"
+                HeightRequest="14"
+                Padding="0"
+                BackgroundColor="Transparent"
+                VerticalOptions="Center"
+                Clicked="OnVoltarClicked"/>
+
+            <Label
+                Grid.Column="1"
+                Text="Notificações"
+                HorizontalOptions="Center"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="#006260"/>
+
+        </Grid>
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Notificacoes}"
+            SelectionMode="None"
+            Margin="16,0">
+
+            <CollectionView.Header>
+                <Label
+                    Text="Foto enviada para análise do administrador. Você será notificado quando for aprovada ou rejeitada."
+                    FontSize="12"
+                    TextColor="#6E7978"
+                    Margin="0,0,0,12"/>
+            </CollectionView.Header>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Padding="40"
+                    Spacing="10">
+
+                    <Label
+                        Text="&#x1F514;"
+                        FontSize="40"
+                        HorizontalOptions="Center"/>
+
+                    <Label
+                        Text="Nenhuma notificação"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#181C1C"
+                        HorizontalOptions="Center"/>
+
+                    <Label
+                        Text="Notificações sobre suas fotos aparecerão aqui."
+                        FontSize="13"
+                        TextColor="#6E7978"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="14"
+                        Margin="0,0,0,8">
+
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10">
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="{Binding Titulo}"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#181C1C"/>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{Binding DataCriacao, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                FontSize="11"
+                                TextColor="#aaa"
+                                VerticalOptions="Center"/>
+
+                            <Label
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Text="{Binding Mensagem}"
+                                FontSize="13"
+                                TextColor="#555"
+                                Margin="0,4,0,0"/>
+
+                            <HorizontalStackLayout
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                Spacing="6"
+                                Margin="0,6,0,0">
+
+                                <Border
+                                    BackgroundColor="#CFEDEC"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 8"
+                                    Padding="8,3">
+                                    <Label
+                                        Text="{Binding TipoTexto}"
+                                        FontSize="10"
+                                        TextColor="#006260"/>
+                                </Border>
+
+                                <Label
+                                    Text="{Binding StatusTexto}"
+                                    FontSize="10"
+                                    TextColor="{Binding StatusCor}"
+                                    FontAttributes="Bold"
+                                    VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+
+                        </Grid>
+
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

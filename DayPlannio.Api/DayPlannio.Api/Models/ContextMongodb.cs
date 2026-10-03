@@ -34,7 +34,7 @@ namespace DayPlannio.Api.Models
         {
             get
             {
-                return _database.GetCollection<ApplicationUser>("Users");
+                return _database.GetCollection<ApplicationUser>("User");
             }
         }
 
@@ -75,6 +75,30 @@ namespace DayPlannio.Api.Models
             get
             {
                 return _database.GetCollection<Financeiro>("Financeiro");
+            }
+        }
+
+        public IMongoCollection<Log> Log
+        {
+            get
+            {
+                return _database.GetCollection<Log>("Log");
+            }
+        }
+
+        public IMongoCollection<Foto> Foto
+        {
+            get
+            {
+                return _database.GetCollection<Foto>("Foto");
+            }
+        }
+
+        public IMongoCollection<Notificacao> Notificacao
+        {
+            get
+            {
+                return _database.GetCollection<Notificacao>("Notificacao");
             }
         }
     }

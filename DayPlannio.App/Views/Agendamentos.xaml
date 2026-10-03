@@ -16,12 +16,48 @@
                     Padding="16,18,16,8"
                     Spacing="12">
 
-                    <Label
-                        Text="Agenda"
-                        HorizontalOptions="Center"
-                        FontSize="17"
-                        FontAttributes="Bold"
-                        TextColor="#006260"/>
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label
+                            Text="Agenda"
+                            HorizontalOptions="Center"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#006260"
+                            VerticalOptions="Center"/>
+
+                        <Grid Grid.Column="1"
+                              WidthRequest="30"
+                              HeightRequest="30"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Center">
+                            <Label
+                                Text="&#x1F514;"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                            <Border
+                                BackgroundColor="#BA1A1A"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="4,1"
+                                IsVisible="{Binding TemNotificacoes}"
+                                HorizontalOptions="End"
+                                VerticalOptions="Start"
+                                Margin="0,-2,-4,0">
+                                <Label
+                                    Text="{Binding TotalNaoLidas}"
+                                    TextColor="White"
+                                    FontSize="9"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                            </Border>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNotificacoesClicked"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </Grid>
 
                     <VerticalStackLayout Spacing="1">
 
@@ -102,7 +138,7 @@
 
                         <Label
                             Grid.Column="0"
-                            Text="Compromissos de Hoje"
+                            Text="{Binding TituloLista}"
                             VerticalOptions="Center"
                             FontSize="15"
                             FontAttributes="Bold"
@@ -114,7 +150,7 @@
                             VerticalOptions="Center"
                             BackgroundColor="#8AD7D2"
                             Padding="12,5"
-                            Margin="12,0,0,0"
+                            Margin="0,0,0,0"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 18">
 
@@ -132,20 +168,12 @@
 
                 </VerticalStackLayout>
 
-                <CollectionView
-                    ItemsSource="{Binding Agendamentos}"
+                <VerticalStackLayout
                     Margin="16,0,16,100"
-                    SelectionMode="None">
+                    Spacing="12"
+                    BindableLayout.ItemsSource="{Binding Agendamentos}">
 
-                    <CollectionView.ItemsLayout>
-
-                        <LinearItemsLayout
-                            Orientation="Vertical"
-                            ItemSpacing="12"/>
-
-                    </CollectionView.ItemsLayout>
-
-                    <CollectionView.ItemTemplate>
+                    <BindableLayout.ItemTemplate>
 
                         <DataTemplate>
 
@@ -165,7 +193,7 @@
                                     <Grid
                                         Grid.Column="1"
                                         Padding="16"
-                                        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                                        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                                         ColumnDefinitions="*,Auto">
 
                                         <Label
@@ -305,6 +333,26 @@
                                         <HorizontalStackLayout
                                             Grid.Row="6"
                                             Grid.ColumnSpan="2"
+                                            Margin="0,5,0,0"
+                                            Spacing="6"
+                                            IsVisible="{Binding TemTempo}">
+
+                                            <Image
+                                                Source="icon_relogio.png"
+                                                WidthRequest="14"
+                                                HeightRequest="14"/>
+
+                                            <Label
+                                                Text="{Binding TempoTexto}"
+                                                FontSize="12"
+                                                FontAttributes="Bold"
+                                                TextColor="#B25E09"/>
+
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="7"
+                                            Grid.ColumnSpan="2"
                                             Margin="0,18,0,0"
                                             HorizontalOptions="Center"
                                             Spacing="10">
@@ -345,9 +393,9 @@
 
                         </DataTemplate>
 
-                    </CollectionView.ItemTemplate>
+                    </BindableLayout.ItemTemplate>
 
-                </CollectionView>
+                </VerticalStackLayout>
 
             </VerticalStackLayout>
 
@@ -388,6 +436,8 @@
             </Button.Background>
 
         </Button>
+
+        <views:ToastBanner x:Name="Toast" Grid.Row="0" Grid.RowSpan="2"/>
 
     </Grid>
 

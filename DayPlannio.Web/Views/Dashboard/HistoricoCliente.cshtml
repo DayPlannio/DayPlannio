@@ -1,0 +1,73 @@
+@model DayPlannio.Web.Models.HistoricoClienteViewModel
+
+@{
+    ViewData["Title"] = "Histórico de Atendimentos";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 980px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <div class="d-flex gap-2">
+            <a asp-controller="Account" asp-action="Perfil" class="btn btn-dp-outline">Meu Perfil</a>
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-sair">Sair</a>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Histórico de Atendimentos</h2>
+        <a asp-controller="Dashboard" asp-action="Metricas" class="btn btn-dp-outline">Voltar às métricas</a>
+    </div>
+
+    <div class="dp-card p-3 mb-4">
+        @if (Model.Historico.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-dp align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Serviço</th><th>Data</th><th>Profissional</th>
+                            <th>Início</th><th>Término</th><th>Duração</th><th class="text-end">Preço</th><th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var h in Model.Historico)
+                        {
+                            <tr>
+                                <td>@h.Servico</td>
+                                <td>@h.Data.ToString("dd/MM/yyyy")</td>
+                                <td>@h.Profissional</td>
+                                <td>@(h.Inicio?.ToString("HH:mm") ?? "-")</td>
+                                <td>@(h.Fim?.ToString("HH:mm") ?? "-")</td>
+                                <td>@(h.DuracaoMinutos.HasValue ? $"{Math.Round(h.DuracaoMinutos.Value)}min" : "-")</td>
+                                <td class="text-end">@(h.Valor.HasValue ? h.Valor.Value.ToString("C") : "-")</td>
+                                <td>
+                                    @{
+                                        var badge = h.Status.Equals("Concluido", StringComparison.OrdinalIgnoreCase)
+                                            ? "concluido"
+                                            : h.Status.Equals("Cancelado", StringComparison.OrdinalIgnoreCase)
+                                                ? "cancelado"
+                                                : "pendente";
+                                    }
+                                    <span class="badge-status @badge">@h.Status</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else if (!string.IsNullOrWhiteSpace(Model.ErroMensagem))
+        {
+            <div class="alert alert-warning mb-0">@Model.ErroMensagem</div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+                <p class="empty-titulo">Nenhum atendimento cadastrado</p>
+                <p class="empty-texto">Seu histórico de atendimentos aparecerá aqui quando houver registros.</p>
+            </div>
+        }
+    </div>
+</div>

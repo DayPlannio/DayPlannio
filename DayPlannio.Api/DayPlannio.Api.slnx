@@ -1,4 +1,7 @@
 <Solution>
-  <Project Path="../DayPlannio.App/DayPlannio.App.csproj" Id="4d7b0efa-47f6-435c-91fb-248cec418c84" />
+  <Project Path="../DayPlannio.App/DayPlannio.App.csproj" Id="4d7b0efa-47f6-435c-91fb-248cec418c84">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="../DayPlannio.Web/DayPlannio.Web.csproj" />
   <Project Path="DayPlannio.Api/DayPlannio.Api.csproj" />
 </Solution>

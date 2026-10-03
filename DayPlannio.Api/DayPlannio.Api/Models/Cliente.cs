@@ -26,6 +26,23 @@ namespace DayPlannio.Api.Models
         [MaxLength(500, ErrorMessage = "Observações devem ter no máximo 500 caracteres.")]
         public string? Observacoes { get; set; }
 
+        [MaxLength(200, ErrorMessage = "O e-mail deve ter no máximo 200 caracteres.")]
+        public string? Email { get; set; }
+
+        [MaxLength(200, ErrorMessage = "O e-mail secundário deve ter no máximo 200 caracteres.")]
+        public string? EmailSecundario { get; set; }
+
+        public string? CodigoRecuperacao { get; set; }
+        public DateTime? CodigoRecuperacaoExpira { get; set; }
+        public int TentativasCodigo { get; set; }
+        public bool CodigoBloqueado { get; set; }
+
+        public string? SenhaHash { get; set; }
+
+        public bool PrimeiroAcesso { get; set; } = true;
+
+        public bool Ativo { get; set; } = true;
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

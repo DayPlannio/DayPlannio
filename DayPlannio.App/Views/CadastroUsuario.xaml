@@ -15,6 +15,7 @@
             <VerticalStackLayout Padding="20">
 
                 <Border
+                    IsVisible="{Binding CadastroVisivel}"
                     BackgroundColor="{StaticResource White}"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 15"
@@ -30,8 +31,7 @@
                             HorizontalOptions="Center"
                             Margin="0,0,0,5"/>
 
-                        <Label FontSize="14"
-                               TextColor="{StaticResource LabelColor}">
+                        <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Nome " />
@@ -48,8 +48,7 @@
                                    Text="{Binding Nome}"/>
                         </Border>
 
-                        <Label FontSize="14"
-                               TextColor="{StaticResource LabelColor}">
+                        <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="E-mail " />
@@ -67,8 +66,7 @@
                                    Text="{Binding Email}"/>
                         </Border>
 
-                        <Label FontSize="14"
-                               TextColor="{StaticResource LabelColor}">
+                        <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Senha " />
@@ -103,8 +101,7 @@
                             </Grid>
                         </Border>
 
-                        <Label FontSize="14"
-                               TextColor="{StaticResource LabelColor}">
+                        <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Confirmar Senha " />
@@ -139,6 +136,7 @@
                             </Grid>
                         </Border>
 
+                        <Label Text="As senhas não coincidem." TextColor="#D64541" FontSize="12" IsVisible="{Binding SenhasDiferentes}"/>
                         <VerticalStackLayout Spacing="6" Margin="0,5,0,0">
 
                             <HorizontalStackLayout Spacing="6">
@@ -233,24 +231,19 @@
 
                         </VerticalStackLayout>
 
-                        <Label Text="Telefone (Opcional)"
-                               FontSize="14"
-                               TextColor="{StaticResource LabelColor}"/>
-
-                        <Border BackgroundColor="#EBEBEB"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 10">
-
-                            <Entry Placeholder="Digite seu telefone"
-                                   Keyboard="Telephone"
-                                   Text="{Binding Telefone}"/>
-                        </Border>
-
                         <Label Text="{Binding ErroMensagem}"
                                TextColor="Red"
                                IsVisible="{Binding ErroVisivel}"/>
 
-                        <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
+                        <Label
+                            Text="Você pode completar seus dados depois em Meu Perfil."
+                            FontSize="12"
+                            TextColor="#6E7978"
+                            FontAttributes="Italic"
+                            HorizontalOptions="Center"
+                            Margin="0,0,0,4"/>
+
+<HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
                             <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
                             <Label FontSize="11"
                                    FontAttributes="Italic"
@@ -266,7 +259,67 @@
                             </Label>
                         </HorizontalStackLayout>
 
-                        <Button Text="Cadastrar"
+                        <Border BackgroundColor="#F3FAF9"
+                                StrokeThickness="1"
+                                Stroke="#CFE8E5"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="12">
+
+                            <VerticalStackLayout Spacing="2">
+
+                                <HorizontalStackLayout Spacing="8">
+
+                                    <HorizontalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LerPoliticaPrivacidadeCommand}"/>
+                                    </HorizontalStackLayout.GestureRecognizers>
+
+                                    <Label Text="✓"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#006260"
+                                           VerticalOptions="Start"
+                                           Margin="0,4,0,0"
+                                           IsVisible="{Binding ConcordaPrivacidade}"/>
+
+                                    <Label Text="○"
+                                           FontSize="14"
+                                           TextColor="#CFCFCF"
+                                           VerticalOptions="Start"
+                                           Margin="0,4,0,0"
+                                           IsVisible="{Binding ConcordaPrivacidade, Converter={StaticResource InvertedBoolConverter}}"/>
+
+                                    <Label FontSize="12"
+                                           TextColor="#3E4948"
+                                           LineBreakMode="WordWrap"
+                                           VerticalOptions="Start"
+                                           Margin="0,5,0,0">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Li e concordo com a Política de Privacidade " />
+                                                <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </HorizontalStackLayout>
+
+                                <Label Text="Para concordar, abra a política clicando aqui e confirme no final da página. Não é possível marcar direto."
+                                       FontSize="12"
+                                       FontAttributes="Italic"
+                                       LineBreakMode="WordWrap"
+                                       TextColor="#4DB6AC"
+                                       HorizontalOptions="Start"
+                                       Margin="34,0,0,0">
+
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LerPoliticaPrivacidadeCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                        <Button Text="Continuar"
                                 TextColor="White"
                                 CornerRadius="20"
                                 Command="{Binding CadastrarCommand}">
@@ -305,6 +358,145 @@
                             </Label>
 
                         </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    IsVisible="{Binding PlanoVisivel}"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="20">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <Grid ColumnDefinitions="40,*,Auto">
+
+                            <ImageButton
+                                Grid.Column="0"
+                                Source="icon_seta_esquerda.png"
+                                BackgroundColor="Transparent"
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                VerticalOptions="Center"
+                                Command="{Binding VoltarParaDadosCommand}"/>
+
+                            <Label
+                                Grid.Column="1"
+                                Text="Escolha seu plano"
+                                FontSize="20"
+                                FontAttributes="Bold"
+                                TextColor="#00504E"
+                                VerticalOptions="Center"/>
+
+                        </Grid>
+
+                        <Label
+                            Text="Escolha um plano para criar sua conta. Você não consegue se cadastrar sem escolher."
+                            FontSize="13"
+                            LineBreakMode="WordWrap"
+                            TextColor="#6E7978"/>
+
+                        <VerticalStackLayout
+                            Spacing="12"
+                            BindableLayout.ItemsSource="{Binding OpcoesPlano}">
+
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Border
+                                        BackgroundColor="{Binding Fundo}"
+                                        Stroke="{Binding BordaCor}"
+                                        StrokeThickness="{Binding BordaLargura}"
+                                        StrokeShape="RoundRectangle 15"
+                                        Padding="16">
+
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelecionarCommand}"/>
+                                        </Border.GestureRecognizers>
+
+                                        <VerticalStackLayout Spacing="8">
+
+                                            <Grid ColumnDefinitions="*,Auto">
+
+                                                <Label
+                                                    Grid.Column="0"
+                                                    Text="{Binding Nome}"
+                                                    FontSize="17"
+                                                    FontAttributes="Bold"
+                                                    TextColor="{Binding Cor}"/>
+
+                                                <Label
+                                                    Grid.Column="1"
+                                                    Text="{Binding Preco}"
+                                                    FontSize="15"
+                                                    FontAttributes="Bold"
+                                                    TextColor="{Binding Cor}"/>
+
+                                            </Grid>
+
+                                            <Label
+                                                Text="{Binding Selo}"
+                                                FontSize="12"
+                                                FontAttributes="Italic"
+                                                TextColor="#8A9695"/>
+
+                                            <Label
+                                                Text="{Binding Descricao}"
+                                                FontSize="13"
+                                                LineBreakMode="WordWrap"
+                                                TextColor="#3E4948"/>
+
+                                            <Label
+                                                Text="{Binding Caracteristicas}"
+                                                FontSize="12"
+                                                LineBreakMode="WordWrap"
+                                                TextColor="#5F6B6A"/>
+
+                                            <Label
+                                                Text="✓ Selecionado"
+                                                IsVisible="{Binding Selecionado}"
+                                                FontSize="13"
+                                                FontAttributes="Bold"
+                                                TextColor="{Binding Cor}"/>
+
+                                        </VerticalStackLayout>
+
+                                    </Border>
+
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                        </VerticalStackLayout>
+
+                        <Label
+                            Text="{Binding AvisoPlano}"
+                            IsVisible="{Binding AvisoPlanoVisivel}"
+                            TextColor="Red"
+                            FontSize="13"/>
+
+                        <Button Text="{Binding ContinuarTexto}"
+                                TextColor="White"
+                                CornerRadius="20"
+                                Command="{Binding CadastrarCommand}">
+
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#006260" Offset="0.0"/>
+                                    <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+
+                        </Button>
+
+                        <Label
+                            Text="Escolhendo um plano, sua solicitação passa pela aprovação do administrador e você é avisado por notificação assim que for liberada."
+                            FontSize="12"
+                            TextColor="#6E7978"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"/>
 
                     </VerticalStackLayout>
 

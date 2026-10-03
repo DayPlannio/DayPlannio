@@ -78,7 +78,7 @@
                         Padding="15">
 
                         <Grid
-                            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                             ColumnDefinitions="*,Auto">
 
                             <Label
@@ -209,6 +209,22 @@
                                 </Label.GestureRecognizers>
 
                             </Label>
+
+                            <Button
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Text="Gerar email e senha"
+                                IsVisible="{Binding PodeGerarCredenciais}"
+                                FontSize="12"
+                                HeightRequest="34"
+                                CornerRadius="17"
+                                Padding="14,0"
+                                Margin="0,8,0,0"
+                                BackgroundColor="#E6F4F3"
+                                TextColor="#006260"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type views:Clientes}}, Path=BindingContext.GerarCredenciaisCommand}"
+                                CommandParameter="{Binding .}"/>
 
                         </Grid>
 

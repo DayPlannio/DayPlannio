@@ -3,69 +3,164 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
     x:Class="DayPlannio.App.Views.ConcluirAgendamento"
     BackgroundColor="#80000000">
 
     <Grid
         VerticalOptions="Center"
-        Margin="30">
+        Margin="20">
 
         <Border
             BackgroundColor="White"
             StrokeThickness="0"
             StrokeShape="RoundRectangle 20"
-            Padding="25">
+            Padding="20">
 
-            <VerticalStackLayout
-                Spacing="15"
-                HorizontalOptions="Center">
+            <Grid RowDefinitions="Auto,*,Auto,Auto" RowSpacing="10">
 
-                <Border
-                    BackgroundColor="#DFF3E3"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 50"
-                    HeightRequest="60"
-                    WidthRequest="60"
-                    HorizontalOptions="Center">
+                <VerticalStackLayout Grid.Row="0" Spacing="10" HorizontalOptions="Center">
+                    <Border
+                        BackgroundColor="#DFF3E3"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 50"
+                        HeightRequest="55"
+                        WidthRequest="55"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="&#x2713;"
+                            FontSize="28"
+                            TextColor="#2E7D32"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                    </Border>
 
                     <Label
-                        Text="✓"
-                        FontSize="30"
-                        TextColor="#2E7D32"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
+                        Text="Concluir Agendamento?"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        TextColor="#181C1C"
+                        HorizontalOptions="Center"/>
 
-                </Border>
+                    <Label
+                        Text="{Binding Mensagem}"
+                        FontSize="13"
+                        TextColor="#3E4948"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+                <CollectionView
+                    Grid.Row="1"
+                    ItemsSource="{Binding Fotos}"
+                    IsVisible="{Binding TemFoto}"
+                    HeightRequest="170"
+                    HorizontalOptions="Fill"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                            Orientation="Horizontal"
+                            ItemSpacing="8"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Spacing="4" WidthRequest="120">
+                                <Grid HeightRequest="120">
+                                    <Border
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 10"
+                                        BackgroundColor="#F0F0F0">
+                                        <Image Source="{Binding Preview}" Aspect="AspectFit"/>
+                                    </Border>
+
+                                    <Grid
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Start"
+                                        Margin="0,-4,-4,0"
+                                        WidthRequest="22"
+                                        HeightRequest="22">
+                                        <Border
+                                            BackgroundColor="#BA1A1A"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 11"
+                                            Padding="0">
+                                            <Label
+                                                Text="&#x2715;"
+                                                TextColor="White"
+                                                FontSize="10"
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"/>
+                                        </Border>
+                                        <ImageButton
+                                            BackgroundColor="Transparent"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type views:ConcluirAgendamento}}, Path=BindingContext.RemoverFotoCommand}"
+                                            CommandParameter="{Binding .}"
+                                            WidthRequest="22"
+                                            HeightRequest="22"/>
+                                    </Grid>
+                                </Grid>
+
+                                    <HorizontalStackLayout Spacing="4" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Switch
+                                            IsToggled="{Binding Publica}"
+                                            ThumbColor="White"
+                                            OnColor="#006260"
+                                            WidthRequest="36"
+                                            HeightRequest="20"
+                                            VerticalOptions="Center"/>
+                                        <Label
+                                            Text="Portfólio"
+                                            FontSize="9"
+                                            TextColor="#666"
+                                            VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <Label
-                    Text="Concluir Agendamento?"
-                    FontSize="18"
-                    FontAttributes="Bold"
-                    TextColor="#181C1C"
+                    Grid.Row="2"
+                    Text="{Binding FotoStatus}"
+                    FontSize="12"
+                    TextColor="#2E7D32"
+                    IsVisible="{Binding TemFoto}"
                     HorizontalOptions="Center"/>
 
-                <Label
-                    Text="{Binding Mensagem}"
-                    FontSize="14"
-                    TextColor="#3E4948"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"/>
+                <VerticalStackLayout
+                    Grid.Row="3"
+                    Spacing="8"
+                    HorizontalOptions="Fill">
 
-                <Button
-                    Text="Concluir"
-                    TextColor="White"
-                    BackgroundColor="#2E7D32"
-                    CornerRadius="25"
-                    HeightRequest="50"
-                    Command="{Binding ConcluirCommand}"/>
+                    <Button
+                        Text="+ Adicionar fotos"
+                        FontSize="13"
+                        TextColor="#006260"
+                        BackgroundColor="#CFEDEC"
+                        CornerRadius="22"
+                        HeightRequest="42"
+                        Command="{Binding AdicionarFotoCommand}"/>
 
-                <Button
-                    Text="Voltar"
-                    BackgroundColor="Transparent"
-                    TextColor="Gray"
-                    Command="{Binding CancelarCommand}"/>
+                    <Button
+                        Text="Concluir"
+                        TextColor="White"
+                        BackgroundColor="#2E7D32"
+                        CornerRadius="22"
+                        HeightRequest="48"
+                        Command="{Binding ConcluirCommand}"/>
 
-            </VerticalStackLayout>
+                    <Button
+                        Text="Voltar"
+                        BackgroundColor="Transparent"
+                        TextColor="Gray"
+                        Command="{Binding CancelarCommand}"/>
+                </VerticalStackLayout>
+
+            </Grid>
 
         </Border>
 

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.PoliticaPrivacidade"
+    BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="40,*,Auto"
+            Padding="20,10,20,10"
+            BackgroundColor="White">
+
+            <ImageButton
+                Grid.Column="0"
+                Source="icon_seta_esquerda.png"
+                BackgroundColor="Transparent"
+                WidthRequest="40"
+                HeightRequest="40"
+                VerticalOptions="Center"
+                Clicked="OnVoltarClicked"/>
+
+            <Label
+                Grid.Column="1"
+                Text="Política de Privacidade"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="#00504E"
+                VerticalOptions="Center"/>
+
+        </Grid>
+
+        <ScrollView
+            Grid.Row="1"
+            x:Name="ConteudoScroll"
+            Scrolled="OnScrolled"
+            SizeChanged="OnScrollViewSizeChanged">
+
+            <VerticalStackLayout Padding="20" Spacing="16">
+
+                <Label
+                    Text="Última atualização: setembro de 2026"
+                    FontSize="12"
+                    TextColor="#8A9695"/>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="1. Sobre esta política"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label Text="O DayPlannio valoriza a sua privacidade. Esta política explica como coletamos, usamos, armazenamos e protegemos as suas informações pessoais, incluindo a localização, e quais são os seus direitos. O cadastro e o uso do aplicativo somente podem ser concluídos mediante a sua concordância com este documento. Se você não concordar, não poderá criar a sua conta e acessar o aplicativo."
+                           FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="2. Dados que coletamos"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label Text="Durante o cadastro coletamos o nome completo, o e-mail e a senha. Ao usar o aplicativo, você pode informar voluntariamente outros dados, como telefone, foto de perfil, dados de clientes, agendamentos, histórico de serviços e fotos de serviços publicadas no portfólio conforme o seu plano."
+                           FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="3. Uso da localização"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label Text="A localização é coletada somente para o recurso de detecção de atendimento, disponível no plano Full, e apenas com o seu consentimento e enquanto o recurso estiver ativo. Ela é utilizada para registrar a entrada e a saída do serviço prestado. Esse recurso está em construção e será liberado em breve. Você pode desativar esse recurso a qualquer momento no aplicativo e, ao desativar, a coleta é interrompida imediatamente."
+                           FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="4. Como usamos os seus dados"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label Text="Os seus dados são usados para criar e manter a sua conta, gerenciar a sua agenda, clientes e serviços, controlar o acesso aos recursos de acordo com o plano contratado, exibir o seu portfólio público aos clientes quando você possui o plano Full, enviar notificações sobre agendamentos e aprovações de plano e melhorar o funcionamento da plataforma."
+                           FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="5. Compartilhamento de dados"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label Text="Não vendemos nem alugamos os seus dados pessoais. As informações ficam restritas à plataforma e ao que for necessário para os recursos que você usa. O seu portfólio e as suas métricas ficam visíveis apenas nas condições previstas no seu plano e nas permissões que você mesmo configurar."
+                           FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="6. Armazenamento e segurança"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label Text="Os seus dados são armazenados em serviços protegidos e com acesso restrito aos responsáveis pela plataforma. A sua senha é protegida conforme as boas práticas de segurança e não fica exposta em texto puro."
+                           FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="7. Seus direitos"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label Text="Você pode solicitar o acesso, a correção ou a atualização dos seus dados, desativar a coleta de localização e pedir a exclusão da sua conta e dos seus dados pessoais a qualquer momento. Atenderemos a sua solicitação dentro dos prazos previstos em lei."
+                           FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="8. Contato"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#00504E"/>
+                    <Label FontSize="13"
+                           LineBreakMode="WordWrap"
+                           TextColor="#3E4948">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Em caso de dúvidas sobre esta política de privacidade ou sobre o tratamento dos seus dados, entre em contato pelo e-mail: " />
+                                <Span Text="suporte.dayplannio@gmail.com" FontAttributes="Bold" TextColor="#006260" />
+                                <Span Text=". Responderemos dentro dos prazos previstos em lei." />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <VerticalStackLayout
+            Grid.Row="2"
+            Padding="20,8,20,16"
+            Spacing="10">
+
+            <Label
+                x:Name="AvisoRolagem"
+                Text="Role até o final da política para liberar as opções de concordar ou não concordar."
+                FontSize="12"
+                FontAttributes="Italic"
+                LineBreakMode="WordWrap"
+                HorizontalTextAlignment="Center"
+                TextColor="#4DB6AC"/>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                <Button
+                    Grid.Column="0"
+                    x:Name="BotaoNaoConcordar"
+                    Text="Não concordar"
+                    TextColor="#5F6B6A"
+                    CornerRadius="20"
+                    BackgroundColor="#E8ECEB"
+                    IsEnabled="False"
+                    Clicked="OnNaoConcordarClicked"/>
+
+                <Button
+                    Grid.Column="1"
+                    x:Name="BotaoConcordar"
+                    Text="Concordar"
+                    TextColor="White"
+                    CornerRadius="20"
+                    IsEnabled="False"
+                    Clicked="OnConcordarClicked">
+
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#006260" Offset="0.0"/>
+                            <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+
+                </Button>
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>

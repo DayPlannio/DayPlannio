@@ -1,0 +1,89 @@
+﻿@model DayPlannio.Web.Models.AdminPainelViewModel
+
+@{
+    ViewData["Title"] = "Clientes Cadastrados";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 1200px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <div class="d-flex gap-2">
+            <a asp-controller="Admin" asp-action="Logout" class="btn btn-sair">Sair</a>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Clientes Cadastrados</h2>
+        <a asp-controller="Admin" asp-action="Painel" class="btn btn-dp-outline">Voltar ao painel</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Mensagem))
+    {
+        <div class="alert alert-success">@Model.Mensagem</div>
+    }
+
+    <div class="dp-card p-3 mb-4">
+        @if (Model.Clientes.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-dp align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>E-mail</th>
+                            <th>E-mail Rec.</th>
+                            <th>Status</th>
+                            <th>Criado em</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.Clientes)
+                        {
+                            <tr>
+                                <td>@c.Nome</td>
+                                <td>@FormatHelper.FormatarTelefone(c.Telefone)</td>
+                                <td>@(string.IsNullOrEmpty(c.Email) ? "-" : c.Email)</td>
+                                <td>@(string.IsNullOrEmpty(c.EmailSecundario) ? "-" : c.EmailSecundario)</td>
+                                <td>
+                                    @if (c.Ativo)
+                                    {
+                                        <span class="badge badge-status concluido">Ativo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-status cancelado">Inativo</span>
+                                    }
+                                </td>
+                                <td>@FormatHelper.FormatarDataLocalCurta(c.CriadoEm)</td>
+                                <td class="text-end">
+                                    <button type="button"
+                                            class="btn btn-outline-danger btn-sm"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalEncerrarConta"
+                                            data-tipo="cliente"
+                                            data-id="@c.Id"
+                                            data-nome="@c.Nome">
+                                        Encerrar conta
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg></span>
+                <p class="empty-titulo">Nenhum cliente cadastrado</p>
+                <p class="empty-texto">Os clientes aparecerão aqui quando forem cadastrados pelos prestadores.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@await Html.PartialAsync("_ModalEncerrarConta", "cliente")

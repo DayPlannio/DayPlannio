@@ -8,9 +8,11 @@ public partial class RedefinirSenhaViewModel : ObservableObject
 {
     private readonly INavigation _navigation;
 
-    public RedefinirSenhaViewModel(INavigation navigation)
+    public RedefinirSenhaViewModel(INavigation navigation, string emailInicial = "")
     {
         _navigation = navigation;
+        Email = emailInicial;
+        ConfirmarEmail = emailInicial;
     }
 
     [ObservableProperty]
@@ -25,12 +27,31 @@ public partial class RedefinirSenhaViewModel : ObservableObject
     [ObservableProperty]
     private bool erroVisivel;
 
+    [ObservableProperty]
+    private string avisoMensagem;
+
+    [ObservableProperty]
+    private bool avisoVisivel;
+
+    [RelayCommand]
+    private async Task Voltar()
+    {
+        await _navigation.PopAsync();
+    }
+
+    public void LimparAviso()
+    {
+        AvisoVisivel = false;
+        AvisoMensagem = null;
+    }
+
     [RelayCommand]
     private async Task Redefinir()
     {
         try
         {
             ErroVisivel = false;
+            AvisoVisivel = false;
 
             if (string.IsNullOrWhiteSpace(Email) ||
                 string.IsNullOrWhiteSpace(ConfirmarEmail))
@@ -39,16 +60,23 @@ public partial class RedefinirSenhaViewModel : ObservableObject
             if (Email != ConfirmarEmail)
                 throw new Exception("Os e-mails não coincidem.");
 
-            bool sucesso = await UsuarioService.EnviarRedefinicaoSenha(Email);
+            var (sucesso, mensagem) = await UsuarioService.EnviarRedefinicaoSenha(Email);
 
             if (sucesso)
             {
+                if (!string.IsNullOrWhiteSpace(mensagem))
+                {
+                    AvisoMensagem = mensagem;
+                    AvisoVisivel = true;
+                }
+
                 await _navigation.PushAsync(
                     new Views.ConfirmarCodigo(Email));
             }
             else
             {
-                throw new Exception("Erro ao enviar e-mail.");
+                ErroMensagem = string.IsNullOrWhiteSpace(mensagem) ? "Erro ao enviar e-mail." : mensagem;
+                ErroVisivel = true;
             }
         }
         catch (Exception ex)

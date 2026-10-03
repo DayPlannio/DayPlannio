@@ -19,7 +19,7 @@ public partial class ExcluirClienteViewModel : ObservableObject
             {
                 new Span { Text = "Tem certeza que deseja excluir " },
                 new Span { Text = nomeCliente, FontAttributes = FontAttributes.Bold },
-                new Span { Text = "? Esta ação não pode ser desfeita." }
+                new Span { Text = "⚠️ Esta ação não pode ser desfeita." }
             }
         };
     }

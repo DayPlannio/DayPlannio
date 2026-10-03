@@ -32,13 +32,25 @@ public partial class AgendamentosViewModel : ObservableObject
 
     [ObservableProperty] private string mes = string.Empty;
     [ObservableProperty] private string resumo = string.Empty;
+    [ObservableProperty] private string tituloLista = "Compromissos de Hoje";
     [ObservableProperty] private string totalAgendados = "0 Agendados";
     [ObservableProperty] private DateTime dataSelecionada;
+    [ObservableProperty] private int totalNaoLidas;
+    [ObservableProperty] private bool temNotificacoes;
 
     [RelayCommand]
     public async Task Inicializar()
     {
         await CarregarDados();
+        await CarregarNotificacoes();
+    }
+
+    [RelayCommand]
+    private async Task CarregarNotificacoes()
+    {
+        var count = await NotificacaoService.ContarNaoLidas(_userId);
+        TotalNaoLidas = count;
+        TemNotificacoes = count > 0;
     }
 
     private void CarregarDiasSemana()
@@ -71,7 +83,7 @@ public partial class AgendamentosViewModel : ObservableObject
         {
             _clientes = await ClienteService.GetClientes(_userId) ?? new();
             _servicos = await ServicoService.GetServicos(_userId) ?? new();
-            _todosAgendamentos = await AgendamentoService.GetAgenda(_userId, "mensal") ?? new();
+            _todosAgendamentos = await AgendamentoService.GetAgenda(_userId, "proximos") ?? new();
 
             AtualizarLista();
         }
@@ -116,6 +128,12 @@ public partial class AgendamentosViewModel : ObservableObject
                     corFundo = Color.FromArgb("#FFDAD6");
                     status = "CANCELADO";
                     break;
+                case "ematendimento":
+                case "em atendimento":
+                    corStatus = Color.FromArgb("#B25E09");
+                    corFundo = Color.FromArgb("#FFE9CC");
+                    status = "EM ATENDIMENTO";
+                    break;
                 default:
                     corStatus = Color.FromArgb("#006260");
                     corFundo = Color.FromArgb("#CFEDEC");
@@ -128,9 +146,11 @@ public partial class AgendamentosViewModel : ObservableObject
                 Id = a.Id,
                 Hora = dataLocal.ToString("HH:mm"),     
                 Servico = servico?.Tipo ?? "-",
-                Cliente = cliente?.Nome ?? "-",
-                Endereco = cliente?.Endereco ?? "-",
-                Telefone = cliente?.Telefone ?? "-",
+                Cliente = cliente?.Nome ?? (a.ClienteEncerradoEm.HasValue
+                    ? $"Cliente encerrado em {DateTime.SpecifyKind(a.ClienteEncerradoEm.Value, DateTimeKind.Utc).ToLocalTime():dd/MM/yyyy}"
+                    : "Cliente removido"),
+                Endereco = a.EnderecoAtendimento ?? cliente?.Endereco ?? "-",
+                Telefone = FormatarTelefone(cliente?.Telefone),
                 StatusTexto = status,
                 CorStatus = corStatus,
                 CorFundoStatus = corFundo,
@@ -140,10 +160,18 @@ public partial class AgendamentosViewModel : ObservableObject
                 ValorCobrado = a.ValorCobrado,
                 CustoMaterial = a.CustoMaterial,
                 Observacoes = a.Observacoes,
+                EnderecoAtendimento = a.EnderecoAtendimento,
+                Inicio = a.Inicio,
+                Fim = a.Fim,
+                DuracaoMinutos = a.DuracaoMinutos,
                 PodeCancelar = status == "AGENDADO",
-                PodeConcluir = status == "AGENDADO"
+                PodeConcluir = status == "AGENDADO" || status == "EM ATENDIMENTO"
             });
         }
+
+        TituloLista = DataSelecionada.Date == DateTime.Today ? "Compromissos de Hoje"
+                    : DataSelecionada.Date == DateTime.Today.AddDays(1) ? "Compromissos de Amanhã"
+                    : $"Compromissos de {DataSelecionada:dd/MM}";
 
         TotalAgendados = $"{Agendamentos.Count} Agendados";
         Resumo = $"Você tem {Agendamentos.Count} compromissos em {DataSelecionada:dd/MM}";
@@ -162,6 +190,15 @@ public partial class AgendamentosViewModel : ObservableObject
     [RelayCommand]
     private async Task NovoAgendamento()
         => await _navigation.PushAsync(new CadastrarAgendamento());
+
+    [RelayCommand]
+    private async Task AbrirMetricas()
+    {
+        if (!await PlanoAppService.ExigirPlanoAsync(PlanoAppService.Profissional))
+            return;
+
+        await _navigation.PushAsync(new MetricasPage());
+    }
 
     [RelayCommand]
     private async Task Editar(AgendamentoItemViewModel agendamento)
@@ -195,14 +232,21 @@ public partial class AgendamentosViewModel : ObservableObject
 
         if (!popup.Confirmado) return;
 
-        await AgendamentoService.Cancelar(agendamento.Id);
+        var (sucessoCancelamento, erroCancelamento) = await AgendamentoService.Cancelar(agendamento.Id, popup.Motivo);
+        if (!sucessoCancelamento)
+        {
+            await Application.Current.MainPage.DisplayAlertAsync("Erro", erroCancelamento, "OK");
+            return;
+        }
+
         await CarregarDados();
     }
 
     [RelayCommand]
     private async Task Concluir(AgendamentoItemViewModel agendamento)
     {
-        var popup = new ConcluirAgendamento(agendamento.Cliente, agendamento.Servico);
+        var userId = Preferences.Get("userId", string.Empty);
+        var popup = new ConcluirAgendamento(agendamento.Id, userId, agendamento.Cliente, agendamento.Servico);
 
         await _navigation.PushModalAsync(popup);
 
@@ -213,5 +257,19 @@ public partial class AgendamentosViewModel : ObservableObject
 
         await AgendamentoService.Concluir(agendamento.Id);
         await CarregarDados();
+    }
+
+    private static string FormatarTelefone(string? telefone)
+    {
+        if (string.IsNullOrWhiteSpace(telefone)) return "-";
+
+        var digitos = new string(telefone.Where(char.IsDigit).ToArray());
+
+        return digitos.Length switch
+        {
+            10 => $"({digitos[..2]}) {digitos[2..6]}-{digitos[6..]}",
+            11 => $"({digitos[..2]}) {digitos[2..7]}-{digitos[7..]}",
+            _ => telefone
+        };
     }
 }

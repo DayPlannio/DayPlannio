@@ -4,9 +4,18 @@ namespace DayPlannio.App.Views;
 
 public partial class RedefinirSenha : ContentPage
 {
-    public RedefinirSenha()
+    private readonly RedefinirSenhaViewModel _vm;
+
+    public RedefinirSenha(string emailInicial = "")
     {
         InitializeComponent();
-        BindingContext = new RedefinirSenhaViewModel(Navigation);
+        _vm = new RedefinirSenhaViewModel(Navigation, emailInicial);
+        BindingContext = _vm;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _vm.LimparAviso();
     }
 }

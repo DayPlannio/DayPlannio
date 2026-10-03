@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.Planos"
+    BackgroundColor="#F5F5F5"
+    NavigationPage.HasNavigationBar="False">
+
+    <ScrollView>
+
+        <VerticalStackLayout Padding="15" Spacing="12">
+
+            <Grid
+                ColumnDefinitions="Auto,*"
+                HeightRequest="40">
+
+                <ImageButton
+                    Grid.Column="0"
+                    Source="icon_seta_esquerda.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    Command="{Binding VoltarCommand}"/>
+
+            </Grid>
+
+            <Border
+                BackgroundColor="#DCEFE9"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 12"
+                Padding="14">
+
+                <Label
+                    Text="Novos usuários ganham 7 dias gratuitos no plano Full para testar todos os recursos da plataforma!"
+                    FontSize="13"
+                    LineBreakMode="WordWrap"
+                    TextColor="#00504E"/>
+
+            </Border>
+
+            <Border
+                IsVisible="{Binding SemAssinatura}"
+                BackgroundColor="#FDECEC"
+                Stroke="#E57373"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 15"
+                Padding="16">
+
+                <VerticalStackLayout Spacing="6">
+
+                    <Label
+                        Text="Sem assinatura ativa"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#B71C1C"/>
+
+                    <Label
+                        Text="Seu acesso ao app está pausado. Escolha um plano abaixo para voltar a usar o DayPlannio — nada do que você já cadastrou é perdido."
+                        FontSize="13"
+                        LineBreakMode="WordWrap"
+                        TextColor="#7F1D1D"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Border
+                IsVisible="{Binding TemPlanoPendente}"
+                BackgroundColor="#FFF6E0"
+                Stroke="#F0B429"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 15"
+                Padding="16">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+
+                        <Label
+                            Grid.Column="0"
+                            Text="⏳"
+                            FontSize="20"
+                            VerticalOptions="Center"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Text="Solicitação em análise"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="#7A5200"
+                            Margin="8,0,0,0"/>
+
+                        <Label
+                            Grid.Column="2"
+                            Text="{Binding PlanoPendente}"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#7A5200"/>
+
+                    </Grid>
+
+                    <Label
+                        Text="{Binding PlanoPendenteDesde}"
+                        FontSize="12"
+                        TextColor="#8A6A22"/>
+
+                    <Label
+                        Text="{Binding AvisoPendente}"
+                        FontSize="13"
+                        LineBreakMode="WordWrap"
+                        TextColor="#5F4A16"/>
+
+                    <Button
+                        Text="Cancelar solicitação"
+                        Command="{Binding CancelarSolicitacaoCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#B26A00"
+                        FontSize="13"
+                        BorderWidth="1"
+                        BorderColor="#F0B429"
+                        CornerRadius="10"
+                        HeightRequest="40"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Label
+                Text="{Binding Mensagem}"
+                IsVisible="{Binding MensagemVisivel}"
+                FontSize="13"
+                FontAttributes="Italic"
+                LineBreakMode="WordWrap"
+                TextColor="#B26A00"/>
+
+            <Border
+                IsVisible="{Binding AssinaturaVisivel}"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 15"
+                Padding="16">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label
+                            Grid.Column="0"
+                            Text="Minha assinatura"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="#1A1A1A"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding AssinaturaPlano}"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#006260"/>
+
+                    </Grid>
+
+                    <Label
+                        Text="{Binding AssinaturaStatus}"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        TextColor="#006260"/>
+
+                    <Label
+                        Text="{Binding AvisoRenovacao}"
+                        IsVisible="{Binding AvisoRenovacaoVisivel}"
+                        FontSize="12"
+                        LineBreakMode="WordWrap"
+                        TextColor="#5F6B6A"/>
+
+                    <Button
+                        Text="Cancelar"
+                        IsVisible="{Binding RenovacaoAtiva}"
+                        Command="{Binding CancelarAssinaturaCommand}"
+                        BackgroundColor="#C62828"
+                        TextColor="White"
+                        FontSize="13"
+                        CornerRadius="10"
+                        HeightRequest="42"/>
+
+                    <Button
+                        Text="Reativar renovação automática"
+                        IsVisible="{Binding RenovacaoCancelada}"
+                        Command="{Binding ReativarAssinaturaCommand}"
+                        BackgroundColor="#006260"
+                        TextColor="White"
+                        FontSize="13"
+                        CornerRadius="10"
+                        HeightRequest="42"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <VerticalStackLayout
+                Spacing="12"
+                BindableLayout.ItemsSource="{Binding Planos}">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="20"
+                            Margin="0,4,0,4">
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="{Binding Nome}"
+                                        FontSize="22"
+                                        FontAttributes="Bold"
+                                        TextColor="{Binding Cor}"/>
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Preco}"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        TextColor="{Binding Cor}"
+                                        VerticalOptions="Center"/>
+                                </Grid>
+
+                                <Label
+                                    Text="{Binding Descricao}"
+                                    FontSize="12"
+                                    FontAttributes="Italic"
+                                    TextColor="#6E7978"/>
+
+                                <Label
+                                    Text="{Binding Caracteristicas}"
+                                    FontSize="13"
+                                    LineBreakMode="WordWrap"
+                                    TextColor="{StaticResource LabelColor}"/>
+
+                                <Button
+                                    Text="Solicitar este plano"
+                                    TextColor="White"
+                                    CornerRadius="20"
+                                    Margin="0,6,0,0"
+                                    Command="{Binding SolicitarCommand}">
+
+                                    <Button.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#006260" Offset="0.0"/>
+                                            <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

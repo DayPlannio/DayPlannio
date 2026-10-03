@@ -1,0 +1,54 @@
+﻿@model DayPlannio.Web.Models.AdminLoginViewModel
+
+@{
+    ViewData["Title"] = "Acesso Administrativo";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="auth-wrap">
+    <div class="auth-card">
+        <img src="~/logo.png" class="login-logo" alt="DayPlannio" />
+        <p class="auth-subtitle">Acesso administrativo do sistema.</p>
+
+        <form method="post" asp-action="Login">
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">E-mail</label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="email@dominio.com" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Senha" class="form-label">Senha</label>
+                <div class="senha-campo">
+                    <input asp-for="Senha" type="password" class="form-control senha-input" id="senhaAdmin" />
+                    <button type="button" class="btn-olho-interno" data-eyetoggle="senhaAdmin" aria-label="Mostrar/ocultar senha">
+                        <img src="~/icon_olho_aberto.png" alt="Mostrar/ocultar senha" />
+                    </button>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Erro))
+            {
+                <div class="alert alert-danger">@Model.Erro</div>
+            }
+
+            <button type="submit" class="btn btn-dp w-100 mb-2">Entrar</button>
+            <a asp-controller="Account" asp-action="Login" class="d-block text-center auth-link">Voltar ao login do cliente</a>
+        </form>
+
+        <script>
+            document.querySelectorAll('[data-eyetoggle]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var alvo = document.getElementById(btn.getAttribute('data-eyetoggle'));
+                    if (!alvo) return;
+                    alvo.type = alvo.type === 'text' ? 'password' : 'text';
+                    var img = btn.querySelector('img');
+                    if (img) {
+                        img.src = alvo.type === 'password'
+                            ? img.src.replace('fechado', 'aberto')
+                            : img.src.replace('aberto', 'fechado');
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>

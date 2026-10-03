@@ -66,6 +66,9 @@ public partial class CadastrarAgendamentoViewModel : ObservableObject
     private string observacoes;
 
     [ObservableProperty]
+    private string enderecoAtendimento = string.Empty;
+
+    [ObservableProperty]
     private string erroMensagem;
 
     [ObservableProperty]
@@ -74,7 +77,14 @@ public partial class CadastrarAgendamentoViewModel : ObservableObject
     partial void OnClienteSelecionadoChanged(int value)
     {
         if (value >= 0 && value < _clientesLista.Count)
+        {
             ClienteTexto = _clientesLista[value].Nome;
+
+            var enderecoCliente = _clientesLista[value].Endereco;
+
+            if (!string.IsNullOrWhiteSpace(enderecoCliente))
+                EnderecoAtendimento = enderecoCliente;
+        }
     }
 
     partial void OnServicoSelecionadoChanged(int value)
@@ -145,6 +155,9 @@ public partial class CadastrarAgendamentoViewModel : ObservableObject
             if (Horario == null)
                 throw new Exception("Selecione um horário.");
 
+            if (string.IsNullOrWhiteSpace(EnderecoAtendimento))
+                throw new Exception("Informe o endereço do atendimento (usado pelo monitoramento GPS).");
+
             var dataHoraLocal = DataAtendimento.Value.Date + Horario.Value;
             var dataHoraUtc = TimeZoneInfo.ConvertTimeToUtc(
                 DateTime.SpecifyKind(dataHoraLocal, DateTimeKind.Unspecified),
@@ -173,7 +186,8 @@ public partial class CadastrarAgendamentoViewModel : ObservableObject
                 dataHora = dataHoraUtc,
                 valorCobrado = valorFinal,
                 custoMaterial = custoFinal,
-                observacoes = Observacoes
+                observacoes = Observacoes,
+                enderecoAtendimento = EnderecoAtendimento.Trim()
             };
 
             var (sucesso, erro) = await AgendamentoService.Create(agendamento);

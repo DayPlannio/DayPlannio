@@ -26,6 +26,27 @@ public partial class MeuPerfilViewModel : ObservableObject
     private string telefone;
 
     [ObservableProperty]
+    private string cidade;
+
+    [ObservableProperty]
+    private bool cidadeVisivel;
+
+    [ObservableProperty]
+    private bool telefoneVisivel;
+
+    [ObservableProperty]
+    private string planoAtual = "";
+
+    [ObservableProperty]
+    private string planoDetalhe = "";
+
+    [ObservableProperty]
+    private string planoPendenteTexto = "";
+
+    [ObservableProperty]
+    private bool planoPendenteVisivel;
+
+    [ObservableProperty]
     private string erroMensagem;
 
     [ObservableProperty]
@@ -47,6 +68,10 @@ public partial class MeuPerfilViewModel : ObservableObject
                 NomeCompleto = perfil.NomeCompleto;
                 Email = perfil.Email;
                 Telefone = perfil.Telefone ?? "";
+                Cidade = perfil.Cidade ?? "";
+                CidadeVisivel = perfil.CidadeVisivel;
+                TelefoneVisivel = perfil.TelefoneVisivel;
+                AtualizarInfosPlano(perfil);
             }
             else
             {
@@ -58,6 +83,102 @@ public partial class MeuPerfilViewModel : ObservableObject
             ErroMensagem = ex.Message;
             ErroVisivel = true;
         }
+    }
+
+    private void AtualizarInfosPlano(Usuario? perfil)
+    {
+        var planoEfetivo = PlanoAppService.PlanoEfetivo(perfil);
+
+        PlanoAtual = PlanoAppService.TemAssinaturaAtiva(planoEfetivo)
+            ? PlanoAppService.NomeExibicao(planoEfetivo)
+            : "Sem assinatura ativa";
+
+        var origem = (perfil?.PlanoOrigem ?? "").ToLowerInvariant() switch
+        {
+            "trial" => "Teste gratuito",
+            "assinatura" => "Assinatura",
+            _ => ""
+        };
+
+        var detalhe = new List<string>();
+        if (perfil?.PlanoExpiraEm != null)
+            detalhe.Add($"Vence em {perfil.PlanoExpiraEm.Value.ToLocalTime():dd/MM/yyyy}");
+        if (!string.IsNullOrWhiteSpace(origem))
+            detalhe.Add(origem);
+        PlanoDetalhe = string.Join("  |  ", detalhe);
+
+        PlanoPendenteTexto = string.IsNullOrWhiteSpace(perfil?.PlanoPendente)
+            ? ""
+            : $"Solicitação do plano {PlanoAppService.NomeExibicao(perfil!.PlanoPendente)} aguardando aprovação do administrador.";
+        PlanoPendenteVisivel = !string.IsNullOrWhiteSpace(perfil?.PlanoPendente);
+    }
+
+    [RelayCommand]
+    private async Task AbrirPoliticaPrivacidade()
+    {
+        await _page.Navigation.PushAsync(new Views.PoliticaPrivacidade(AoDecidirPoliticaPrivacidade));
+    }
+
+    private async void AoDecidirPoliticaPrivacidade(bool concordou)
+    {
+        if (concordou)
+        {
+            await _page.DisplayAlertAsync(
+                "Política de Privacidade",
+                "Você continua de acordo. Seu acesso permanece liberado.",
+                "OK");
+            return;
+        }
+
+        var encerrar = await _page.DisplayAlertAsync(
+            "Você não concorda mais",
+            "Se você não concordar com a Política de Privacidade, a sua conta será encerrada e os seus dados serão removidos do DayPlannio.\n\nDeseja realmente encerrar a sua conta?",
+            "Encerrar conta",
+            "Cancelar");
+
+        if (!encerrar)
+            return;
+
+        await ConfirmarEncerrarConta();
+    }
+
+    [RelayCommand]
+    private async Task AbrirEncerrarConta()
+    {
+        await _page.Navigation.PushModalAsync(new Views.EncerrarConta(AoDecidirEncerrarConta));
+    }
+
+    private async void AoDecidirEncerrarConta(bool confirmar)
+    {
+        if (!confirmar)
+            return;
+
+        await ConfirmarEncerrarConta();
+    }
+
+    private async Task ConfirmarEncerrarConta()
+    {
+        var resultado = await UsuarioService.EncerrarConta(_userId);
+
+        if (!resultado.sucesso)
+        {
+            await _page.DisplayAlertAsync("Erro", resultado.mensagem, "OK");
+            return;
+        }
+
+        PlanoAppService.Invalidar();
+        Preferences.Clear();
+
+        await _page.DisplayAlertAsync("Conta encerrada", "Sua conta foi encerrada e seus dados foram removidos. Até logo!", "OK");
+
+        Application.Current.Windows[0].Page =
+            new NavigationPage(new Views.Login());
+    }
+
+    [RelayCommand]
+    private async Task EscolherPlano()
+    {
+        await _page.Navigation.PushAsync(new Views.Planos());
     }
 
     partial void OnTelefoneChanged(string value)
@@ -98,7 +219,10 @@ public partial class MeuPerfilViewModel : ObservableObject
                 Id = Guid.Parse(_userId),
                 NomeCompleto = NomeCompleto,
                 Email = Email,
-                Telefone = string.IsNullOrWhiteSpace(Telefone) ? null : Telefone
+                Telefone = string.IsNullOrWhiteSpace(Telefone) ? null : Telefone,
+                Cidade = string.IsNullOrWhiteSpace(Cidade) ? null : Cidade,
+                CidadeVisivel = CidadeVisivel,
+                TelefoneVisivel = TelefoneVisivel
             };
 
             var resultado =

@@ -19,7 +19,7 @@ public partial class ExcluirServicoViewModel : ObservableObject
             {
                 new Span { Text = "Tem certeza que quer excluir " },
                 new Span { Text = nomeServico, FontAttributes = FontAttributes.Bold },
-                new Span { Text = "? Todos os agendamentos vinculados serão afetados. Esta ação não pode ser desfeita." }
+                new Span { Text = "⚠️ Todos os agendamentos vinculados serão afetados. Esta ação não pode ser desfeita." }
             }
         };
     }

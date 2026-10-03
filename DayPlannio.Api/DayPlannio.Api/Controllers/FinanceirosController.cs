@@ -1,5 +1,6 @@
 ﻿using DayPlannio.Api.Models;
 using DayPlannio.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -7,16 +8,35 @@ namespace DayPlannio.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class FinanceirosController : ControllerBase
     {
-        private readonly ContextMongodb _context = new ContextMongodb();
+        private readonly ContextMongodb _context;
         private readonly RelatorioPdfService _relatorioPdfService;
+        private readonly LogService _logService;
+        private readonly ILogger<FinanceirosController> _logger;
         private static readonly TimeZoneInfo _fuso =
             TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time");
 
-        public FinanceirosController(RelatorioPdfService relatorioPdfService)
+        public FinanceirosController(
+            ContextMongodb context,
+            RelatorioPdfService relatorioPdfService,
+            LogService logService,
+            ILogger<FinanceirosController> logger)
         {
+            _context = context;
             _relatorioPdfService = relatorioPdfService;
+            _logService = logService;
+            _logger = logger;
+        }
+
+        private async Task<IActionResult?> VerificarAcessoFinanceiro(Guid usuarioId)
+        {
+            var acesso = await PlanoService.VerificarAsync(usuarioId, PlanoService.Profissional, _context);
+            if (!acesso.autorizado)
+                return StatusCode(403, new { message = acesso.mensagem });
+
+            return null;
         }
 
         private static (DateTime inicioUtc, DateTime fimUtc, DateTime agoraLocal) ObterIntervalo(string periodo)
@@ -60,6 +80,9 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("{usuarioId}")]
         public async Task<IActionResult> GetAll(Guid usuarioId)
         {
+            var bloqueio = await VerificarAcessoFinanceiro(usuarioId);
+            if (bloqueio != null) return bloqueio;
+
             var registros = await _context.Financeiro
                 .Find(f => f.UsuarioId == usuarioId)
                 .SortByDescending(f => f.Data)
@@ -71,10 +94,28 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Financeiro financeiro)
         {
+            var bloqueio = await VerificarAcessoFinanceiro(financeiro.UsuarioId);
+            if (bloqueio != null) return bloqueio;
+
             financeiro.Id = Guid.NewGuid();
             financeiro.CreatedAt = DateTime.UtcNow;
 
             await _context.Financeiro.InsertOneAsync(financeiro);
+
+            var tipoTextoCriado = financeiro.Tipo == TipoFinanceiro.Entrada ? "entrada" : "saida";
+            var descricaoCriado = string.IsNullOrWhiteSpace(financeiro.Descricao) ? tipoTextoCriado : financeiro.Descricao;
+
+            try
+            {
+                await _logService.RegistrarAsync(
+                    "financeiro_criado", $"Registro financeiro '{descricaoCriado}' ({tipoTextoCriado}) criado",
+                    "mobile", financeiro.UsuarioId.ToString());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Falha ao registrar log para financeiro {Id}", financeiro.Id);
+            }
+
             return Ok(new { message = "Registro financeiro criado com sucesso.", id = financeiro.Id });
         }
 
@@ -84,12 +125,30 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Financeiro.Find(f => f.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Registro não encontrado." });
 
+            var bloqueio = await VerificarAcessoFinanceiro(existing.UsuarioId);
+            if (bloqueio != null) return bloqueio;
+
             existing.Tipo = financeiro.Tipo;
             existing.Descricao = financeiro.Descricao;
             existing.Valor = financeiro.Valor;
             existing.Data = financeiro.Data;
 
             await _context.Financeiro.ReplaceOneAsync(f => f.Id == id, existing);
+
+            var tipoTextoEditado = existing.Tipo == TipoFinanceiro.Entrada ? "entrada" : "saida";
+            var descricaoEditado = string.IsNullOrWhiteSpace(existing.Descricao) ? tipoTextoEditado : existing.Descricao;
+
+            try
+            {
+                await _logService.RegistrarAsync(
+                    "financeiro_editado", $"Registro financeiro '{descricaoEditado}' atualizado",
+                    "mobile", existing.UsuarioId.ToString());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Falha ao registrar log para financeiro {Id}", existing.Id);
+            }
+
             return Ok(new { message = "Registro financeiro atualizado com sucesso." });
         }
 
@@ -99,7 +158,25 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Financeiro.Find(f => f.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Registro não encontrado." });
 
+            var bloqueio = await VerificarAcessoFinanceiro(existing.UsuarioId);
+            if (bloqueio != null) return bloqueio;
+
             await _context.Financeiro.DeleteOneAsync(f => f.Id == id);
+
+            var tipoTextoDeletado = existing.Tipo == TipoFinanceiro.Entrada ? "entrada" : "saida";
+            var descricaoDeletado = string.IsNullOrWhiteSpace(existing.Descricao) ? tipoTextoDeletado : existing.Descricao;
+
+            try
+            {
+                await _logService.RegistrarAsync(
+                    "financeiro_deletado", $"Registro financeiro '{descricaoDeletado}' ({tipoTextoDeletado}) deletado",
+                    "mobile", existing.UsuarioId.ToString());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Falha ao registrar log para financeiro {Id}", existing.Id);
+            }
+
             return Ok(new { message = "Registro financeiro deletado com sucesso." });
         }
 
@@ -108,6 +185,9 @@ namespace DayPlannio.Api.Controllers
             Guid usuarioId,
             [FromQuery] string periodo = "mensal")
         {
+            var bloqueio = await VerificarAcessoFinanceiro(usuarioId);
+            if (bloqueio != null) return bloqueio;
+
             var (inicioUtc, fimUtc, _) = ObterIntervalo(periodo);
 
             var registros = await _context.Financeiro
@@ -143,6 +223,9 @@ namespace DayPlannio.Api.Controllers
             Guid usuarioId,
             [FromQuery] string periodo = "mensal")
         {
+            var bloqueio = await VerificarAcessoFinanceiro(usuarioId);
+            if (bloqueio != null) return bloqueio;
+
             var (inicioUtc, fimUtc, _) = ObterIntervalo(periodo);
 
             var agendamentos = await _context.Agendamento
@@ -193,6 +276,9 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("{usuarioId}/periodo")]
         public async Task<IActionResult> GetByPeriodo(Guid usuarioId, [FromQuery] string periodo = "diario")
         {
+            var bloqueio = await VerificarAcessoFinanceiro(usuarioId);
+            if (bloqueio != null) return bloqueio;
+
             var (inicioUtc, fimUtc, _) = ObterIntervalo(periodo);
 
             var registros = await _context.Financeiro
@@ -211,6 +297,9 @@ namespace DayPlannio.Api.Controllers
             Guid usuarioId,
             [FromQuery] string periodo = "mensal")
         {
+            var bloqueio = await VerificarAcessoFinanceiro(usuarioId);
+            if (bloqueio != null) return bloqueio;
+
             var (inicioUtc, fimUtc, agoraLocal) = ObterIntervalo(periodo);
 
             var agendamentos = await _context.Agendamento

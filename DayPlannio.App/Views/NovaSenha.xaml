@@ -23,9 +23,7 @@
                     HorizontalOptions="Center"
                     Margin="0,0,0,5"/>
 
-                <Label
-                    FontSize="14"
-                    TextColor="{StaticResource LabelColor}">
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Nova Senha " />
@@ -60,9 +58,7 @@
                     </Grid>
                 </Border>
 
-                <Label
-                    FontSize="14"
-                    TextColor="{StaticResource LabelColor}">
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Confirmar Senha " />
@@ -97,6 +93,7 @@
                     </Grid>
                 </Border>
 
+                <Label Text="As senhas não coincidem." TextColor="#D64541" FontSize="12" IsVisible="{Binding SenhasDiferentes}"/>
                 <Label
                     Text="{Binding ErroMensagem}"
                     TextColor="Red"

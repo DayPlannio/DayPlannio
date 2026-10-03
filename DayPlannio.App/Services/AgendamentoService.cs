@@ -56,10 +56,35 @@ namespace DayPlannio.App.Services
             return agendamentos;
         }
 
-        public static async Task<bool> Cancelar(string id)
+        public static async Task<(bool sucesso, string erro)> Cancelar(string id, string motivo)
         {
-            var response = await App.HttpClient.PutAsync($"api/agendamentos/cancelar/{id}", null);
-            return response.IsSuccessStatusCode;
+            try
+            {
+                var json = JsonSerializer.Serialize(new { motivo });
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await App.HttpClient.PutAsync($"api/agendamentos/cancelar/{id}", content);
+                var body = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        var erro = JsonSerializer.Deserialize<Dictionary<string, string>>(body,
+                            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        return (false, erro?.GetValueOrDefault("message") ?? "Erro ao cancelar agendamento.");
+                    }
+                    catch
+                    {
+                        return (false, body);
+                    }
+                }
+
+                return (true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
         }
 
         public static async Task<bool> Concluir(string id)

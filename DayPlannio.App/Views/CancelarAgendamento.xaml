@@ -16,55 +16,205 @@
             StrokeShape="RoundRectangle 20"
             Padding="25">
 
-            <VerticalStackLayout
-                Spacing="15"
-                HorizontalOptions="Center">
+            <Grid
+                RowDefinitions="Auto,*,Auto,Auto"
+                RowSpacing="12">
 
-                <Border
-                    BackgroundColor="#FDBA74"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 50"
-                    HeightRequest="60"
-                    WidthRequest="60"
+                <VerticalStackLayout
+                    Grid.Row="0"
+                    Spacing="10"
                     HorizontalOptions="Center">
 
+                    <Border
+                        BackgroundColor="#FDBA74"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 50"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="⚠️"
+                            FontSize="30"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+
+                    </Border>
+
                     <Label
-                        Text="⚠️"
-                        FontSize="30"
+                        Text="Cancelar Agendamento?"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="#181C1C"
+                        HorizontalOptions="Center"/>
+
+                    <Label
+                        FontSize="14"
+                        TextColor="#3E4948"
                         HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
+                        HorizontalTextAlignment="Center"
+                        FormattedText="{Binding Mensagem}"/>
 
-                </Border>
+                </VerticalStackLayout>
 
-                <Label
-                    Text="Cancelar Agendamento?"
-                    FontSize="18"
-                    FontAttributes="Bold"
-                    TextColor="#181C1C"
-                    HorizontalOptions="Center"/>
+                <ScrollView
+                    Grid.Row="1"
+                    VerticalOptions="Fill">
 
-                <Label
-                    FontSize="14"
-                    TextColor="#3E4948"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    FormattedText="{Binding Mensagem}"/>
+                    <VerticalStackLayout
+                        Spacing="4"
+                        HorizontalOptions="Fill">
 
-                <Button
-                    Text="Cancelar"
-                    TextColor="White"
-                    BackgroundColor="#F59E0B"
-                    CornerRadius="25"
-                    HeightRequest="50"
-                    Command="{Binding ExcluirCommand}"/>
+                        <RadioButton
+                            GroupName="Motivo"
+                            MinimumHeightRequest="34"
+                            HorizontalOptions="Fill"
+                            IsChecked="{Binding MotivoSelecionado, Converter={StaticResource IgualStringConverter}, ConverterParameter=Cliente desmarcou}">
+                            <RadioButton.Content>
+                                <Label
+                                    Text="Cliente desmarcou"
+                                    FontSize="13"
+                                    TextColor="#3E4948"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                            </RadioButton.Content>
+                        </RadioButton>
 
-                <Button
-                    Text="Voltar"
-                    BackgroundColor="Transparent"
-                    TextColor="Gray"
-                    Command="{Binding CancelarCommand}"/>
+                        <RadioButton
+                            GroupName="Motivo"
+                            MinimumHeightRequest="34"
+                            HorizontalOptions="Fill"
+                            IsChecked="{Binding MotivoSelecionado, Converter={StaticResource IgualStringConverter}, ConverterParameter=Cliente não compareceu}">
+                            <RadioButton.Content>
+                                <Label
+                                    Text="Cliente não compareceu"
+                                    FontSize="13"
+                                    TextColor="#3E4948"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                            </RadioButton.Content>
+                        </RadioButton>
 
-            </VerticalStackLayout>
+                        <RadioButton
+                            GroupName="Motivo"
+                            MinimumHeightRequest="34"
+                            HorizontalOptions="Fill"
+                            IsChecked="{Binding MotivoSelecionado, Converter={StaticResource IgualStringConverter}, ConverterParameter=Falta de material}">
+                            <RadioButton.Content>
+                                <Label
+                                    Text="Falta de material"
+                                    FontSize="13"
+                                    TextColor="#3E4948"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+
+                        <RadioButton
+                            GroupName="Motivo"
+                            MinimumHeightRequest="34"
+                            HorizontalOptions="Fill"
+                            IsChecked="{Binding MotivoSelecionado, Converter={StaticResource IgualStringConverter}, ConverterParameter=Chuva / imprevisto}">
+                            <RadioButton.Content>
+                                <Label
+                                    Text="Chuva / imprevisto"
+                                    FontSize="13"
+                                    TextColor="#3E4948"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+
+                        <RadioButton
+                            GroupName="Motivo"
+                            MinimumHeightRequest="34"
+                            HorizontalOptions="Fill"
+                            IsChecked="{Binding MotivoSelecionado, Converter={StaticResource IgualStringConverter}, ConverterParameter=Erro no agendamento}">
+                            <RadioButton.Content>
+                                <Label
+                                    Text="Erro no agendamento"
+                                    FontSize="13"
+                                    TextColor="#3E4948"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+
+                        <RadioButton
+                            GroupName="Motivo"
+                            MinimumHeightRequest="34"
+                            HorizontalOptions="Fill"
+                            IsChecked="{Binding MotivoSelecionado, Converter={StaticResource IgualStringConverter}, ConverterParameter=Outro motivo}">
+                            <RadioButton.Content>
+                                <Label
+                                    Text="Outro motivo"
+                                    FontSize="13"
+                                    TextColor="#3E4948"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+
+                    </VerticalStackLayout>
+
+                </ScrollView>
+
+                <VerticalStackLayout
+                    Grid.Row="2"
+                    Spacing="6"
+                    HorizontalOptions="Fill">
+
+                    <Border
+                        BackgroundColor="#F8FAF9"
+                        StrokeThickness="1"
+                        Stroke="#E2E8E6"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="12,4"
+                        HorizontalOptions="Fill"
+                        IsVisible="{Binding MostrarBoxOutro}">
+
+                        <Editor
+                            Placeholder="Escreva o motivo do cancelamento..."
+                            Text="{Binding MotivoOutro}"
+                            AutoSize="TextChanges"
+                            MaxLength="200"
+                            FontSize="14"
+                            TextColor="#181C1C"
+                            HeightRequest="80"/>
+
+                    </Border>
+
+                    <Label
+                        Text="{Binding AvisoMotivo}"
+                        FontSize="12"
+                        TextColor="#BA1A1A"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding MostrarAvisoMotivo}"/>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    Grid.Row="3"
+                    Spacing="8"
+                    HorizontalOptions="Fill">
+
+                    <Button
+                        Text="Confirmar Cancelamento"
+                        TextColor="White"
+                        BackgroundColor="#F59E0B"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        Command="{Binding ExcluirCommand}"/>
+
+                    <Button
+                        Text="Voltar"
+                        BackgroundColor="Transparent"
+                        TextColor="Gray"
+                        Command="{Binding CancelarCommand}"/>
+
+                </VerticalStackLayout>
+
+            </Grid>
 
         </Border>
 

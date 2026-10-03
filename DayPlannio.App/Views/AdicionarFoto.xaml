@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.AdicionarFoto"
+    BackgroundColor="#80000000">
+
+    <Grid
+    VerticalOptions="Center"
+    Margin="20">
+
+        <Border
+        BackgroundColor="White"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 20"
+        Padding="20"
+        MaximumHeightRequest="700">
+
+            <ScrollView
+            Orientation="Vertical">
+
+                <Grid
+                RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                RowSpacing="10">
+
+                    <VerticalStackLayout Grid.Row="0" Spacing="10" HorizontalOptions="Center">
+                        <Border
+                        BackgroundColor="#DFF3E3"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 50"
+                        HeightRequest="55"
+                        WidthRequest="55"
+                        HorizontalOptions="Center">
+
+                            <Label
+                            Text="+"
+                            FontSize="28"
+                            TextColor="#2E7D32"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                        </Border>
+
+                        <Label
+                        Text="Adicionar fotos do serviço"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        TextColor="#181C1C"
+                        HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <Label
+                    Grid.Row="1"
+                    Text="Selecione as fotos para enviar"
+                    FontSize="12"
+                    TextColor="#6E7978"
+                    IsVisible="{Binding TemFoto}"
+                    HorizontalOptions="Center"/>
+
+                    <Grid Grid.Row="2" IsVisible="{Binding TemFoto}">
+
+                        <VerticalStackLayout
+                        Spacing="10"
+                        IsVisible="{Binding MostrarTodasFotos, Converter={StaticResource InvertedBoolConverter}}">
+
+                            <HorizontalStackLayout
+                            BindableLayout.ItemsSource="{Binding FotosPreview}"
+                            Spacing="8"
+                            HorizontalOptions="Center">
+
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <VerticalStackLayout Spacing="8" WidthRequest="120">
+
+                                            <Grid HeightRequest="120">
+
+                                                <Border
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 10"
+                                                BackgroundColor="#F0F0F0">
+
+                                                    <Image
+                                                    Source="{Binding Preview}"
+                                                    Aspect="AspectFill"/>
+                                                </Border>
+
+                                                <Grid
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"
+                                                Margin="0,-4,-4,0"
+                                                WidthRequest="22"
+                                                HeightRequest="22">
+
+                                                    <Border
+                                                    BackgroundColor="#BA1A1A"
+                                                    StrokeThickness="0"
+                                                    StrokeShape="RoundRectangle 11"
+                                                    Padding="0">
+
+                                                        <Label
+                                                        Text="&#x2715;"
+                                                        TextColor="White"
+                                                        FontSize="10"
+                                                        FontAttributes="Bold"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"/>
+                                                    </Border>
+
+                                                    <ImageButton
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type views:AdicionarFoto}}, Path=BindingContext.RemoverFotoCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    WidthRequest="22"
+                                                    HeightRequest="22"/>
+                                                </Grid>
+
+                                            </Grid>
+
+                                            <Label
+                                            Text="Tornar pública?"
+                                            FontSize="12"
+                                            TextColor="#666"
+                                            LineBreakMode="NoWrap"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Center"/>
+
+                                            <Switch
+                                            IsToggled="{Binding Publica}"
+                                            ThumbColor="White"
+                                            OnColor="#006260"
+                                            HorizontalOptions="Center"
+                                            WidthRequest="48"/>
+
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+
+                            </HorizontalStackLayout>
+
+                            <Button
+                            Text="{Binding VerTodasLabel}"
+                            FontSize="13"
+                            TextColor="#006260"
+                            BackgroundColor="Transparent"
+                            IsVisible="{Binding TemMaisDeDuasFotos}"
+                            Command="{Binding ToggleVerTodasCommand}"/>
+
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout
+                        Spacing="8"
+                        IsVisible="{Binding MostrarTodasFotos}">
+
+                            <Button
+                            Text="&#x2039; Voltar"
+                            FontSize="12"
+                            TextColor="Gray"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="Start"
+                            Padding="0"
+                            Command="{Binding ToggleVerTodasCommand}"/>
+
+                            <ScrollView Orientation="Vertical" HeightRequest="280">
+
+                                <FlexLayout
+                                Wrap="Wrap"
+                                JustifyContent="Start"
+                                BindableLayout.ItemsSource="{Binding Fotos}">
+
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <VerticalStackLayout Spacing="6" WidthRequest="110" Margin="4">
+
+                                                <Grid HeightRequest="110">
+
+                                                    <Border
+                                                    StrokeThickness="0"
+                                                    StrokeShape="RoundRectangle 10"
+                                                    BackgroundColor="#F0F0F0">
+
+                                                        <Image
+                                                        Source="{Binding Preview}"
+                                                        Aspect="AspectFill"/>
+                                                    </Border>
+
+                                                    <Grid
+                                                    HorizontalOptions="End"
+                                                    VerticalOptions="Start"
+                                                    Margin="0,-4,-4,0"
+                                                    WidthRequest="22"
+                                                    HeightRequest="22">
+
+                                                        <Border
+                                                        BackgroundColor="#BA1A1A"
+                                                        StrokeThickness="0"
+                                                        StrokeShape="RoundRectangle 11"
+                                                        Padding="0">
+
+                                                            <Label
+                                                            Text="&#x2715;"
+                                                            TextColor="White"
+                                                            FontSize="10"
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="Center"
+                                                            VerticalOptions="Center"/>
+                                                        </Border>
+
+                                                        <ImageButton
+                                                        BackgroundColor="Transparent"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type views:AdicionarFoto}}, Path=BindingContext.RemoverFotoCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        WidthRequest="22"
+                                                        HeightRequest="22"/>
+                                                    </Grid>
+
+                                                </Grid>
+
+                                                <Label
+                                                Text="Tornar pública?"
+                                                FontSize="11"
+                                                TextColor="#666"
+                                                LineBreakMode="NoWrap"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"/>
+
+                                                <Switch
+                                                IsToggled="{Binding Publica}"
+                                                ThumbColor="White"
+                                                OnColor="#006260"
+                                                HorizontalOptions="Center"
+                                                WidthRequest="48"/>
+
+                                            </VerticalStackLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+
+                                </FlexLayout>
+
+                            </ScrollView>
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                    <Label
+                    Grid.Row="3"
+                    Text="{Binding FotoStatus}"
+                    FontSize="12"
+                    TextColor="#2E7D32"
+                    IsVisible="{Binding TemFoto}"
+                    HorizontalOptions="Center"/>
+
+                    <VerticalStackLayout
+                    Grid.Row="4"
+                    Spacing="8"
+                    HorizontalOptions="Fill">
+
+                        <Button
+                        Text="+ Adicionar mais fotos"
+                        FontSize="13"
+                        TextColor="#006260"
+                        BackgroundColor="#CFEDEC"
+                        CornerRadius="22"
+                        HeightRequest="42"
+                        Command="{Binding AdicionarFotoCommand}"/>
+
+                        <Button
+                        Text="Enviar fotos"
+                        TextColor="White"
+                        BackgroundColor="#2E7D32"
+                        CornerRadius="22"
+                        HeightRequest="48"
+                        IsVisible="{Binding TemFoto}"
+                        Command="{Binding ConfirmarCommand}"/>
+
+                        <Button
+                        Text="Cancelar"
+                        BackgroundColor="Transparent"
+                        TextColor="Gray"
+                        Command="{Binding CancelarCommand}"/>
+                    </VerticalStackLayout>
+
+                </Grid>
+
+            </ScrollView>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

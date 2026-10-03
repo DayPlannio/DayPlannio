@@ -7,6 +7,8 @@ public partial class ConcluirAgendamento : ContentPage
     public ConcluirAgendamentoViewModel ViewModel { get; }
 
     public ConcluirAgendamento(
+        string agendamentoId,
+        string prestadorId,
         string nomeCliente,
         string servico)
     {
@@ -15,6 +17,8 @@ public partial class ConcluirAgendamento : ContentPage
         ViewModel =
             new ConcluirAgendamentoViewModel(
                 Navigation,
+                agendamentoId,
+                prestadorId,
                 nomeCliente,
                 servico);
 

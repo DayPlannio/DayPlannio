@@ -275,6 +275,110 @@
 
                                     </Border>
 
+                                    <CollectionView
+    ItemsSource="{Binding Fotos}"
+    IsVisible="{Binding TemFoto}"
+    HeightRequest="120"
+    HorizontalOptions="Fill"
+    SelectionMode="None"
+    Scrolled="OnFotosHistoricoScrolled">
+
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout
+            Orientation="Horizontal"
+            ItemSpacing="8"/>
+                                        </CollectionView.ItemsLayout>
+
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid
+                WidthRequest="110"
+                HeightRequest="110">
+
+                                                    <Border
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="#F0F0F0">
+
+                                                        <Image
+                        Source="{Binding Url}"
+                        WidthRequest="110"
+                        HeightRequest="110"
+                        Aspect="AspectFit"/>
+
+                                                    </Border>
+
+                                                    <Grid
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Margin="0,-3,-3,0"
+                    WidthRequest="20"
+                    HeightRequest="20">
+
+                                                        <Border
+                        BackgroundColor="#BA1A1A"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="0">
+
+                                                            <Label
+                            Text="&#x2715;"
+                            TextColor="White"
+                            FontSize="9"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+
+                                                        </Border>
+
+                                                        <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type views:HistoricoCliente}}, Path=BindingContext.ExcluirFotoCommand}"
+                        CommandParameter="{Binding .}"
+                        WidthRequest="20"
+                        HeightRequest="20"/>
+
+                                                    </Grid>
+
+                                                </Grid>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+
+                                    </CollectionView>
+
+                                    <Grid
+    HeightRequest="3"
+    Margin="0,4,0,0"
+    BackgroundColor="#E0E0E0"
+    IsVisible="False">
+
+                                        <BoxView
+        HeightRequest="3"
+        CornerRadius="1.5"
+        BackgroundColor="#006260"
+        HorizontalOptions="Start"
+        VerticalOptions="Start"/>
+                                    </Grid>
+
+                                    <Label
+                                        Text="{Binding QuantidadeFotos, StringFormat='{0} foto(s)'}"
+                                        FontSize="11"
+                                        TextColor="#666"
+                                        IsVisible="{Binding TemFoto}"
+                                        HorizontalOptions="Center"/>
+
+                                    <Button
+                                        Text="+ Adicionar foto do serviço"
+                                        FontSize="13"
+                                        TextColor="#006260"
+                                        BackgroundColor="#CFEDEC"
+                                        CornerRadius="18"
+                                        Padding="16,8"
+                                        HorizontalOptions="Center"
+                                        IsVisible="{Binding PodeAdicionarFoto}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type views:HistoricoCliente}}, Path=BindingContext.AdicionarFotoCommand}"
+                                        CommandParameter="{Binding .}"/>
+
                                 </VerticalStackLayout>
 
                             </Border>

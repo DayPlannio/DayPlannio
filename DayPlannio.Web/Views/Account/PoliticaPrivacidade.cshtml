@@ -1,0 +1,228 @@
+@model DayPlannio.Web.Models.PoliticaPrivacidadeViewModel
+
+@{
+    ViewData["Title"] = "Política de Privacidade";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 860px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        @if (!Model.Obrigatoria)
+        {
+            <a asp-controller="Account" asp-action="@(Model.Autenticado ? "Perfil" : "Login")" class="btn btn-dp-outline">Voltar</a>
+        }
+    </div>
+
+    @if (Model.Obrigatoria)
+    {
+        <div class="alert alert-warning">
+            Antes de entrar no portal, leia a Política de Privacidade e escolha se concorda ou não.
+            Se você não concordar, a sua conta será encerrada e os seus dados serão removidos.
+        </div>
+    }
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Política de Privacidade</h2>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="form-text mb-3">Última atualização: outubro de 2026</div>
+
+        <p class="form-text">
+            Esta política explica como o DayPlannio e os profissionais cadastrados na plataforma coletam,
+            usam, armazenam e protegem os seus dados pessoais, e quais são os seus direitos como titular.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">1. Sobre esta política</div>
+        <p class="form-text">
+            O DayPlannio é uma plataforma que organiza os serviços de profissionais autônomos.
+            Quando você contrata um profissional por aqui, dois agentes tratam os seus dados:
+            o <strong>DayPlannio</strong>, que mantém a plataforma, e o
+            <strong>profissional prestador</strong>, que utiliza a plataforma para atender você.
+            Você é o titular dos seus dados pessoais e pode solicitar a exclusão a qualquer momento,
+            sem precisar passar por qualquer formulário de concordância.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">2. Dados que coletamos</div>
+        <ul class="form-text">
+            <li><strong>Cadastro:</strong> nome completo, telefone, endereço, e-mail de acesso e senha, informados pelo profissional que atende você.</li>
+            <li><strong>Recuperação de senha:</strong> um e-mail de recuperação, opcional, informado por você.</li>
+            <li><strong>Atendimentos:</strong> agendamentos, datas e horários, endereço e local do atendimento, valores, status, observações e fotos dos serviços, informados pelo profissional que atendeu você.</li>
+            <li><strong>Histórico:</strong> os serviços já concluídos, com data, duração, profissional e valor, para que você acompanhe o que já foi prestado.</li>
+            <li><strong>Registros de acesso:</strong> dados técnicos dos logins e das ações realizadas no portal, por segurança e prevenção a fraudes.</li>
+        </ul>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">3. Para que usamos os seus dados</div>
+        <p class="form-text">
+            Usamos os seus dados para manter o seu cadastro ativo, permitir que você entre no portal,
+            exibir ao profissional os agendamentos e os dados necessários para realizar o atendimento,
+            registrar o histórico dos serviços prestados, enviar comunicações sobre os seus agendamentos
+            e proteger a sua conta. Não solicitamos dados que não sejam necessários para esses fins.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">4. Com quem compartilhamos</div>
+        <p class="form-text">
+            Os seus dados são compartilhados com o profissional que você contratou, que precisa deles
+            para executar e registrar o serviço, e com a equipe de suporte do DayPlannio, quando necessário
+            para resolver um problema de acesso. Não vendemos, alugamos nem cedemos os seus dados pessoais.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">5. Armazenamento e segurança</div>
+        <p class="form-text">
+            Os dados são armazenados em serviços protegidos, com acesso restrito aos responsáveis pela
+            plataforma e aos profissionais que precisam deles para o atendimento. A sua senha é
+            armazenada de forma protegida e nunca fica exposta em texto puro.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">6. Por quanto tempo guardamos</div>
+        <p class="form-text">
+            Os seus dados são mantidos enquanto a sua conta estiver ativa. Ao encerrar a conta, o seu
+            cadastro, o seu e-mail de acesso, a sua senha e os registros de acesso vinculados ao seu
+            e-mail são removidos. Os agendamentos que você já realizou
+            <strong>continuam visíveis para o profissional que atendeu você</strong>, por serem registros
+            de atendimento sob responsabilidade dele.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">7. Seus direitos</div>
+        <p class="form-text">
+            A LGPD garante que você pode, a qualquer momento, solicitar a confirmação do tratamento,
+            o acesso, a correção, a atualização, a portabilidade, a eliminação dos seus dados, a revogação
+            do consentimento e informações sobre com quem compartilhamos. Você também pode revogar o
+            consentimento a qualquer momento.
+        </p>
+        <p class="form-text mb-0">
+            <strong>Como exercer:</strong> você pode encerrar a sua conta diretamente em
+            <em>Minha conta</em> &rarr; <em>Encerrar minha conta</em>, ou enviar um e-mail para
+            suporte.dayplannio@gmail.com. Se a sua solicitação não for atendida, você pode reclamar
+            à ANPD (Autoridade Nacional de Proteção de Dados).
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">8. Consentimento</div>
+        <p class="form-text">
+            A concordância com esta política é livre. Ao marcar <em>Concordar</em>, você registra que
+            leu e aceita estes termos, e o seu acesso ao portal permanece liberado.
+        </p>
+        <p class="form-text mb-0">
+            A concordância também é revogável: se você marcar <em>Não concordar</em>, avisamos que a sua
+            conta será encerrada e, se você confirmar, os seus dados serão tratados conforme o item 6.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">9. Alterações desta política</div>
+        <p class="form-text mb-0">
+            Esta política pode ser atualizada para refletir mudanças na plataforma. A data da última
+            atualização é sempre informada no topo desta página.
+        </p>
+    </div>
+
+    <div class="dp-card p-4 mb-4">
+        <div class="section-title">10. Contato</div>
+        <p class="form-text">
+            Dúvidas sobre esta política de privacidade ou sobre o tratamento dos seus dados:
+            <strong>suporte.dayplannio@gmail.com</strong>. Responderemos dentro dos prazos previstos em lei.
+        </p>
+    </div>
+
+    <form method="post" asp-action="PoliticaPrivacidade" id="formPolitica">
+        <div class="dp-card p-4 mb-4">
+            <div class="section-title">Sua decisão</div>
+            <p class="form-text">
+                Leia a política até o final para liberar as opções abaixo.
+            </p>
+
+            <div class="form-text mb-3" id="avisoRolagem">
+                Role até o final da política para liberar as opções de concordar ou não concordar.
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <button type="submit"
+                        name="Escolha"
+                        value="nao_concordar"
+                        id="btnNaoConcordar"
+                        class="btn btn-dp-outline"
+                        disabled>
+                    Não concordar
+                </button>
+                <button type="submit"
+                        name="Escolha"
+                        value="concordar"
+                        id="btnConcordar"
+                        class="btn btn-dp"
+                        disabled>
+                    Concordar
+                </button>
+            </div>
+
+            @if (Model.Obrigatoria)
+            {
+                <p class="form-text text-center mt-3 mb-0">
+                    A sua escolha é necessária para concluir o primeiro acesso. Se você marcar
+                    <em>Não concordar</em>, vamos avisar que a sua conta será encerrada antes de excluir
+                    qualquer coisa.
+                </p>
+            }
+            else if (Model.Autenticado)
+            {
+                <p class="form-text text-center mt-3 mb-0">
+                    Se você escolher <em>Não concordar</em>, vamos avisar que a sua conta será encerrada
+                    antes de excluir qualquer coisa.
+                </p>
+            }
+        </div>
+    </form>
+
+    @if (Model.Autenticado && !Model.Obrigatoria)
+    {
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a asp-controller="Account" asp-action="Perfil" class="btn btn-dp">Ir para Minha conta</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var aviso = document.getElementById('avisoRolagem');
+            var botaoConcordar = document.getElementById('btnConcordar');
+            var botaoNaoConcordar = document.getElementById('btnNaoConcordar');
+            var liberado = false;
+
+            function verificar() {
+                if (liberado) return;
+
+                var scrollTop = window.scrollY || document.documentElement.scrollTop;
+                var alturaTotal = document.body.scrollHeight;
+
+                if (alturaTotal - (scrollTop + window.innerHeight) <= 20) {
+                    liberado = true;
+                    botaoConcordar.disabled = false;
+                    botaoNaoConcordar.disabled = false;
+                    aviso.style.display = 'none';
+                }
+            }
+
+            window.addEventListener('scroll', verificar);
+            window.addEventListener('resize', verificar);
+            verificar();
+        })();
+    </script>
+}

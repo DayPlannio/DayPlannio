@@ -27,11 +27,10 @@ public partial class EditarAgendamentoViewModel : ObservableObject
     [ObservableProperty] private string valor;
     [ObservableProperty] private string custo;
     [ObservableProperty] private string observacoes;
+    [ObservableProperty] private string enderecoAtendimento = string.Empty;
     [ObservableProperty] private string erroMensagem;
     [ObservableProperty] private bool erroVisivel;
     public DateTime DataMinima { get; } = DateTime.Today;
-
-
 
     public EditarAgendamentoViewModel(
         AgendamentoItemViewModel agendamento,
@@ -52,6 +51,7 @@ public partial class EditarAgendamentoViewModel : ObservableObject
         Valor = agendamento.ValorCobrado.ToString();
         Custo = agendamento.CustoMaterial.ToString();
         Observacoes = agendamento.Observacoes;
+        EnderecoAtendimento = agendamento.EnderecoAtendimento ?? string.Empty;
     }
 
     private void AtualizarHorarioLabel()
@@ -120,6 +120,9 @@ public partial class EditarAgendamentoViewModel : ObservableObject
             if (ServicoSelecionado == null)
                 throw new Exception("Selecione um serviço.");
 
+            if (string.IsNullOrWhiteSpace(EnderecoAtendimento))
+                throw new Exception("Informe o endereço do atendimento (usado pelo monitoramento GPS).");
+
             var valorStr = Valor?.Replace(",", ".") ?? "0";
             if (!decimal.TryParse(valorStr, System.Globalization.NumberStyles.Any,
                 System.Globalization.CultureInfo.InvariantCulture, out decimal valorDecimal))
@@ -140,7 +143,8 @@ public partial class EditarAgendamentoViewModel : ObservableObject
                 ),
                 valorCobrado = valorDecimal,
                 custoMaterial = custoDecimal,
-                observacoes = Observacoes ?? string.Empty
+                observacoes = Observacoes ?? string.Empty,
+                enderecoAtendimento = EnderecoAtendimento.Trim()
             };
 
             var (sucesso, erro) = await AgendamentoService.Edit(_agendamentoId, agendamento);

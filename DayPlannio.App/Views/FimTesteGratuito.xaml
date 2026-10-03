@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.FimTesteGratuito"
+    BackgroundColor="#F5F5F5"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="14">
+
+                <Label
+                    Text="Seu teste terminou"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    TextColor="#181C1C"/>
+
+                <Border
+                    BackgroundColor="#FFF4E0"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="14">
+
+                    <Label
+                        Text="Os 7 dias de teste grátis do plano Full acabaram. Escolha o plano ideal para você e continue usando o DayPlannio. Enquanto você não escolher, o app fica bloqueado e só o Meu Perfil continua disponível — nada do que você cadastrou é perdido."
+                        FontSize="13"
+                        LineBreakMode="WordWrap"
+                        TextColor="#8A5A00"/>
+
+                </Border>
+
+                <ActivityIndicator
+                    IsRunning="{Binding Carregando}"
+                    IsVisible="{Binding Carregando}"
+                    Color="#006260"/>
+
+                <Label
+                    Text="{Binding Aviso}"
+                    IsVisible="{Binding AvisoVisivel}"
+                    FontSize="12"
+                    FontAttributes="Italic"
+                    LineBreakMode="WordWrap"
+                    TextColor="#B26A00"/>
+
+                <Label
+                    Text="Básico - R$ 9,90"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="#6E7978"/>
+
+                <Label
+                    Text="Criar, editar e cancelar agendamentos, visualizar agenda, cadastrar clientes, histórico de clientes, tipos de serviço e perfil."
+                    FontSize="12"
+                    LineBreakMode="WordWrap"
+                    TextColor="#3E4948"/>
+
+                <Button
+                    Text="Escolher Básico"
+                    TextColor="#006260"
+                    BackgroundColor="#E6F4F3"
+                    CornerRadius="20"
+                    Command="{Binding EscolherPlanoCommand}"
+                    CommandParameter="Basico"/>
+
+                <Label
+                    Text="Profissional - R$ 19,90"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="#1E88E5"/>
+
+                <Label
+                    Text="Tudo do Básico + entradas e saídas financeiras, cálculo de lucro, lucro geral, relatórios financeiros e métricas de serviços."
+                    FontSize="12"
+                    LineBreakMode="WordWrap"
+                    TextColor="#3E4948"/>
+
+                <Button
+                    Text="Escolher Profissional"
+                    TextColor="White"
+                    CornerRadius="20"
+                    Command="{Binding EscolherPlanoCommand}"
+                    CommandParameter="Profissional">
+
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1E88E5" Offset="0.0"/>
+                            <GradientStop Color="#42A5F5" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <Label
+                    Text="Full - R$ 29,90"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="#006260"/>
+
+                <Label
+                    Text="Tudo do Profissional + portfólio público, upload de fotos dos serviços, área/acesso do cliente, métricas para o cliente e detecção de atendimento."
+                    FontSize="12"
+                    LineBreakMode="WordWrap"
+                    TextColor="#3E4948"/>
+
+                <Button
+                    Text="Escolher Full"
+                    TextColor="White"
+                    CornerRadius="20"
+                    Command="{Binding EscolherPlanoCommand}"
+                    CommandParameter="Full">
+
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#006260" Offset="0.0"/>
+                            <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

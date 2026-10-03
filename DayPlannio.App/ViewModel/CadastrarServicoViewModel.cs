@@ -96,4 +96,10 @@ public partial class CadastrarServicoViewModel : ObservableObject
     {
         await _navigation.PopAsync();
     }
+
+    [RelayCommand]
+    private async Task Voltar()
+    {
+        await _navigation.PopAsync();
+    }
 }

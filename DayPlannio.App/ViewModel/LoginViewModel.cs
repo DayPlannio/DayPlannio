@@ -52,8 +52,17 @@ public partial class LoginViewModel : ObservableObject
                     UltimoAcesso = DateTime.Now
                 });
 
-                Application.Current.Windows[0].Page =
-                    new NavigationPage(new Views.Agendamentos());
+                Services.PlanoAppService.Invalidar();
+
+                var plano = await Services.PlanoAppService.ObterPlanoAsync();
+                var semAssinatura = !Services.PlanoAppService.TemAssinaturaAtiva(plano);
+
+                Application.Current.Windows[0].Page = new NavigationPage(
+                    semAssinatura
+                        ? (Page)new Views.MeuPerfil()
+                        : new Views.Agendamentos());
+
+                await Views.FimTesteGratuito.ExibirSeNecessarioAsync(null);
             }
             else
             {

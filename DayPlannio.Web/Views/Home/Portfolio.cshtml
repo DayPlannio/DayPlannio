@@ -1,0 +1,681 @@
+@model List<DayPlannio.Web.Models.PortfolioItem>
+@{
+    ViewData["Title"] = "Portfólio";
+    Layout = "_Layout";
+    var stats = ViewBag.Stats as DayPlannio.Web.Models.PortfolioStats;
+    var fotosDestaque = Model.Take(4).ToList();
+}
+
+<style>
+    :root {
+        --pf-ink: #16211f;
+        --pf-paper: #FAFAF7;
+        --pf-line: #E4EFEE;
+    }
+
+    .pf-page {
+        background: var(--pf-paper);
+        margin: -24px 0;
+        padding-bottom: 8px;
+    }
+
+    .pf-topbar {
+        max-width: 1080px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+    }
+
+    .pf-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+        .pf-brand img {
+            height: 44px;
+        }
+
+        .pf-brand span {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--dp-primary);
+        }
+
+    .pf-topbar .btn-entrar {
+        color: var(--dp-primary-dark);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: .92rem;
+        padding: 8px 20px;
+        border-radius: 999px;
+        border: 1.5px solid var(--dp-accent);
+        transition: background .15s ease;
+    }
+
+        .pf-topbar .btn-entrar:hover {
+            background: var(--dp-teal-bg);
+        }
+
+    .pf-hero {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 24px 24px 56px;
+        display: grid;
+        grid-template-columns: 1.1fr .9fr;
+        gap: 48px;
+        align-items: center;
+    }
+
+        .pf-hero h1 {
+            font-weight: 600;
+            font-size: 2.6rem;
+            line-height: 1.12;
+            color: var(--pf-ink);
+            margin: 0 0 18px;
+            max-width: 13ch;
+        }
+
+        .pf-hero p.pf-lead {
+            font-size: 1.02rem;
+            color: var(--dp-muted);
+            line-height: 1.6;
+            max-width: 40ch;
+            margin: 0 0 28px;
+        }
+
+    .pf-stats-row {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+    }
+
+    .pf-stat {
+        line-height: 1.1;
+    }
+
+        .pf-stat .num {
+            font-weight: 600;
+            font-size: 1.7rem;
+            color: var(--dp-primary);
+            display: block;
+        }
+
+        .pf-stat .lbl {
+            font-size: .78rem;
+            color: var(--dp-muted);
+        }
+
+    .pf-hero .btn-cta {
+        display: inline-block;
+        background: linear-gradient(90deg, var(--dp-primary), var(--dp-secondary));
+        color: #fff;
+        padding: 13px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: .95rem;
+        text-decoration: none;
+        box-shadow: 0 6px 20px rgba(0, 98, 96, .22);
+        transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+        .pf-hero .btn-cta:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 98, 96, .3);
+        }
+
+    .pf-collage {
+        position: relative;
+        height: 340px;
+    }
+
+        .pf-collage img {
+            position: absolute;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 40, 38, .18);
+            border: 4px solid #fff;
+        }
+
+            .pf-collage img:nth-child(1) {
+                width: 62%;
+                height: 62%;
+                top: 0;
+                left: 4%;
+                transform: rotate(-4deg);
+                z-index: 2;
+            }
+
+            .pf-collage img:nth-child(2) {
+                width: 46%;
+                height: 50%;
+                top: 8%;
+                right: 0;
+                transform: rotate(5deg);
+                z-index: 1;
+            }
+
+            .pf-collage img:nth-child(3) {
+                width: 42%;
+                height: 46%;
+                bottom: 0;
+                left: 0;
+                transform: rotate(6deg);
+                z-index: 1;
+            }
+
+            .pf-collage img:nth-child(4) {
+                width: 44%;
+                height: 44%;
+                bottom: 4%;
+                right: 6%;
+                transform: rotate(-3deg);
+                z-index: 3;
+            }
+
+    .pf-collage-empty {
+        height: 100%;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--dp-primary-dark), var(--dp-primary) 60%, var(--dp-secondary));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+        padding: 20px;
+    }
+
+        .pf-collage-empty .icon {
+            display: inline-flex;
+            color: #fff;
+            opacity: .9;
+        }
+
+        .pf-collage-empty span {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            max-width: 18ch;
+            line-height: 1.3;
+        }
+
+    .pf-intro {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px 8px;
+        border-top: 1px solid var(--pf-line);
+        padding-top: 40px;
+    }
+
+        .pf-intro h2 {
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--pf-ink);
+            margin: 0 0 4px;
+        }
+
+        .pf-intro p {
+            color: var(--dp-muted);
+            font-size: .9rem;
+            margin: 0;
+        }
+
+    .pf-city-filter {
+        max-width: 1080px;
+        margin: 18px auto 0;
+        padding: 0 24px 6px;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 8px;
+        scrollbar-width: thin;
+        mask-image: linear-gradient(90deg, #000 calc(100% - 32px), transparent);
+        -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 32px), transparent);
+    }
+
+    .pf-city-tag {
+        flex: 0 0 auto;
+        padding: 7px 16px;
+        border-radius: 999px;
+        font-size: .82rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        border: 1.5px solid var(--pf-line);
+        color: var(--dp-muted);
+        background: #fff;
+        transition: border-color .15s ease, color .15s ease, background .15s ease;
+    }
+
+        .pf-city-tag:hover {
+            border-color: var(--dp-accent);
+            color: var(--dp-primary-dark);
+        }
+
+        .pf-city-tag.active {
+            background: var(--dp-primary);
+            border-color: var(--dp-primary);
+            color: #fff;
+        }
+
+    .pf-cidade-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: var(--dp-teal-bg);
+        color: var(--dp-primary-dark);
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: .7rem;
+        font-weight: 600;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+        .pf-cidade-badge img {
+            width: 11px;
+            height: 11px;
+            display: block;
+            object-fit: contain;
+        }
+
+    .pf-contato-btn {
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--dp-teal-bg);
+        color: var(--dp-primary-dark);
+        border: 1.5px solid var(--dp-accent);
+        padding: 7px 16px;
+        border-radius: 999px;
+        font-size: .82rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background .15s ease, transform .1s ease;
+    }
+
+        .pf-contato-btn:hover {
+            background: var(--dp-primary);
+            color: #fff;
+            border-color: var(--dp-primary);
+            transform: translateY(-1px);
+        }
+
+    .pf-container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 8px 24px 0;
+    }
+
+    .pf-prestador {
+        padding: 32px 0;
+        border-bottom: 1px solid var(--pf-line);
+    }
+
+        .pf-prestador:last-child {
+            border-bottom: none;
+        }
+
+    .pf-prestador-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+    }
+
+    .pf-prestador-info {
+        flex: 1;
+        min-width: 160px;
+    }
+
+    .pf-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--dp-teal-bg);
+        color: var(--dp-primary-dark);
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        font-size: .88rem;
+        flex-shrink: 0;
+    }
+
+    .pf-prestador-info h3 {
+        font-size: 1.08rem;
+        font-weight: 600;
+        color: var(--pf-ink);
+        margin: 0;
+    }
+
+    .pf-prestador-info span {
+        font-size: .78rem;
+        color: var(--dp-muted);
+    }
+
+    .pf-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 18px 54px;
+    }
+
+    .pf-tag {
+        background: var(--dp-teal-bg);
+        color: var(--dp-primary-dark);
+        padding: 4px 13px;
+        border-radius: 999px;
+        font-size: .76rem;
+        font-weight: 600;
+    }
+
+    .pf-gallery {
+        margin-left: 54px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 14px;
+    }
+
+    .pf-item {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid var(--pf-line);
+        transition: box-shadow .15s ease, transform .15s ease;
+    }
+
+        .pf-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0, 40, 38, .1);
+        }
+
+        .pf-item img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+            background: #F4F8F7;
+        }
+
+    .pf-item-body {
+        padding: 9px 12px 11px;
+    }
+
+    .pf-item-servico {
+        font-size: .8rem;
+        font-weight: 700;
+        color: var(--dp-primary);
+    }
+
+    .pf-item-data {
+        font-size: .72rem;
+        color: var(--dp-muted);
+        margin-top: 1px;
+    }
+
+    @@media (max-width: 900px) {
+        .pf-hero {
+            grid-template-columns: 1fr;
+            padding-bottom: 24px;
+        }
+
+        .pf-collage {
+            height: 280px;
+            order: -1;
+        }
+
+        .pf-hero h1 {
+            max-width: none;
+            font-size: 2.1rem;
+        }
+    }
+
+    @@media (max-width: 640px) {
+        .pf-gallery {
+            grid-template-columns: repeat(2, 1fr);
+            margin-left: 0;
+        }
+
+        .pf-tags {
+            margin-left: 0;
+        }
+    }
+
+    .pf-cta-bottom {
+        text-align: center;
+        margin: 44px 24px 8px;
+        max-width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 44px 20px;
+        background: var(--dp-teal-bg);
+        border-radius: 20px;
+    }
+
+        .pf-cta-bottom h2 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--pf-ink);
+            margin: 0 0 8px;
+        }
+
+        .pf-cta-bottom p {
+            color: var(--dp-muted);
+            font-size: .92rem;
+            margin: 0 0 22px;
+        }
+
+    .pf-empty {
+        text-align: center;
+        padding: 90px 20px 70px;
+        max-width: 1080px;
+        margin: 0 auto;
+    }
+
+        .pf-empty .icon {
+            display: flex;
+            justify-content: center;
+            color: var(--dp-primary);
+            margin-bottom: 14px;
+        }
+
+        .pf-empty h2 {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--pf-ink);
+            margin: 0;
+        }
+
+        .pf-empty p {
+            color: var(--dp-muted);
+            font-size: .9rem;
+            margin-top: 6px;
+        }
+</style>
+
+<div class="pf-page">
+
+    <div class="pf-topbar">
+        <a href="/" class="pf-brand">
+            <img src="~/logo.png" alt="DayPlannio" />
+            <span>DayPlannio</span>
+        </a>
+        <a asp-controller="Account" asp-action="Login" class="btn-entrar">Entrar</a>
+    </div>
+
+    <div class="pf-hero">
+        <div>
+            <h1>Qualidade que você pode ver</h1>
+            <p class="pf-lead">Profissionais reais usando o DayPlannio para organizar e entregar serviços de excelência. Estas são fotos de atendimentos de verdade, publicadas por eles.</p>
+
+            @if (stats != null && stats.TotalFotos > 0)
+            {
+                <div class="pf-stats-row">
+                    <div class="pf-stat">
+                        <span class="num">@stats.TotalPrestadores</span>
+                        <span class="lbl">profissionais</span>
+                    </div>
+                    <div class="pf-stat">
+                        <span class="num">@stats.TotalFotos</span>
+                        <span class="lbl">fotos publicadas</span>
+                    </div>
+                    <div class="pf-stat">
+                        <span class="num">@stats.TotalServicos</span>
+                        <span class="lbl">tipos de serviço</span>
+                    </div>
+                </div>
+            }
+
+            <a asp-controller="Account" asp-action="Login" class="btn-cta">Comece agora</a>
+        </div>
+
+        <div class="pf-collage">
+            @if (fotosDestaque.Any())
+            {
+                @foreach (var foto in fotosDestaque)
+                {
+                    <img src="@foto.Url" alt="@foto.Descricao" />
+                }
+            }
+            else
+            {
+                <div class="pf-collage-empty">
+                    <span class="icon"><svg class="empty-svg" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+                    <span>Em breve, fotos reais de atendimentos aqui</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="pf-empty">
+            <div class="icon"><svg class="empty-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+            <h2>Portfólio em construção</h2>
+            <p>Os profissionais ainda estão adicionando fotos. Volte em breve!</p>
+        </div>
+    }
+    else
+    {
+        <div class="pf-intro">
+            <h2>Conheça nossos profissionais</h2>
+            <p>Cada foto representa um serviço real, entregue com dedicação.</p>
+        </div>
+
+        var cidadesDisponiveis = stats?.Prestadores
+            .Where(p => p.CidadeVisivel && !string.IsNullOrEmpty(p.Cidade))
+            .Select(p => p.Cidade!)
+            .Distinct()
+            .OrderBy(c => c)
+            .ToList() ?? new();
+        var cidadeFiltro = Context.Request.Query["cidade"].FirstOrDefault() ?? "";
+
+        @if (cidadesDisponiveis.Any())
+        {
+            <div class="pf-city-filter">
+                <a href="/portfolio" class="pf-city-tag @(string.IsNullOrEmpty(cidadeFiltro) ? "active" : "")">Todos</a>
+                @foreach (var cidade in cidadesDisponiveis)
+                {
+                    <a href="/portfolio?cidade=@Uri.EscapeDataString(cidade)"
+                       class="pf-city-tag @(cidadeFiltro == cidade ? "active" : "")">
+                        @cidade
+                    </a>
+                }
+            </div>
+        }
+
+        var fotosFiltradas = Model;
+        if (!string.IsNullOrEmpty(cidadeFiltro))
+        {
+            var prestadoresNaCidade = stats?.Prestadores
+                .Where(p => p.CidadeVisivel && p.Cidade == cidadeFiltro)
+                .Select(p => p.Nome)
+                .ToList() ?? new();
+            fotosFiltradas = Model.Where(f => prestadoresNaCidade.Contains(f.Prestador ?? "Profissional")).ToList();
+        }
+
+        var porPrestador = fotosFiltradas
+            .GroupBy(f => f.Prestador ?? "Profissional")
+            .OrderByDescending(g => g.Count())
+            .ToList();
+
+        <div class="pf-container">
+            @foreach (var grupo in porPrestador)
+            {
+                var iniciais = string.Concat(grupo.Key.Split(' ').Take(2).Select(s => s[0]));
+                var servicosDoGrupo = grupo
+                    .Where(f => !string.IsNullOrEmpty(f.Servico))
+                    .Select(f => f.Servico!)
+                    .Distinct()
+                    .ToList();
+                var prestadorStats = stats?.Prestadores.FirstOrDefault(p => p.Nome == grupo.Key);
+
+                <div class="pf-prestador">
+                    <div class="pf-prestador-header">
+                        <div class="pf-avatar">@iniciais</div>
+                        <div class="pf-prestador-info">
+                            <h3>
+                                @grupo.Key
+                                @if (prestadorStats?.CidadeVisivel == true && !string.IsNullOrEmpty(prestadorStats.Cidade))
+                                {
+                                    <span class="pf-cidade-badge"><img src="~/icon_localizacao.png" alt="" />@prestadorStats.Cidade</span>
+                                }
+                            </h3>
+                            <span>@grupo.Count() foto(s) publicada(s)</span>
+                        </div>
+                        @if (prestadorStats?.TelefoneVisivel == true && !string.IsNullOrEmpty(prestadorStats.Telefone))
+                        {
+                            var telDigitos = new string(prestadorStats.Telefone.Where(char.IsDigit).ToArray());
+                            var msgWa = Uri.EscapeDataString("Olá! Vi seu portfólio no DayPlannio e gostaria de saber mais.");
+                            <a href="https://wa.me/55@(telDigitos)?text=@msgWa"
+                               target="_blank"
+                               rel="noopener"
+                               class="pf-contato-btn">
+                                <svg viewBox="0 0 24 24" width="15" height="15" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+                                WhatsApp
+                            </a>
+                        }
+                    </div>
+
+                    @if (servicosDoGrupo.Any())
+                    {
+                        <div class="pf-tags">
+                            @foreach (var s in servicosDoGrupo)
+                            {
+                                <span class="pf-tag">@s</span>
+                            }
+                        </div>
+                    }
+
+                    <div class="pf-gallery">
+                        @foreach (var foto in grupo)
+                        {
+                            <div class="pf-item">
+                                <img src="@foto.Url" alt="@foto.Descricao" loading="lazy" />
+                                <div class="pf-item-body">
+                                    @if (!string.IsNullOrEmpty(foto.Servico))
+                                    {
+                                        <div class="pf-item-servico">@foto.Servico</div>
+                                    }
+                                    @if (foto.DataAtendimento.HasValue)
+                                    {
+                                        <div class="pf-item-data">@foto.DataAtendimento.Value.ToLocalTime().ToString("dd/MM/yyyy")</div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

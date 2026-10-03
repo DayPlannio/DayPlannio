@@ -6,7 +6,7 @@
     x:Class="DayPlannio.App.Views.CustomTabBar">
 
     <Grid
-        ColumnDefinitions="*,*,*,*,*"
+        ColumnDefinitions="*,*,*,*,*,*"
         BackgroundColor="White"
         HeightRequest="70"
         Padding="5">
@@ -83,6 +83,40 @@
             Grid.Column="2"
             StrokeThickness="0"
             StrokeShape="RoundRectangle 12"
+            BackgroundColor="{Binding MetricasBackground}"
+            Padding="10">
+
+            <VerticalStackLayout
+                Spacing="2"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding MetricasCommand}"/>
+
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Image
+                    Source="icon_metricas.png"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Métricas"
+                    FontSize="10"
+                    HorizontalOptions="Center"
+                    TextColor="{Binding MetricasTextColor}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <Border
+            Grid.Column="3"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
             BackgroundColor="{Binding ClientesBackground}"
             Padding="10">
 
@@ -114,7 +148,7 @@
         </Border>
 
         <Border
-            Grid.Column="3"
+            Grid.Column="4"
             StrokeThickness="0"
             StrokeShape="RoundRectangle 12"
             BackgroundColor="{Binding FinanceiroBackground}"
@@ -138,7 +172,7 @@
                     HorizontalOptions="Center"/>
 
                 <Label
-                    Text="Financeiro"
+                    Text="Fin"
                     FontSize="10"
                     HorizontalOptions="Center"
                     TextColor="{Binding FinanceiroTextColor}"/>
@@ -148,7 +182,7 @@
         </Border>
 
         <Border
-            Grid.Column="4"
+            Grid.Column="5"
             StrokeThickness="0"
             StrokeShape="RoundRectangle 12"
             BackgroundColor="{Binding PerfilBackground}"

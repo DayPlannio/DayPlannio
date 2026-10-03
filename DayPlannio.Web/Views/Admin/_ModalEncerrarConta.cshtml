@@ -1,0 +1,60 @@
+@model string
+
+<div class="modal fade" id="modalEncerrarConta" tabindex="-1" aria-labelledby="modalEncerrarContaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-controller="Admin" asp-action="EncerrarConta" method="post" id="formEncerrarConta">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEncerrarContaLabel">Encerrar conta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">
+                        Você está encerrando a conta de <strong id="encerrarContaNome">-</strong>
+                        (@(Model == "prestador" ? "prestador" : "cliente")).
+                    </p>
+
+                    <div class="alert alert-warning mb-3">
+                        Esta ação é permanente: os dados de acesso, agendamentos, serviços e fotos vinculados a esta conta serão removidos. Não é possível desfazer.
+                    </div>
+
+                    <input type="hidden" name="tipo" id="encerrarContaTipo" value="@Model" />
+                    <input type="hidden" name="id" id="encerrarContaId" value="" />
+
+                    <label for="encerrarContaMotivo" class="form-label">Motivo do encerramento</label>
+                    <textarea name="motivo"
+                              id="encerrarContaMotivo"
+                              class="form-control"
+                              rows="4"
+                              minlength="5"
+                              required
+                              placeholder="Descreva o motivo pelo qual a conta está sendo encerrada."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dp-outline" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Encerrar conta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var modal = document.getElementById('modalEncerrarConta');
+        if (!modal) return;
+
+        var campoNome = document.getElementById('encerrarContaNome');
+        var campoId = document.getElementById('encerrarContaId');
+        var campoMotivo = document.getElementById('encerrarContaMotivo');
+
+        modal.addEventListener('show.bs.modal', function (event) {
+            var botao = event.relatedTarget;
+            if (!botao) return;
+
+            campoNome.textContent = botao.getAttribute('data-nome') || '-';
+            campoId.value = botao.getAttribute('data-id') || '';
+            campoMotivo.value = '';
+        });
+    })();
+</script>

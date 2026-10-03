@@ -1,0 +1,113 @@
+﻿@model DayPlannio.Web.Models.AdminPainelViewModel
+
+@{
+    ViewData["Title"] = "Prestadores Cadastrados";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 1200px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <div class="d-flex gap-2">
+            <a asp-controller="Admin" asp-action="Logout" class="btn btn-sair">Sair</a>
+        </div>
+    </div>
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Prestadores Cadastrados</h2>
+        <a asp-controller="Admin" asp-action="Painel" class="btn btn-dp-outline">Voltar ao painel</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Mensagem))
+    {
+        <div class="alert alert-success">@Model.Mensagem</div>
+    }
+
+    <div class="dp-card p-3 mb-4">
+        @if (Model.Prestadores.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-dp align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Plano Atual</th>
+                            <th>Plano Pendente</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.Prestadores)
+                        {
+                            <tr>
+                                <td>@(string.IsNullOrEmpty(p.Nome) ? "-" : p.Nome)</td>
+                                <td>@(string.IsNullOrEmpty(p.Email) ? "-" : p.Email)</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(p.Plano))
+                                    {
+                                        var badgeAtual = p.Plano == "Full" ? "concluido" : p.Plano == "Profissional" ? "pendente" : "neutro";
+                                        <span class="badge badge-status @badgeAtual">@p.Plano</span>
+                                        @if (p.PlanoExpiraEm.HasValue)
+                                        {
+                                            <small class="d-block text-muted">até @FormatHelper.FormatarDataLocalCurta(p.PlanoExpiraEm.Value)</small>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Sem plano</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(p.PlanoPendente))
+                                    {
+                                        <span class="badge badge-status pendente">@p.PlanoPendente</span>
+                                        @if (p.PlanoSolicitadoEm.HasValue)
+                                        {
+                                            <small class="d-block text-muted">@FormatHelper.FormatarDataLocalCurta(p.PlanoSolicitadoEm.Value)</small>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(p.PlanoPendente))
+                                    {
+                                        <form asp-controller="Admin" asp-action="AprovarPlano" asp-route-id="@p.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-success btn-sm">Aprovar</button>
+                                        </form>
+                                        <form asp-controller="Admin" asp-action="RejeitarPlano" asp-route-id="@p.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-danger btn-sm">Rejeitar</button>
+                                        </form>
+                                    }
+
+                                    <button type="button"
+                                            class="btn btn-outline-danger btn-sm mt-1"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalEncerrarConta"
+                                            data-tipo="prestador"
+                                            data-id="@p.Id"
+                                            data-nome="@(string.IsNullOrEmpty(p.Nome) ? p.UserName : p.Nome)">
+                                        Encerrar conta
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M3 19h18"/></svg></span>
+                <p class="empty-titulo">Nenhum prestador cadastrado</p>
+                <p class="empty-texto">Os prestadores aparecerão aqui quando se cadastrarem no sistema.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@await Html.PartialAsync("_ModalEncerrarConta", "prestador")

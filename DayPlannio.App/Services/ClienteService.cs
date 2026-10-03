@@ -56,6 +56,49 @@ namespace DayPlannio.App.Services
             return (true, "");
         }
 
+        public static async Task<(bool sucesso, string email, string senha, string erro)> GerarCredenciais(string id)
+        {
+            var response =
+                await App.HttpClient.PostAsync(
+                    $"api/cliente/gerar-credenciais/{id}",
+                    null);
+
+            var body =
+                await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var mensagem = ExtrairMensagem(body);
+                return (false, string.Empty, string.Empty, mensagem);
+            }
+
+            using var doc = JsonDocument.Parse(body);
+            var root = doc.RootElement;
+
+            var email = root.TryGetProperty("email", out var e) ? e.GetString() ?? string.Empty : string.Empty;
+            var senha = root.TryGetProperty("senhaProvisoria", out var s) ? s.GetString() ?? string.Empty : string.Empty;
+
+            return (true, email, senha, "");
+        }
+
+        private static string ExtrairMensagem(string body)
+        {
+            if (string.IsNullOrWhiteSpace(body))
+                return "Não foi possível gerar o acesso do cliente.";
+
+            try
+            {
+                using var doc = JsonDocument.Parse(body);
+                if (doc.RootElement.TryGetProperty("message", out var m))
+                    return m.GetString() ?? body;
+            }
+            catch
+            {
+            }
+
+            return body;
+        }
+
         public static async Task<(bool sucesso, string erro)> Edit(
             string id,
             object cliente)

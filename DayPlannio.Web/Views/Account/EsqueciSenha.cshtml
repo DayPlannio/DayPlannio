@@ -1,0 +1,175 @@
+﻿@model DayPlannio.Web.Models.EsqueciSenhaViewModel
+
+@{
+    ViewData["Title"] = "Recuperar senha";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="auth-wrap">
+    <div class="auth-card">
+        <img src="~/logo.png" class="login-logo" alt="DayPlannio" />
+
+        @if (Model.Passo <= 1)
+        {
+            <p class="auth-subtitle">Informe seu e-mail de acesso. Enviaremos um código de recuperação.</p>
+
+            <form method="post" asp-action="EsqueciSenha">
+                <input type="hidden" asp-for="Passo" value="1" />
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">E-mail de acesso <span class="obrigatorio">*</span></label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="voce_nomedoprestador@dayplannio.com" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Erro))
+                {
+                    <div class="alert alert-danger">@Model.Erro</div>
+                }
+
+                <div class="obrigatorio-texto">Campos com <span class="obrigatorio">*</span> são obrigatórios</div>
+                <button type="submit" class="btn btn-dp w-100 mb-2">Enviar código</button>
+                <a asp-controller="Account" asp-action="Login" class="d-block text-center auth-link">Voltar ao login</a>
+            </form>
+        }
+        else
+        {
+            <p class="auth-subtitle">Digite o código recebido e defina sua nova senha.</p>
+
+            <form method="post" asp-action="EsqueciSenha">
+                <input type="hidden" asp-for="Passo" value="2" />
+                <input type="hidden" asp-for="Email" />
+                <div class="mb-3">
+                    <div class="field-label-row">
+                        <label class="form-label">E-mail de acesso</label>
+                        <a asp-controller="Account" asp-action="EsqueciSenha" asp-route-editar="1" class="auth-link-sm">Editar e-mail</a>
+                    </div>
+                    <input class="form-control" value="@Model.EmailMascarado" disabled />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Code" class="form-label">Código de recuperação <span class="obrigatorio">*</span></label>
+                    <input asp-for="Code" class="form-control" placeholder="6 dígitos" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="SenhaNova" class="form-label">Nova senha <span class="obrigatorio">*</span></label>
+                    <div class="senha-campo">
+                        <input asp-for="SenhaNova" type="password" class="form-control senha-input" id="senhaNovaEsq" data-req-input />
+                        <button type="button" class="btn-olho-interno" data-eyetoggle="senhaNovaEsq" aria-label="Mostrar/ocultar senha">
+                            <img src="~/icon_olho_aberto.png" alt="Mostrar/ocultar senha" />
+                        </button>
+                    </div>
+                    <ul class="senha-lista" data-req-lista>
+                        <li data-req="tamanho"><span class="ponto">&#9679;</span> Mínimo 6 caracteres</li>
+                        <li data-req="maiusculo"><span class="ponto">&#9679;</span> Uma letra maiúscula</li>
+                        <li data-req="minusculo"><span class="ponto">&#9679;</span> Uma letra minúscula</li>
+                        <li data-req="especial"><span class="ponto">&#9679;</span> Um caractere especial</li>
+                        <li data-req="numero"><span class="ponto">&#9679;</span> Um número</li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="SenhaNovaConfirmacao" class="form-label">Confirmar nova senha <span class="obrigatorio">*</span></label>
+                    <div class="senha-campo">
+                        <input asp-for="SenhaNovaConfirmacao" type="password" class="form-control senha-input" id="senhaConfirmarEsq" />
+                        <button type="button" class="btn-olho-interno" data-eyetoggle="senhaConfirmarEsq" aria-label="Mostrar/ocultar senha">
+                            <img src="~/icon_olho_aberto.png" alt="Mostrar/ocultar senha" />
+                        </button>
+                    </div>
+                    <div class="form-text text-danger" id="avisoSenhaEsq" hidden>As senhas não coincidem.</div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Mensagem))
+                {
+                    <div class="alert alert-success">@Model.Mensagem</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.Erro))
+                {
+                    <div class="alert alert-danger">@Model.Erro</div>
+                }
+
+                <div class="obrigatorio-texto">Campos com <span class="obrigatorio">*</span> são obrigatórios</div>
+                <button type="submit" name="acao" value="redefinir" class="btn btn-dp w-100 mb-2">Redefinir senha</button>
+                <button type="submit" name="acao" value="reenviar" id="btnReenviar" class="btn btn-dp-outline w-100 mb-2">Reenviar código</button>                
+                <a asp-controller="Account" asp-action="Login" class="d-block text-center auth-link">Voltar ao login</a>
+            </form>
+
+            <script>
+                function configurarSenhaEsq() {
+                    document.querySelectorAll('[data-eyetoggle]').forEach(function (btn) {
+                        btn.addEventListener('click', function () {
+                            var alvo = document.getElementById(btn.getAttribute('data-eyetoggle'));
+                            if (!alvo) return;
+                            alvo.type = alvo.type === 'text' ? 'password' : 'text';
+                            var img = btn.querySelector('img');
+                            if (img) {
+                                img.src = alvo.type === 'password'
+                                    ? img.src.replace('fechado', 'aberto')
+                                    : img.src.replace('aberto', 'fechado');
+                            }
+                        });
+                    });
+
+                    document.querySelectorAll('[data-req-input]').forEach(function (input) {
+                        function verificar() {
+                            var v = input.value || '';
+                            var wrapper = input.closest('.mb-3');
+                            if (!wrapper) return;
+                            var lista = wrapper.querySelector('[data-req-lista]');
+                            if (!lista) return;
+                            lista.querySelectorAll('[data-req]').forEach(function (item) {
+                                var tipo = item.getAttribute('data-req');
+                                var ok = false;
+                                if (tipo === 'tamanho') ok = v.length >= 6;
+                                else if (tipo === 'maiusculo') ok = /[A-Z]/.test(v);
+                                else if (tipo === 'minusculo') ok = /[a-z]/.test(v);
+                                else if (tipo === 'numero') ok = /[0-9]/.test(v);
+                                else if (tipo === 'especial') ok = /[^A-Za-z0-9]/.test(v);
+                                item.classList.toggle('ok', ok);
+                            });
+                        }
+                        input.addEventListener('input', verificar);
+                        verificar();
+                    });
+                }
+                configurarSenhaEsq();
+
+                (function () {
+                    var nova = document.getElementById('senhaNovaEsq');
+                    var confirmacao = document.getElementById('senhaConfirmarEsq');
+                    var aviso = document.getElementById('avisoSenhaEsq');
+                    if (!nova || !confirmacao || !aviso) return;
+
+                    function comparar() {
+                        aviso.hidden = !(confirmacao.value.length > 0 && nova.value !== confirmacao.value);
+                    }
+
+                    nova.addEventListener('input', comparar);
+                    confirmacao.addEventListener('input', comparar);
+                    comparar();
+                })();
+
+                (function () {
+                    var btn = document.getElementById('btnReenviar');
+                    if (!btn) return;
+
+                    var tempo = 60;
+
+                    function atualizar() {
+                        var taBloqueado = tempo > 0;
+                        btn.disabled = taBloqueado;
+                        btn.classList.toggle('btn-reenviar-bloqueado', taBloqueado);
+                        btn.textContent = taBloqueado ? ('Reenviar código (' + tempo + 's)') : 'Reenviar código';
+
+                        if (taBloqueado) {
+                            tempo--;
+                            setTimeout(atualizar, 1000);
+                        }
+                    }
+
+                    atualizar();
+                })();
+            </script>
+        }
+    </div>
+</div>
+
+
+

@@ -1,4 +1,6 @@
 ﻿using DayPlannio.Api.Models;
+using DayPlannio.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -6,9 +8,16 @@ namespace DayPlannio.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class TiposServicoController : ControllerBase
     {
         private readonly ContextMongodb _context = new ContextMongodb();
+        private readonly LogService _logService;
+
+        public TiposServicoController(LogService logService)
+        {
+            _logService = logService;
+        }
 
         [HttpGet("{usuarioId}")]
         public async Task<IActionResult> GetAll(Guid usuarioId)
@@ -37,6 +46,10 @@ namespace DayPlannio.Api.Controllers
 
             await _context.TipoServico.InsertOneAsync(tipoServico);
 
+            await _logService.RegistrarAsync(
+                "servico_criado", $"Tipo de serviço '{tipoServico.Tipo}' cadastrado",
+                "mobile", tipoServico.UsuarioId.ToString());
+
             return Ok(new { message = "Tipo de serviço cadastrado com sucesso.", id = tipoServico.Id });
         }
 
@@ -59,6 +72,10 @@ namespace DayPlannio.Api.Controllers
 
             await _context.TipoServico.ReplaceOneAsync(t => t.Id == id, existing);
 
+            await _logService.RegistrarAsync(
+                "servico_editado", $"Tipo de serviço '{existing.Tipo}' atualizado",
+                "mobile", existing.UsuarioId.ToString());
+
             return Ok(new { message = "Tipo de serviço atualizado com sucesso." });
         }
 
@@ -69,6 +86,11 @@ namespace DayPlannio.Api.Controllers
             if (existing == null) return NotFound(new { message = "Tipo de serviço não encontrado." });
 
             await _context.TipoServico.DeleteOneAsync(t => t.Id == id);
+
+            await _logService.RegistrarAsync(
+                "servico_deletado", $"Tipo de serviço '{existing.Tipo}' deletado",
+                "mobile", existing.UsuarioId.ToString());
+
             return Ok(new { message = "Tipo de serviço deletado com sucesso." });
         }
     }

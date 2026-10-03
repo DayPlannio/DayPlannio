@@ -6,8 +6,10 @@ namespace DayPlannio.Api.Models
     public enum StatusAgendamento
     {
         Agendado,
+        EmAtendimento,
         Cancelado,
-        Concluido
+        Concluido,
+        EmPausa
     }
 
     [BsonIgnoreExtraElements]
@@ -32,6 +34,9 @@ namespace DayPlannio.Api.Models
         [MaxLength(500, ErrorMessage = "Observações podem ter no máximo 500 caracteres.")]
         public string? Observacoes { get; set; }
 
+        [MaxLength(500, ErrorMessage = "O endereço de atendimento pode ter no máximo 500 caracteres.")]
+        public string? EnderecoAtendimento { get; set; }
+
         [Range(0, double.MaxValue, ErrorMessage = "O valor cobrado deve ser maior ou igual a zero.")]
         public decimal ValorCobrado { get; set; }
 
@@ -39,6 +44,23 @@ namespace DayPlannio.Api.Models
         public decimal CustoMaterial { get; set; }
 
         public DateTime? DataConclusao { get; set; }
+
+        [MaxLength(200, ErrorMessage = "O motivo do cancelamento pode ter no máximo 200 caracteres.")]
+        public string? MotivoCancelamento { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? DataCancelamento { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? Inicio { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? Fim { get; set; }
+
+        public double? DuracaoMinutos { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? ClienteEncerradoEm { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

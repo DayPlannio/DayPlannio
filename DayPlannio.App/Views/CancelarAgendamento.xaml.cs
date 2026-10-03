@@ -9,6 +9,8 @@ public partial class CancelarAgendamento : ContentPage
 
     public bool Confirmado => ViewModel.Confirmado;
 
+    public string Motivo => ViewModel.MotivoFinal;
+
     public CancelarAgendamento(
         string nomeCliente,
         string servico)

@@ -1,0 +1,271 @@
+@model DayPlannio.Web.Models.AdminPainelViewModel
+
+@{
+    ViewData["Title"] = "Painel Administrativo";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 1200px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <div class="d-flex gap-2">
+            <a asp-controller="Admin" asp-action="Logout" class="btn btn-sair">Sair</a>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Painel Administrativo</h2>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Mensagem))
+    {
+        <div class="alert alert-success">@Model.Mensagem</div>
+    }
+
+    <div class="d-flex align-items-center justify-content-between section-title">
+        <div class="d-flex align-items-center gap-2">Clientes Cadastrados</div>
+        @if (Model.Clientes.Count > 5)
+        {
+            <a asp-controller="Admin" asp-action="Clientes" class="btn btn-dp-outline btn-sm">Ver todos (@Model.Clientes.Count)</a>
+        }
+    </div>
+    <div class="dp-card p-3 mb-4">
+        @if (Model.Clientes.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-sm table-dp align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>E-mail</th>
+                            <th>E-mail Rec.</th>
+                            <th>Status</th>
+                            <th>Criado em</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.Clientes.Take(5))
+                        {
+                            <tr>
+                                <td>@c.Nome</td>
+                                <td>@FormatHelper.FormatarTelefone(c.Telefone)</td>
+                                <td>@(string.IsNullOrEmpty(c.Email) ? "-" : c.Email)</td>
+                                <td>@(string.IsNullOrEmpty(c.EmailSecundario) ? "-" : c.EmailSecundario)</td>
+                                <td>
+                                    @if (c.Ativo)
+                                    {
+                                        <span class="badge badge-status concluido">Ativo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-status cancelado">Inativo</span>
+                                    }
+                                </td>
+                                <td>@FormatHelper.FormatarDataLocalCurta(c.CriadoEm)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg></span>
+                <p class="empty-titulo">Nenhum cliente cadastrado</p>
+                <p class="empty-texto">Os clientes aparecerão aqui quando forem cadastrados pelos prestadores.</p>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between section-title">
+        <div class="d-flex align-items-center gap-2">Prestadores Cadastrados</div>
+        @if (Model.Prestadores.Count > 5)
+        {
+            <a asp-controller="Admin" asp-action="Prestadores" class="btn btn-dp-outline btn-sm">Ver todos (@Model.Prestadores.Count)</a>
+        }
+    </div>
+    <div class="dp-card p-3 mb-4">
+        @if (Model.Prestadores.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-sm table-dp align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Plano Atual</th>
+                            <th>Plano Pendente</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.Prestadores.Take(5))
+                        {
+                            <tr>
+                                <td>@(string.IsNullOrEmpty(p.Nome) ? "-" : p.Nome)</td>
+                                <td>@(string.IsNullOrEmpty(p.Email) ? "-" : p.Email)</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(p.Plano))
+                                    {
+                                        var badgeAtual = p.Plano == "Full" ? "concluido" : p.Plano == "Profissional" ? "pendente" : "neutro";
+                                        <span class="badge badge-status @badgeAtual">@p.Plano</span>
+                                        @if (p.PlanoExpiraEm.HasValue)
+                                        {
+                                            <small class="d-block text-muted">até @FormatHelper.FormatarDataLocalCurta(p.PlanoExpiraEm.Value)</small>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Sem plano</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(p.PlanoPendente))
+                                    {
+                                        <span class="badge badge-status pendente">@p.PlanoPendente</span>
+                                        @if (p.PlanoSolicitadoEm.HasValue)
+                                        {
+                                            <small class="d-block text-muted">@FormatHelper.FormatarDataLocalCurta(p.PlanoSolicitadoEm.Value)</small>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(p.PlanoPendente))
+                                    {
+                                        <form asp-controller="Admin" asp-action="AprovarPlano" asp-route-id="@p.Id" asp-route-origem="Painel" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-success btn-sm">Aprovar</button>
+                                        </form>
+                                        <form asp-controller="Admin" asp-action="RejeitarPlano" asp-route-id="@p.Id" asp-route-origem="Painel" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-danger btn-sm">Rejeitar</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M3 19h18"/></svg></span>
+                <p class="empty-titulo">Nenhum prestador cadastrado</p>
+                <p class="empty-texto">Os prestadores aparecerão aqui quando se cadastrarem no sistema.</p>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between section-title">
+        <div class="d-flex align-items-center gap-2">Log do Sistema</div>
+        @if (Model.TotalLogs > 5)
+        {
+            <a asp-controller="Admin" asp-action="Logs" class="btn btn-dp-outline btn-sm">Ver todos (@Model.TotalLogs)</a>
+        }
+    </div>
+    <div class="dp-card p-3 mb-4">
+        @if (Model.Logs.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-sm table-dp align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                            <th>Origem</th>
+                            <th>Usuário</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var l in Model.Logs.Take(5))
+                        {
+                            <tr>
+                                <td>@FormatHelper.FormatarDataLocal(l.Data)</td>
+                                <td>
+                                    @{
+                                        var tipoLower = l.Tipo.ToLowerInvariant();
+                                        var badgeClass =
+                                            tipoLower.Contains("login") ? "concluido"
+                                            : tipoLower.Contains("criado") ? "concluido"
+                                            : tipoLower.Contains("concluido") ? "concluido"
+                                            : tipoLower.Contains("aprovada") ? "concluido"
+                                            : tipoLower.Contains("iniciado") ? "concluido"
+                                            : tipoLower.Contains("retomado") ? "concluido"
+                                            : tipoLower.Contains("senha") ? "pendente"
+                                            : tipoLower.Contains("recuperacao") ? "pendente"
+                                            : tipoLower.Contains("pausado") ? "pendente"
+                                            : tipoLower.Contains("editado") ? "pendente"
+                                            : tipoLower.Contains("logout") ? "cancelado"
+                                            : tipoLower.Contains("deletado") ? "cancelado"
+                                            : tipoLower.Contains("rejeitada") ? "cancelado"
+                                            : tipoLower.Contains("finalizado") ? "cancelado"
+                                            : "neutro";
+                                    }
+                                    <span class="badge badge-status @badgeClass">@l.Tipo</span>
+                                </td>
+                                <td>@l.Descricao</td>
+                                <td>@l.Origem</td>
+                                <td>@(string.IsNullOrEmpty(l.UsuarioNome) ? "-" : l.UsuarioNome)</td>
+                                <td>@(string.IsNullOrEmpty(l.Email) ? "-" : l.Email)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 11h6M9 15h4"/></svg></span>
+                <p class="empty-titulo">Nenhum registro no log</p>
+                <p class="empty-texto">As ações dos usuários aparecerão aqui automaticamente.</p>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between section-title">
+        <div class="d-flex align-items-center gap-2">
+            Fotos Pendentes
+            @if (Model.TotalFotosPendentes > 0)
+            {
+                <span class="badge badge-status pendente">@Model.TotalFotosPendentes</span>
+            }
+        </div>
+        @if (Model.TotalFotosPendentes > 5)
+        {
+            <a asp-controller="Admin" asp-action="TodasFotos" class="btn btn-dp-outline btn-sm">Ver todas (@Model.TotalFotosPendentes)</a>
+        }
+    </div>
+    <div class="dp-card p-3 mb-4">
+        @if (Model.FotosPendentes.Count > 0)
+        {
+            <div class="row g-3">
+                @foreach (var foto in Model.FotosPendentes)
+                {
+                    @await Html.PartialAsync("_CardFoto", (foto, "Painel"))
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+                <p class="empty-titulo">Nenhuma foto pendente</p>
+                <p class="empty-texto">Todas as fotos foram revisadas.</p>
+            </div>
+        }
+    </div>
+</div>

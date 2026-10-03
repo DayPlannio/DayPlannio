@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DayPlannio.App.Services;
 using DayPlannio.App.Views;
 using Microsoft.Maui.Controls.Shapes;
 
@@ -41,6 +42,12 @@ public partial class CustomTabBarViewModel : ObservableObject
     [ObservableProperty]
     private Color perfilTextColor = Color.FromArgb("#6E7978");
 
+    [ObservableProperty]
+    private Color metricasBackground = Colors.Transparent;
+
+    [ObservableProperty]
+    private Color metricasTextColor = Color.FromArgb("#6E7978");
+
     public CustomTabBarViewModel(INavigation navigation)
     {
         _navigation = navigation;
@@ -75,6 +82,11 @@ public partial class CustomTabBarViewModel : ObservableObject
             ref perfilBackground,
             ref perfilTextColor);
 
+        SetTab(
+            "metricas",
+            ref metricasBackground,
+            ref metricasTextColor);
+
         OnPropertyChanged(nameof(AgendaBackground));
         OnPropertyChanged(nameof(AgendaTextColor));
 
@@ -89,6 +101,9 @@ public partial class CustomTabBarViewModel : ObservableObject
 
         OnPropertyChanged(nameof(PerfilBackground));
         OnPropertyChanged(nameof(PerfilTextColor));
+
+        OnPropertyChanged(nameof(MetricasBackground));
+        OnPropertyChanged(nameof(MetricasTextColor));
     }
 
     private void SetTab(
@@ -110,6 +125,9 @@ public partial class CustomTabBarViewModel : ObservableObject
     [RelayCommand]
     private async Task Agenda()
     {
+        if (!await PlanoAppService.ExigirAssinaturaAtivaAsync())
+            return;
+
         AbaAtual = "agenda";
 
         AtualizarUI();
@@ -121,6 +139,9 @@ public partial class CustomTabBarViewModel : ObservableObject
     [RelayCommand]
     private async Task Servicos()
     {
+        if (!await PlanoAppService.ExigirAssinaturaAtivaAsync())
+            return;
+
         AbaAtual = "servicos";
 
         AtualizarUI();
@@ -132,6 +153,9 @@ public partial class CustomTabBarViewModel : ObservableObject
     [RelayCommand]
     private async Task Clientes()
     {
+        if (!await PlanoAppService.ExigirAssinaturaAtivaAsync())
+            return;
+
         AbaAtual = "clientes";
 
         AtualizarUI();
@@ -143,6 +167,9 @@ public partial class CustomTabBarViewModel : ObservableObject
     [RelayCommand]
     private async Task Financeiro()
     {
+        if (!await PlanoAppService.ExigirPlanoAsync(PlanoAppService.Profissional))
+            return;
+
         AbaAtual = "financeiro";
 
         AtualizarUI();
@@ -154,11 +181,27 @@ public partial class CustomTabBarViewModel : ObservableObject
     [RelayCommand]
     private async Task Perfil()
     {
+        PlanoAppService.Invalidar();
+
         AbaAtual = "perfil";
 
         AtualizarUI();
 
         await _navigation.PushAsync(
             new MeuPerfil());
+    }
+
+    [RelayCommand]
+    private async Task Metricas()
+    {
+        if (!await PlanoAppService.ExigirPlanoAsync(PlanoAppService.Profissional))
+            return;
+
+        AbaAtual = "metricas";
+
+        AtualizarUI();
+
+        await _navigation.PushAsync(
+            new MetricasPage());
     }
 }

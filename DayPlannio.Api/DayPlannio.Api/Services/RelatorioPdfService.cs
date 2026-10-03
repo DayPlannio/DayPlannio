@@ -111,7 +111,9 @@ namespace DayPlannio.Api.Services
                                 var dataLocal = TimeZoneInfo.ConvertTimeFromUtc(a.DataHora, _fuso);
 
                                 table.Cell().Text(dataLocal.ToString("dd/MM/yyyy HH:mm"));
-                                table.Cell().Text(cliente?.Nome ?? "-");
+                                table.Cell().Text(cliente?.Nome ?? (a.ClienteEncerradoEm.HasValue
+                                    ? $"Cliente encerrado em {TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(a.ClienteEncerradoEm.Value, DateTimeKind.Utc), _fuso):dd/MM/yyyy}"
+                                    : "Cliente removido"));
                                 table.Cell().Text(tipoServico?.Tipo ?? "-");
                                 table.Cell().Text($"R$ {a.ValorCobrado:F2}");
                                 table.Cell().Text($"R$ {a.CustoMaterial:F2}");

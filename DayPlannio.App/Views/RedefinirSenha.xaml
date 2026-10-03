@@ -27,9 +27,7 @@
                     HorizontalOptions="Center"
                     Margin="0,0,0,5"/>
 
-                <Label
-                    FontSize="14"
-                    TextColor="{StaticResource LabelColor}">
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="E-mail " />
@@ -49,9 +47,7 @@
                         Text="{Binding Email}"/>
                 </Border>
 
-                <Label
-                    FontSize="14"
-                    TextColor="{StaticResource LabelColor}">
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Confirmar e-mail " />
@@ -75,6 +71,11 @@
                     Text="{Binding ErroMensagem}"
                     TextColor="Red"
                     IsVisible="{Binding ErroVisivel}"/>
+
+                <Label
+                    Text="{Binding AvisoMensagem}"
+                    TextColor="#006260"
+                    IsVisible="{Binding AvisoVisivel}"/>
 
                 <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
                     <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
@@ -105,6 +106,13 @@
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
+
+                <Button
+                    Text="Voltar"
+                    TextColor="#006260"
+                    BackgroundColor="Transparent"
+                    FontSize="14"
+                    Command="{Binding VoltarCommand}"/>
 
             </VerticalStackLayout>
         </Border>

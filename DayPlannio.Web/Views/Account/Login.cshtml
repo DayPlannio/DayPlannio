@@ -1,0 +1,65 @@
+﻿@model DayPlannio.Web.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="auth-wrap">
+    <div class="auth-card">
+        <img src="~/logo.png" class="login-logo" alt="DayPlannio" />
+        <p class="auth-subtitle">Acesse sua conta</p>
+
+        <form method="post" asp-action="Login">
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">E-mail <span class="obrigatorio">*</span></label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="seu@email.com" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Senha" class="form-label">Senha <span class="obrigatorio">*</span></label>
+                <div class="senha-campo">
+                    <input asp-for="Senha" type="password" class="form-control senha-input" id="senhaLogin" />
+                    <button type="button" class="btn-olho-interno" data-eyetoggle="senhaLogin" aria-label="Mostrar/ocultar senha">
+                        <img src="~/icon_olho_aberto.png" alt="Mostrar/ocultar senha" />
+                    </button>
+                </div>
+            </div>
+
+            @if (ViewData["Sucesso"] != null)
+            {
+                <div class="alert alert-success">@ViewData["Sucesso"]</div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Erro))
+            {
+                <div class="alert alert-danger">@Model.Erro</div>
+            }
+
+            <div class="obrigatorio-texto">Campos com <span class="obrigatorio">*</span> são obrigatórios</div>
+            <button type="submit" class="btn btn-dp w-100 mb-2">Entrar</button>
+            <a asp-controller="Account" asp-action="EsqueciSenha" class="d-block text-center auth-link">Esqueci minha senha</a>
+            <a asp-controller="Home" asp-action="Portfolio" class="d-block text-center auth-link mt-2" style="color: var(--dp-muted);">Ver portfólio de serviços</a>
+        </form>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('[data-eyetoggle]').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var alvo = document.getElementById(btn.getAttribute('data-eyetoggle'));
+                        if (!alvo) return;
+                        alvo.type = alvo.type === 'text' ? 'password' : 'text';
+                        var img = btn.querySelector('img');
+                        if (img) {
+                            img.src = alvo.type === 'password'
+                                ? img.src.replace('fechado', 'aberto')
+                                : img.src.replace('aberto', 'fechado');
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+</div>
+
+
+

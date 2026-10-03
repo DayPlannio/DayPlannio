@@ -1,0 +1,68 @@
+@model List<DayPlannio.Web.Models.PortfolioItem>
+
+@{
+    ViewData["Title"] = "Portfólio";
+    ViewData["SemTopBar"] = true;
+    ViewData["SemRodape"] = true;
+}
+
+<div class="container" style="max-width: 980px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 metri-top">
+        <img src="~/logo.png" class="metri-logo" alt="DayPlannio" />
+        <div class="d-flex gap-2">
+            <a asp-controller="Account" asp-action="Perfil" class="btn btn-dp-outline">Meu Perfil</a>
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-sair">Sair</a>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+        <h2 class="page-title mb-0">Portfólio de Serviços</h2>
+        <a asp-controller="Dashboard" asp-action="Metricas" class="btn btn-dp-outline">Voltar</a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="dp-card p-4 text-center">
+            <div class="empty-state">
+                <div class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+                <div class="empty-titulo">Nenhuma foto encontrada</div>
+                <div class="empty-texto">Fotos dos serviços concluídos aparecerão aqui.</div>
+            </div>
+        </div>
+    }
+    else
+    {
+        var porServico = Model
+            .GroupBy(f => f.Servico ?? "Serviço")
+            .OrderByDescending(g => g.Count())
+            .ToList();
+
+        @foreach (var grupo in porServico)
+        {
+            <div class="section-title mb-2">@grupo.Key (@grupo.Count())</div>
+            <div class="row g-3 mb-4">
+                @foreach (var foto in grupo)
+                {
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="dp-card overflow-hidden portfolio-card">
+                            <img src="@foto.Url" alt="@foto.Descricao" class="portfolio-img" />
+                            <div class="p-2">
+                                @if (!string.IsNullOrEmpty(foto.Cliente))
+                                {
+                                    <div class="portfolio-cliente">@foto.Cliente</div>
+                                }
+                                @if (foto.DataAtendimento.HasValue)
+                                {
+                                    <div class="portfolio-data">@foto.DataAtendimento.Value.ToLocalTime().ToString("dd/MM/yyyy")</div>
+                                }
+                                @if (!string.IsNullOrEmpty(foto.Descricao))
+                                {
+                                    <div class="portfolio-desc">@foto.Descricao</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>

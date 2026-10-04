@@ -210,13 +210,21 @@ public partial class ClientesViewModel : ObservableObject
         while (true)
         {
             var opcao = await _page.DisplayActionSheetAsync(
-                $"Acesso gerado para {cliente.Nome}",
+                $"Acesso gerado para {cliente.Nome}!\nO que você quer fazer?",
                 "Fechar",
                 null,
+                "Ver na tela",
                 "Enviar por WhatsApp",
                 "Copiar mensagem");
 
-            if (opcao == "Enviar por WhatsApp")
+            if (opcao == "Ver na tela")
+            {
+                await _page.DisplayAlertAsync(
+                    "Acesso gerado",
+                    $"Acesso do cliente ao portal web:\n\nE-mail: {email}\nSenha provisória: {senha}\n\nEnvie esses dados para o cliente. Ele deverá trocar a senha no primeiro acesso.",
+                    "OK");
+            }
+            else if (opcao == "Enviar por WhatsApp")
             {
                 await AbrirWhatsAppAsync(cliente.Telefone, mensagem);
             }

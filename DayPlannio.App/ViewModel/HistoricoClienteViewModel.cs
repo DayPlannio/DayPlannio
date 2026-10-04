@@ -140,7 +140,7 @@ public partial class HistoricoClienteViewModel : ObservableObject
             var confirmar = await _page.DisplayAlertAsync(
                 "Excluir foto",
                 "Tem certeza que deseja excluir esta foto?",
-                "Sim", "Nao");
+                "Sim", "Não");
 
             if (!confirmar) return;
 

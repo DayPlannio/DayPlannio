@@ -22,7 +22,7 @@ public partial class ExcluirAgendamentoViewModel : ObservableObject
                 new Span { Text = nomeCliente, FontAttributes = FontAttributes.Bold },
                 new Span { Text = " - " },
                 new Span { Text = servico, FontAttributes = FontAttributes.Bold },
-                new Span { Text = "⚠️ Esta ação não pode ser desfeita." }
+                new Span { Text = "? Esta ação não pode ser desfeita." }
             }
         };
     }

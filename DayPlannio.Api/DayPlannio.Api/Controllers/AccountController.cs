@@ -48,6 +48,15 @@ namespace DayPlannio.Api.Controllers
             return valor.ToString();
         }
 
+        private static bool RequisitosSenhaOk(string senha)
+        {
+            return senha.Length >= 6
+                && senha.Any(char.IsUpper)
+                && senha.Any(char.IsLower)
+                && senha.Any(char.IsDigit)
+                && senha.Any(c => !char.IsLetterOrDigit(c));
+        }
+
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
@@ -179,6 +188,15 @@ namespace DayPlannio.Api.Controllers
                 return BadRequest(new { message = "Código inválido ou expirado." });
             }
 
+            if (string.IsNullOrWhiteSpace(model.NewPassword))
+                return BadRequest(new { message = "Informe a nova senha." });
+
+            if (await _userManager.CheckPasswordAsync(user, model.NewPassword))
+                return BadRequest(new { message = "A nova senha não pode ser igual à senha atual." });
+
+            if (!RequisitosSenhaOk(model.NewPassword))
+                return BadRequest(new { message = "A nova senha não atende aos requisitos: mínimo 6 caracteres, com maiúscula, minúscula, número e caractere especial." });
+
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
 
@@ -203,8 +221,8 @@ namespace DayPlannio.Api.Controllers
                 return Ok(new { message = "Senha redefinida com sucesso." });
             }
 
-            var errors = result.Errors.Select(e => e.Description);
-            return BadRequest(new { errors });
+            var errors = result.Errors.Select(e => e.Description).ToList();
+            return BadRequest(new { message = string.Join(" ", errors), errors });
         }
 
         [HttpPost("verify-code")]

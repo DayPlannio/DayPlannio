@@ -156,6 +156,12 @@ namespace DayPlannio.Api.Controllers
             if (!SenhaHelper.Verificar(dto.SenhaAtual, cliente.SenhaHash))
                 return Unauthorized(new { message = "Senha atual inválida." });
 
+            if (SenhaHelper.Verificar(dto.SenhaNova, cliente.SenhaHash))
+                return BadRequest(new { message = "A nova senha não pode ser igual à senha atual." });
+
+            if (!RequisitosSenhaOk(dto.SenhaNova))
+                return BadRequest(new { message = "A nova senha não atende aos requisitos: mínimo 6 caracteres, com maiúscula, minúscula, número e caractere especial." });
+
             cliente.SenhaHash = SenhaHelper.GerarHash(dto.SenhaNova);
             cliente.PrimeiroAcesso = false;
 
@@ -298,6 +304,15 @@ namespace DayPlannio.Api.Controllers
 
         private const int MaxTentativasCodigo = 5;
 
+        private static bool RequisitosSenhaOk(string senha)
+        {
+            return senha.Length >= 6
+                && senha.Any(char.IsUpper)
+                && senha.Any(char.IsLower)
+                && senha.Any(char.IsDigit)
+                && senha.Any(c => !char.IsLetterOrDigit(c));
+        }
+
         [HttpPost("reset-password")]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordClienteDto dto)
@@ -345,6 +360,12 @@ namespace DayPlannio.Api.Controllers
                 await _context.Cliente.ReplaceOneAsync(c => c.Id == cliente.Id, cliente);
                 return BadRequest(new { message = "Código inválido ou expirado." });
             }
+
+            if (SenhaHelper.Verificar(dto.SenhaNova, cliente.SenhaHash))
+                return BadRequest(new { message = "A nova senha não pode ser igual à senha atual." });
+
+            if (!RequisitosSenhaOk(dto.SenhaNova))
+                return BadRequest(new { message = "A nova senha não atende aos requisitos: mínimo 6 caracteres, com maiúscula, minúscula, número e caractere especial." });
 
             cliente.SenhaHash = SenhaHelper.GerarHash(dto.SenhaNova);
             cliente.PrimeiroAcesso = false;

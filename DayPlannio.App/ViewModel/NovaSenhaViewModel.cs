@@ -34,12 +34,35 @@ public partial class NovaSenhaViewModel : ObservableObject
     [ObservableProperty]
     private bool confirmarSenhaOculta = true;
 
+    [ObservableProperty]
+    private bool reqTamanho;
+
+    [ObservableProperty]
+    private bool reqMaiusculo;
+
+    [ObservableProperty]
+    private bool reqMinusculo;
+
+    [ObservableProperty]
+    private bool reqEspecial;
+
+    [ObservableProperty]
+    private bool reqNumero;
+
     public bool SenhasDiferentes =>
         !string.IsNullOrEmpty(ConfirmarSenha) && NovaSenha != ConfirmarSenha;
 
     partial void OnNovaSenhaChanged(string value)
     {
         OnPropertyChanged(nameof(SenhasDiferentes));
+
+        value ??= "";
+
+        ReqTamanho = value.Length >= 6;
+        ReqMaiusculo = value.Any(char.IsUpper);
+        ReqMinusculo = value.Any(char.IsLower);
+        ReqNumero = value.Any(char.IsDigit);
+        ReqEspecial = value.Any(c => !char.IsLetterOrDigit(c));
     }
 
     partial void OnConfirmarSenhaChanged(string value)
@@ -67,6 +90,13 @@ public partial class NovaSenhaViewModel : ObservableObject
 
             if (NovaSenha != ConfirmarSenha)
                 throw new Exception("As senhas não coincidem.");
+
+            if (!ReqTamanho ||
+                !ReqMaiusculo ||
+                !ReqMinusculo ||
+                !ReqNumero ||
+                !ReqEspecial)
+                throw new Exception("A senha não atende aos requisitos: mínimo 6 caracteres, com maiúscula, minúscula, número e caractere especial.");
 
             bool sucesso;
             string mensagem = "";

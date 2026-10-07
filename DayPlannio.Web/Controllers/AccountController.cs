@@ -370,6 +370,12 @@ public class AccountController : Controller
             return View(model);
         }
 
+        if (model.SenhaNova == model.SenhaAtual)
+        {
+            model.Erro = "A nova senha não pode ser igual à senha atual.";
+            return View(model);
+        }
+
         var client = HttpContext.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("Api");
 
         var payload = JsonSerializer.Serialize(new
@@ -387,6 +393,15 @@ public class AccountController : Controller
         {
             var body = await resp.Content.ReadAsStringAsync();
             model.Erro = "Não foi possível alterar a senha. Verifique a senha atual.";
+            try
+            {
+                var err = JsonSerializer.Deserialize<Dictionary<string, string>>(body);
+                if (err != null && err.ContainsKey("message") && !string.IsNullOrWhiteSpace(err["message"]))
+                    model.Erro = err["message"];
+            }
+            catch
+            {
+            }
             return View(model);
         }
 

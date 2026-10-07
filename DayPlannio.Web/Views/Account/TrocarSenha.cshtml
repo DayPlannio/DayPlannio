@@ -40,6 +40,7 @@
                     <li data-req="especial"><span class="ponto">&#9679;</span> Um caractere especial</li>
                     <li data-req="numero"><span class="ponto">&#9679;</span> Um número</li>
                 </ul>
+                <div class="form-text text-danger" id="avisoMesmaSenhaT" hidden>A nova senha não pode ser igual à senha atual.</div>
             </div>
             <div class="mb-3">
                 <label asp-for="SenhaNovaConfirmacao" class="form-label">Confirmar nova senha <span class="obrigatorio">*</span></label>
@@ -120,6 +121,20 @@
 
                 nova.addEventListener('input', comparar);
                 confirmacao.addEventListener('input', comparar);
+                comparar();
+            })();
+            (function () {
+                var atual = document.getElementById('senhaAtualT');
+                var nova = document.getElementById('senhaNovaT');
+                var aviso = document.getElementById('avisoMesmaSenhaT');
+                if (!atual || !nova || !aviso) return;
+
+                function comparar() {
+                    aviso.hidden = !(nova.value.length > 0 && nova.value === atual.value);
+                }
+
+                atual.addEventListener('input', comparar);
+                nova.addEventListener('input', comparar);
                 comparar();
             })();
         </script>

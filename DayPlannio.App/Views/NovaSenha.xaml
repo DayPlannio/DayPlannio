@@ -94,6 +94,100 @@
                 </Border>
 
                 <Label Text="As senhas não coincidem." TextColor="#D64541" FontSize="12" IsVisible="{Binding SenhasDiferentes}"/>
+                <VerticalStackLayout Spacing="6" Margin="0,5,0,0">
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="●"
+                               FontSize="12"
+                               TextColor="#CFCFCF">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding ReqTamanho}"
+                                             Value="True">
+                                    <Setter Property="TextColor" Value="#006260"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <Label Text="Mínimo 6 caracteres"
+                               TextColor="Gray"
+                               FontSize="12"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="●"
+                               FontSize="12"
+                               TextColor="#CFCFCF">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding ReqMaiusculo}"
+                                             Value="True">
+                                    <Setter Property="TextColor" Value="#006260"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <Label Text="Uma letra maiúscula"
+                               TextColor="Gray"
+                               FontSize="12"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="●"
+                               FontSize="12"
+                               TextColor="#CFCFCF">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding ReqMinusculo}"
+                                             Value="True">
+                                    <Setter Property="TextColor" Value="#006260"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <Label Text="Uma letra minúscula"
+                               TextColor="Gray"
+                               FontSize="12"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="●"
+                               FontSize="12"
+                               TextColor="#CFCFCF">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding ReqEspecial}"
+                                             Value="True">
+                                    <Setter Property="TextColor" Value="#006260"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <Label Text="Um caractere especial"
+                               TextColor="Gray"
+                               FontSize="12"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="●"
+                               FontSize="12"
+                               TextColor="#CFCFCF">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding ReqNumero}"
+                                             Value="True">
+                                    <Setter Property="TextColor" Value="#006260"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <Label Text="Um número"
+                               TextColor="Gray"
+                               FontSize="12"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
                 <Label
                     Text="{Binding ErroMensagem}"
                     TextColor="Red"

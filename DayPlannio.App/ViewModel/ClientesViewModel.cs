@@ -199,14 +199,12 @@ public partial class ClientesViewModel : ObservableObject
         }
     }
 
-    // Preencha com o endereço do portal web do cliente. Se ficar vazio, o link não entra na mensagem.
     private const string PortalUrl = "";
 
     private async Task CompartilharAcessoAsync(Cliente cliente, string email, string senha)
     {
         var mensagem = MontarMensagemAcesso(cliente.Nome, email, senha);
 
-        // A senha só aparece agora, então o menu reabre até o prestador tocar em "Fechar".
         while (true)
         {
             var opcao = await _page.DisplayActionSheetAsync(
@@ -264,13 +262,11 @@ public partial class ClientesViewModel : ObservableObject
     {
         var numero = new string((telefone ?? string.Empty).Where(char.IsDigit).ToArray());
 
-        // Telefone brasileiro sem DDI (10 ou 11 dígitos): acrescenta 55.
         if (numero.Length is 10 or 11)
             numero = "55" + numero;
 
         var texto = Uri.EscapeDataString(mensagem);
 
-        // Sem telefone válido, o WhatsApp abre para o prestador escolher o contato.
         var url = numero.Length >= 12
             ? $"https://wa.me/{numero}?text={texto}"
             : $"https://wa.me/?text={texto}";

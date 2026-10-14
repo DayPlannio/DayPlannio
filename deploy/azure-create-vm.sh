@@ -12,7 +12,7 @@ RG="${RG:-DayPlannio}"
 LOCATION="${LOCATION:-canadacentral}"
 VM="${VM:-dayplannio-vm}"
 ADMIN_USER="${ADMIN_USER:-azureuser}"
-SIZE="${SIZE:-Standard_B1s}"
+SIZE="${SIZE:-Standard_B2als_v2}"
 IMAGE="${IMAGE:-Ubuntu2404}"
 
 az account show >/dev/null 2>&1 || { echo "Rode primeiro: az login"; exit 1; }

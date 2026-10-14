@@ -9,7 +9,7 @@
 set -euo pipefail
 
 RG="${RG:-DayPlannio}"
-LOCATION="${LOCATION:-brazilsouth}"
+LOCATION="${LOCATION:-canadacentral}"
 VM="${VM:-dayplannio-vm}"
 ADMIN_USER="${ADMIN_USER:-azureuser}"
 SIZE="${SIZE:-Standard_B1s}"

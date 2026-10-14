@@ -26,7 +26,7 @@ Acesse: **http://dayplannio.canadacentral.cloudapp.azure.com/**
    - Pasta: `DayPlannio.App/`
    - Arquivo: `DayPlannio.App.sln`
 3. Aguarde a restauração dos pacotes NuGet.
-4. Selecione o projeto do App como projeto de inicialização e escolha o destino (emulador Android ou dispositivo).
+4. Selecione o projeto do App como projeto de inicialização e escolha o destino (windows machine).
 5. Clique em **Iniciar (▶)** ou pressione **F5**.
 
 > Na primeira execução o build pode demorar alguns minutos.

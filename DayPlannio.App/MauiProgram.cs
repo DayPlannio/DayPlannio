@@ -17,17 +17,9 @@ namespace DayPlannio.App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            string baseUrl;
-
-#if ANDROID
-            baseUrl = "http://10.0.2.2:5143/";
-#else
-            baseUrl = "http://localhost:5143/";
-#endif
-
             builder.Services.AddSingleton(new HttpClient
             {
-                BaseAddress = new Uri(baseUrl)
+                BaseAddress = new Uri(DayPlannio.App.Helpers.ApiConfig.BaseUrl)
             });
 
             builder.Services.AddTransient<Login>();

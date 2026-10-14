@@ -17,9 +17,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<DayPlannioContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DayPlannioContext")
-        ?? throw new InvalidOperationException("Connection string 'DayPlannioContext' not found.")));
+var sqlConnectionString = builder.Configuration.GetConnectionString("DayPlannioContext");
+if (!string.IsNullOrWhiteSpace(sqlConnectionString))
+{
+    builder.Services.AddDbContext<DayPlannioContext>(options =>
+        options.UseSqlServer(sqlConnectionString));
+}
 
 builder.Services.AddControllers(options =>
     {

@@ -22,9 +22,9 @@ Acesse: **http://dayplannio.canadacentral.cloudapp.azure.com/**
 ```bash
    git clone https://github.com/DayPlannio/DayPlannio.git
 ```
-2. Abra o arquivo da solução da Api (`.slnx`) no Visual Studio:
-   - Pasta: `DayPlannio.Api/`
-   - Arquivo: `DayPlannio.Api.slnx`
+2. Abra o arquivo da solução da App (`.slnx`) no Visual Studio:
+   - Pasta: `DayPlannio.App/`
+   - Arquivo: `DayPlannio.App.slnx`
 3. Aguarde a restauração dos pacotes NuGet.
 4. Selecione o projeto do App como projeto de inicialização e escolha o destino (emulador Android ou dispositivo).
 5. Clique em **Iniciar (▶)** ou pressione **F5**.

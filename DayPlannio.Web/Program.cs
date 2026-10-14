@@ -1,6 +1,16 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var ptBr = new CultureInfo("pt-BR");
+    options.DefaultRequestCulture = new RequestCulture(ptBr);
+    options.SupportedCultures = new[] { ptBr };
+    options.SupportedUICultures = new[] { ptBr };
+});
 
 builder.Services.AddAuthentication("Cliente")
     .AddCookie("Cliente", options =>
@@ -26,6 +36,8 @@ builder.Services.AddHttpClient("Api", client =>
 });
 
 var app = builder.Build();
+
+app.UseRequestLocalization();
 
 app.UseStaticFiles();
 app.UseRouting();

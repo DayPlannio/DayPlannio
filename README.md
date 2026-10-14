@@ -13,7 +13,7 @@ Acesse: **http://dayplannio.canadacentral.cloudapp.azure.com/**
 
 **Pré-requisitos**
 
-- Windows com **Visual Studio 2026 ** e a carga de trabalho **Desenvolvimento de aplicativos móveis com .NET** (MAUI) instalada
+- Windows com **Visual Studio 2026** e a carga de trabalho **Desenvolvimento de aplicativos móveis com .NET** (MAUI) instalada
 - **.NET 10 SDK**
 
 **Passos**

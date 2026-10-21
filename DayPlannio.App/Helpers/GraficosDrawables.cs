@@ -39,19 +39,31 @@ namespace DayPlannio.App.Helpers
 
             foreach (var item in items)
             {
-                float sweep = (float)(item.Percentual / 100.0 * 360.0);
+                float sweep = (float)(item.Percentual / total * 360.0);
                 if (sweep <= 0)
                     continue;
 
+                var path = new PathF();
+                int passos = Math.Max(2, (int)Math.Ceiling(sweep / 3f));
+
+                for (int i = 0; i <= passos; i++)
+                {
+                    float a = (angulo + sweep * i / passos) * MathF.PI / 180f;
+                    float x = cx + rOuter * MathF.Cos(a);
+                    float y = cy + rOuter * MathF.Sin(a);
+                    if (i == 0) path.MoveTo(x, y); else path.LineTo(x, y);
+                }
+
+                for (int i = passos; i >= 0; i--)
+                {
+                    float a = (angulo + sweep * i / passos) * MathF.PI / 180f;
+                    path.LineTo(cx + rInner * MathF.Cos(a), cy + rInner * MathF.Sin(a));
+                }
+
+                path.Close();
+
                 canvas.FillColor = item.Cor;
-                canvas.FillArc(
-                    cx - rOuter,
-                    cy - rOuter,
-                    rOuter * 2,
-                    rOuter * 2,
-                    angulo,
-                    angulo + sweep,
-                    true);
+                canvas.FillPath(path);
 
                 angulo += sweep;
             }

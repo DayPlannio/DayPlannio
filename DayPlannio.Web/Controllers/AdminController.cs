@@ -81,7 +81,7 @@ public class AdminController : Controller
                     json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 if (fotos != null)
                 {
-                    model.FotosPendentes = fotos.Take(5).ToList();
+                    model.FotosPendentes = fotos.Take(4).ToList();
                     model.TotalFotosPendentes = fotos.Count;
                 }
             }

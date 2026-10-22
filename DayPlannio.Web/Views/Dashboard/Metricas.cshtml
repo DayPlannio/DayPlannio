@@ -96,7 +96,7 @@
                                     <tr>
                                         <td>@c.Categoria</td>
                                         <td><span class="badge-status concluido">@c.Quantidade</span></td>
-                                        <td class="text-end">@c.Valor.ToString("C")</td>
+                                        <td class="text-end col-preco">@c.Valor.ToString("C")</td>
                                     </tr>
                                 }
                             </tbody>
@@ -140,7 +140,7 @@
                                 <td>@(h.Inicio?.ToString("HH:mm") ?? "-")</td>
                                 <td>@(h.Fim?.ToString("HH:mm") ?? "-")</td>
                                 <td>@(h.DuracaoMinutos.HasValue ? $"{Math.Round(h.DuracaoMinutos.Value)}min" : "-")</td>
-                                <td class="text-end">@(h.Valor.HasValue ? h.Valor.Value.ToString("C") : "-")</td>
+                                <td class="text-end col-preco">@(h.Valor.HasValue ? h.Valor.Value.ToString("C") : "-")</td>
                                 <td><span class="badge-status concluido">@h.Status</span></td>
                             </tr>
                         }

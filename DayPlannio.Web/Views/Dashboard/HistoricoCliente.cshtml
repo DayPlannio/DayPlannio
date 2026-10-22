@@ -27,7 +27,7 @@
                     <thead>
                         <tr>
                             <th>Serviço</th><th>Data</th><th>Profissional</th>
-                            <th>Início</th><th>Término</th><th>Duração</th><th class="text-end">Preço</th><th>Status</th>
+                            <th>Início</th><th>Término</th><th>Duração</th><th class="text-end col-preco">Preço</th><th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,12 +35,12 @@
                         {
                             <tr>
                                 <td>@h.Servico</td>
-                                <td>@h.Data.ToString("dd/MM/yyyy")</td>
+                                <td class="col-nowrap">@h.Data.ToString("dd/MM/yyyy")</td>
                                 <td>@h.Profissional</td>
                                 <td>@(h.Inicio?.ToString("HH:mm") ?? "-")</td>
                                 <td>@(h.Fim?.ToString("HH:mm") ?? "-")</td>
                                 <td>@(h.DuracaoMinutos.HasValue ? $"{Math.Round(h.DuracaoMinutos.Value)}min" : "-")</td>
-                                <td class="text-end">@(h.Valor.HasValue ? h.Valor.Value.ToString("C") : "-")</td>
+                                <td class="text-end col-preco">@(h.Valor.HasValue ? h.Valor.Value.ToString("C") : "-")</td>
                                 <td>
                                     @{
                                         var badge = h.Status.Equals("Concluido", StringComparison.OrdinalIgnoreCase)

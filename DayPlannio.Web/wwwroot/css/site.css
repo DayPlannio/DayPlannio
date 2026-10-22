@@ -698,7 +698,6 @@ body {
     color: #334155;
 }
 
-/* Tabelas: preço e data nunca quebram em duas linhas */
 .table-dp .col-nowrap {
     white-space: nowrap;
 }

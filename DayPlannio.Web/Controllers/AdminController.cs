@@ -207,7 +207,6 @@ public class AdminController : Controller
     [HttpGet]
     public IActionResult Fotos()
     {
-        // Tela antiga de moderação duplicava a seção de fotos do Painel
         return RedirectToAction("Painel");
     }
 

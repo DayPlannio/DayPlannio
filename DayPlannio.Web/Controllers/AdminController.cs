@@ -205,32 +205,10 @@ public class AdminController : Controller
 
     [Authorize(Policy = "Admin")]
     [HttpGet]
-    public async Task<IActionResult> Fotos()
+    public IActionResult Fotos()
     {
-        var model = new AdminPainelViewModel();
-        var client = HttpContext.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("Api");
-
-        try
-        {
-            var resp = await client.GetAsync("api/admin/fotos-pendentes");
-            if (resp.IsSuccessStatusCode)
-            {
-                var json = await resp.Content.ReadAsStringAsync();
-                var fotos = JsonSerializer.Deserialize<List<AdminFotoItem>>(
-                    json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                if (fotos != null)
-                {
-                    model.FotosPendentes = fotos.Take(5).ToList();
-                    model.TotalFotosPendentes = fotos.Count;
-                }
-            }
-        }
-        catch { }
-
-        if (TempData.ContainsKey("Mensagem"))
-            model.Mensagem = TempData["Mensagem"]?.ToString();
-
-        return View(model);
+        // Tela antiga de moderação duplicava a seção de fotos do Painel
+        return RedirectToAction("Painel");
     }
 
     [Authorize(Policy = "Admin")]
@@ -273,7 +251,7 @@ public class AdminController : Controller
         {
             "Painel" => "Painel",
             "TodasFotos" => "TodasFotos",
-            _ => "Fotos"
+            _ => "Painel"
         };
         return RedirectToAction(destino);
     }
@@ -291,7 +269,7 @@ public class AdminController : Controller
         {
             "Painel" => "Painel",
             "TodasFotos" => "TodasFotos",
-            _ => "Fotos"
+            _ => "Painel"
         };
         return RedirectToAction(destino);
     }

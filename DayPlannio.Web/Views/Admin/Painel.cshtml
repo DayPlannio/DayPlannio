@@ -244,7 +244,7 @@
                 <span class="badge badge-status pendente">@Model.TotalFotosPendentes</span>
             }
         </div>
-        @if (Model.TotalFotosPendentes > 5)
+        @if (Model.TotalFotosPendentes > 4)
         {
             <a asp-controller="Admin" asp-action="TodasFotos" class="btn btn-dp-outline btn-sm">Ver todas (@Model.TotalFotosPendentes)</a>
         }

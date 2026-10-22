@@ -137,6 +137,7 @@ namespace DayPlannio.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("planos/{id}/aprovar")]
         public async Task<IActionResult> AprovarPlano(Guid id)
         {
@@ -148,28 +149,24 @@ namespace DayPlannio.Api.Controllers
             if (string.IsNullOrWhiteSpace(user.PlanoPendente))
                 return BadRequest(new { message = "Não há plano pendente para aprovar." });
 
-            user.Plano = user.PlanoPendente;
-            user.PlanoAtivo = true;
-            user.PlanoExpiraEm = DateTime.UtcNow.AddDays(30);
-            user.PlanoOrigem = "assinatura";
-            user.PlanoPendente = null;
-            user.PlanoSolicitadoEm = null;
-            user.RenovacaoAutomatica = true;
-            user.PlanoCanceladoEm = null;
+            var planoAprovado = user.PlanoPendente;
+            var vencimento = DateTime.UtcNow.AddDays(30);
 
-            var filtro = Builders<ApplicationUser>.Filter.Eq("_id", user.Id);
             var update = Builders<ApplicationUser>.Update
-                .Set(u => u.Plano, user.Plano)
+                .Set(u => u.Plano, planoAprovado)
                 .Set(u => u.PlanoAtivo, true)
-                .Set(u => u.PlanoExpiraEm, DateTime.UtcNow.AddDays(30))
+                .Set(u => u.PlanoExpiraEm, vencimento)
                 .Set(u => u.PlanoOrigem, "assinatura")
                 .Set(u => u.PlanoPendente, (string?)null)
                 .Set(u => u.PlanoSolicitadoEm, (DateTime?)null)
                 .Set(u => u.RenovacaoAutomatica, true)
                 .Set(u => u.PlanoCanceladoEm, (DateTime?)null);
-            await context.ApplicationUsers.UpdateOneAsync(filtro, update);
+            var resultado = await context.ApplicationUsers.UpdateOneAsync(u => u.Id == user.Id, update);
 
-            var vencimento = DateTime.UtcNow.AddDays(30);
+            if (resultado.MatchedCount == 0)
+                return NotFound(new { message = "Prestador não encontrado no banco." });
+
+            user.Plano = planoAprovado;
 
             await context.Notificacao.InsertOneAsync(new Notificacao
             {
@@ -190,6 +187,7 @@ namespace DayPlannio.Api.Controllers
             return Ok(new { message = "Plano aprovado com sucesso." });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("planos/{id}/rejeitar")]
         public async Task<IActionResult> RejeitarPlano(Guid id)
         {
@@ -203,11 +201,10 @@ namespace DayPlannio.Api.Controllers
 
             var planoRejeitado = user.PlanoPendente;
 
-            var filtro = Builders<ApplicationUser>.Filter.Eq("_id", user.Id);
             var update = Builders<ApplicationUser>.Update
                 .Set(u => u.PlanoPendente, (string?)null)
                 .Set(u => u.PlanoSolicitadoEm, (DateTime?)null);
-            await context.ApplicationUsers.UpdateOneAsync(filtro, update);
+            await context.ApplicationUsers.UpdateOneAsync(u => u.Id == user.Id, update);
 
             var planoAtual = PlanoService.ObterPlanoEfetivo(user);
 

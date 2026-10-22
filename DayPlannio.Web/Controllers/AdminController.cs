@@ -278,8 +278,8 @@ public class AdminController : Controller
     public async Task<IActionResult> AprovarPlano(Guid id, string? origem)
     {
         var client = HttpContext.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("Api");
-        await client.PostAsync($"api/admin/planos/{id}/aprovar", null);
-        TempData["Mensagem"] = "Plano aprovado com sucesso.";
+        TempData["Mensagem"] = await EnviarAcaoPlanoAsync(
+            client, $"api/admin/planos/{id}/aprovar", "Plano aprovado com sucesso.", "aprovar o plano");
         var destino = origem switch
         {
             "Painel" => "Painel",
@@ -293,14 +293,41 @@ public class AdminController : Controller
     public async Task<IActionResult> RejeitarPlano(Guid id, string? origem)
     {
         var client = HttpContext.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("Api");
-        await client.PostAsync($"api/admin/planos/{id}/rejeitar", null);
-        TempData["Mensagem"] = "Solicitação de plano rejeitada.";
+        TempData["Mensagem"] = await EnviarAcaoPlanoAsync(
+            client, $"api/admin/planos/{id}/rejeitar", "Solicitação de plano rejeitada.", "rejeitar a solicitação");
         var destino = origem switch
         {
             "Painel" => "Painel",
             _ => "Prestadores"
         };
         return RedirectToAction(destino);
+    }
+
+    private static async Task<string> EnviarAcaoPlanoAsync(HttpClient client, string url, string sucesso, string acao)
+    {
+        try
+        {
+            var resp = await client.PostAsync(url, null);
+            if (resp.IsSuccessStatusCode)
+                return sucesso;
+
+            var corpo = await resp.Content.ReadAsStringAsync();
+            var detalhe = $"HTTP {(int)resp.StatusCode}";
+            try
+            {
+                using var doc = JsonDocument.Parse(corpo);
+                if (doc.RootElement.ValueKind == JsonValueKind.Object &&
+                    doc.RootElement.TryGetProperty("message", out var msg))
+                    detalhe = msg.GetString() ?? detalhe;
+            }
+            catch { }
+
+            return $"Não foi possível {acao}: {detalhe}";
+        }
+        catch (Exception ex)
+        {
+            return $"Não foi possível {acao}: falha ao conectar com a API ({ex.Message})";
+        }
     }
 
     [Authorize(Policy = "Admin")]

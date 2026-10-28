@@ -113,7 +113,7 @@
                                     <VerticalStackLayout Spacing="5">
 
                                         <Label
-                                            Text="HORÁRIO"
+                                            Text="HORÁRIO AGENDADO"
                                             FontSize="10"
                                             FontAttributes="Bold"
                                             TextColor="#666"/>
@@ -138,6 +138,43 @@
                                                     VerticalOptions="Center"/>
 
                                             </HorizontalStackLayout>
+
+                                        </Border>
+
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Spacing="5" IsVisible="{Binding TemTempoReal}">
+
+                                        <Label
+                                            Text="ATENDIMENTO"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="#666"/>
+
+                                        <Border
+                                            BackgroundColor="#E5E5E5"
+                                            StrokeThickness="0"
+                                            Padding="12,10"
+                                            StrokeShape="RoundRectangle 18">
+
+                                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+
+                                                <VerticalStackLayout Spacing="2">
+                                                    <Label Text="Início" FontSize="10" TextColor="#666"/>
+                                                    <Label Text="{Binding InicioTexto}" FontSize="14" FontAttributes="Bold" TextColor="#333"/>
+                                                </VerticalStackLayout>
+
+                                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                                    <Label Text="Término" FontSize="10" TextColor="#666"/>
+                                                    <Label Text="{Binding FimTexto}" FontSize="14" FontAttributes="Bold" TextColor="#333"/>
+                                                </VerticalStackLayout>
+
+                                                <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                                    <Label Text="Duração" FontSize="10" TextColor="#666"/>
+                                                    <Label Text="{Binding DuracaoTexto}" FontSize="14" FontAttributes="Bold" TextColor="#333"/>
+                                                </VerticalStackLayout>
+
+                                            </Grid>
 
                                         </Border>
 

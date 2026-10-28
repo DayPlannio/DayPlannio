@@ -35,6 +35,33 @@ public partial class MeuPerfilViewModel : ObservableObject
     private bool telefoneVisivel;
 
     [ObservableProperty]
+    private bool localizacaoAtiva = ConfiguracaoLocalizacao.Ativa;
+
+    public bool LocalizacaoDesligada => !LocalizacaoAtiva;
+
+    public string LocalizacaoStatusTexto => LocalizacaoAtiva ? "Ligada" : "Desligada";
+
+    public Color LocalizacaoStatusCor =>
+        LocalizacaoAtiva ? Color.FromArgb("#006260") : Color.FromArgb("#6E7978");
+
+    partial void OnLocalizacaoAtivaChanged(bool value)
+    {
+        ConfiguracaoLocalizacao.Ativa = value;
+
+        OnPropertyChanged(nameof(LocalizacaoDesligada));
+        OnPropertyChanged(nameof(LocalizacaoStatusTexto));
+        OnPropertyChanged(nameof(LocalizacaoStatusCor));
+
+        if (!value)
+        {
+            LocalizacaoRastreador.Parar();
+            return;
+        }
+
+        _ = LocalizacaoRastreador.IniciarAsync();
+    }
+
+    [ObservableProperty]
     private string planoAtual = "";
 
     [ObservableProperty]
@@ -123,9 +150,13 @@ public partial class MeuPerfilViewModel : ObservableObject
     {
         if (concordou)
         {
+            var registro = await UsuarioService.RegistrarConcordanciaPolitica(_userId);
+
             await _page.DisplayAlertAsync(
                 "Política de Privacidade",
-                "Você continua de acordo. Seu acesso permanece liberado.",
+                registro.sucesso
+                    ? "Sua concordância foi registrada. Seu acesso permanece liberado."
+                    : registro.mensagem,
                 "OK");
             return;
         }
@@ -139,7 +170,7 @@ public partial class MeuPerfilViewModel : ObservableObject
         if (!encerrar)
             return;
 
-        await ConfirmarEncerrarConta();
+        await ConfirmarEncerrarConta("politica");
     }
 
     [RelayCommand]
@@ -156,9 +187,9 @@ public partial class MeuPerfilViewModel : ObservableObject
         await ConfirmarEncerrarConta();
     }
 
-    private async Task ConfirmarEncerrarConta()
+    private async Task ConfirmarEncerrarConta(string? motivo = null)
     {
-        var resultado = await UsuarioService.EncerrarConta(_userId);
+        var resultado = await UsuarioService.EncerrarConta(_userId, motivo);
 
         if (!resultado.sucesso)
         {
@@ -167,6 +198,7 @@ public partial class MeuPerfilViewModel : ObservableObject
         }
 
         PlanoAppService.Invalidar();
+        LocalizacaoRastreador.Parar();
         Preferences.Clear();
 
         await _page.DisplayAlertAsync("Conta encerrada", "Sua conta foi encerrada e seus dados foram removidos. Até logo!", "OK");
@@ -261,6 +293,7 @@ public partial class MeuPerfilViewModel : ObservableObject
         if (!confirmar)
             return;
 
+        LocalizacaoRastreador.Parar();
         Preferences.Remove("userId");
 
         Application.Current.Windows[0].Page =

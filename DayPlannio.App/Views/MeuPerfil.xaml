@@ -140,21 +140,92 @@
 
                         <Border
                             BackgroundColor="#F1F7F6"
-                            StrokeShape="RoundRectangle 10"
+                            StrokeShape="RoundRectangle 14"
                             Stroke="#D5E3E1"
-                            Padding="12,10"
-                            Margin="0,2,0,8">
-                            <VerticalStackLayout Spacing="2">
+                            Padding="14,12"
+                            Margin="0,4,0,8">
+                            <VerticalStackLayout Spacing="10">
+
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                    <VerticalStackLayout Spacing="1">
+                                        <Label
+                                            Text="Localização automática"
+                                            FontSize="15"
+                                            FontAttributes="Bold"
+                                            TextColor="#006260"/>
+                                        <Label
+                                            Text="{Binding LocalizacaoStatusTexto}"
+                                            FontSize="12"
+                                            FontAttributes="Bold"
+                                            TextColor="{Binding LocalizacaoStatusCor}"/>
+                                    </VerticalStackLayout>
+
+                                    <Switch
+                                        Grid.Column="1"
+                                        IsToggled="{Binding LocalizacaoAtiva}"
+                                        ThumbColor="White"
+                                        OnColor="#006260"
+                                        VerticalOptions="Center"/>
+                                </Grid>
+
+                                <VerticalStackLayout Spacing="8" IsVisible="{Binding LocalizacaoAtiva}">
+                                <Grid ColumnDefinitions="26,*" ColumnSpacing="6">
+                                        <Image
+                                            Source="marcador.png"
+                                            WidthRequest="24"
+                                            HeightRequest="24"
+                                            VerticalOptions="Start"
+                                            Aspect="AspectFit" />
+                                        <Label
+                                        Grid.Column="1"
+                                        Text="Chegou ao local e ficou alguns minutos: o atendimento começa sozinho."
+                                        FontSize="12"
+                                        LineBreakMode="WordWrap"
+                                        TextColor="#3E4948"/>
+                                </Grid>
+                                <Grid ColumnDefinitions="26,*" ColumnSpacing="6">
+                                    <Image
+                                        Source="icon_relogio.png"
+                                        WidthRequest="20"
+                                        HeightRequest="20"
+                                        VerticalOptions="Start"
+                                        Aspect="AspectFit" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="O tempo corre na sua agenda, sem contar as pausas."
+                                        FontSize="12"
+                                        LineBreakMode="WordWrap"
+                                        TextColor="#3E4948"/>
+                                </Grid>
+                                <Grid ColumnDefinitions="26,*" ColumnSpacing="6">
+                                        <Image
+                                            Source="correto.png"
+                                            WidthRequest="20"
+                                            HeightRequest="20"
+                                            VerticalOptions="Start"
+                                            Aspect="AspectFit" />
+                                        <Label
+                                        Grid.Column="1"
+                                        Text="Saiu e não voltou: o atendimento é concluído sozinho."
+                                        FontSize="12"
+                                        LineBreakMode="WordWrap"
+                                        TextColor="#3E4948"/>
+                                </Grid>
+                                </VerticalStackLayout>
+
                                 <Label
-                                    Text="🚧 Geolocalização (geofencing)"
+                                    IsVisible="{Binding LocalizacaoDesligada}"
+                                    Text="Você inicia e conclui os atendimentos manualmente. O app não usa a sua localização."
                                     FontSize="12"
-                                    FontAttributes="Bold"
-                                    TextColor="#006260"/>
+                                    LineBreakMode="WordWrap"
+                                    TextColor="#3E4948"/>
+
                                 <Label
-                                    Text="Em construção. Em breve você poderá registrar automaticamente a entrada e a saída dos atendimentos."
-                                    FontSize="11"
+                                    Text="A localização é usada só para registrar chegada e saída dos atendimentos."
+                                    FontSize="10"
                                     LineBreakMode="WordWrap"
                                     TextColor="#6E7978"/>
+
                             </VerticalStackLayout>
                         </Border>
 

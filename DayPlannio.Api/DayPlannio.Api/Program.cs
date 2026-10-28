@@ -4,6 +4,7 @@ using DayPlannio.Api.Services;
 using DayPlannio.Api.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +26,9 @@ if (!string.IsNullOrWhiteSpace(sqlConnectionString))
 }
 
 builder.Services.AddControllers(options =>
-    {
-        options.Filters.Add<ExigirAssinaturaAtivaFilter>();
-    })
+{
+    options.Filters.Add<ExigirAssinaturaAtivaFilter>();
+})
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(
@@ -50,12 +51,20 @@ builder.Services.Configure<AdminSettings>(builder.Configuration.GetSection("Admi
 builder.Services.AddTransient<EmailService>();
 builder.Services.AddScoped<RelatorioPdfService>();
 builder.Services.AddScoped<LogService>();
+builder.Services.AddScoped<GeofencingService>();
+GeofenceRegras.Configurar(
+    builder.Configuration.GetSection("Geofencing").Get<GeofenceSettings>() ?? new GeofenceSettings());
 builder.Services.AddSingleton<AzureBlobStorageService>();
 builder.Services.AddHostedService<PlanoRenovacaoService>();
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 using (var scope = app.Services.CreateScope())
 {
@@ -113,4 +122,3 @@ app.Run();
 public partial class Program
 {
 }
-

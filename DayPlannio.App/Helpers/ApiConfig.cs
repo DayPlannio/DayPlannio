@@ -2,7 +2,7 @@ namespace DayPlannio.App.Helpers
 {
     public static class ApiConfig
     {
-        public const string NuvemUrl = "http://dayplannio.canadacentral.cloudapp.azure.com/";
+        public const string NuvemUrl = "http://localhost:5143/";
 
         public static string BaseUrl
         {

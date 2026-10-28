@@ -57,14 +57,14 @@
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-card">
-                    <div class="stat-label">Tempo total <span class="em-construcao">em construção</span></div>
+                    <div class="stat-label">Tempo total</div>
                     <div class="stat-value">@Model.TempoTotalTexto</div>
                     <div class="stat-delta @(Model.Metricas.Variacoes.Tempo > 0 ? "up" : "")">@Model.VariacaoTempo</div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-card">
-                    <div class="stat-label">Tempo médio <span class="em-construcao">em construção</span></div>
+                    <div class="stat-label">Tempo médio</div>
                     <div class="stat-value">@Model.TempoMedioTexto</div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
             {
                 <div class="row align-items-center">
                     <div class="col-md-5">
-                        <canvas id="graficoCategoria" height="220"></canvas>
+                        <div class="dp-chart"><canvas id="graficoCategoria"></canvas></div>
                     </div>
                     <div class="col-md-7">
                         <table class="table table-sm table-dp align-middle mb-0">
@@ -127,7 +127,7 @@
                     <thead>
                         <tr>
                             <th>Serviço</th><th>Data</th><th>Profissional</th>
-                            <th>Início</th><th>Término</th><th>Duração <span class="em-construcao">em construção</span></th><th class="text-end">Preço</th><th>Status</th>
+                            <th>Início</th><th>Término</th><th>Duração</th><th class="text-end">Preço</th><th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,13 +135,13 @@
                         {
                             <tr>
                                 <td>@h.Servico</td>
-                                <td>@h.Data.ToString("dd/MM/yyyy")</td>
+                                <td>@FormatHelper.FormatarData(h.Data)</td>
                                 <td>@h.Profissional</td>
-                                <td>@(h.Inicio?.ToString("HH:mm") ?? "-")</td>
-                                <td>@(h.Fim?.ToString("HH:mm") ?? "-")</td>
-                                <td>@(h.DuracaoMinutos.HasValue ? $"{Math.Round(h.DuracaoMinutos.Value)}min" : "-")</td>
+                                <td>@FormatHelper.FormatarHora(h.Inicio)</td>
+                                <td>@FormatHelper.FormatarHora(h.Fim)</td>
+                                <td>@FormatHelper.FormatarDuracao(h.DuracaoMinutos)</td>
                                 <td class="text-end col-preco">@(h.Valor.HasValue ? h.Valor.Value.ToString("C") : "-")</td>
-                                <td><span class="badge-status concluido">@h.Status</span></td>
+                                <td><span class="badge-status concluido">@FormatHelper.StatusAmigavel(h.Status)</span></td>
                             </tr>
                         }
                     </tbody>
@@ -152,7 +152,7 @@
         <div class="row g-3 mb-4 d-flex align-items-stretch">
             <div class="col-md-6 d-flex">
                 <div class="dp-card p-3 w-100 d-flex flex-column">
-                    <div class="d-flex align-items-center section-title mb-2"><span class="section-icon">&#9201;</span> Tempo Médio por Serviço <span class="em-construcao">em construção</span></div>
+                    <div class="d-flex align-items-center section-title mb-2"><span class="section-icon">&#9201;</span> Tempo Médio por Serviço</div>
                     @if (Model.Metricas != null && Model.Metricas.TempoMedioPorServico.Count > 0)
                     {
                         <ul class="lista-valores flex-grow-1">
@@ -169,8 +169,8 @@
                     {
                         <div class="empty-state flex-grow-1">
                             <span class="empty-icon"><svg class="empty-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-                            <p class="empty-titulo">Em construção (geofencing)</p>
-                            <p class="empty-texto">O tempo dos atendimentos é registrado automaticamente com a detecção de entrada e saída, que está em construção. Em breve os tempos médios por serviço aparecem aqui.</p>
+                            <p class="empty-titulo">Sem tempos registrados ainda</p>
+                            <p class="empty-texto">O tempo dos atendimentos é registrado automaticamente quando você entra e sai do local do cliente. Assim que houver atendimentos concluídos, os tempos médios por serviço aparecem aqui.</p>
                         </div>
                     }
                 </div>
@@ -206,7 +206,7 @@
         <div class="dp-card p-3 mb-4">
             @if (Model.Metricas != null && Model.Metricas.Evolucao.Any(e => e.Quantidade > 0))
             {
-                <canvas id="graficoEvolucao" height="200"></canvas>
+                <div class="dp-chart dp-chart-linha"><canvas id="graficoEvolucao"></canvas></div>
             }
             else
             {
@@ -218,29 +218,29 @@
             }
         </div>
 
-        <div class="d-flex align-items-center section-title"><span class="section-icon">&#9201;</span> Resumo de Tempo <span class="em-construcao">em construção</span></div>
+        <div class="d-flex align-items-center section-title"><span class="section-icon">&#9201;</span> Resumo de Tempo</div>
         <div class="row g-3 mb-4">
             <div class="col-6 col-md-3">
                 <div class="stat-card time-card">
-                    <div class="stat-label">Maior atendimento <span class="em-construcao">em construção</span></div>
+                    <div class="stat-label">Maior atendimento</div>
                     <div class="stat-value">@Model.ResumoMaior</div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-card time-card">
-                    <div class="stat-label">Menor atendimento <span class="em-construcao">em construção</span></div>
+                    <div class="stat-label">Menor atendimento</div>
                     <div class="stat-value">@Model.ResumoMenor</div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-card time-card">
-                    <div class="stat-label">Tempo médio <span class="em-construcao">em construção</span></div>
+                    <div class="stat-label">Tempo médio</div>
                     <div class="stat-value">@Model.ResumoMedio</div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-card time-card">
-                    <div class="stat-label">Tempo total <span class="em-construcao">em construção</span></div>
+                    <div class="stat-label">Tempo total</div>
                     <div class="stat-value">@Model.ResumoTotal</div>
                 </div>
             </div>
@@ -271,7 +271,7 @@
                     hoverOffset: 4
                 }]
             },
-            options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true } } } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true } } } }
         });
             </text>
         }
@@ -285,7 +285,7 @@
                 labels: @Html.Raw(Model.EvolucaoLabelsJson),
                 datasets: [{ label: 'Atendimentos', data: @Html.Raw(Model.EvolucaoValoresJson), borderColor: '#006260', backgroundColor: 'rgba(0,98,96,0.12)', fill: true, tension: 0.35, pointBackgroundColor: '#006260' }]
             },
-            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
         });
             </text>
         }

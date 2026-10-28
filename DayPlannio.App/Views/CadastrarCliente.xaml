@@ -92,22 +92,28 @@
                                        Keyboard="Telephone"/>
                             </Border>
 
-                            <Label FontSize="11" TextColor="Gray" Margin="0,10,0,0">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="ENDEREÇO " />
-                                        <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
+                            <views:SeletorLocalizacao Endereco="{Binding Endereco, Mode=TwoWay}"
+                                                     Latitude="{Binding Latitude, Mode=TwoWay}"
+                                                     Longitude="{Binding Longitude, Mode=TwoWay}"/>
+
+                            <Label Text="RAIO DE CHEGADA"
+                                   FontSize="11"
+                                   TextColor="Gray"
+                                   Margin="0,10,0,0"/>
 
                             <Border BackgroundColor="#EBEBEB"
                                     StrokeThickness="0"
                                     StrokeShape="RoundRectangle 10">
 
-                                <Entry Text="{Binding Endereco}"
-                                       Placeholder="Ex: Rua Arnaldo, 191"/>
+                                <Picker ItemsSource="{Binding OpcoesRaio}"
+                                        SelectedItem="{Binding RaioSelecionado}"
+                                        Title="Selecione o raio"
+                                        BackgroundColor="Transparent"/>
                             </Border>
+
+                            <Label Text="Quando você ficar alguns minutos dentro desse raio, o atendimento começa sozinho."
+                                   FontSize="11"
+                                   TextColor="#6E7978"/>
 
                             <Label Text="OBSERVAÇÕES ADICIONAIS (OPCIONAL)"
                                    FontSize="11"

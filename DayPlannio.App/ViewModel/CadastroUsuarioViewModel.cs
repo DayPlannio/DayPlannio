@@ -122,7 +122,7 @@ public partial class CadastroUsuarioViewModel : ObservableObject
             Preco = "Grátis",
             Selo = "Recomendado para conhecer",
             Descricao = "Libera todos os recursos do plano Full durante 7 dias, sem cobrança.",
-            Caracteristicas = "• Agenda, clientes e serviços\n• Financeiro e métricas\n• Fotos e portfólio\n• Geofencing (em construção)",
+            Caracteristicas = "• Agenda, clientes e serviços\n• Financeiro e métricas\n• Fotos e portfólio\n• Geofencing",
             Cor = "#006260",
             TesteGratuito = true,
             SelecionarCommand = new Command(() => SelecionarPlano(true, ""))
@@ -158,7 +158,7 @@ public partial class CadastroUsuarioViewModel : ObservableObject
             Preco = "R$ 29,90/mês",
             Selo = "Para aproveitar toda a plataforma",
             Descricao = "Tudo do Profissional, com as ferramentas que seu cliente enxerga.",
-            Caracteristicas = "• Tudo do Profissional\n• Portfólio público\n• Upload de fotos dos serviços\n• Área/acesso do cliente\n• Métricas para o cliente\n• Geolocalização/geofencing (em construção)",
+            Caracteristicas = "• Tudo do Profissional\n• Portfólio público\n• Upload de fotos dos serviços\n• Área/acesso do cliente\n• Métricas para o cliente\n• Geolocalização/geofencing",
             Cor = "#006260",
             Plano = "Full",
             SelecionarCommand = new Command(() => SelecionarPlano(false, "Full"))
@@ -264,6 +264,7 @@ public partial class CadastroUsuarioViewModel : ObservableObject
                 senha = Senha,
                 confirmeSenha = ConfirmarSenha,
                 usarTesteGratuito = _testeGratuito,
+                aceitouPolitica = ConcordaPrivacidade,
                 plano = string.IsNullOrWhiteSpace(PlanoSelecionado) ? null : PlanoSelecionado
             };
 

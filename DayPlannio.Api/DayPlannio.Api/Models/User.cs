@@ -27,6 +27,7 @@ namespace DayPlannio.Api.Models
         public string? Plano { get; set; }
 
         public bool UsarTesteGratuito { get; set; }
+        public bool AceitouPolitica { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

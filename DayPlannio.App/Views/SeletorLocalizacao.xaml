@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             x:Class="DayPlannio.App.Views.SeletorLocalizacao">
+
+    <VerticalStackLayout Spacing="8">
+
+        <Label FontSize="11" TextColor="Gray" Margin="0,10,0,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="ENDEREÇO " />
+                    <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+
+            <Border Grid.Column="0"
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                <Entry x:Name="entryEndereco"
+                       Placeholder="Ex: Rua Arnaldo, 191, Bauru"
+                       ReturnType="Search"
+                       Completed="OnEnderecoCompleted"
+                       TextChanged="OnEnderecoTextChanged"/>
+            </Border>
+
+            <Button x:Name="btnBuscar"
+                    Grid.Column="1"
+                    Text="Buscar"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Padding="16,0"
+                    BackgroundColor="#006462"
+                    Clicked="OnBuscarClicked"/>
+
+        </Grid>
+
+        <Label x:Name="lblStatus"
+               FontSize="11"
+               TextColor="#3E4948"
+               IsVisible="False"/>
+
+        <VerticalStackLayout x:Name="listaResultados"
+                             Spacing="6"
+                             IsVisible="False"/>
+
+        <Border StrokeThickness="0"
+                StrokeShape="RoundRectangle 12"
+                BackgroundColor="#EBEBEB"
+                HeightRequest="280"
+                Padding="0">
+
+            <mapsui:MapControl x:Name="mapControl"/>
+
+        </Border>
+
+        <Label Text="Toque no mapa para marcar o local. O endereço é preenchido automaticamente."
+               FontSize="11"
+               FontAttributes="Italic"
+               TextColor="#6E7978"/>
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="10" RowDefinitions="Auto,Auto" Margin="0,6,0,0">
+
+            <Label Grid.Row="0" Grid.Column="0"
+                   Text="LATITUDE"
+                   FontSize="11"
+                   TextColor="Gray"/>
+
+            <Label Grid.Row="0" Grid.Column="1"
+                   Text="LONGITUDE"
+                   FontSize="11"
+                   TextColor="Gray"/>
+
+            <Border Grid.Row="1" Grid.Column="0"
+                    BackgroundColor="#E0E0E0"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                <Entry x:Name="entryLatitude"
+                       IsReadOnly="True"
+                       Placeholder="Marque no mapa"
+                       TextColor="#3E4948"/>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="1"
+                    BackgroundColor="#E0E0E0"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                <Entry x:Name="entryLongitude"
+                       IsReadOnly="True"
+                       Placeholder="Marque no mapa"
+                       TextColor="#3E4948"/>
+            </Border>
+
+        </Grid>
+
+    </VerticalStackLayout>
+
+</ContentView>

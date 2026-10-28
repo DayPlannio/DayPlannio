@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,8 @@ builder.Services.AddAuthentication("Cliente")
     .AddCookie("Cliente", options =>
     {
         options.Cookie.Name = "DayPlannio.Web";
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.HttpOnly = true;
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/Login";
         options.ExpireTimeSpan = TimeSpan.FromHours(8);
@@ -37,6 +41,11 @@ builder.Services.AddHttpClient("Api", client =>
 
 var app = builder.Build();
 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
 app.UseRequestLocalization();
 
 app.UseStaticFiles();
@@ -49,4 +58,3 @@ app.MapControllerRoute(name: "compat-metri", pattern: "Metricas", defaults: new 
 app.MapDefaultControllerRoute();
 
 app.Run();
-

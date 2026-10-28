@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using DayPlannio.Api.Services;
+using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace DayPlannio.Api.Models
@@ -37,6 +38,9 @@ namespace DayPlannio.Api.Models
         [MaxLength(500, ErrorMessage = "O endereço de atendimento pode ter no máximo 500 caracteres.")]
         public string? EnderecoAtendimento { get; set; }
 
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
         [Range(0, double.MaxValue, ErrorMessage = "O valor cobrado deve ser maior ou igual a zero.")]
         public decimal ValorCobrado { get; set; }
 
@@ -58,6 +62,31 @@ namespace DayPlannio.Api.Models
         public DateTime? Fim { get; set; }
 
         public double? DuracaoMinutos { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? ChegadaEm { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? UltimoPingEm { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? InicioPausa { get; set; }
+
+        public double PausaAcumuladaMinutos { get; set; }
+
+        [BsonIgnore]
+        public DateTime? ConfirmacaoChegadaEm =>
+            Status == StatusAgendamento.Agendado && ChegadaEm.HasValue
+                ? ChegadaEm.Value + GeofenceRegras.ConfirmacaoChegada
+                : null;
+
+        [BsonIgnore]
+        public DateTime? PausaConcluiEm =>
+            Status == StatusAgendamento.EmPausa && InicioPausa.HasValue
+                ? InicioPausa.Value + GeofenceRegras.LimiteForaDoRaio
+                : null;
+
+        public bool IniciadoPorGeofence { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public DateTime? ClienteEncerradoEm { get; set; }

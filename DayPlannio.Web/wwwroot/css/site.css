@@ -708,3 +708,13 @@ body {
     font-weight: 600;
     min-width: 7rem;
 }
+
+.dp-chart {
+    position: relative;
+    width: 100%;
+    height: 260px;
+}
+
+.dp-chart-linha {
+    height: 280px;
+}

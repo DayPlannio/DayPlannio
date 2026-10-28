@@ -170,10 +170,14 @@ namespace DayPlannio.App.ViewModels
                 Atendimentos = metricas.Atendimentos.ToString();
                 Clientes = metricas.Clientes.ToString();
 
-                var horas = metricas.HorasTrabalhadas;
+                var minutos = metricas.MinutosTrabalhados > 0
+                    ? metricas.MinutosTrabalhados
+                    : metricas.HorasTrabalhadas * 60;
+
+                var horas = minutos / 60.0;
                 TempoTrabalhado = horas >= 1
                     ? $"{Math.Round(horas, horas < 10 ? 1 : 0):0.#}h"
-                    : $"{(int)Math.Round(metricas.HorasTrabalhadas * 60)}min";
+                    : $"{(int)Math.Round(minutos)}min";
 
                 Faturamento = $"R$ {metricas.Faturamento:N2}";
 

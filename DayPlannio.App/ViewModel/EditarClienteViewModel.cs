@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DayPlannio.App.Helpers;
 using DayPlannio.App.Models;
 using DayPlannio.App.Services;
 using DayPlannio.App.Views;
@@ -15,13 +16,19 @@ public partial class EditarClienteViewModel : ObservableObject
         string nome,
         string telefone,
         string endereco,
-        string observacoes)
+        string observacoes,
+        double? latitude = null,
+        double? longitude = null,
+        int raioGeofenceMetros = RaioGeofence.Padrao)
     {
         _clienteId = clienteId;
+        RaioSelecionado = RaioGeofence.ParaTexto(raioGeofenceMetros);
 
         Nome = nome;
         Telefone = telefone;
         Endereco = endereco;
+        Latitude = latitude;
+        Longitude = longitude;
         Observacoes = observacoes;
     }
 
@@ -35,7 +42,18 @@ public partial class EditarClienteViewModel : ObservableObject
     private string endereco;
 
     [ObservableProperty]
+    private double? latitude;
+
+    [ObservableProperty]
+    private double? longitude;
+
+    [ObservableProperty]
     private string observacoes;
+
+    public IReadOnlyList<string> OpcoesRaio => RaioGeofence.Opcoes;
+
+    [ObservableProperty]
+    private string raioSelecionado = RaioGeofence.ParaTexto(RaioGeofence.Padrao);
 
     [ObservableProperty]
     private string erroMensagem;
@@ -91,6 +109,9 @@ public partial class EditarClienteViewModel : ObservableObject
                 Nome = Nome,
                 Telefone = Telefone,
                 Endereco = Endereco,
+                Latitude = Latitude,
+                Longitude = Longitude,
+                RaioGeofenceMetros = RaioGeofence.ParaMetros(RaioSelecionado),
                 Observacoes = Observacoes
             };
 

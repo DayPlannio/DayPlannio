@@ -9,7 +9,10 @@ public partial class EditarCliente : ContentPage
         string nome,
         string telefone,
         string endereco,
-        string observacoes)
+        string observacoes,
+        double? latitude = null,
+        double? longitude = null,
+        int raioGeofenceMetros = 50)
     {
         InitializeComponent();
 
@@ -18,6 +21,9 @@ public partial class EditarCliente : ContentPage
             nome,
             telefone,
             endereco,
-            observacoes);
+            observacoes,
+            latitude,
+            longitude,
+            raioGeofenceMetros);
     }
 }

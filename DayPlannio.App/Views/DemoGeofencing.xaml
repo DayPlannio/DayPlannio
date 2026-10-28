@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.DemoGeofencing"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F3F3F3">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid Padding="20,20,20,10" ColumnDefinitions="Auto,*">
+            <ImageButton
+                Source="icon_seta_esquerda.png"
+                WidthRequest="14"
+                HeightRequest="14"
+                Padding="0"
+                BackgroundColor="Transparent"
+                VerticalOptions="Center"
+                Clicked="OnVoltarClicked"/>
+            <Label
+                Grid.Column="1"
+                Text="Demonstração do geofencing"
+                HorizontalOptions="Center"
+                FontSize="17"
+                FontAttributes="Bold"
+                TextColor="#006260"/>
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="16,0,16,24" Spacing="12">
+
+                <Border BackgroundColor="#FFE9CC" StrokeThickness="0" Padding="12,10" StrokeShape="RoundRectangle 12">
+                    <Label
+                        Text="Demonstração: aqui você vê como o app funciona usando um cliente fictício, e nada fica gravado nos seus dados. Para ser rápido, o atendimento começa assim que você chega ao local. No uso de verdade, o app espera alguns minutos antes de iniciar e conclui depois de um tempo fora do local."
+                        FontSize="12"
+                        TextColor="#B25E09"/>
+                </Border>
+
+                <Border BackgroundColor="#FAFAFA" StrokeThickness="0" Padding="16" StrokeShape="RoundRectangle 20">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="1. CLIENTE FICTÍCIO" FontSize="11" FontAttributes="Bold" TextColor="Gray"/>
+                        <Label Text="Maria Souza (demonstração)" FontSize="16" FontAttributes="Bold" TextColor="#1A1C1C"/>
+                        <Label Text="Limpeza residencial • Tel. (11) 90000-0000" FontSize="12" TextColor="#6E7978"/>
+
+                        <views:SeletorLocalizacao x:Name="SeletorCliente"/>
+
+                        <Label Text="Raio" FontSize="11" TextColor="Gray"/>
+                        <Border BackgroundColor="#EBEBEB" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                            <Picker x:Name="PickerRaio" BackgroundColor="Transparent"/>
+                        </Border>
+
+                        <Button x:Name="BotaoDefinirCliente"
+                                Text="Usar este endereço para o cliente"
+                                BackgroundColor="#006260"
+                                TextColor="White"
+                                CornerRadius="12"
+                                Clicked="OnDefinirClienteClicked"/>
+
+                        <Label x:Name="LabelClienteResolvido"
+                               FontSize="11"
+                               TextColor="#6E7978"
+                               IsVisible="False"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border x:Name="CardAtendimento"
+                        BackgroundColor="#FAFAFA"
+                        StrokeThickness="0"
+                        Padding="16"
+                        StrokeShape="RoundRectangle 20">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="2. AGENDAMENTO" FontSize="11" FontAttributes="Bold" TextColor="Gray"/>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label x:Name="LabelHorario" FontSize="15" FontAttributes="Bold" TextColor="#1A1C1C" VerticalOptions="Center"/>
+                            <Border x:Name="BadgeStatus"
+                                    Grid.Column="1"
+                                    StrokeThickness="0"
+                                    Padding="10,4"
+                                    StrokeShape="RoundRectangle 10">
+                                <Label x:Name="LabelStatus" FontSize="11" FontAttributes="Bold"/>
+                            </Border>
+                        </Grid>
+                        <Label x:Name="LabelTempo" FontSize="12" TextColor="#6E7978"/>
+                        <Label x:Name="LabelDistancia" FontSize="12" TextColor="#6E7978"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="#FAFAFA" StrokeThickness="0" Padding="16" StrokeShape="RoundRectangle 20">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="3. ONDE EU ESTOU (SIMULADO)" FontSize="11" FontAttributes="Bold" TextColor="Gray"/>
+
+                        <Label Text="Busque o endereço ou toque no mapa para escolher onde você finge estar."
+                               FontSize="11"
+                               TextColor="#6E7978"/>
+
+                        <views:SeletorLocalizacao x:Name="SeletorPosicao"/>
+
+                        <Button x:Name="BotaoMover"
+                                Text="Ir para este endereço"
+                                BackgroundColor="#006260"
+                                TextColor="White"
+                                CornerRadius="12"
+                                IsEnabled="False"
+                                Clicked="OnMoverClicked"/>
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                            <Button x:Name="BotaoNoCliente"
+                                    Text="Estou no cliente"
+                                    FontSize="12"
+                                    BackgroundColor="#E0F2F1"
+                                    TextColor="#006260"
+                                    CornerRadius="12"
+                                    IsEnabled="False"
+                                    Clicked="OnNoClienteClicked"/>
+                            <Button x:Name="BotaoLonge"
+                                    Grid.Column="1"
+                                    Text="Saí (1 km longe)"
+                                    FontSize="12"
+                                    BackgroundColor="#E7E9E8"
+                                    TextColor="#3E4948"
+                                    CornerRadius="12"
+                                    IsEnabled="False"
+                                    Clicked="OnLongeClicked"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="#FAFAFA" StrokeThickness="0" Padding="16" StrokeShape="RoundRectangle 20">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="LINHA DO TEMPO" FontSize="11" FontAttributes="Bold" TextColor="Gray"/>
+                        <VerticalStackLayout x:Name="ListaEventos" Spacing="4"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Reiniciar demonstração"
+                        BackgroundColor="Transparent"
+                        TextColor="#006260"
+                        BorderColor="#006260"
+                        BorderWidth="1"
+                        CornerRadius="12"
+                        Clicked="OnReiniciarClicked"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

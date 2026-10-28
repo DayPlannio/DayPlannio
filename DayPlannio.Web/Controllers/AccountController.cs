@@ -259,7 +259,7 @@ public class AccountController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult PoliticaPrivacidade(PoliticaPrivacidadeViewModel model)
+    public async Task<IActionResult> PoliticaPrivacidade(PoliticaPrivacidadeViewModel model)
     {
         var obrigatoria = TempData.Peek("PoliticaObrigatoria") != null;
         TempData.Remove("PoliticaObrigatoria");
@@ -274,6 +274,15 @@ public class AccountController : Controller
             return RedirectToAction(nameof(Login));
         }
 
+        if (EhCliente() && !await RegistrarConcordanciaAsync())
+        {
+            if (obrigatoria)
+                TempData["PoliticaObrigatoria"] = true;
+
+            TempData["Erro"] = "Não foi possível registrar a sua concordância. Tente novamente.";
+            return RedirectToAction(nameof(PoliticaPrivacidade));
+        }
+
         if (obrigatoria)
         {
             TempData["Sucesso"] = "Obrigada! Sua senha foi alterada e você concordou com a Política de Privacidade.";
@@ -286,8 +295,28 @@ public class AccountController : Controller
             return RedirectToAction(nameof(Perfil));
         }
 
-        TempData["Sucesso"] = "Concordância registrada. Você já pode entrar no portal.";
+        TempData["Sucesso"] = "Obrigada por ler a Política de Privacidade. Entre no portal para continuar.";
         return RedirectToAction(nameof(Login));
+    }
+
+    private async Task<bool> RegistrarConcordanciaAsync()
+    {
+        var clienteId = User.FindFirst("clienteId")?.Value;
+
+        if (string.IsNullOrEmpty(clienteId) || !Guid.TryParse(clienteId, out var id))
+            return false;
+
+        var client = HttpContext.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("Api");
+
+        try
+        {
+            var resp = await client.PostAsync($"api/cliente/politica/aceitar/{id}", null);
+            return resp.IsSuccessStatusCode;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     [Authorize(Policy = "Cliente")]
@@ -324,7 +353,7 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> RecusarPoliticaPrivacidade(RecusarPoliticaViewModel model)
     {
-        return await ExcluirContaAsync();
+        return await ExcluirContaAsync("politica");
     }
 
     [HttpGet]
@@ -547,7 +576,7 @@ public class AccountController : Controller
         return await ExcluirContaAsync();
     }
 
-    private async Task<IActionResult> ExcluirContaAsync()
+    private async Task<IActionResult> ExcluirContaAsync(string? motivo = null)
     {
         var clienteId = User.FindFirst("clienteId")?.Value;
 
@@ -561,7 +590,11 @@ public class AccountController : Controller
 
         try
         {
-            var resp = await client.DeleteAsync($"api/cliente/delete-conta/{id}");
+            var url = string.IsNullOrEmpty(motivo)
+                ? $"api/cliente/delete-conta/{id}"
+                : $"api/cliente/delete-conta/{id}?motivo={Uri.EscapeDataString(motivo)}";
+
+            var resp = await client.DeleteAsync(url);
 
             if (!resp.IsSuccessStatusCode)
             {

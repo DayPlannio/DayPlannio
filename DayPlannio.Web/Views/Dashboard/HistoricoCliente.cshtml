@@ -35,11 +35,11 @@
                         {
                             <tr>
                                 <td>@h.Servico</td>
-                                <td class="col-nowrap">@h.Data.ToString("dd/MM/yyyy")</td>
+                                <td class="col-nowrap">@FormatHelper.FormatarData(h.Data)</td>
                                 <td>@h.Profissional</td>
-                                <td>@(h.Inicio?.ToString("HH:mm") ?? "-")</td>
-                                <td>@(h.Fim?.ToString("HH:mm") ?? "-")</td>
-                                <td>@(h.DuracaoMinutos.HasValue ? $"{Math.Round(h.DuracaoMinutos.Value)}min" : "-")</td>
+                                <td>@FormatHelper.FormatarHora(h.Inicio)</td>
+                                <td>@FormatHelper.FormatarHora(h.Fim)</td>
+                                <td>@FormatHelper.FormatarDuracao(h.DuracaoMinutos)</td>
                                 <td class="text-end col-preco">@(h.Valor.HasValue ? h.Valor.Value.ToString("C") : "-")</td>
                                 <td>
                                     @{
@@ -49,7 +49,7 @@
                                                 ? "cancelado"
                                                 : "pendente";
                                     }
-                                    <span class="badge-status @badge">@h.Status</span>
+                                    <span class="badge-status @badge">@FormatHelper.StatusAmigavel(h.Status)</span>
                                 </td>
                             </tr>
                         }

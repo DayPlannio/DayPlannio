@@ -42,7 +42,7 @@
             <VerticalStackLayout Padding="20" Spacing="16">
 
                 <Label
-                    Text="Última atualização: setembro de 2026"
+                    Text="Última atualização: outubro de 2026"
                     FontSize="12"
                     TextColor="#8A9695"/>
 
@@ -73,7 +73,7 @@
                            FontSize="16"
                            FontAttributes="Bold"
                            TextColor="#00504E"/>
-                    <Label Text="A localização é coletada somente para o recurso de detecção de atendimento, disponível no plano Full, e apenas com o seu consentimento e enquanto o recurso estiver ativo. Ela é utilizada para registrar a entrada e a saída do serviço prestado. Esse recurso está em construção e será liberado em breve. Você pode desativar esse recurso a qualquer momento no aplicativo e, ao desativar, a coleta é interrompida imediatamente."
+                    <Label Text="A localização é coletada somente para o recurso de detecção de atendimento, disponível no plano Full, e apenas com o seu consentimento e enquanto o recurso estiver ativo. Ela é utilizada para registrar a entrada e a saída do serviço prestado. Você pode desativar esse recurso a qualquer momento no aplicativo e, ao desativar, a coleta é interrompida imediatamente."
                            FontSize="13"
                            LineBreakMode="WordWrap"
                            TextColor="#3E4948"/>

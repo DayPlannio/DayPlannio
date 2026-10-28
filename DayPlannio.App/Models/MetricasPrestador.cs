@@ -6,6 +6,7 @@ namespace DayPlannio.App.Models
         public int Atendimentos { get; set; }
         public int Clientes { get; set; }
         public double HorasTrabalhadas { get; set; }
+        public double MinutosTrabalhados { get; set; }
         public decimal Faturamento { get; set; }
         public VariacoesMetricas Variacoes { get; set; } = new();
         public List<ServicoMetrica> PorServico { get; set; } = new();

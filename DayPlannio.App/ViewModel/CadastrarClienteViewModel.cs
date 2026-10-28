@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DayPlannio.App.Helpers;
 using DayPlannio.App.Models;
 using DayPlannio.App.Services;
 
@@ -29,7 +30,18 @@ public partial class CadastrarClienteViewModel : ObservableObject
     private string endereco;
 
     [ObservableProperty]
+    private double? latitude;
+
+    [ObservableProperty]
+    private double? longitude;
+
+    [ObservableProperty]
     private string observacoes;
+
+    public IReadOnlyList<string> OpcoesRaio => RaioGeofence.Opcoes;
+
+    [ObservableProperty]
+    private string raioSelecionado = RaioGeofence.ParaTexto(RaioGeofence.Padrao);
 
     [ObservableProperty]
     private string erro;
@@ -83,6 +95,9 @@ public partial class CadastrarClienteViewModel : ObservableObject
                 Nome = Nome,
                 Telefone = Telefone,
                 Endereco = Endereco,
+                Latitude = Latitude,
+                Longitude = Longitude,
+                RaioGeofenceMetros = RaioGeofence.ParaMetros(RaioSelecionado),
                 Observacoes = Observacoes
             };
 

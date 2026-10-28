@@ -23,6 +23,14 @@ namespace DayPlannio.Api.Models
         [MaxLength(200, ErrorMessage = "O endereço deve ter no máximo 200 caracteres.")]
         public string Endereco { get; set; } = null!;
 
+        [Range(-90, 90, ErrorMessage = "Latitude inválida.")]
+        public double? Latitude { get; set; }
+
+        [Range(-180, 180, ErrorMessage = "Longitude inválida.")]
+        public double? Longitude { get; set; }
+
+        public int RaioGeofenceMetros { get; set; } = 50;
+
         [MaxLength(500, ErrorMessage = "Observações devem ter no máximo 500 caracteres.")]
         public string? Observacoes { get; set; }
 
@@ -40,6 +48,9 @@ namespace DayPlannio.Api.Models
         public string? SenhaHash { get; set; }
 
         public bool PrimeiroAcesso { get; set; } = true;
+
+        public DateTime? PoliticaAceitaEm { get; set; }
+        public string? PoliticaVersao { get; set; }
 
         public bool Ativo { get; set; } = true;
 

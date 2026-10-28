@@ -69,6 +69,12 @@ public partial class CadastrarAgendamentoViewModel : ObservableObject
     private string enderecoAtendimento = string.Empty;
 
     [ObservableProperty]
+    private double? latitude;
+
+    [ObservableProperty]
+    private double? longitude;
+
+    [ObservableProperty]
     private string erroMensagem;
 
     [ObservableProperty]
@@ -84,6 +90,9 @@ public partial class CadastrarAgendamentoViewModel : ObservableObject
 
             if (!string.IsNullOrWhiteSpace(enderecoCliente))
                 EnderecoAtendimento = enderecoCliente;
+
+            Latitude = _clientesLista[value].Latitude;
+            Longitude = _clientesLista[value].Longitude;
         }
     }
 
@@ -187,7 +196,9 @@ public partial class CadastrarAgendamentoViewModel : ObservableObject
                 valorCobrado = valorFinal,
                 custoMaterial = custoFinal,
                 observacoes = Observacoes,
-                enderecoAtendimento = EnderecoAtendimento.Trim()
+                enderecoAtendimento = EnderecoAtendimento.Trim(),
+                latitude = Latitude,
+                longitude = Longitude
             };
 
             var (sucesso, erro) = await AgendamentoService.Create(agendamento);

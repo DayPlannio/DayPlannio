@@ -47,6 +47,9 @@ namespace DayPlannio.Api.Controllers
             cliente.Id = Guid.NewGuid();
             cliente.CreatedAt = DateTime.UtcNow;
             cliente.Ativo = true;
+            cliente.RaioGeofenceMetros = GeofenceRegras.NormalizarRaio(cliente.RaioGeofenceMetros);
+            cliente.PoliticaAceitaEm = null;
+            cliente.PoliticaVersao = null;
 
             await _context.Cliente.InsertOneAsync(cliente);
 
@@ -172,6 +175,26 @@ namespace DayPlannio.Api.Controllers
                 "web", cliente.Id.ToString(), cliente.Nome, cliente.Email);
 
             return Ok(new { message = "Senha alterada com sucesso." });
+        }
+
+        [HttpPost("politica/aceitar/{id}")]
+        public async Task<IActionResult> AceitarPolitica(Guid id)
+        {
+            var cliente = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
+            if (cliente == null || !cliente.Ativo)
+                return NotFound(new { message = "Cliente não encontrado." });
+
+            cliente.PoliticaAceitaEm = DateTime.UtcNow;
+            cliente.PoliticaVersao = PoliticaPrivacidade.VersaoAtual;
+
+            await _context.Cliente.ReplaceOneAsync(c => c.Id == cliente.Id, cliente);
+
+            await _logService.RegistrarAsync(
+                "politica_aceita",
+                $"Cliente '{cliente.Nome}' concordou com a Política de Privacidade (versão {PoliticaPrivacidade.VersaoAtual})",
+                "web", cliente.Id.ToString(), cliente.Nome, cliente.Email);
+
+            return Ok(new { message = "Concordância registrada.", versao = PoliticaPrivacidade.VersaoAtual });
         }
 
         [HttpPost("definir-email-secundario")]
@@ -398,6 +421,9 @@ namespace DayPlannio.Api.Controllers
             existing.Nome = cliente.Nome;
             existing.Telefone = cliente.Telefone;
             existing.Endereco = cliente.Endereco;
+            existing.Latitude = cliente.Latitude;
+            existing.Longitude = cliente.Longitude;
+            existing.RaioGeofenceMetros = GeofenceRegras.NormalizarRaio(cliente.RaioGeofenceMetros);
             existing.Observacoes = cliente.Observacoes;
 
             await _context.Cliente.ReplaceOneAsync(c => c.Id == id, existing);
@@ -425,7 +451,7 @@ namespace DayPlannio.Api.Controllers
         }
 
         [HttpDelete("delete-conta/{id}")]
-        public async Task<IActionResult> DeletarConta(Guid id)
+        public async Task<IActionResult> DeletarConta(Guid id, [FromQuery] string? motivo = null)
         {
             var existing = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Cliente não encontrado." });
@@ -442,6 +468,17 @@ namespace DayPlannio.Api.Controllers
                 filtros.Add(Builders<Log>.Filter.Eq(l => l.Email, existing.Email));
 
             await _context.Log.DeleteManyAsync(Builders<Log>.Filter.Or(filtros));
+
+            if (motivo == "politica")
+                await _logService.RegistrarAsync(
+                    "politica_recusada",
+                    "Um cliente encerrou a conta ao não concordar com a Política de Privacidade (dados pessoais removidos)",
+                    "web");
+            else
+                await _logService.RegistrarAsync(
+                    "conta_cliente_encerrada_usuario",
+                    "Um cliente encerrou a própria conta (dados pessoais removidos)",
+                    "web");
 
             return Ok(new
             {

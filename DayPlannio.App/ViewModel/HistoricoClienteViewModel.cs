@@ -66,6 +66,20 @@ public partial class HistoricoClienteViewModel : ObservableObject
                         statusTexto = "CANCELADO";
                         break;
 
+                    case "ematendimento":
+                    case "em atendimento":
+                        corStatus = Color.FromArgb("#B25E09");
+                        corFundoStatus = Color.FromArgb("#FFE9CC");
+                        statusTexto = "EM ATENDIMENTO";
+                        break;
+
+                    case "empausa":
+                    case "em pausa":
+                        corStatus = Color.FromArgb("#6E7978");
+                        corFundoStatus = Color.FromArgb("#E7E9E8");
+                        statusTexto = "EM PAUSA";
+                        break;
+
                     default:
                         corStatus = Color.FromArgb("#006260");
                         corFundoStatus = Color.FromArgb("#CFEDEC");
@@ -79,6 +93,14 @@ public partial class HistoricoClienteViewModel : ObservableObject
                     fotos = await FotoService.GetFotosAgendamento(a.Id) ?? new();
                 }
 
+                var inicioReal = a.Inicio.HasValue
+                    ? DateTime.SpecifyKind(a.Inicio.Value, DateTimeKind.Utc).ToLocalTime()
+                    : (DateTime?)null;
+
+                var fimReal = a.Fim.HasValue
+                    ? DateTime.SpecifyKind(a.Fim.Value, DateTimeKind.Utc).ToLocalTime()
+                    : (DateTime?)null;
+
                 lista.Add(new
                 {
                     Id = a.Id,
@@ -87,6 +109,10 @@ public partial class HistoricoClienteViewModel : ObservableObject
                     a.ValorCobrado,
                     a.CustoMaterial,
                     a.Observacoes,
+                    TemTempoReal = inicioReal.HasValue,
+                    InicioTexto = inicioReal?.ToString("HH:mm") ?? "-",
+                    FimTexto = fimReal?.ToString("HH:mm") ?? (inicioReal.HasValue ? "em andamento" : "-"),
+                    DuracaoTexto = a.DuracaoMinutos.HasValue ? FormatarDuracao(a.DuracaoMinutos.Value) : "-",
                     StatusTexto = statusTexto,
                     CorStatus = corStatus,
                     CorFundoStatus = corFundoStatus,
@@ -106,6 +132,18 @@ public partial class HistoricoClienteViewModel : ObservableObject
                 ex.Message,
                 "OK");
         }
+    }
+
+    private static string FormatarDuracao(double minutos)
+    {
+        var total = (int)Math.Round(minutos);
+
+        if (total < 1) return "menos de 1 min";
+        if (total < 60) return $"{total}min";
+
+        var horas = total / 60;
+        var resto = total % 60;
+        return resto > 0 ? $"{horas}h {resto}min" : $"{horas}h";
     }
 
     [RelayCommand]

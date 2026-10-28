@@ -42,6 +42,9 @@ namespace DayPlannio.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] User user)
         {
+            if (!user.AceitouPolitica)
+                return BadRequest(new { message = "É necessário concordar com a Política de Privacidade para criar a conta." });
+
             if (user.Senha != user.ConfirmeSenha)
                 return BadRequest(new { message = "As senhas não coincidem." });
 
@@ -86,7 +89,9 @@ namespace DayPlannio.Api.Controllers
                 Plano = null,
                 PlanoAtivo = false,
                 PlanoOrigem = "cadastro",
-                CriadoEm = DateTime.UtcNow
+                CriadoEm = DateTime.UtcNow,
+                PoliticaAceitaEm = DateTime.UtcNow,
+                PoliticaVersao = PoliticaPrivacidade.VersaoAtual
             };
 
             if (escolheuTeste)
@@ -116,6 +121,11 @@ namespace DayPlannio.Api.Controllers
 
                 await _logService.RegistrarAsync(
                     "prestador_criado", $"Prestador '{user.NomeCompleto}' se cadastrou no plano {planoInicial}",
+                    "mobile", appuser.Id.ToString(), user.NomeCompleto, user.Email);
+
+                await _logService.RegistrarAsync(
+                    "politica_aceita",
+                    $"Prestador '{user.NomeCompleto}' concordou com a Política de Privacidade (versão {PoliticaPrivacidade.VersaoAtual}) no cadastro",
                     "mobile", appuser.Id.ToString(), user.NomeCompleto, user.Email);
 
                 return Ok(new
@@ -185,8 +195,29 @@ namespace DayPlannio.Api.Controllers
             return BadRequest(new { errors });
         }
 
+        [HttpPost("politica/aceitar/{id}")]
+        public async Task<IActionResult> AceitarPolitica(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) return NotFound(new { message = "Usuário não encontrado." });
+
+            user.PoliticaAceitaEm = DateTime.UtcNow;
+            user.PoliticaVersao = PoliticaPrivacidade.VersaoAtual;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
+
+            await _logService.RegistrarAsync(
+                "politica_aceita",
+                $"Prestador '{user.NomeCompleto}' confirmou a concordância com a Política de Privacidade (versão {PoliticaPrivacidade.VersaoAtual})",
+                "mobile", user.Id.ToString(), user.NomeCompleto, user.Email);
+
+            return Ok(new { message = "Concordância registrada.", versao = PoliticaPrivacidade.VersaoAtual });
+        }
+
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, [FromQuery] string? motivo = null)
         {
             var user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound(new { message = "Usuário não encontrado." });
@@ -231,6 +262,17 @@ namespace DayPlannio.Api.Controllers
             }
 
             ContaPrestadorHelper.AvisarClientesPorEmail(_emailService, clientesDoPrestador, user.NomeCompleto);
+
+            if (motivo == "politica")
+                await _logService.RegistrarAsync(
+                    "politica_recusada",
+                    "Um prestador encerrou a conta ao não concordar com a Política de Privacidade (dados pessoais removidos)",
+                    "mobile");
+            else
+                await _logService.RegistrarAsync(
+                    "conta_prestador_encerrada_usuario",
+                    "Um prestador encerrou a própria conta (dados pessoais removidos)",
+                    "mobile");
 
             return Ok(new { message = "Conta encerrada. Seus dados foram removidos." });
         }

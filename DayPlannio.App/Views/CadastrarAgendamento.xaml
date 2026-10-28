@@ -242,22 +242,11 @@
                                 </Label.FormattedText>
                             </Label>
 
-                            <Border BackgroundColor="#EBEBEB"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 10"
-                                    Padding="12,0">
+                            <views:SeletorLocalizacao Endereco="{Binding EnderecoAtendimento, Mode=TwoWay}"
+                                                     Latitude="{Binding Latitude, Mode=TwoWay}"
+                                                     Longitude="{Binding Longitude, Mode=TwoWay}"/>
 
-                                <Entry Text="{Binding EnderecoAtendimento}"
-                                       Placeholder="Rua, número, bairro, cidade - UF"
-                                       HeightRequest="45"
-                                       FontSize="13"
-                                       TextColor="#333"
-                                       PlaceholderColor="#999"
-                                       BackgroundColor="Transparent"/>
-
-                            </Border>
-
-                            <Label Text="O atendimento inicia e finaliza automaticamente quando você inicia e conclui o serviço por aqui."
+                            <Label Text="Escolha o local no mapa: quando você chegar nele, o atendimento começa sozinho e, ao sair, é concluído."
                                    FontSize="11"
                                    TextColor="#7A9998"/>
 

@@ -168,11 +168,33 @@ namespace DayPlannio.App.Services
             return (true, "");
         }
 
-        public static async Task<(bool sucesso, string mensagem)> EncerrarConta(string id)
+        public static async Task<(bool sucesso, string mensagem)> RegistrarConcordanciaPolitica(string id)
         {
             try
             {
-                var response = await App.HttpClient.DeleteAsync($"api/users/delete/{id}");
+                var response = await App.HttpClient.PostAsync($"api/users/politica/aceitar/{id}", null);
+                var corpo = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                    return (false, ExtrairMensagem(corpo, "Não foi possível registrar a sua concordância."));
+
+                return (true, ExtrairMensagem(corpo, "Concordância registrada."));
+            }
+            catch
+            {
+                return (false, "Não foi possível registrar a sua concordância. Verifique sua conexão.");
+            }
+        }
+
+        public static async Task<(bool sucesso, string mensagem)> EncerrarConta(string id, string? motivo = null)
+        {
+            try
+            {
+                var url = string.IsNullOrEmpty(motivo)
+                    ? $"api/users/delete/{id}"
+                    : $"api/users/delete/{id}?motivo={Uri.EscapeDataString(motivo)}";
+
+                var response = await App.HttpClient.DeleteAsync(url);
                 var corpo = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)

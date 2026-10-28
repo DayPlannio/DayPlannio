@@ -292,7 +292,7 @@ public partial class PlanosViewModel : ObservableObject
                     "Upload de fotos dos serviços",
                     "Área/acesso do cliente",
                     "Métricas para o cliente",
-                    "Geolocalização/geofencing (em construção)"
+                    "Geolocalização/geofencing"
                 },
                 cor = "#006260"
             }

@@ -59,6 +59,80 @@
                         </Grid>
                     </Grid>
 
+                    <HorizontalStackLayout x:Name="BarraTeste" IsVisible="False" Spacing="8" HorizontalOptions="Start">
+                        <Button
+                            x:Name="BotaoSimular"
+                            IsVisible="False"
+                            Text="Simular posição"
+                            FontSize="11"
+                            BackgroundColor="#EBEBEB"
+                            TextColor="#6E7978"
+                            CornerRadius="14"
+                            HeightRequest="28"
+                            MinimumHeightRequest="28"
+                            Padding="12,0"
+                            Clicked="OnSimularClicked"/>
+
+                        <Button
+                            x:Name="BotaoDemo"
+                            IsVisible="False"
+                            Text="Demonstração"
+                            FontSize="11"
+                            BackgroundColor="#EBEBEB"
+                            TextColor="#6E7978"
+                            CornerRadius="14"
+                            HeightRequest="28"
+                            MinimumHeightRequest="28"
+                            Padding="12,0"
+                            Clicked="OnDemoClicked"/>
+                    </HorizontalStackLayout>
+
+                    <Border
+                        x:Name="CardGeofence"
+                        IsVisible="False"
+                        BackgroundColor="#F7FAF9"
+                        Stroke="#D5E3E1"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 14"
+                        Padding="14,10">
+                        <VerticalStackLayout Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label
+                                    Text="LOCALIZAÇÃO"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    CharacterSpacing="1"
+                                    TextColor="#6E7978"/>
+                                <Label
+                                    x:Name="LabelOrigemGeofence"
+                                    Grid.Column="1"
+                                    FontSize="10"
+                                    TextColor="#9AA5A4"/>
+                            </Grid>
+                            <VerticalStackLayout x:Name="ListaGeofence" Spacing="12"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border
+                        x:Name="BannerLocalizacao"
+                        IsVisible="False"
+                        BackgroundColor="#FFF3E0"
+                        Stroke="#FFD9A8"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="12,10">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <Label Text="📍" FontSize="16" VerticalOptions="Center"/>
+                            <Label
+                                x:Name="LabelProblemaLocalizacao"
+                                Grid.Column="1"
+                                FontSize="12"
+                                TextColor="#8A4B00"
+                                LineBreakMode="WordWrap"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
                     <VerticalStackLayout Spacing="1">
 
                         <Label
@@ -178,15 +252,16 @@
                         <DataTemplate>
 
                             <Border
-                                BackgroundColor="#FAFAFA"
-                                StrokeThickness="0"
+                                BackgroundColor="{Binding CorFundoCard}"
+                                Stroke="{Binding CorStatus}"
+                                StrokeThickness="{Binding EspessuraBorda}"
                                 Padding="0"
                                 StrokeShape="RoundRectangle 20">
 
                                 <Grid ColumnDefinitions="5,*">
 
                                     <Border
-                                        BackgroundColor="#006260"
+                                        BackgroundColor="{Binding CorStatus}"
                                         StrokeThickness="0"
                                         StrokeShape="RoundRectangle 20,0,0,20"/>
 

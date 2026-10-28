@@ -28,6 +28,8 @@ public partial class EditarAgendamentoViewModel : ObservableObject
     [ObservableProperty] private string custo;
     [ObservableProperty] private string observacoes;
     [ObservableProperty] private string enderecoAtendimento = string.Empty;
+    [ObservableProperty] private double? latitude;
+    [ObservableProperty] private double? longitude;
     [ObservableProperty] private string erroMensagem;
     [ObservableProperty] private bool erroVisivel;
     public DateTime DataMinima { get; } = DateTime.Today;
@@ -52,6 +54,8 @@ public partial class EditarAgendamentoViewModel : ObservableObject
         Custo = agendamento.CustoMaterial.ToString();
         Observacoes = agendamento.Observacoes;
         EnderecoAtendimento = agendamento.EnderecoAtendimento ?? string.Empty;
+        Latitude = agendamento.Latitude;
+        Longitude = agendamento.Longitude;
     }
 
     private void AtualizarHorarioLabel()
@@ -144,7 +148,9 @@ public partial class EditarAgendamentoViewModel : ObservableObject
                 valorCobrado = valorDecimal,
                 custoMaterial = custoDecimal,
                 observacoes = Observacoes ?? string.Empty,
-                enderecoAtendimento = EnderecoAtendimento.Trim()
+                enderecoAtendimento = EnderecoAtendimento.Trim(),
+                latitude = Latitude,
+                longitude = Longitude
             };
 
             var (sucesso, erro) = await AgendamentoService.Edit(_agendamentoId, agendamento);

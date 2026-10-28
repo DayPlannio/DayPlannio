@@ -15,10 +15,12 @@ namespace DayPlannio.Api.Controllers
     {
         private readonly ContextMongodb _context = new ContextMongodb();
         private readonly LogService _logService;
+        private readonly GeofencingService _geofencing;
 
-        public AgendamentosController(LogService logService)
+        public AgendamentosController(LogService logService, GeofencingService geofencing)
         {
             _logService = logService;
+            _geofencing = geofencing;
         }
 
         [HttpGet("{usuarioId}")]
@@ -92,6 +94,8 @@ namespace DayPlannio.Api.Controllers
             existing.CustoMaterial = agendamento.CustoMaterial;
 
             existing.EnderecoAtendimento = agendamento.EnderecoAtendimento;
+            existing.Latitude = agendamento.Latitude;
+            existing.Longitude = agendamento.Longitude;
 
             await _context.Agendamento.ReplaceOneAsync(a => a.Id == id, existing);
 
@@ -137,13 +141,21 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Agendamento.Find(a => a.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Agendamento não encontrado." });
 
-            existing.Status = StatusAgendamento.Concluido;
-            existing.DataConclusao = DateTime.UtcNow;
+            if (existing.Status == StatusAgendamento.Concluido)
+                return BadRequest(new { message = "Este agendamento já foi concluído." });
 
             if (existing.Inicio.HasValue && !existing.Fim.HasValue)
             {
-                existing.Fim = existing.DataConclusao;
-                existing.DuracaoMinutos = Math.Round((existing.Fim.Value - existing.Inicio.Value).TotalMinutes, 1);
+                var fim = existing.Status == StatusAgendamento.EmPausa && existing.InicioPausa.HasValue
+                    ? existing.InicioPausa.Value
+                    : DateTime.UtcNow;
+
+                GeofenceRegras.Concluir(existing, fim);
+            }
+            else
+            {
+                existing.Status = StatusAgendamento.Concluido;
+                existing.DataConclusao = DateTime.UtcNow;
             }
 
             await _context.Agendamento.ReplaceOneAsync(a => a.Id == id, existing);
@@ -156,6 +168,25 @@ namespace DayPlannio.Api.Controllers
                 "mobile", existing.UsuarioId.ToString());
 
             return Ok(new { message = "Agendamento concluído com sucesso." });
+        }
+
+        [HttpPost("localizacao")]
+        public async Task<IActionResult> Localizacao([FromBody] LocalizacaoRequest request)
+        {
+            if (request == null || request.UsuarioId == Guid.Empty)
+                return BadRequest(new { message = "Dados inválidos." });
+
+            if (request.Latitude is < -90 or > 90 || request.Longitude is < -180 or > 180)
+                return BadRequest(new { message = "Coordenadas inválidas." });
+
+            var resultado = await _geofencing.ProcessarAsync(
+                request.UsuarioId,
+                request.Latitude,
+                request.Longitude,
+                request.Precisao ?? 0,
+                DateTime.UtcNow);
+
+            return Ok(resultado);
         }
 
         [HttpDelete("delete/{id}")]
@@ -179,13 +210,7 @@ namespace DayPlannio.Api.Controllers
         public async Task<IActionResult> CalcularLucro(Guid usuarioId, [FromQuery] string periodo = "mensal")
         {
             var agora = DateTime.UtcNow;
-            DateTime dataInicio = periodo switch
-            {
-                "diario" => agora.Date,
-                "semanal" => agora.Date.AddDays(-(int)agora.DayOfWeek),
-                "mensal" => new DateTime(agora.Year, agora.Month, 1),
-                _ => new DateTime(agora.Year, agora.Month, 1)
-            };
+            var (dataInicio, _, _) = PeriodoHelper.Limites(periodo, agora);
 
             var agendamentos = await _context.Agendamento
                 .Find(a => a.UsuarioId == usuarioId
@@ -219,33 +244,10 @@ namespace DayPlannio.Api.Controllers
             DateTime dataInicio;
             DateTime dataFim;
 
-            switch (periodo)
-            {
-                case "diario":
-                    dataInicio = agora.Date;
-                    dataFim = agora.Date.AddDays(1);
-                    break;
-
-                case "semanal":
-                    dataInicio = agora.Date.AddDays(-(int)agora.DayOfWeek);
-                    dataFim = dataInicio.AddDays(7);
-                    break;
-
-                case "mensal":
-                    dataInicio = new DateTime(agora.Year, agora.Month, 1);
-                    dataFim = dataInicio.AddMonths(1);
-                    break;
-
-                case "proximos":
-                    dataInicio = agora.Date.AddDays(-1);
-                    dataFim = agora.Date.AddDays(9);
-                    break;
-
-                default:
-                    dataInicio = new DateTime(agora.Year, agora.Month, 1);
-                    dataFim = dataInicio.AddMonths(1);
-                    break;
-            }
+            if (periodo == "proximos")
+                (dataInicio, dataFim) = PeriodoHelper.JanelaProximos(agora);
+            else
+                (dataInicio, dataFim, _) = PeriodoHelper.Limites(periodo, agora);
 
             var agendamentos = await _context.Agendamento
                 .Find(a => a.UsuarioId == usuarioId
@@ -322,30 +324,7 @@ namespace DayPlannio.Api.Controllers
 
             var agora = DateTime.UtcNow;
 
-            DateTime dataInicio;
-            DateTime dataFim;
-
-            switch (periodo)
-            {
-                case "diario":
-                    dataInicio = agora.Date;
-                    dataFim = dataInicio.AddDays(1);
-                    break;
-
-                case "semanal":
-                    dataInicio = agora.Date.AddDays(-(int)agora.DayOfWeek);
-                    dataFim = dataInicio.AddDays(7);
-                    break;
-
-                case "mensal":
-                default:
-                    dataInicio = new DateTime(agora.Year, agora.Month, 1);
-                    dataFim = dataInicio.AddMonths(1);
-                    break;
-            }
-
-            var duracaoPeriodo = dataFim - dataInicio;
-            var dataInicioAnterior = dataInicio - duracaoPeriodo;
+            var (dataInicio, dataFim, dataInicioAnterior) = PeriodoHelper.Limites(periodo, agora);
 
             var filtro = Builders<Agendamento>.Filter.And(
                 Builders<Agendamento>.Filter.Eq(a => a.UsuarioId, usuarioId),
@@ -395,9 +374,9 @@ namespace DayPlannio.Api.Controllers
                 .ToList();
 
             var evolucao = new List<object>();
-            for (var dia = dataInicio.ToLocalTime().Date; dia < dataFim.ToLocalTime().Date; dia = dia.AddDays(1))
+            for (var dia = PeriodoHelper.ParaBrasilia(dataInicio).Date; dia < PeriodoHelper.ParaBrasilia(dataFim).Date; dia = dia.AddDays(1))
             {
-                var quantidade = atuais.Count(a => a.DataConclusao.HasValue && a.DataConclusao.Value.ToLocalTime().Date == dia);
+                var quantidade = atuais.Count(a => a.DataConclusao.HasValue && PeriodoHelper.ParaBrasilia(a.DataConclusao.Value).Date == dia);
                 evolucao.Add(new { data = dia, quantidade });
             }
 
@@ -447,6 +426,7 @@ namespace DayPlannio.Api.Controllers
                 atendimentos,
                 clientes,
                 horasTrabalhadas = Math.Round(minutosTrabalhados / 60.0, 1),
+                minutosTrabalhados = Math.Round(minutosTrabalhados, 1),
                 faturamento,
                 cancelamentos = canceladosNoPeriodo.Count,
                 totalFinalizados,
@@ -621,30 +601,7 @@ namespace DayPlannio.Api.Controllers
 
             var agora = DateTime.UtcNow;
 
-            DateTime dataInicio;
-            DateTime dataFim;
-
-            switch (periodo)
-            {
-                case "diario":
-                    dataInicio = agora.Date;
-                    dataFim = dataInicio.AddDays(1);
-                    break;
-
-                case "semanal":
-                    dataInicio = agora.Date.AddDays(-(int)agora.DayOfWeek);
-                    dataFim = dataInicio.AddDays(7);
-                    break;
-
-                case "mensal":
-                default:
-                    dataInicio = new DateTime(agora.Year, agora.Month, 1);
-                    dataFim = dataInicio.AddMonths(1);
-                    break;
-            }
-
-            var duracaoPeriodo = dataFim - dataInicio;
-            var dataInicioAnterior = dataInicio - duracaoPeriodo;
+            var (dataInicio, dataFim, dataInicioAnterior) = PeriodoHelper.Limites(periodo, agora);
 
             var filtro = Builders<Agendamento>.Filter.And(
                 Builders<Agendamento>.Filter.Eq(a => a.ClienteId, clienteId),
@@ -716,10 +673,10 @@ namespace DayPlannio.Api.Controllers
                 .ToList();
 
             var evolucao = new List<object>();
-            for (var dia = dataInicio.ToLocalTime().Date; dia < dataFim.ToLocalTime().Date; dia = dia.AddDays(1))
+            for (var dia = PeriodoHelper.ParaBrasilia(dataInicio).Date; dia < PeriodoHelper.ParaBrasilia(dataFim).Date; dia = dia.AddDays(1))
             {
                 var quantidade = atuais.Count(a =>
-                    a.DataConclusao.HasValue && a.DataConclusao.Value.ToLocalTime().Date == dia);
+                    a.DataConclusao.HasValue && PeriodoHelper.ParaBrasilia(a.DataConclusao.Value).Date == dia);
                 evolucao.Add(new { data = dia, quantidade });
             }
 
@@ -804,5 +761,14 @@ namespace DayPlannio.Api.Controllers
     public class CancelarAgendamentoRequest
     {
         public string? Motivo { get; set; }
+    }
+
+    public class LocalizacaoRequest
+    {
+        public Guid UsuarioId { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
+        public double? Precisao { get; set; }
     }
 }

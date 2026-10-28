@@ -109,7 +109,10 @@ public partial class ClientesViewModel : ObservableObject
                 cliente.Nome,
                 cliente.Telefone ?? "",
                 cliente.Endereco ?? "",
-                cliente.Observacoes ?? ""));
+                cliente.Observacoes ?? "",
+                cliente.Latitude,
+                cliente.Longitude,
+                cliente.RaioGeofenceMetros));
     }
 
     [RelayCommand]

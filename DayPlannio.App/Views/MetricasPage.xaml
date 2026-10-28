@@ -116,7 +116,6 @@
                     <Frame Grid.Column="0" Grid.Row="1" BackgroundColor="White" CornerRadius="16" Padding="14" HasShadow="True" BorderColor="Transparent">
                         <VerticalStackLayout Spacing="4">
                             <Label Text="Tempo Trabalhado" FontSize="12" TextColor="#6E7978"/>
-                            <Label Text="em construção" FontSize="10" TextColor="#4DB6AC"/>
                             <Label Text="{Binding TempoTrabalhado}" FontSize="24" FontAttributes="Bold" TextColor="#006260"/>
                             <Label Text="{Binding VariacaoTempo}" FontSize="10" TextColor="{Binding CorVariacaoTempo}"/>
                         </VerticalStackLayout>
@@ -182,7 +181,7 @@
                        FontAttributes="Bold"
                        TextColor="#1D1D1D"/>
 
-                <Label Text="Em construção (geofencing). O tempo dos atendimentos é registrado automaticamente com a detecção de entrada e saída, que ainda não está disponível."
+                <Label Text="O tempo dos atendimentos é registrado automaticamente quando você entra e sai do local do cliente."
                        FontSize="11"
                        LineBreakMode="WordWrap"
                        TextColor="#4DB6AC"/>
@@ -247,7 +246,7 @@
                        FontAttributes="Bold"
                        TextColor="#1D1D1D"/>
 
-                <Label Text="em construção (geofencing)"
+                <Label Text="Calculado automaticamente pela entrada e saída"
                        FontSize="11"
                        TextColor="#4DB6AC"/>
 

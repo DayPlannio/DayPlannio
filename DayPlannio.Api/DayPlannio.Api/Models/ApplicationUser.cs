@@ -34,5 +34,8 @@ namespace DayPlannio.Api.Models
         public DateTime? PlanoCanceladoEm { get; set; }
 
         public DateTime? CriadoEm { get; set; }
+
+        public DateTime? PoliticaAceitaEm { get; set; }
+        public string? PoliticaVersao { get; set; }
     }
 }

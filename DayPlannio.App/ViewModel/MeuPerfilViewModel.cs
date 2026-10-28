@@ -102,11 +102,7 @@ public partial class MeuPerfilViewModel : ObservableObject
                 CidadeVisivel = perfil.CidadeVisivel;
                 TelefoneVisivel = perfil.TelefoneVisivel;
                 AtualizarInfosPlano(perfil);
-                var (aceitaEm, versao) = await UsuarioService.GetPoliticaAceite(_userId);
-                PoliticaAceiteTexto = aceitaEm.HasValue
-                    ? $"Você concordou em {aceitaEm.Value.ToLocalTime():dd/MM/yyyy} às {aceitaEm.Value.ToLocalTime():HH:mm}"
-                      + (string.IsNullOrWhiteSpace(versao) ? "." : $" (versão {versao}).")
-                    : "Seu aceite da Política de Privacidade ainda não foi registrado.";
+                await AtualizarPoliticaAceite();
             }
             else
             {
@@ -160,6 +156,9 @@ public partial class MeuPerfilViewModel : ObservableObject
         {
             var registro = await UsuarioService.RegistrarConcordanciaPolitica(_userId);
 
+            if (registro.sucesso)
+                await AtualizarPoliticaAceite();
+
             await _page.DisplayAlertAsync(
                 "Política de Privacidade",
                 registro.sucesso
@@ -193,6 +192,16 @@ public partial class MeuPerfilViewModel : ObservableObject
             return;
 
         await ConfirmarEncerrarConta();
+    }
+
+    private async Task AtualizarPoliticaAceite()
+    {
+        var (aceitaEm, versao) = await UsuarioService.GetPoliticaAceite(_userId);
+
+        PoliticaAceiteTexto = aceitaEm.HasValue
+            ? $"Você concordou em {aceitaEm.Value.ToLocalTime():dd/MM/yyyy} às {aceitaEm.Value.ToLocalTime():HH:mm}"
+              + (string.IsNullOrWhiteSpace(versao) ? "." : $" (versão {versao}).")
+            : "Seu aceite da Política de Privacidade ainda não foi registrado.";
     }
 
     private async Task ConfirmarEncerrarConta(string? motivo = null)

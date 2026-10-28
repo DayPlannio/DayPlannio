@@ -17,6 +17,9 @@ public partial class MeuPerfilViewModel : ObservableObject
     }
 
     [ObservableProperty]
+    private string politicaAceiteTexto = "";
+
+    [ObservableProperty]
     private string nomeCompleto;
 
     [ObservableProperty]
@@ -99,6 +102,11 @@ public partial class MeuPerfilViewModel : ObservableObject
                 CidadeVisivel = perfil.CidadeVisivel;
                 TelefoneVisivel = perfil.TelefoneVisivel;
                 AtualizarInfosPlano(perfil);
+                var (aceitaEm, versao) = await UsuarioService.GetPoliticaAceite(_userId);
+                PoliticaAceiteTexto = aceitaEm.HasValue
+                    ? $"Você concordou em {aceitaEm.Value.ToLocalTime():dd/MM/yyyy} às {aceitaEm.Value.ToLocalTime():HH:mm}"
+                      + (string.IsNullOrWhiteSpace(versao) ? "." : $" (versão {versao}).")
+                    : "Seu aceite da Política de Privacidade ainda não foi registrado.";
             }
             else
             {

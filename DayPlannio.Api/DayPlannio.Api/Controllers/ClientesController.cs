@@ -250,7 +250,9 @@ namespace DayPlannio.Api.Controllers
                 clienteId = cliente.Id,
                 email = cliente.Email ?? string.Empty,
                 emailSecundario = cliente.EmailSecundario ?? string.Empty,
-                agendamentosFuturos
+                agendamentosFuturos,
+                politicaAceitaEm = cliente.PoliticaAceitaEm,
+                politicaVersao = cliente.PoliticaVersao
             });
         }
 

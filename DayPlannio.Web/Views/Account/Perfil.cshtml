@@ -79,6 +79,23 @@
         Suporte: suporte.dayplannio@gmail.com
     </p>
 
+@{
+    var aceitaEm = ViewData["PoliticaAceitaEm"] as DateTime?;
+    var versaoPolitica = ViewData["PoliticaVersao"] as string;
+}
+
+<p class="form-text mb-3">
+    @if (aceitaEm.HasValue)
+    {
+        <text>Você concordou com a Política de Privacidade em
+        <strong>@DayPlannio.Web.FormatHelper.FormatarData(aceitaEm.Value)</strong>
+        às <strong>@DayPlannio.Web.FormatHelper.FormatarHora(aceitaEm)</strong>@(string.IsNullOrWhiteSpace(versaoPolitica) ? "" : $" (versão {versaoPolitica})").</text>
+    }
+    else
+    {
+        <text>Seu aceite da Política de Privacidade ainda não foi registrado.</text>
+    }
+</p>
     <div class="d-flex flex-wrap justify-content-center gap-2">
         <a asp-controller="Account" asp-action="PoliticaPrivacidade" class="btn btn-dp-outline">Ler a Política de Privacidade</a>
     </div>

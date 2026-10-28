@@ -307,8 +307,10 @@ return Ok(new
                 planoSolicitadoEm = user.PlanoSolicitadoEm,
                 renovacaoAutomatica = user.RenovacaoAutomatica,
                 planoCanceladoEm = user.PlanoCanceladoEm,
-                planoEfetivo = PlanoService.ObterPlanoEfetivo(user)
-            });
+                planoEfetivo = PlanoService.ObterPlanoEfetivo(user),
+                politicaAceitaEm = user.PoliticaAceitaEm,
+                politicaVersao = user.PoliticaVersao
+});
         }
 
         private static bool EhPlanoValido(string? plano) =>

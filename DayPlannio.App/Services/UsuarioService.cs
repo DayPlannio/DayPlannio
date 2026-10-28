@@ -128,6 +128,35 @@ namespace DayPlannio.App.Services
             return (userId, "");
         }
 
+        public static async Task<(DateTime? aceitaEm, string? versao)> GetPoliticaAceite(string id)
+        {
+            try
+            {
+                var response = await App.HttpClient.GetAsync($"api/users/meu-perfil/{id}");
+                if (!response.IsSuccessStatusCode) return (null, null);
+
+                using var doc = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+                var root = doc.RootElement;
+
+                DateTime? aceitaEm = null;
+                if (root.TryGetProperty("politicaAceitaEm", out var e)
+                    && e.ValueKind == JsonValueKind.String
+                    && e.TryGetDateTime(out var dt))
+                    aceitaEm = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+
+                string? versao = root.TryGetProperty("politicaVersao", out var v)
+                                 && v.ValueKind == JsonValueKind.String
+                    ? v.GetString()
+                    : null;
+
+                return (aceitaEm, versao);
+            }
+            catch
+            {
+                return (null, null);
+            }
+        }
+
         public static async Task<Usuario?> GetPerfil(string id)
         {
             Usuario? perfil = null;

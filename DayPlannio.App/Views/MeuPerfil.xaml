@@ -342,6 +342,12 @@
                     LineBreakMode="WordWrap"
                     TextColor="#6E7978"/>
 
+                            <Label
+            Text="{Binding PoliticaAceiteTexto}"
+            FontSize="12"
+            FontAttributes="Bold"
+            LineBreakMode="WordWrap"
+            TextColor="#006260"/>
 
                         <Label
                             Text="Ler a Política de Privacidade"

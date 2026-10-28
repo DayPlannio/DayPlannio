@@ -336,6 +336,23 @@ public class AccountController : Controller
                 if (resp.IsSuccessStatusCode)
                 {
                     var json = await resp.Content.ReadAsStringAsync();
+                    using (var doc = JsonDocument.Parse(json))
+                    {
+                        var root = doc.RootElement;
+
+                        if (root.TryGetProperty("politicaAceitaEm", out var aceitaEl)
+                            && aceitaEl.ValueKind == JsonValueKind.String
+                            && aceitaEl.TryGetDateTime(out var aceitaEm))
+                        {
+                            ViewData["PoliticaAceitaEm"] = DateTime.SpecifyKind(aceitaEm, DateTimeKind.Utc);
+                        }
+
+                        if (root.TryGetProperty("politicaVersao", out var versaoEl)
+                            && versaoEl.ValueKind == JsonValueKind.String)
+                        {
+                            ViewData["PoliticaVersao"] = versaoEl.GetString();
+                        }
+                    }
                     var dados = JsonSerializer.Deserialize<ClientePerfilDto>(json,
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                     if (dados != null)

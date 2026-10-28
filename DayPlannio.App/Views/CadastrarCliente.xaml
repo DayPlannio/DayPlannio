@@ -107,7 +107,6 @@
 
                                 <Picker ItemsSource="{Binding OpcoesRaio}"
                                         SelectedItem="{Binding RaioSelecionado}"
-                                        Title="Selecione o raio"
                                         BackgroundColor="Transparent"/>
                             </Border>
 

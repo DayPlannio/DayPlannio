@@ -42,10 +42,10 @@ namespace DayPlannio.App.ViewModel
         public bool PodeCancelar { get; set; }
         public bool PodeConcluir { get; set; }
 
-    public string? EnderecoAtendimento { get; set; }
-    public double? Latitude { get; set; }
-    public double? Longitude { get; set; }
-    public DateTime? Inicio { get; set; }
+        public string? EnderecoAtendimento { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public DateTime? Inicio { get; set; }
         public DateTime? Fim { get; set; }
         public double? DuracaoMinutos { get; set; }
 
@@ -54,13 +54,18 @@ namespace DayPlannio.App.ViewModel
 
         public bool TemTempo => !string.IsNullOrWhiteSpace(TempoTexto);
 
+        public double? TrabalhadoSegundos { get; set; }
+        public double? NoLocalSegundos { get; set; }
+        public double? ConfirmaEmSegundos { get; set; }
+        public System.Diagnostics.Stopwatch? DesdeRecebido { get; set; }
+        private double Decorrido => DesdeRecebido?.Elapsed.TotalSeconds ?? 0;
         public DateTime? ConfirmacaoChegadaEm { get; set; }
         public DateTime? PausaConcluiEm { get; set; }
 
         public bool PrecisaRelogio =>
-            EmAtendimento
-            || (EmPausa && PausaConcluiEm.HasValue)
-            || (StatusTexto == "AGENDADO" && ConfirmacaoChegadaEm.HasValue);
+    EmAtendimento
+    || (EmPausa && PausaConcluiEm.HasValue)
+    || (StatusTexto == "AGENDADO" && ConfirmaEmSegundos.HasValue);
 
         public string TempoTexto
         {
@@ -76,11 +81,20 @@ namespace DayPlannio.App.ViewModel
                 {
                     var inicio = DateTime.SpecifyKind(Inicio.Value, DateTimeKind.Utc);
 
-                    var referencia = EmPausa && InicioPausa.HasValue
-                        ? DateTime.SpecifyKind(InicioPausa.Value, DateTimeKind.Utc)
-                        : DateTime.UtcNow;
+                    TimeSpan trabalhado;
+                    if (TrabalhadoSegundos.HasValue)
+                    {
+                        trabalhado = TimeSpan.FromSeconds(
+                            TrabalhadoSegundos.Value + (EmPausa ? 0 : Decorrido));
+                    }
+                    else
+                    {
+                        var referencia = EmPausa && InicioPausa.HasValue
+                            ? DateTime.SpecifyKind(InicioPausa.Value, DateTimeKind.Utc)
+                            : DateTime.UtcNow;
 
-                    var trabalhado = referencia - inicio - TimeSpan.FromMinutes(PausaAcumuladaMinutos);
+                        trabalhado = referencia - inicio - TimeSpan.FromMinutes(PausaAcumuladaMinutos);
+                    }
                     if (trabalhado < TimeSpan.Zero) trabalhado = TimeSpan.Zero;
 
                     if (!EmPausa)
@@ -99,11 +113,13 @@ namespace DayPlannio.App.ViewModel
                     return texto;
                 }
 
-                if (StatusTexto == "AGENDADO" && ConfirmacaoChegadaEm.HasValue)
+                if (StatusTexto == "AGENDADO" && ConfirmaEmSegundos.HasValue)
                 {
-                    var resta = DateTime.SpecifyKind(ConfirmacaoChegadaEm.Value, DateTimeKind.Utc) - DateTime.UtcNow;
+                    var resta = TimeSpan.FromSeconds(Math.Max(0, ConfirmaEmSegundos.Value - Decorrido));
+                    var noLocal = TimeSpan.FromSeconds((NoLocalSegundos ?? 0) + Decorrido);
+
                     return resta > TimeSpan.Zero
-                        ? $"Chegada detectada • iniciando em {FormatarContagem(resta)}"
+                        ? $"No local há {FormatarRelogio(noLocal)} • confirma em {FormatarContagem(resta)}"
                         : "Chegada confirmada • iniciando...";
                 }
 

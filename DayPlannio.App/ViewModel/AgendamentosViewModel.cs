@@ -384,7 +384,11 @@ public partial class AgendamentosViewModel : ObservableObject
                 PausaAcumuladaMinutos = a.PausaAcumuladaMinutos,
                 DuracaoMinutos = a.DuracaoMinutos,
                 PodeCancelar = status == "AGENDADO",
-                PodeConcluir = status == "AGENDADO" || status == "EM ATENDIMENTO" || status == "EM PAUSA"
+                PodeConcluir = status == "AGENDADO" || status == "EM ATENDIMENTO" || status == "EM PAUSA",
+                TrabalhadoSegundos = a.TrabalhadoSegundos,
+                NoLocalSegundos = a.NoLocalSegundos,
+                ConfirmaEmSegundos = a.ConfirmaEmSegundos,
+                DesdeRecebido = a.DesdeRecebido
             });
         }
 

@@ -24,4 +24,10 @@ public class Agendamento
     public string? MotivoCancelamento { get; set; }
     public DateTime? DataCancelamento { get; set; }
     public DateTime? ClienteEncerradoEm { get; set; }
+    public double? TrabalhadoSegundos { get; set; }
+    public double? NoLocalSegundos { get; set; }
+    public double? ConfirmaEmSegundos { get; set; }
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public System.Diagnostics.Stopwatch DesdeRecebido { get; } = System.Diagnostics.Stopwatch.StartNew();
 }

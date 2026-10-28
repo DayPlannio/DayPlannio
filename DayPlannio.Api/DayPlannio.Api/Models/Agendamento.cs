@@ -74,6 +74,7 @@ namespace DayPlannio.Api.Models
 
         public double PausaAcumuladaMinutos { get; set; }
 
+
         [BsonIgnore]
         public DateTime? ConfirmacaoChegadaEm =>
             Status == StatusAgendamento.Agendado && ChegadaEm.HasValue
@@ -82,8 +83,38 @@ namespace DayPlannio.Api.Models
 
         [BsonIgnore]
         public DateTime? PausaConcluiEm =>
-            Status == StatusAgendamento.EmPausa && InicioPausa.HasValue
-                ? InicioPausa.Value + GeofenceRegras.LimiteForaDoRaio
+    Status == StatusAgendamento.EmPausa && InicioPausa.HasValue
+        ? InicioPausa.Value + GeofenceRegras.LimiteForaDoRaio
+        : null;
+
+        [BsonIgnore]
+        public double? TrabalhadoSegundos
+        {
+            get
+            {
+                if (!Inicio.HasValue) return null;
+                var pausa = PausaAcumuladaMinutos * 60;
+
+                if (Status == StatusAgendamento.EmAtendimento)
+                    return Math.Max(0, (DateTime.UtcNow - Inicio.Value).TotalSeconds - pausa);
+
+                if (Status == StatusAgendamento.EmPausa && InicioPausa.HasValue)
+                    return Math.Max(0, (InicioPausa.Value - Inicio.Value).TotalSeconds - pausa);
+
+                return null;
+            }
+        }
+
+        [BsonIgnore]
+        public double? NoLocalSegundos =>
+            Status == StatusAgendamento.Agendado && ChegadaEm.HasValue
+                ? Math.Max(0, (DateTime.UtcNow - ChegadaEm.Value).TotalSeconds)
+                : null;
+
+        [BsonIgnore]
+        public double? ConfirmaEmSegundos =>
+            Status == StatusAgendamento.Agendado && ChegadaEm.HasValue
+                ? Math.Max(0, (ChegadaEm.Value + GeofenceRegras.ConfirmacaoChegada - DateTime.UtcNow).TotalSeconds)
                 : null;
 
         public bool IniciadoPorGeofence { get; set; }

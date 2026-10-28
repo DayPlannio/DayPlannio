@@ -38,7 +38,7 @@ O DayPlannio tem três partes: **API**, **Web** e **App**. A API e o Web já est
 
 Acesse: **http://dayplannio.canadacentral.cloudapp.azure.com/**
 
-- A API fica em `http://dayplannio.canadacentral.cloudapp.azure.com/api/`.
+- A API fica em `https://dayplannio.canadacentral.cloudapp.azure.com/api/`.
 - O endereço usa HTTP (sem certificado). Use apenas senhas de teste.
 
 ### Rodar o App

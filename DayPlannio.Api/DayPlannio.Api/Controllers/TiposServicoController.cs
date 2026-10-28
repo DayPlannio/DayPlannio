@@ -1,4 +1,5 @@
-﻿using DayPlannio.Api.Models;
+﻿using DayPlannio.Api.Helpers;
+using DayPlannio.Api.Models;
 using DayPlannio.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("{usuarioId}")]
         public async Task<IActionResult> GetAll(Guid usuarioId)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var tipos = await _context.TipoServico
                 .Find(t => t.UsuarioId == usuarioId)
                 .ToListAsync();
@@ -34,6 +37,8 @@ namespace DayPlannio.Api.Controllers
         {
             if (tipoServico == null)
                 return BadRequest(new { message = "Dados inválidos." });
+
+            if (!User.EhDonoOuAdmin(tipoServico.UsuarioId)) return AcessoHelper.Negado();
 
             if (string.IsNullOrWhiteSpace(tipoServico.Tipo))
                 return BadRequest(new { message = "O nome é obrigatório." });
@@ -60,6 +65,8 @@ namespace DayPlannio.Api.Controllers
             if (existing == null)
                 return NotFound(new { message = "Tipo de serviço não encontrado." });
 
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
+
             if (string.IsNullOrWhiteSpace(tipoServico.Tipo))
                 return BadRequest(new { message = "O nome é obrigatório." });
 
@@ -84,6 +91,8 @@ namespace DayPlannio.Api.Controllers
         {
             var existing = await _context.TipoServico.Find(t => t.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Tipo de serviço não encontrado." });
+
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
 
             await _context.TipoServico.DeleteOneAsync(t => t.Id == id);
 

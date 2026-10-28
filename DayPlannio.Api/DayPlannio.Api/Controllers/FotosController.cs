@@ -1,3 +1,4 @@
+using DayPlannio.Api.Helpers;
 using DayPlannio.Api.Models;
 using DayPlannio.Api.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +38,18 @@ namespace DayPlannio.Api.Controllers
 
             if (arquivo.Length > 10 * 1024 * 1024)
                 return BadRequest(new { message = "Arquivo muito grande (máximo 10MB)." });
+
+            if (!User.EhDonoOuAdmin(prestadorId)) return AcessoHelper.Negado();
+
+            if (!User.EhAdmin())
+            {
+                var agendamentoDoPrestador = await _context.Agendamento
+                    .Find(a => a.Id == agendamentoId && a.UsuarioId == prestadorId)
+                    .AnyAsync();
+
+                if (!agendamentoDoPrestador)
+                    return BadRequest(new { message = "Agendamento não encontrado." });
+            }
 
             var acesso = await PlanoService.VerificarAsync(prestadorId, PlanoService.Full, _context);
             if (!acesso.autorizado)
@@ -86,6 +99,9 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("agendamento/{agendamentoId}")]
         public async Task<IActionResult> GetByAgendamento(Guid agendamentoId)
         {
+            var agendamentoDaFoto = await _context.Agendamento.Find(a => a.Id == agendamentoId).FirstOrDefaultAsync();
+            if (agendamentoDaFoto != null && !User.EhDonoOuAdmin(agendamentoDaFoto.UsuarioId)) return AcessoHelper.Negado();
+
             var fotos = await _context.Foto
                 .Find(f => f.AgendamentoId == agendamentoId)
                 .SortByDescending(f => f.DataUpload)
@@ -196,6 +212,8 @@ namespace DayPlannio.Api.Controllers
 
             if (foto == null)
                 return NotFound(new { message = "Foto não encontrada." });
+
+            if (!User.EhDonoOuAdmin(foto.PrestadorId)) return AcessoHelper.Negado();
 
             var agendamentoRel = await _context.Agendamento.Find(a => a.Id == foto.AgendamentoId).FirstOrDefaultAsync();
             var servicoNome = agendamentoRel != null

@@ -32,9 +32,12 @@ namespace DayPlannio.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            var usuarios = _userManager.Users.ToList();
+            var usuarios = _userManager.Users
+                .Select(u => new { u.Id, u.NomeCompleto, u.Email, u.Plano, u.PlanoAtivo, u.CriadoEm })
+                .ToList();
             return Ok(usuarios);
         }
 
@@ -151,6 +154,8 @@ namespace DayPlannio.Api.Controllers
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> Edit(Guid id, [FromBody] EditUserDto user)
         {
+            if (!User.EhDonoOuAdmin(id)) return AcessoHelper.Negado();
+
             var identityUser = await _userManager.FindByIdAsync(id.ToString());
             if (identityUser == null) return NotFound(new { message = "Usuário não encontrado." });
 
@@ -198,6 +203,8 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("politica/aceitar/{id}")]
         public async Task<IActionResult> AceitarPolitica(string id)
         {
+            if (!User.EhDonoOuAdmin(id)) return AcessoHelper.Negado();
+
             var user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound(new { message = "Usuário não encontrado." });
 
@@ -219,6 +226,8 @@ namespace DayPlannio.Api.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(string id, [FromQuery] string? motivo = null)
         {
+            if (!User.EhDonoOuAdmin(id)) return AcessoHelper.Negado();
+
             var user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound(new { message = "Usuário não encontrado." });
 
@@ -283,6 +292,8 @@ namespace DayPlannio.Api.Controllers
             if (string.IsNullOrEmpty(id))
                 return BadRequest(new { message = "Id inválido." });
 
+            if (!User.EhDonoOuAdmin(id)) return AcessoHelper.Negado();
+
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
@@ -290,7 +301,7 @@ namespace DayPlannio.Api.Controllers
 
             await PlanoService.RenovarSeNecessarioAsync(user, _context);
 
-return Ok(new
+            return Ok(new
             {
                 id = user.Id,
                 nomeCompleto = user.NomeCompleto,
@@ -310,7 +321,7 @@ return Ok(new
                 planoEfetivo = PlanoService.ObterPlanoEfetivo(user),
                 politicaAceitaEm = user.PoliticaAceitaEm,
                 politicaVersao = user.PoliticaVersao
-});
+            });
         }
 
         private static bool EhPlanoValido(string? plano) =>
@@ -323,6 +334,11 @@ return Ok(new
         {
             if (string.IsNullOrEmpty(dto.UsuarioId))
                 return BadRequest(new { message = "Usuário não informado." });
+
+            if (User.Identity?.IsAuthenticated != true)
+                return Unauthorized(new { message = "Faça login para continuar." });
+
+            if (!User.EhDonoOuAdmin(dto.UsuarioId)) return AcessoHelper.Negado();
 
             var user = await _userManager.FindByIdAsync(dto.UsuarioId);
             if (user == null)
@@ -385,6 +401,11 @@ return Ok(new
         {
             if (string.IsNullOrEmpty(dto.UsuarioId))
                 return BadRequest(new { message = "Usuário não informado." });
+
+            if (User.Identity?.IsAuthenticated != true)
+                return Unauthorized(new { message = "Faça login para continuar." });
+
+            if (!User.EhDonoOuAdmin(dto.UsuarioId)) return AcessoHelper.Negado();
 
             var user = await _userManager.FindByIdAsync(dto.UsuarioId);
             if (user == null)

@@ -1,4 +1,5 @@
-﻿using DayPlannio.Api.Models;
+﻿using DayPlannio.Api.Helpers;
+using DayPlannio.Api.Models;
 using DayPlannio.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("{usuarioId}")]
         public async Task<IActionResult> GetAll(Guid usuarioId)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var agendamentos = await _context.Agendamento
                 .Find(a => a.UsuarioId == usuarioId)
                 .ToListAsync();
@@ -36,6 +39,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("{usuarioId}/status/{status}")]
         public async Task<IActionResult> GetByStatus(Guid usuarioId, StatusAgendamento status)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var agendamentos = await _context.Agendamento
                 .Find(a => a.UsuarioId == usuarioId && a.Status == status)
                 .ToListAsync();
@@ -46,6 +51,8 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Agendamento agendamento)
         {
+            if (!User.EhDonoOuAdmin(agendamento.UsuarioId)) return AcessoHelper.Negado();
+
             var agendamentoExistente = await _context.Agendamento
                 .Find(a => a.UsuarioId == agendamento.UsuarioId && a.DataHora == agendamento.DataHora && a.Status != StatusAgendamento.Cancelado && a.Status != StatusAgendamento.Concluido)
                 .FirstOrDefaultAsync();
@@ -75,6 +82,8 @@ namespace DayPlannio.Api.Controllers
         {
             var existing = await _context.Agendamento.Find(a => a.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Agendamento não encontrado." });
+
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
 
             var conflito = await _context.Agendamento
                 .Find(a => a.UsuarioId == existing.UsuarioId
@@ -117,6 +126,8 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Agendamento.Find(a => a.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Agendamento não encontrado." });
 
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
+
             if (existing.Status == StatusAgendamento.Cancelado)
                 return BadRequest(new { message = "Este agendamento já foi cancelado." });
 
@@ -140,6 +151,8 @@ namespace DayPlannio.Api.Controllers
         {
             var existing = await _context.Agendamento.Find(a => a.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Agendamento não encontrado." });
+
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
 
             if (existing.Status == StatusAgendamento.Concluido)
                 return BadRequest(new { message = "Este agendamento já foi concluído." });
@@ -176,6 +189,8 @@ namespace DayPlannio.Api.Controllers
             if (request == null || request.UsuarioId == Guid.Empty)
                 return BadRequest(new { message = "Dados inválidos." });
 
+            if (!User.EhDonoOuAdmin(request.UsuarioId)) return AcessoHelper.Negado();
+
             if (request.Latitude is < -90 or > 90 || request.Longitude is < -180 or > 180)
                 return BadRequest(new { message = "Coordenadas inválidas." });
 
@@ -195,6 +210,8 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Agendamento.Find(a => a.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Agendamento não encontrado." });
 
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
+
             await _context.Agendamento.DeleteOneAsync(a => a.Id == id);
 
             var (clienteNomeDeletado, servicoNomeDeletado) = await ObterNomesAsync(existing.ClienteId, existing.TipoServicoId);
@@ -209,6 +226,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("lucro/{usuarioId}")]
         public async Task<IActionResult> CalcularLucro(Guid usuarioId, [FromQuery] string periodo = "mensal")
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var agora = DateTime.UtcNow;
             var (dataInicio, _, _) = PeriodoHelper.Limites(periodo, agora);
 
@@ -239,6 +258,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("agenda/{usuarioId}")]
         public async Task<IActionResult> GetAgenda(Guid usuarioId, [FromQuery] string periodo = "mensal")
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var agora = DateTime.UtcNow;
 
             DateTime dataInicio;
@@ -262,8 +283,12 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("historico/{clienteId}")]
         public async Task<IActionResult> Historico(Guid clienteId)
         {
+            var filtro = Builders<Agendamento>.Filter.Eq(a => a.ClienteId, clienteId);
+            if (!User.EhAdmin())
+                filtro &= Builders<Agendamento>.Filter.Eq(a => a.UsuarioId, User.ObterUsuarioId() ?? Guid.Empty);
+
             var agendamentos = await _context.Agendamento
-                .Find(a => a.ClienteId == clienteId)
+                .Find(filtro)
                 .SortByDescending(a => a.DataHora)
                 .ToListAsync();
 
@@ -273,6 +298,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("historico-completo/{clienteId}")]
         public async Task<IActionResult> HistoricoCompleto(Guid clienteId, Guid usuarioId)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var prestadorCadastrado = await _context.ApplicationUsers
                 .Find(u => u.Id == usuarioId)
                 .AnyAsync();
@@ -315,6 +342,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("metricas/{usuarioId}")]
         public async Task<IActionResult> Metricas(Guid usuarioId, [FromQuery] string periodo = "mensal", [FromQuery] bool mock = false)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             if (mock && IsDevelopment())
                 return Ok(GerarMetricasMock(periodo));
 
@@ -583,6 +612,8 @@ namespace DayPlannio.Api.Controllers
             Guid usuarioId,
             [FromQuery] string periodo = "mensal")
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var prestadorExiste = await _context.ApplicationUsers
                 .Find(u => u.Id == usuarioId)
                 .AnyAsync();

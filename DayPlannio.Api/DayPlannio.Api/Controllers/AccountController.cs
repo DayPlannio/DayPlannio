@@ -66,7 +66,10 @@ namespace DayPlannio.Api.Controllers
             if (appUser == null)
                 return Unauthorized(new { message = "Credenciais inválidas." });
 
-            var result = await _signInManager.PasswordSignInAsync(appUser, model.Senha, false, false);
+            var result = await _signInManager.PasswordSignInAsync(appUser, model.Senha, false, lockoutOnFailure: true);
+
+            if (result.IsLockedOut)
+                return StatusCode(StatusCodes.Status429TooManyRequests, new { message = "Muitas tentativas de login. Tente novamente em alguns minutos." });
 
             if (result.Succeeded)
             {
@@ -101,11 +104,6 @@ namespace DayPlannio.Api.Controllers
             {
                 reenviado = true;
                 code = user.CodigoRecuperacao!;
-                var filtroReset = Builders<ApplicationUser>.Filter.Eq("_id", user.Id);
-                var updateReset = Builders<ApplicationUser>.Update
-                    .Set(u => u.TentativasCodigo, 0)
-                    .Set(u => u.CodigoBloqueado, false);
-                await _context.ApplicationUsers.UpdateOneAsync(filtroReset, updateReset);
             }
             else
             {
@@ -150,7 +148,7 @@ namespace DayPlannio.Api.Controllers
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new { message = "Usuário não encontrado." });
+                return BadRequest(new { message = "Código inválido ou expirado." });
 
             if (user.CodigoBloqueado)
                 return BadRequest(new { message = "Número de tentativas excedido. Solicite um novo código." });

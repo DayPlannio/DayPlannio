@@ -25,6 +25,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("{usuarioId}")]
         public async Task<IActionResult> GetAll(Guid usuarioId)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var clientes = await _context.Cliente
                 .Find(c => c.UsuarioId == usuarioId)
                 .ToListAsync();
@@ -37,6 +39,8 @@ namespace DayPlannio.Api.Controllers
         {
             if (cliente == null)
                 return BadRequest(new { message = "Dados inválidos." });
+
+            if (!User.EhDonoOuAdmin(cliente.UsuarioId)) return AcessoHelper.Negado();
 
             if (string.IsNullOrWhiteSpace(cliente.Nome))
                 return BadRequest(new { message = "O nome é obrigatório." });
@@ -69,6 +73,8 @@ namespace DayPlannio.Api.Controllers
         {
             var existing = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Cliente não encontrado." });
+
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
 
             var acesso = await PlanoService.VerificarAsync(existing.UsuarioId, PlanoService.Full, _context);
             if (!acesso.autorizado)
@@ -180,6 +186,8 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("politica/aceitar/{id}")]
         public async Task<IActionResult> AceitarPolitica(Guid id)
         {
+            if (!User.EhAdmin()) return AcessoHelper.Negado();
+
             var cliente = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
             if (cliente == null || !cliente.Ativo)
                 return NotFound(new { message = "Cliente não encontrado." });
@@ -200,6 +208,8 @@ namespace DayPlannio.Api.Controllers
         [HttpPost("definir-email-secundario")]
         public async Task<IActionResult> DefinirEmailSecundario([FromBody] DefinirEmailSecundarioDto dto)
         {
+            if (!User.EhAdmin()) return AcessoHelper.Negado();
+
             if (dto.ClienteId == Guid.Empty || string.IsNullOrWhiteSpace(dto.EmailSecundario))
                 return BadRequest(new { message = "Dados inválidos." });
 
@@ -236,6 +246,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("perfil/{clienteId}")]
         public async Task<IActionResult> Perfil(Guid clienteId)
         {
+            if (!User.EhAdmin()) return AcessoHelper.Negado();
+
             var cliente = await _context.Cliente
                 .Find(c => c.Id == clienteId)
                 .FirstOrDefaultAsync();
@@ -284,9 +296,6 @@ namespace DayPlannio.Api.Controllers
             {
                 reenviado = true;
                 code = cliente.CodigoRecuperacao!;
-                cliente.TentativasCodigo = 0;
-                cliente.CodigoBloqueado = false;
-                await _context.Cliente.ReplaceOneAsync(c => c.Id == cliente.Id, cliente);
             }
             else
             {
@@ -414,6 +423,8 @@ namespace DayPlannio.Api.Controllers
             if (existing == null)
                 return NotFound(new { message = "Cliente não encontrado." });
 
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
+
             if (string.IsNullOrWhiteSpace(cliente.Nome))
                 return BadRequest(new { message = "O nome é obrigatório." });
 
@@ -443,6 +454,8 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Cliente não encontrado." });
 
+            if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
+
             await _context.Cliente.DeleteOneAsync(c => c.Id == id);
 
             await _logService.RegistrarAsync(
@@ -455,6 +468,8 @@ namespace DayPlannio.Api.Controllers
         [HttpDelete("delete-conta/{id}")]
         public async Task<IActionResult> DeletarConta(Guid id, [FromQuery] string? motivo = null)
         {
+            if (!User.EhAdmin()) return AcessoHelper.Negado();
+
             var existing = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Cliente não encontrado." });
 

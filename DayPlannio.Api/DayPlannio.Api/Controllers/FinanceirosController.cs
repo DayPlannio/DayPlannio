@@ -1,4 +1,5 @@
-﻿using DayPlannio.Api.Models;
+﻿using DayPlannio.Api.Helpers;
+using DayPlannio.Api.Models;
 using DayPlannio.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,8 @@ namespace DayPlannio.Api.Controllers
 
         private async Task<IActionResult?> VerificarAcessoFinanceiro(Guid usuarioId)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var acesso = await PlanoService.VerificarAsync(usuarioId, PlanoService.Profissional, _context);
             if (!acesso.autorizado)
                 return StatusCode(403, new { message = acesso.mensagem });

@@ -49,7 +49,10 @@ namespace DayPlannio.Api.Controllers
             if (!isAdmin)
                 return Unauthorized(new { message = "Credenciais inválidas." });
 
-            var result = await _signInManager.PasswordSignInAsync(user, dto.Senha, false, false);
+            var result = await _signInManager.PasswordSignInAsync(user, dto.Senha, false, lockoutOnFailure: true);
+            if (result.IsLockedOut)
+                return StatusCode(StatusCodes.Status429TooManyRequests, new { message = "Muitas tentativas de login. Tente novamente em alguns minutos." });
+
             if (!result.Succeeded)
                 return Unauthorized(new { message = "Credenciais inválidas." });
 
@@ -66,6 +69,7 @@ namespace DayPlannio.Api.Controllers
             });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("logs")]
         public async Task<IActionResult> Logs([FromQuery] int pagina = 1, [FromQuery] int tamanhoPagina = 50)
         {
@@ -82,6 +86,7 @@ namespace DayPlannio.Api.Controllers
             return Ok(new { total, pagina, tamanhoPagina, logs });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("clientes")]
         public async Task<IActionResult> Clientes()
         {
@@ -106,6 +111,7 @@ namespace DayPlannio.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("prestadores")]
         public async Task<IActionResult> Prestadores()
         {
@@ -226,6 +232,7 @@ namespace DayPlannio.Api.Controllers
             return Ok(new { message = "Solicitação rejeitada." });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("fotos-pendentes")]
         public async Task<IActionResult> FotosPendentes()
         {
@@ -275,6 +282,7 @@ namespace DayPlannio.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("fotos/{id}/aprovar")]
         public async Task<IActionResult> AprovarFoto(Guid id)
         {
@@ -308,6 +316,7 @@ namespace DayPlannio.Api.Controllers
             return Ok(new { message = "Foto aprovada com sucesso." });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("fotos/{id}/rejeitar")]
         public async Task<IActionResult> RejeitarFoto(Guid id)
         {
@@ -356,6 +365,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("notificacoes/{usuarioId}")]
         public async Task<IActionResult> Notificacoes(Guid usuarioId)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var context = new ContextMongodb();
             var notificacoes = await context.Notificacao
                 .Find(n => n.UsuarioId == usuarioId)
@@ -380,6 +391,12 @@ namespace DayPlannio.Api.Controllers
         public async Task<IActionResult> MarcarLida(Guid id)
         {
             var context = new ContextMongodb();
+            var notificacao = await context.Notificacao.Find(n => n.Id == id).FirstOrDefaultAsync();
+            if (notificacao == null)
+                return NotFound(new { message = "Notificação não encontrada." });
+
+            if (!User.EhDonoOuAdmin(notificacao.UsuarioId)) return AcessoHelper.Negado();
+
             var update = Builders<Notificacao>.Update.Set(n => n.Lida, true);
             await context.Notificacao.UpdateOneAsync(n => n.Id == id, update);
             return Ok(new { message = "Notificação marcada como lida." });
@@ -584,6 +601,8 @@ namespace DayPlannio.Api.Controllers
         [HttpGet("notificacoes/{usuarioId}/nao-lidas")]
         public async Task<IActionResult> ContarNaoLidas(Guid usuarioId)
         {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
             var context = new ContextMongodb();
             var count = await context.Notificacao.CountDocumentsAsync(n => n.UsuarioId == usuarioId && !n.Lida);
             return Ok(new { total = count });

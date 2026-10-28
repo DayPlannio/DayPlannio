@@ -53,6 +53,12 @@ need ADMIN_SENHA
 : "${REPO_URL:=https://github.com/DayPlannio/DayPlannio.git}"
 : "${GIT_SSH_KEY:=}"
 : "${SKIP_GIT:=0}"
+: "${VM_TIMEZONE:=America/Sao_Paulo}"
+: "${GEOFENCING_CONFIRMACAO_MINUTOS:=5}"
+: "${GEOFENCING_TOLERANCIA_SAIDA_METROS:=15}"
+: "${GEOFENCING_TOLERANCIA_PAUSA_MINUTOS:=30}"
+: "${GEOFENCING_JANELA_HORAS:=24}"
+: "${GEOFENCING_PRECISAO_MAXIMA_METROS:=0}"
 
 # Repositorio privado: usa a deploy key via SSH (defina GIT_SSH_KEY no vm.env)
 if [ -n "$GIT_SSH_KEY" ] && [ -f "$GIT_SSH_KEY" ]; then
@@ -62,7 +68,10 @@ fi
 echo "==> Instalando dependencias do sistema..."
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
-apt-get install -y git curl nginx libfontconfig1 libfreetype6
+apt-get install -y git curl nginx libfontconfig1 libfreetype6 tzdata
+
+echo "==> Ajustando o fuso horario ($VM_TIMEZONE)..."
+timedatectl set-timezone "$VM_TIMEZONE" || echo "    Nao foi possivel ajustar o fuso; seguindo com o padrao do sistema."
 
 echo "==> Configurando swap (ajuda no build em VMs pequenas)..."
 if [ ! -f /swapfile ]; then
@@ -123,6 +132,11 @@ AzureBlobStorage__ContainerName=$BLOB_CONTAINER
 AdminSettings__Email=$ADMIN_EMAIL
 AdminSettings__Senha=$ADMIN_SENHA
 AdminSettings__Nome=$ADMIN_NOME
+Geofencing__ConfirmacaoMinutos=$GEOFENCING_CONFIRMACAO_MINUTOS
+Geofencing__ToleranciaSaidaMetros=$GEOFENCING_TOLERANCIA_SAIDA_METROS
+Geofencing__ToleranciaPausaMinutos=$GEOFENCING_TOLERANCIA_PAUSA_MINUTOS
+Geofencing__JanelaHoras=$GEOFENCING_JANELA_HORAS
+Geofencing__PrecisaoMaximaMetros=$GEOFENCING_PRECISAO_MAXIMA_METROS
 EOF
 chmod 600 "$APP_DIR/api.env"
 

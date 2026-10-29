@@ -16,7 +16,7 @@ namespace DayPlannio.Api.Services
 
     public static class GeofenceRegras
     {
-        public const int RaioPadraoMetros = 50;
+        public const int RaioPadraoMetros = 100;
         public static readonly int[] RaiosPermitidos = { 20, 50, 100 };
 
         public static TimeSpan ConfirmacaoChegada { get; private set; } = TimeSpan.FromMinutes(5);

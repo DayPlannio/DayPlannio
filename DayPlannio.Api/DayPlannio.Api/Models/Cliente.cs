@@ -29,7 +29,7 @@ namespace DayPlannio.Api.Models
         [Range(-180, 180, ErrorMessage = "Longitude inválida.")]
         public double? Longitude { get; set; }
 
-        public int RaioGeofenceMetros { get; set; } = 50;
+        public int RaioGeofenceMetros { get; set; } = 100;
 
         [MaxLength(500, ErrorMessage = "Observações devem ter no máximo 500 caracteres.")]
         public string? Observacoes { get; set; }

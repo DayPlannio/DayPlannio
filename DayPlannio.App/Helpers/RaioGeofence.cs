@@ -8,8 +8,11 @@ public static class RaioGeofence
 
     public static IReadOnlyList<string> Opcoes { get; } = _metros.Select(ParaTexto).ToList();
 
-    public static string ParaTexto(int metros) =>
-        $"{(_metros.Contains(metros) ? metros : Padrao)} m";
+    public static string ParaTexto(int metros)
+    {
+        var valor = _metros.Contains(metros) ? metros : Padrao;
+        return valor == Padrao ? $"{valor} m (recomendado)" : $"{valor} m";
+    }
 
     public static int ParaMetros(string? texto)
     {

@@ -9,7 +9,7 @@ public class Cliente
     public string? Endereco { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
-    public int RaioGeofenceMetros { get; set; } = 50;
+    public int RaioGeofenceMetros { get; set; } = 100;
     public string? Observacoes { get; set; }
     public string? Email { get; set; }
     public DateTime? UltimaVisita { get; set; }

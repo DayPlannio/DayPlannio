@@ -2,7 +2,7 @@ namespace DayPlannio.App.Helpers;
 
 public static class RaioGeofence
 {
-    public const int Padrao = 50;
+    public const int Padrao = 100;
 
     private static readonly int[] _metros = { 20, 50, 100 };
 

@@ -12,7 +12,7 @@ public partial class EditarCliente : ContentPage
         string observacoes,
         double? latitude = null,
         double? longitude = null,
-        int raioGeofenceMetros = 50)
+        int raioGeofenceMetros = 100)
     {
         InitializeComponent();
 

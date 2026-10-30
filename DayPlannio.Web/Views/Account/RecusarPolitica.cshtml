@@ -30,8 +30,8 @@
             <div class="dp-card p-3 mb-3" style="background:#fff8e6; border:#f0dca8;">
                 <div class="form-text">
                     Você possui <strong>@Model.AgendamentosFuturos @(Model.AgendamentosFuturos == 1 ? "agendamento futuro" : "agendamentos futuros")</strong>
-                    na agenda do profissional que atendeu você. O profissional será avisado e poderá
-                    cancelar esses agendamentos.
+                    na agenda do profissional que atendeu você. Esses agendamentos serão cancelados e
+                    removidos da agenda do profissional, que será avisado.
                 </div>
             </div>
         }
@@ -41,11 +41,14 @@
             <ul class="form-text mb-2">
                 <li>seu cadastro de cliente e o e-mail usado para entrar no portal;</li>
                 <li>sua senha de acesso e o e-mail de recuperação;</li>
-                <li>os registros de acesso e as atividades vinculadas ao seu e-mail.</li>
+                <li>os registros de acesso e as atividades vinculadas ao seu e-mail;</li>
+                <li>as fotos dos seus atendimentos, inclusive os arquivos armazenados no servidor;</li>
+                <li>o endereço, a localização e as observações registrados nos atendimentos já realizados.</li>
             </ul>
             <div class="form-text mb-0">
                 <strong>O que continua existindo:</strong> os agendamentos que você já realizou
-                continuam visíveis para o prestador que atendeu você, por serem registros de atendimento.
+                continuam visíveis para o prestador que atendeu você (data, serviço e valor), por serem
+                registros de atendimento, mas sem os seus dados pessoais, fotos, endereço e localização.
             </div>
         </div>
 

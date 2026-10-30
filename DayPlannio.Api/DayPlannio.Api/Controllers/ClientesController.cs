@@ -458,48 +458,21 @@ namespace DayPlannio.Api.Controllers
 
             if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
 
-            var agendamentoIds = await _context.Agendamento
-                .Find(a => a.ClienteId == id)
-                .Project(a => a.Id)
-                .ToListAsync();
+            var futuros = await ContarAgendamentosFuturosAsync(id);
 
-            var fotos = agendamentoIds.Count == 0
-                ? new List<Foto>()
-                : await _context.Foto
-                    .Find(Builders<Foto>.Filter.In(f => f.AgendamentoId, agendamentoIds))
-                    .ToListAsync();
-
-            foreach (var foto in fotos)
-            {
-                try
-                {
-                    await _blobService.DeleteAsync(foto.Url);
-                }
-                catch
-                {
-                }
-            }
-
-            if (agendamentoIds.Count > 0)
-                await _context.Foto.DeleteManyAsync(Builders<Foto>.Filter.In(f => f.AgendamentoId, agendamentoIds));
-
-            var agendamentosRemovidos = await _context.Agendamento
-                .DeleteManyAsync(a => a.ClienteId == id);
-
-            await _context.Cliente.DeleteOneAsync(c => c.Id == id);
+            await ContaClienteHelper.EncerrarAsync(_context, _blobService, id);
 
             await _logService.RegistrarAsync(
                 "cliente_deletado",
-                $"Cliente '{existing.Nome}' deletado ({agendamentosRemovidos.DeletedCount} agendamento(s) e {fotos.Count} foto(s) removido(s))",
+                $"Cliente '{existing.Nome}' deletado ({futuros} agendamento(s) futuro(s) removido(s); histórico mantido)",
                 "web", existing.UsuarioId.ToString(), existing.Nome, existing.Email);
 
             return Ok(new
             {
-                message = agendamentosRemovidos.DeletedCount > 0
-                    ? "Cliente, agendamentos e fotos deletados com sucesso."
-                    : "Cliente deletado com sucesso.",
-                agendamentosRemovidos = agendamentosRemovidos.DeletedCount,
-                fotosRemovidas = fotos.Count
+                message = futuros > 0
+                    ? "Cliente deletado. Agendamentos futuros foram removidos e o histórico foi mantido."
+                    : "Cliente deletado com sucesso. O histórico foi mantido.",
+                agendamentosFuturosRemovidos = futuros
             });
         }
 

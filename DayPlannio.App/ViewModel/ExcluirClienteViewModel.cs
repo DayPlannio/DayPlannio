@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace DayPlannio.App.ViewModels;
@@ -19,7 +19,7 @@ public partial class ExcluirClienteViewModel : ObservableObject
             {
                 new Span { Text = "Tem certeza que deseja excluir " },
                 new Span { Text = nomeCliente, FontAttributes = FontAttributes.Bold },
-                new Span { Text = "? Esta ação não pode ser desfeita." }
+                new Span { Text = "? Todos os agendamentos e fotos deste cliente também serão excluídos. Esta ação não pode ser desfeita." }
             }
         };
     }

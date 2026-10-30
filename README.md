@@ -22,7 +22,7 @@ O DayPlannio é um sistema de agendamento e gestão para prestadores de serviço
 ### Infraestrutura e nuvem
 - **Microsoft Azure** (região Canada Central)
   - Máquina virtual Linux (Ubuntu Server 24.04 LTS) hospedando a API e o Web
-  - Azure Blob Storage
+  - Azure Blob Storage para armazenamento de fotos
   - IP público estático e nome DNS
 - **MongoDB Atlas** (banco de dados na nuvem)
 - **Nginx** como proxy reverso

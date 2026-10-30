@@ -56,10 +56,14 @@ namespace DayPlannio.Api.Services
 
         public async Task DeleteAsync(string blobUri)
         {
+            if (string.IsNullOrWhiteSpace(blobUri)) return;
+        
             var cleanUri = blobUri.Split('?')[0];
-            var blobName = new Uri(cleanUri).AbsolutePath.TrimStart('/');
-            var blobClient = _container.GetBlobClient(blobName);
-            await blobClient.DeleteIfExistsAsync();
+        
+            var parsed = new BlobUriBuilder(new Uri(cleanUri));
+            var blobClient = _container.GetBlobClient(parsed.BlobName);
+        
+            await blobClient.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
         }
 
         private static string ParseAccountKey(string connectionString)

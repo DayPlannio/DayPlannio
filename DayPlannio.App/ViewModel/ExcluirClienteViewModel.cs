@@ -19,7 +19,7 @@ public partial class ExcluirClienteViewModel : ObservableObject
             {
                 new Span { Text = "Tem certeza que deseja excluir " },
                 new Span { Text = nomeCliente, FontAttributes = FontAttributes.Bold },
-                new Span { Text = "? Todos os agendamentos e fotos deste cliente também serão excluídos. Esta ação não pode ser desfeita." }
+                new Span { Text = "? Todos os agendamentos futuros e as fotos deste cliente também serão excluídos. O histórico de atendimentos já realizados será mantido, sem os dados pessoais. Esta ação não pode ser desfeita." }
             }
         };
     }

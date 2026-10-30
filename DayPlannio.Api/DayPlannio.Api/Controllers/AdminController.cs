@@ -493,7 +493,7 @@ namespace DayPlannio.Api.Controllers
             var clienteId = cliente.Id;
 
             var agendamentosAfetados = await ContaClienteHelper.EncerrarENotificarAsync(
-                context, cliente, encerradaPeloAdmin: true);
+               context, cliente, _blobService, encerradaPeloAdmin: true);
 
             await ApagarLogsDoUsuarioAsync(context, clienteId, clienteNome, clienteEmail);
 

@@ -1,18 +1,20 @@
 ﻿using DayPlannio.Api.Models;
 using MongoDB.Driver;
+using DayPlannio.Api.Services;
 
 namespace DayPlannio.Api.Helpers
 {
     public static class ContaClienteHelper
     {
-        public static async Task<int> EncerrarENotificarAsync(
+       public static async Task<int> EncerrarENotificarAsync(
             ContextMongodb context,
             Cliente cliente,
+            AzureBlobStorageService blobService,
             bool encerradaPeloAdmin = false)
         {
             var afetados = await BuscarFuturosAsync(context, cliente.Id);
 
-            await EncerrarAsync(context, cliente.Id);
+           await EncerrarAsync(context, blobService, cliente.Id);
             await AvisarPrestadoresAsync(context, afetados, cliente.UsuarioId, cliente.Nome, encerradaPeloAdmin);
 
             return afetados.Count;
@@ -70,9 +72,43 @@ namespace DayPlannio.Api.Helpers
             await context.Notificacao.InsertManyAsync(lista);
         }
 
-        public static async Task<int> EncerrarAsync(ContextMongodb context, Guid clienteId)
+        private static async Task RemoverFotosAsync(
+            ContextMongodb context,
+            AzureBlobStorageService blobService,
+            Guid clienteId)
+        {
+            var agendamentoIds = await context.Agendamento
+                .Find(a => a.ClienteId == clienteId)
+                .Project(a => a.Id)
+                .ToListAsync();
+        
+            if (agendamentoIds.Count == 0) return;
+        
+            var filtroFotos = Builders<Foto>.Filter.In(f => f.AgendamentoId, agendamentoIds);
+            var fotos = await context.Foto.Find(filtroFotos).ToListAsync();
+        
+            foreach (var foto in fotos)
+            {
+                try
+                {
+                    await blobService.DeleteAsync(foto.Url);
+                }
+                catch
+                {
+                }
+            }
+        
+            await context.Foto.DeleteManyAsync(filtroFotos);
+        }
+
+        public static async Task<int> EncerrarAsync(
+            ContextMongodb context,
+            AzureBlobStorageService blobService,
+            Guid clienteId)
         {
             var agora = DateTime.UtcNow;
+        
+            await RemoverFotosAsync(context, blobService, clienteId);
 
             var futuros = Builders<Agendamento>.Filter.And(
                 Builders<Agendamento>.Filter.Eq(a => a.ClienteId, clienteId),
@@ -85,6 +121,8 @@ namespace DayPlannio.Api.Helpers
             var limpar = Builders<Agendamento>.Update
                 .Set(a => a.ClienteEncerradoEm, agora)
                 .Set(a => a.EnderecoAtendimento, null)
+                .Set(a => a.Latitude, null)
+                .Set(a => a.Longitude, null)
                 .Set(a => a.Observacoes, null);
 
             await context.Agendamento.UpdateManyAsync(a => a.ClienteId == clienteId, limpar);

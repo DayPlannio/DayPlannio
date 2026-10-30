@@ -1,4 +1,4 @@
-﻿using DayPlannio.Api.Helpers;
+using DayPlannio.Api.Helpers;
 using DayPlannio.Api.Models;
 using DayPlannio.Api.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +15,13 @@ namespace DayPlannio.Api.Controllers
         private readonly ContextMongodb _context = new ContextMongodb();
         private readonly EmailService _emailService;
         private readonly LogService _logService;
+        private readonly AzureBlobStorageService _blobService;
 
-        public ClienteController(EmailService emailService, LogService logService)
+        public ClienteController(EmailService emailService, LogService logService, AzureBlobStorageService blobService)
         {
             _emailService = emailService;
             _logService = logService;
+            _blobService = blobService;
         }
 
         [HttpGet("{usuarioId}")]
@@ -456,13 +458,49 @@ namespace DayPlannio.Api.Controllers
 
             if (!User.EhDonoOuAdmin(existing.UsuarioId)) return AcessoHelper.Negado();
 
+            var agendamentoIds = await _context.Agendamento
+                .Find(a => a.ClienteId == id)
+                .Project(a => a.Id)
+                .ToListAsync();
+
+            var fotos = agendamentoIds.Count == 0
+                ? new List<Foto>()
+                : await _context.Foto
+                    .Find(Builders<Foto>.Filter.In(f => f.AgendamentoId, agendamentoIds))
+                    .ToListAsync();
+
+            foreach (var foto in fotos)
+            {
+                try
+                {
+                    await _blobService.DeleteAsync(foto.Url);
+                }
+                catch
+                {
+                }
+            }
+
+            if (agendamentoIds.Count > 0)
+                await _context.Foto.DeleteManyAsync(Builders<Foto>.Filter.In(f => f.AgendamentoId, agendamentoIds));
+
+            var agendamentosRemovidos = await _context.Agendamento
+                .DeleteManyAsync(a => a.ClienteId == id);
+
             await _context.Cliente.DeleteOneAsync(c => c.Id == id);
 
             await _logService.RegistrarAsync(
-                "cliente_deletado", $"Cliente '{existing.Nome}' deletado",
+                "cliente_deletado",
+                $"Cliente '{existing.Nome}' deletado ({agendamentosRemovidos.DeletedCount} agendamento(s) e {fotos.Count} foto(s) removido(s))",
                 "web", existing.UsuarioId.ToString(), existing.Nome, existing.Email);
 
-            return Ok(new { message = "Cliente deletado com sucesso." });
+            return Ok(new
+            {
+                message = agendamentosRemovidos.DeletedCount > 0
+                    ? "Cliente, agendamentos e fotos deletados com sucesso."
+                    : "Cliente deletado com sucesso.",
+                agendamentosRemovidos = agendamentosRemovidos.DeletedCount,
+                fotosRemovidas = fotos.Count
+            });
         }
 
         [HttpDelete("delete-conta/{id}")]

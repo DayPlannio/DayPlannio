@@ -511,7 +511,7 @@ namespace DayPlannio.Api.Controllers
             var existing = await _context.Cliente.Find(c => c.Id == id).FirstOrDefaultAsync();
             if (existing == null) return NotFound(new { message = "Cliente não encontrado." });
 
-            var cancelados = await ContaClienteHelper.EncerrarENotificarAsync(_context, existing);
+            var cancelados = await ContaClienteHelper.EncerrarENotificarAsync(_context, existing, _blobService);
 
             var filtros = new List<FilterDefinition<Log>>
             {

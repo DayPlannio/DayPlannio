@@ -1,0 +1,4 @@
+logs-e2e/
+*.log
+bin/
+obj/

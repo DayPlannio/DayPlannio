@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace DayPlannio.Api.Models
@@ -40,11 +41,16 @@ namespace DayPlannio.Api.Models
         [MaxLength(200, ErrorMessage = "O e-mail secundário deve ter no máximo 200 caracteres.")]
         public string? EmailSecundario { get; set; }
 
+        [JsonIgnore]
         public string? CodigoRecuperacao { get; set; }
+        [JsonIgnore]
         public DateTime? CodigoRecuperacaoExpira { get; set; }
+        [JsonIgnore]
         public int TentativasCodigo { get; set; }
+        [JsonIgnore]
         public bool CodigoBloqueado { get; set; }
 
+        [JsonIgnore]
         public string? SenhaHash { get; set; }
 
         public bool PrimeiroAcesso { get; set; } = true;

@@ -362,7 +362,7 @@ public class AccountController : Controller
             catch { }
         }
 
-        return View(model);
+        return View("RecusarPolitica", model);
     }
 
     [Authorize(Policy = "Cliente")]

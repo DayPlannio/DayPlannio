@@ -1,0 +1,127 @@
+=====================================================================
+ COMO RODAR OS TESTES - DayPlannio
+=====================================================================
+
+Todos os comandos abaixo são para o PowerShell (Windows).
+
+
+---------------------------------------------------------------------
+ 1. ANTES DE COMEÇAR
+---------------------------------------------------------------------
+
+Estrutura de pastas esperada (a pasta de testes fica AO LADO dos projetos):
+
+    <raiz>\
+      DayPlannio.Api\
+      DayPlannio.Web\
+      DayPlannio.App\
+      DayPlannio.Tests\      <-- você roda tudo a partir daqui
+
+Instale:
+
+  - .NET SDK 10                         (obrigatório)
+  - Docker Desktop                      (só para o E2E: sobe o MongoDB local)
+  - Node.js (https://nodejs.org)        (só para o E2E: roda o emulador Azurite)
+
+Na 1ª execução é preciso internet: o script baixa as ferramentas de
+cobertura, o Azurite e o Chromium do Playwright. Depois fica tudo em cache.
+
+Os testes de API, Web e App NÃO precisam de Docker nem de MongoDB instalado:
+eles usam um MongoDB em memória (Mongo2Go).
+
+
+---------------------------------------------------------------------
+ 2. CAMINHO RÁPIDO: TUDO + RELATÓRIO
+---------------------------------------------------------------------
+
+2.1  Suba um MongoDB local (só uma vez):
+
+    docker run -d --name mongo-dayplannio -p 27018:27017 mongo:8
+
+     Se o container já existe, apenas inicie:   docker start mongo-dayplannio
+
+2.2  Rode tudo:
+
+    cd DayPlannio.Tests
+    Set-ExecutionPolicy -Scope Process Bypass
+    .\gerar-relatorio.ps1 -MongoConnectionString "mongodb://127.0.0.1:27018"
+
+     Sem o parâmetro -MongoConnectionString, o script roda API, Web e App
+     e PULA o E2E.
+
+2.3  Ao terminar, o relatório abre sozinho. Se não abrir:
+
+    relatorios\resumo.html
+
+     Ele mostra o resultado de cada suíte e tem um link para a cobertura
+     de código por classe.
+
+     A cobertura vem das suítes de API, Web e App. O E2E roda em processos
+     separados e não entra na conta, então a cobertura real do portal é
+     maior do que a mostrada.
+
+
+---------------------------------------------------------------------
+ 3. RODAR UMA SUÍTE SÓ (mais rápido para desenvolver)
+---------------------------------------------------------------------
+
+    dotnet test .\DayPlannio.Api.IntegrationTests
+    dotnet test .\DayPlannio.Web.IntegrationTests
+    dotnet test .\DayPlannio.App.Tests
+
+Para rodar um único teste ou classe, filtre pelo nome:
+
+    dotnet test .\DayPlannio.Api.IntegrationTests --filter "FullyQualifiedName~AcessoClienteTests"
+
+
+---------------------------------------------------------------------
+ 4. RODAR SÓ O E2E (navegador)
+---------------------------------------------------------------------
+
+O script sobe Azurite + API (porta 5143) + Web (porta 5140), roda os
+testes no Playwright e encerra tudo no final.
+
+    .\executar-e2e.ps1 -MongoConnectionString "mongodb://127.0.0.1:27018"
+
+Para ver o navegador abrindo e clicando:
+
+    .\executar-e2e.ps1 -MongoConnectionString "mongodb://127.0.0.1:27018" -Visivel
+
+Por padrão os dados vão para o banco "dayplannio_e2e". Para trocar:
+
+    .\executar-e2e.ps1 -MongoConnectionString "mongodb://127.0.0.1:27018" -Database "outro_banco"
+
+ATENÇÃO: o E2E cria dados de verdade. Use sempre um MongoDB local ou um
+banco de teste. NUNCA aponte para o banco de produção.
+
+Resultados e logs do E2E:
+
+    DayPlannio.E2ETests\TestResults\e2e.html
+    logs-e2e\   (api, web e azurite; se algo falhar, as últimas linhas
+                 também aparecem no terminal)
+
+
+---------------------------------------------------------------------
+ 5. PROBLEMAS COMUNS
+---------------------------------------------------------------------
+
+"A execução de scripts está desabilitada neste sistema"
+    Rode antes:  Set-ExecutionPolicy -Scope Process Bypass
+
+"MongoDB não respondeu em ...:27018"
+    O Mongo não está no ar. Confira com:  docker ps
+    Se estiver parado:                    docker start mongo-dayplannio
+
+"Azurite não subiu na porta 10000" ou "Timeout esperando http://localhost:..."
+    Sobrou processo de uma execução anterior ocupando as portas
+    (10000, 5143 ou 5140). Encerre e rode de novo:
+
+        Get-Process node, dotnet -ErrorAction SilentlyContinue | Stop-Process -Force
+
+    Cuidado: isso encerra TODOS os processos node e dotnet da máquina
+    (inclusive o Visual Studio/Rider se estiverem depurando).
+
+Começar do zero com o Mongo local:
+
+    docker rm -f mongo-dayplannio
+    docker run -d --name mongo-dayplannio -p 27018:27017 mongo:8

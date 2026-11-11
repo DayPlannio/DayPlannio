@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f9ae5a4a-4f7d-444d-a699-b76424f9aa84" name="usuario@PC 2026-11-11 09:40:17" runUser="PC\usuario" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-11T09:40:17.9505589-03:00" queuing="2026-11-11T09:40:17.9505593-03:00" start="2026-11-11T09:40:10.2612053-03:00" finish="2026-11-11T09:40:24.5488206-03:00" />
+  <TestSettings name="default" id="c776b4af-b1b2-4c61-affe-de08d69ce1a9">
+    <Deployment runDeploymentRoot="usuario_PC_2026-11-11_09_40_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="67995aef-93ac-4d18-88b6-c3d83d216eff" testId="8227946b-487e-6de5-5193-5b941594b2f0" testName="E2E-06 Logout encerra a sessão: voltar às métricas exige novo login" computerName="PC" duration="00:00:02.2330388" startTime="2026-11-11T09:40:18.3778186-03:00" endTime="2026-11-11T09:40:20.6103523-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67995aef-93ac-4d18-88b6-c3d83d216eff" />
+    <UnitTestResult executionId="ce849110-12fe-4c18-bbd4-6c2fb2db22c8" testId="7493761b-5483-ba57-6eaf-96233fa92dca" testName="E2E-02 Login com credenciais inválidas mostra erro e permanece no login" computerName="PC" duration="00:00:00.2666383" startTime="2026-11-11T09:40:23.2346851-03:00" endTime="2026-11-11T09:40:23.5015976-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce849110-12fe-4c18-bbd4-6c2fb2db22c8" />
+    <UnitTestResult executionId="7f1f110f-f643-4902-ae27-c6a8a7ac425a" testId="643322ea-953b-e855-2570-057c32c8c29b" testName="E2E-03 Áreas restritas redirecionam para o login quando não há sessão" computerName="PC" duration="00:00:00.2160728" startTime="2026-11-11T09:40:23.5025473-03:00" endTime="2026-11-11T09:40:23.7183841-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f1f110f-f643-4902-ae27-c6a8a7ac425a" />
+    <UnitTestResult executionId="4c84e94b-7295-481b-9935-7e23c67d9c11" testId="0cfe9af5-74ce-ee11-0ddb-f11209a649b2" testName="E2E-08 Admin entra no portal e chega ao painel" computerName="PC" duration="00:00:00.5275034" startTime="2026-11-11T09:40:23.7187086-03:00" endTime="2026-11-11T09:40:24.2464037-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c84e94b-7295-481b-9935-7e23c67d9c11" />
+    <UnitTestResult executionId="e535bf78-24c2-434d-afd5-6f6413dc468d" testId="9762eff5-99b6-2d74-b4ac-89f9c9092320" testName="E2E-01 Jornada completa: login → trocar senha → aceitar política → métricas → sair → entrar com a nova senha" computerName="PC" duration="00:00:04.6159232" startTime="2026-11-11T09:40:13.3128169-03:00" endTime="2026-11-11T09:40:17.8948205-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e535bf78-24c2-434d-afd5-6f6413dc468d" />
+    <UnitTestResult executionId="756908fe-4c2d-4a59-8084-df6976cdd7d0" testId="6ae20c7e-c4dc-65d6-76e2-107f20aff4f5" testName="E2E-07 Navegação pública: login → 'Esqueci minha senha' e login → portfólio" computerName="PC" duration="00:00:00.4785769" startTime="2026-11-11T09:40:17.9197556-03:00" endTime="2026-11-11T09:40:18.3766608-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="756908fe-4c2d-4a59-8084-df6976cdd7d0" />
+    <UnitTestResult executionId="539c70f8-22ae-4ff5-9f9c-ca0c315e98c1" testId="f34bb9f2-9f78-c54f-a2f5-07da29413f05" testName="E2E-04 Primeiro acesso: lista de requisitos da senha reage à digitação e senha fraca é recusada" computerName="PC" duration="00:00:01.0046074" startTime="2026-11-11T09:40:22.2294955-03:00" endTime="2026-11-11T09:40:23.2344372-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="539c70f8-22ae-4ff5-9f9c-ca0c315e98c1" />
+    <UnitTestResult executionId="7e026260-6435-489d-bfa1-677e0a989c42" testId="540f5c5e-ccd7-31ea-666c-995de9291b22" testName="E2E-05 Política de Privacidade: botões só habilitam após rolar até o final" computerName="PC" duration="00:00:01.6181534" startTime="2026-11-11T09:40:20.6105321-03:00" endTime="2026-11-11T09:40:22.2291265-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e026260-6435-489d-bfa1-677e0a989c42" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="E2E-01 Jornada completa: login → trocar senha → aceitar política → métricas → sair → entrar com a nova senha" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="9762eff5-99b6-2d74-b4ac-89f9c9092320">
+      <Execution id="e535bf78-24c2-434d-afd5-6f6413dc468d" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="JornadaCompletaDoCliente" />
+    </UnitTest>
+    <UnitTest name="E2E-03 Áreas restritas redirecionam para o login quando não há sessão" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="643322ea-953b-e855-2570-057c32c8c29b">
+      <Execution id="7f1f110f-f643-4902-ae27-c6a8a7ac425a" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="AreasRestritas_RedirecionamParaLogin" />
+    </UnitTest>
+    <UnitTest name="E2E-07 Navegação pública: login → 'Esqueci minha senha' e login → portfólio" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="6ae20c7e-c4dc-65d6-76e2-107f20aff4f5">
+      <Execution id="756908fe-4c2d-4a59-8084-df6976cdd7d0" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="NavegacaoPublica_FuncionaSemLogin" />
+    </UnitTest>
+    <UnitTest name="E2E-06 Logout encerra a sessão: voltar às métricas exige novo login" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="8227946b-487e-6de5-5193-5b941594b2f0">
+      <Execution id="67995aef-93ac-4d18-88b6-c3d83d216eff" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="Logout_EncerraSessao" />
+    </UnitTest>
+    <UnitTest name="E2E-04 Primeiro acesso: lista de requisitos da senha reage à digitação e senha fraca é recusada" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="f34bb9f2-9f78-c54f-a2f5-07da29413f05">
+      <Execution id="539c70f8-22ae-4ff5-9f9c-ca0c315e98c1" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="TrocarSenha_RequisitosEValidacao" />
+    </UnitTest>
+    <UnitTest name="E2E-08 Admin entra no portal e chega ao painel" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="0cfe9af5-74ce-ee11-0ddb-f11209a649b2">
+      <Execution id="4c84e94b-7295-481b-9935-7e23c67d9c11" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="Admin_EntraNoPainel" />
+    </UnitTest>
+    <UnitTest name="E2E-02 Login com credenciais inválidas mostra erro e permanece no login" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="7493761b-5483-ba57-6eaf-96233fa92dca">
+      <Execution id="ce849110-12fe-4c18-bbd4-6c2fb2db22c8" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="LoginInvalido_MostraErro" />
+    </UnitTest>
+    <UnitTest name="E2E-05 Política de Privacidade: botões só habilitam após rolar até o final" storage="c:\users\usuario\downloads\dayplannio-master\dayplannio.tests\dayplannio.e2etests\bin\debug\net10.0\dayplannio.e2etests.dll" id="540f5c5e-ccd7-31ea-666c-995de9291b22">
+      <Execution id="7e026260-6435-489d-bfa1-677e0a989c42" />
+      <TestMethod codeBase="C:\Users\<usuario>\Downloads\DayPlannio-master\DayPlannio.Tests\DayPlannio.E2ETests\bin\Debug\net10.0\DayPlannio.E2ETests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="DayPlannio.E2ETests.Tests.PortalClienteE2ETests" name="Politica_BotoesSoHabilitamAposRolar" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8227946b-487e-6de5-5193-5b941594b2f0" executionId="67995aef-93ac-4d18-88b6-c3d83d216eff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7493761b-5483-ba57-6eaf-96233fa92dca" executionId="ce849110-12fe-4c18-bbd4-6c2fb2db22c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="643322ea-953b-e855-2570-057c32c8c29b" executionId="7f1f110f-f643-4902-ae27-c6a8a7ac425a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0cfe9af5-74ce-ee11-0ddb-f11209a649b2" executionId="4c84e94b-7295-481b-9935-7e23c67d9c11" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9762eff5-99b6-2d74-b4ac-89f9c9092320" executionId="e535bf78-24c2-434d-afd5-6f6413dc468d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ae20c7e-c4dc-65d6-76e2-107f20aff4f5" executionId="756908fe-4c2d-4a59-8084-df6976cdd7d0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f34bb9f2-9f78-c54f-a2f5-07da29413f05" executionId="539c70f8-22ae-4ff5-9f9c-ca0c315e98c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="540f5c5e-ccd7-31ea-666c-995de9291b22" executionId="7e026260-6435-489d-bfa1-677e0a989c42" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="8" executed="8" passed="8" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.13)&#xD;
+[xUnit.net 00:00:00.65]   Discovering: DayPlannio.E2ETests&#xD;
+[xUnit.net 00:00:00.73]   Discovered:  DayPlannio.E2ETests&#xD;
+[xUnit.net 00:00:00.76]   Starting:    DayPlannio.E2ETests&#xD;
+[xUnit.net 00:00:13.15]   Finished:    DayPlannio.E2ETests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

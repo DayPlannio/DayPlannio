@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>DayPlannio.App.Tests</RootNamespace>
+    <NoWarn>$(NoWarn);CS8618;CS8600;CS8601;CS8602;CS8603;CS8604;CS8625</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+    <PackageReference Include="Mongo2Go" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.Maui" />
+    <Using Include="Microsoft.Maui.Controls" />
+    <Using Include="Microsoft.Maui.Graphics" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DayPlannio.Api\DayPlannio.Api\DayPlannio.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\DayPlannio.App\Helpers\RaioGeofence.cs" Link="App\Helpers\RaioGeofence.cs" />
+    <Compile Include="..\..\DayPlannio.App\Helpers\SQLiteDatabaseHelper.cs" Link="App\Helpers\SQLiteDatabaseHelper.cs" />
+    <Compile Include="..\..\DayPlannio.App\Models\*.cs" Link="App\Models\%(Filename)%(Extension)" />
+    <Compile Include="..\..\DayPlannio.App\Converters\*.cs" Link="App\Converters\%(Filename)%(Extension)" />
+    <Compile Include="..\..\DayPlannio.App\ViewModel\AgendamentoItemViewModel.cs" Link="App\ViewModel\AgendamentoItemViewModel.cs" />
+    <Compile Include="..\..\DayPlannio.App\ViewModel\DiaViewModel.cs" Link="App\ViewModel\DiaViewModel.cs" />
+    <Compile Include="..\..\DayPlannio.App\ViewModel\FinanceiroItemViewModel.cs" Link="App\ViewModel\FinanceiroItemViewModel.cs" />
+    <Compile Include="..\..\DayPlannio.App\Services\AgendamentoService.cs" Link="App\Services\AgendamentoService.cs" />
+    <Compile Include="..\..\DayPlannio.App\Services\ClienteService.cs" Link="App\Services\ClienteService.cs" />
+    <Compile Include="..\..\DayPlannio.App\Services\FinanceiroService.cs" Link="App\Services\FinanceiroService.cs" />
+    <Compile Include="..\..\DayPlannio.App\Services\MetricasService.cs" Link="App\Services\MetricasService.cs" />
+    <Compile Include="..\..\DayPlannio.App\Services\ServicosService.cs" Link="App\Services\ServicosService.cs" />
+    <Compile Include="..\..\DayPlannio.App\Services\UsuarioService.cs" Link="App\Services\UsuarioService.cs" />
+    <Compile Include="..\..\DayPlannio.App\Helpers\ApiConfig.cs" Link="App\Helpers\ApiConfig.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\DayPlannio.Api.IntegrationTests\Infra\*.cs" Link="Infra\Api\%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

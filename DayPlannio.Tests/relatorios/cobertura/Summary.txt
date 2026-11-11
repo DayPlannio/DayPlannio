@@ -1,0 +1,149 @@
+Summary
+  Generated on: 11/11/2026 - 09:40:31
+  Parser: MultiReport (3x Cobertura)
+  Assemblies: 3
+  Classes: 124
+  Files: 98
+  Line coverage: 90.5%
+  Covered lines: 5480
+  Uncovered lines: 571
+  Coverable lines: 6051
+  Total lines: 11683
+  Branch coverage: 78.9% (2115 of 2678)
+  Covered branches: 2115
+  Total branches: 2678
+  Method coverage: 94.5% (400 of 423)
+  Full method coverage: 69.9% (296 of 423)
+  Covered methods: 400
+  Fully covered methods: 296
+  Total methods: 423
+
+DayPlannio.Api                                                      92.1%
+  DayPlannio.Api.Controllers.AccountController                      98.4%
+  DayPlannio.Api.Controllers.AdminController                        94.1%
+  DayPlannio.Api.Controllers.AdminLoginDto                           100%
+  DayPlannio.Api.Controllers.AgendamentosController                 88.3%
+  DayPlannio.Api.Controllers.ClienteController                      93.6%
+  DayPlannio.Api.Controllers.DefinirEmailSecundarioDto               100%
+  DayPlannio.Api.Controllers.EncerrarContaAdminDto                   100%
+  DayPlannio.Api.Controllers.FinanceirosController                  94.8%
+  DayPlannio.Api.Controllers.ForgotPasswordClienteDto                100%
+  DayPlannio.Api.Controllers.FotosController                        99.6%
+  DayPlannio.Api.Controllers.LoginClienteDto                         100%
+  DayPlannio.Api.Controllers.ResetPasswordClienteDto                 100%
+  DayPlannio.Api.Controllers.TiposServicoController                   91%
+  DayPlannio.Api.Controllers.TrocarSenhaClienteDto                   100%
+  DayPlannio.Api.Controllers.UsersController                        91.7%
+  DayPlannio.Api.Data.DayPlannioContext                                0%
+  DayPlannio.Api.Helpers.AcessoHelper                                100%
+  DayPlannio.Api.Helpers.ContaClienteHelper                         90.2%
+  DayPlannio.Api.Helpers.ContaPrestadorHelper                       92.1%
+  DayPlannio.Api.Helpers.SenhaHelper                                  95%
+  DayPlannio.Api.Models.Agendamento                                  100%
+  DayPlannio.Api.Models.Cliente                                      100%
+  DayPlannio.Api.Models.ContextMongodb                              78.5%
+  DayPlannio.Api.Models.ErrorViewModel                                 0%
+  DayPlannio.Api.Models.Financeiro                                   100%
+  DayPlannio.Api.Models.ForgotPasswordDto                            100%
+  DayPlannio.Api.Models.Foto                                         100%
+  DayPlannio.Api.Models.Log                                          100%
+  DayPlannio.Api.Models.LoginDTO                                     100%
+  DayPlannio.Api.Models.Notificacao                                  100%
+  DayPlannio.Api.Models.ResetPassword                                100%
+  DayPlannio.Api.Models.TipoServico                                  100%
+  DayPlannio.Api.Models.User                                         100%
+  DayPlannio.Api.Services.AzureBlobStorageService                   57.1%
+  DayPlannio.Api.Services.EmailService                              73.9%
+  DayPlannio.Api.Services.EventoAgendamento                          100%
+  DayPlannio.Api.Services.ExigirAssinaturaAtivaFilter               80.4%
+  DayPlannio.Api.Services.GeofenceRegras                             100%
+  DayPlannio.Api.Services.GeofencingService                         93.6%
+  DayPlannio.Api.Services.LeituraAgendamento                         100%
+  DayPlannio.Api.Services.LogService                                 100%
+  DayPlannio.Api.Services.PeriodoHelper                             89.4%
+  DayPlannio.Api.Services.PlanoRenovacaoService                       74%
+  DayPlannio.Api.Services.PlanoService                              85.3%
+  DayPlannio.Api.Services.RelatorioPdfService                        100%
+  DayPlannio.Api.Services.ResultadoLocalizacao                       100%
+  DayPlannio.Api.Services.WebApiKeyMiddleware                        100%
+  DayPlannio.Api.Settings.AdminSettings                              100%
+  DayPlannio.Api.Settings.GeofenceSettings                           100%
+
+DayPlannio.App.Tests                                                88.1%
+  DayPlannio.App.Converters.IgualStringConverter                     100%
+  DayPlannio.App.Converters.InvertedBoolConverter                     90%
+  DayPlannio.App.Helpers.ApiConfig                                     0%
+  DayPlannio.App.Helpers.RaioGeofence                                100%
+  DayPlannio.App.Helpers.SQLiteDatabaseHelper                        100%
+  DayPlannio.App.InicializacaoDosTestes                              100%
+  DayPlannio.App.Models.Agendamento                                  100%
+  DayPlannio.App.Models.Cliente                                     71.4%
+  DayPlannio.App.Models.MaiorAtendimento                               0%
+  DayPlannio.App.Models.MetricasPrestador                            100%
+  DayPlannio.App.Models.MotivoCancelamentoMetrica                      0%
+  DayPlannio.App.Models.Servico                                      100%
+  DayPlannio.App.Models.ServicoMetrica                               100%
+  DayPlannio.App.Models.Usuario                                      100%
+  DayPlannio.App.Services.AgendamentoService                          89%
+  DayPlannio.App.Services.ClienteService                            90.5%
+  DayPlannio.App.Services.FinanceiroService                         92.7%
+  DayPlannio.App.Services.MetricasService                             75%
+  DayPlannio.App.Services.ServicoService                            96.9%
+  DayPlannio.App.Services.UsuarioService                            79.2%
+  DayPlannio.App.ViewModel.AgendamentoItemViewModel                  100%
+  DayPlannio.App.ViewModel.DiaViewModel                              100%
+  DayPlannio.App.ViewModel.FinanceiroItemViewModel                  87.5%
+
+DayPlannio.Web                                                      88.2%
+  DayPlannio.Web.Controllers.AccountController                      89.4%
+  DayPlannio.Web.Controllers.AdminController                        90.5%
+  DayPlannio.Web.Controllers.AdminLogsResposta                       100%
+  DayPlannio.Web.Controllers.DashboardController                    91.5%
+  DayPlannio.Web.Controllers.HomeController                         97.2%
+  DayPlannio.Web.FormatHelper                                       92.3%
+  DayPlannio.Web.Models.AdminClienteItem                             100%
+  DayPlannio.Web.Models.AdminFotoItem                                100%
+  DayPlannio.Web.Models.AdminLoginViewModel                            0%
+  DayPlannio.Web.Models.AdminLogItem                                 100%
+  DayPlannio.Web.Models.AdminPainelViewModel                         100%
+  DayPlannio.Web.Models.ClientePerfilDto                             100%
+  DayPlannio.Web.Models.EncerramentoResposta                         100%
+  DayPlannio.Web.Models.EncerrarContaViewModel                       100%
+  DayPlannio.Web.Models.EsqueciSenhaViewModel                        100%
+  DayPlannio.Web.Models.HistoricoClienteViewModel                    100%
+  DayPlannio.Web.Models.HistoricoItem                                100%
+  DayPlannio.Web.Models.LoginResposta                                100%
+  DayPlannio.Web.Models.LoginViewModel                               100%
+  DayPlannio.Web.Models.MetricasClienteDto                           100%
+  DayPlannio.Web.Models.MetricasViewModel                            100%
+  DayPlannio.Web.Models.PerfilViewModel                              100%
+  DayPlannio.Web.Models.PortfolioItem                                100%
+  DayPlannio.Web.Models.PortfolioStats                               100%
+  DayPlannio.Web.Models.PrestadorStats                               100%
+  DayPlannio.Web.Models.ServicoCategoriaItem                         100%
+  DayPlannio.Web.Models.ServicoStats                                 100%
+  DayPlannio.Web.Models.TrocarSenhaViewModel                         100%
+  DayPlannio.Web.Views.Account.Views_Account_EncerrarConta           100%
+  DayPlannio.Web.Views.Account.Views_Account_EsqueciSenha            100%
+  DayPlannio.Web.Views.Account.Views_Account_Login                   100%
+  DayPlannio.Web.Views.Account.Views_Account_Perfil                   88%
+  DayPlannio.Web.Views.Account.Views_Account_PoliticaPrivacidade     100%
+  DayPlannio.Web.Views.Account.Views_Account_RecusarPolitica        57.1%
+  DayPlannio.Web.Views.Account.Views_Account_TrocarSenha            72.7%
+  DayPlannio.Web.Views.Admin.Views_Admin__CardFoto                   100%
+  DayPlannio.Web.Views.Admin.Views_Admin__ModalEncerrarConta         100%
+  DayPlannio.Web.Views.Admin.Views_Admin_Clientes                   85.7%
+  DayPlannio.Web.Views.Admin.Views_Admin_Fotos                         0%
+  DayPlannio.Web.Views.Admin.Views_Admin_Login                         0%
+  DayPlannio.Web.Views.Admin.Views_Admin_Logs                       94.1%
+  DayPlannio.Web.Views.Admin.Views_Admin_Painel                       91%
+  DayPlannio.Web.Views.Admin.Views_Admin_Prestadores                95.6%
+  DayPlannio.Web.Views.Admin.Views_Admin_TodasFotos                  100%
+  DayPlannio.Web.Views.Dashboard.Views_Dashboard_HistoricoCliente    100%
+  DayPlannio.Web.Views.Dashboard.Views_Dashboard_Metricas           86.7%
+  DayPlannio.Web.Views.Dashboard.Views_Dashboard_Portfolio             0%
+  DayPlannio.Web.Views.Home.Views_Home_Index                           0%
+  DayPlannio.Web.Views.Home.Views_Home_Portfolio                    95.5%
+  DayPlannio.Web.Views.Shared.Views_Shared__Layout                   100%
+  DayPlannio.Web.Views.Shared.Views_Shared_Error                     100%
+  DayPlannio.Web.Views.Views__ViewStart                              100%

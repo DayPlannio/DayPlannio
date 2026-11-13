@@ -16,15 +16,18 @@ Estrutura de pastas esperada (a pasta de testes fica AO LADO dos projetos):
       DayPlannio.Web\
       DayPlannio.App\
       DayPlannio.Tests\      <-- você roda tudo a partir daqui
+        pi-tests\           (testes em JavaScript: Jest, Supertest e Cypress)
 
 Instale:
 
   - .NET SDK 10                         (obrigatório)
   - Docker Desktop                      (só para o E2E: sobe o MongoDB local)
-  - Node.js (https://nodejs.org)        (só para o E2E: roda o emulador Azurite)
+  - Node.js (https://nodejs.org)        (para o E2E: roda o emulador Azurite;
+                                         para o pi-tests: Jest, Supertest e Cypress)
 
 Na 1ª execução é preciso internet: o script baixa as ferramentas de
-cobertura, o Azurite e o Chromium do Playwright. Depois fica tudo em cache.
+cobertura, o Azurite e o Chromium do Playwright (e, no pi-tests, o Jest,
+o Supertest e o Cypress). Depois fica tudo em cache.
 
 Os testes de API, Web e App NÃO precisam de Docker nem de MongoDB instalado:
 eles usam um MongoDB em memória (Mongo2Go).
@@ -59,6 +62,9 @@ eles usam um MongoDB em memória (Mongo2Go).
      A cobertura vem das suítes de API, Web e App. O E2E roda em processos
      separados e não entra na conta, então a cobertura real do portal é
      maior do que a mostrada.
+
+     Os testes do pi-tests (Jest, Supertest e Cypress) têm um relatório
+     próprio, descrito na seção 5.2.
 
 
 ---------------------------------------------------------------------
@@ -102,7 +108,86 @@ Resultados e logs do E2E:
 
 
 ---------------------------------------------------------------------
- 5. PROBLEMAS COMUNS
+ 5. TESTES DO PI: JEST, SUPERTEST E CYPRESS (pasta pi-tests)
+---------------------------------------------------------------------
+
+Pasta pi-tests (fica dentro de DayPlannio.Tests, ao lado das outras):
+
+    pi-tests\tests\unit\senha.test.js          Jest       regras de senha e dados dinâmicos
+    pi-tests\tests\api\api.supertest.test.js   Supertest  endpoints da API (cadastro/login)
+    pi-tests\cypress\e2e\teste_pi.cy.js        Cypress    login inválido e áreas restritas
+    
+Eles complementam os testes xUnit e Playwright; não substituem nada.
+Precisa de Node.js instalado.
+
+Por padrão eles testam o sistema JÁ PUBLICADO NO AZURE
+(https://dayplannio.canadacentral.cloudapp.azure.com), sem banco de teste.
+Por isso foram escritos para NÃO gravar dados.
+
+5.1  RODAR CONTRA O AZURE (padrão)
+
+         cd DayPlannio.Tests\pi-tests
+         npm install                  (só na 1ª vez; baixa também o Cypress)
+         npm run test:jest            (não acessa a internet)
+         npm run test:supertest       (chama a API no Azure)
+         npm run test:cypress         (abre o portal no Azure em navegador sem janela)
+         npm run cypress:open         (modo visual, para ver clicando)
+
+     Os testes NÃO gravam dados no banco de produção:
+       - cadastro com senhas diferentes (recusado pela API)
+       - login com e-mail inexistente
+       - rota protegida sem login
+       - login inválido e redirecionamento no portal
+
+         Dica: se o app do Azure estiver "dormindo", a 1ª chamada pode demorar
+     e dar timeout. Rode de novo.
+
+
+5.2  RELATÓRIO UNIFICADO (Jest + Supertest + Cypress)
+
+     O run-tests.js roda as três suítes em sequência, mesmo que alguma
+     falhe, e gera um único relatório com cada teste, a ferramenta usada,
+     a duração e o resultado:
+
+         cd DayPlannio.Tests\pi-tests
+         npm install
+         npm test
+
+     Ao terminar, o relatório abre sozinho. Se não abrir:
+
+         pi-tests\reports\relatorio.html
+
+     Arquivos gerados na pasta pi-tests\reports:
+
+         relatorio.html     relatório final
+         jest-unit.json     resultado do Jest
+         jest-api.json      resultado do Supertest
+         cypress.json       resultado do Cypress
+         *.log              saída completa de cada suíte
+
+     Com tudo certo, o resumo no terminal mostra 10 testes registrados
+     (5 Jest + 3 Supertest + 2 Cypress). Se o número for menor, veja a
+     seção 6.
+
+     Se uma suíte rodar mas não gerar nenhum resultado individual, o
+     relatório mostra uma linha de falha para ela, apontando o arquivo
+     de log.
+
+
+5.3  VARIÁVEIS
+
+     PI_API_URL        raiz da API (padrão: Azure)
+     CYPRESS_baseUrl   portal Web (padrão: Azure)
+
+     Exemplo, apontando para o sistema rodando na sua máquina:
+
+         $env:PI_API_URL="http://localhost:5143"
+         $env:CYPRESS_baseUrl="http://localhost:5140"
+         npm test
+
+
+---------------------------------------------------------------------
+ 6. PROBLEMAS COMUNS
 ---------------------------------------------------------------------
 
 "A execução de scripts está desabilitada neste sistema"
@@ -121,7 +206,81 @@ Resultados e logs do E2E:
     Cuidado: isso encerra TODOS os processos node e dotnet da máquina
     (inclusive o Visual Studio/Rider se estiverem depurando).
 
-Começar do zero com o Mongo local:
+"Cypress failed to verify / binary was not installed" (npm install do pi-tests)
+    O Cypress não baixou o programa dele. Rode:  npx cypress install
+    (precisa de internet e de pasta de cache com permissão de escrita).
 
-    docker rm -f mongo-dayplannio
-    docker run -d --name mongo-dayplannio -p 27018:27017 mongo:8
+Os testes do Cypress passam no terminal, mas não aparecem no relatório
+    Confira se o cypress-runner.js está na mesma pasta do run-tests.js e
+    veja reports\cypress.log. O relatório só lê o reports\cypress.json,
+    que é criado pelo cypress-runner.js ao final da execução.
+
+Duração do Cypress aparece como "N/D" no relatório
+    Use a versão atual do cypress-runner.js (lê o campo "duration" de
+    cada tentativa do teste).
+
+Compilação muito lenta (o dotnet test demora minutos)
+    Mantenha o projeto numa pasta simples fora de Downloads e do OneDrive
+    (por exemplo, C:\Dev) e libere memória fechando programas pesados.
+
+Comando dotnet não imprime nada no PowerShell
+    Pode haver um arquivo chamado "dotnet" (sem extensão) numa pasta do
+    PATH, como C:\Windows\System32, que o PowerShell encontra antes do
+    programa de verdade. Use dotnet.exe ou apague esse arquivo.
+
+
+---------------------------------------------------------------------
+ 7. O QUE PODE E O QUE NÃO PODE SUBIR PARA O GITHUB
+---------------------------------------------------------------------
+
+PODE SUBIR (código e documentação)
+
+    - Testes .NET: DayPlannio.Api.IntegrationTests, DayPlannio.Web.IntegrationTests,
+      DayPlannio.App.Tests e DayPlannio.E2ETests (só os .cs e os .csproj)
+    - Scripts: gerar-relatorio.ps1 e executar-e2e.ps1
+    - como-rodar.txt, o .gitignore e o Word DayPlannio_Testes.docx
+    - pi-tests: package.json, package-lock.json, cypress.config.js e as
+      pastas cypress\e2e, helpers, scripts e tests
+      (commite o package-lock.json: ele fixa as versões dos pacotes)
+    - pi-tests\reports\.gitkeep (arquivo vazio que mantém a pasta no Git).
+      Para criar:  New-Item pi-tests\reports\.gitkeep -ItemType File
+
+NÃO SOBE (é gerado a cada execução ou é da sua máquina; o .gitignore já cuida)
+
+    - bin\ e obj\ de todos os projetos
+    - relatorios\  (resumo.html, cobertura, trx; cerca de 20 MB)
+    - logs-e2e\, *.log e build.log (têm caminhos da sua máquina)
+    - TestResults\  (e2e.html e .trx)
+    - pi-tests\node_modules\  (centenas de MB; o npm install recria)
+    - pi-tests\reports\*  (relatório e logs do pi-tests, menos o .gitkeep)
+    - pi-tests\cypress\screenshots e pi-tests\cypress\videos
+    - .vs\ e arquivos de IDE
+
+NUNCA SOBE (segredos)
+
+    - appsettings.json da API e do Web (senha do e-mail, connection string
+      do Atlas, chave do Azure Storage, chave da API). Só o
+      appsettings.example.json vai, com valores de mentira.
+    - deploy\vm.env, qualquer .env e arquivos .pfx, .pem e .key
+    - connection strings, senhas ou chaves reais coladas em testes, scripts,
+      README ou prints
+
+    Se um segredo for commitado por engano, apagar o arquivo não basta:
+    ele continua no histórico do Git. Troque a senha ou a chave na origem
+    (Atlas, e-mail, Azure) e só depois limpe o histórico.
+
+JÁ ESTÁ NOS TESTES E PODE SUBIR SEM RISCO
+
+    - Valores fictícios de teste: admin@teste.local, Admin@12345 e
+      chave-de-teste-web-api. Só existem dentro dos testes; não reutilize
+      em produção.
+    - A chave pública do emulador Azurite (conta devstoreaccount1) em
+      executar-e2e.ps1. É a chave padrão da Microsoft. O GitHub pode
+      emitir um alerta; pode ignorar.
+    - O endereço do sistema no Azure
+      (https://dayplannio.canadacentral.cloudapp.azure.com): já é público.
+
+ANTES DE COMMITAR, CONFIRA
+
+    git status                  (nada de bin, obj, relatorios, node_modules)
+    git diff --cached --stat    (arquivos que vão no commit)

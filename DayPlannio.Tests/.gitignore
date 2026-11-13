@@ -1,4 +1,29 @@
-logs-e2e/
-*.log
+# ===== .NET =====
 bin/
 obj/
+.vs/
+TestResults/
+*.trx
+
+# ===== Gerados pelos scripts (gerar-relatorio.ps1 e executar-e2e.ps1) =====
+logs-e2e/
+*.log
+build.log
+
+# ===== pi-tests (Node, Jest, Supertest e Cypress) =====
+pi-tests/node_modules/
+pi-tests/reports/*
+!pi-tests/reports/.gitkeep
+pi-tests/cypress/screenshots/
+pi-tests/cypress/videos/
+
+# ===== Segredos locais =====
+.env
+*.env
+.env.*
+appsettings.json
+appsettings.*.json
+!appsettings.example.json
+*.pfx
+*.pem
+*.key

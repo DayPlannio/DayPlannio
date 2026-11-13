@@ -1,0 +1,18 @@
+{
+  "tests": [
+    {
+      "fullTitle": "Teste de Fluxo Crítico - Projeto Integrador (DayPlannio) Login com credenciais inválidas mostra erro e permanece no login",
+      "file": "cypress\\e2e\\teste_pi.cy.js",
+      "state": "passed",
+      "duration": 4761,
+      "error": ""
+    },
+    {
+      "fullTitle": "Teste de Fluxo Crítico - Projeto Integrador (DayPlannio) Áreas restritas redirecionam para o login quando não há sessão",
+      "file": "cypress\\e2e\\teste_pi.cy.js",
+      "state": "passed",
+      "duration": 1434,
+      "error": ""
+    }
+  ]
+}

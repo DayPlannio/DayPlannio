@@ -1,0 +1,15 @@
+PASS tests/unit/senha.test.js
+  Requisitos de senha (tela Trocar Senha)
+    √ "abc" atende só ao requisito de minúsculas (2 ms)
+    √ "Abc123!" atende a todos os requisitos (1 ms)
+    √ a senha padrão dos testes é válida
+  Geração de dados dinâmicos
+    √ e-mails gerados nunca se repetem (1 ms)
+    √ usuário gerado é consistente e aceita sobrescrita
+
+Test Suites: 1 passed, 1 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        0.587 s, estimated 1 s
+Ran all test suites matching /tests\\unit/i.
+Test results written to: reports\jest-unit.json

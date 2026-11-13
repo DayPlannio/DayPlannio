@@ -1,0 +1,30 @@
+[
+  {
+    "attempts": [
+      {
+        "state": "passed"
+      }
+    ],
+    "displayError": null,
+    "duration": 4761,
+    "state": "passed",
+    "title": [
+      "Teste de Fluxo Crítico - Projeto Integrador (DayPlannio)",
+      "Login com credenciais inválidas mostra erro e permanece no login"
+    ]
+  },
+  {
+    "attempts": [
+      {
+        "state": "passed"
+      }
+    ],
+    "displayError": null,
+    "duration": 1434,
+    "state": "passed",
+    "title": [
+      "Teste de Fluxo Crítico - Projeto Integrador (DayPlannio)",
+      "Áreas restritas redirecionam para o login quando não há sessão"
+    ]
+  }
+]

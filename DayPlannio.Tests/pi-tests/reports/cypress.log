@@ -1,0 +1,56 @@
+
+
+DevTools listening on ws://127.0.0.1:64744/devtools/browser/25fc1fe7-0624-49a1-ad54-c9115ca670c0
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        13.17.0                                                                        │
+  │ Browser:        Electron 118 (headless)                                                        │
+  │ Node Version:   v24.20.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (teste_pi.cy.js)                                                       │
+  │ Searched:       cypress/e2e/**/*.cy.js                                                         │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  teste_pi.cy.js                                                                  (1 of 1)
+
+
+  Teste de Fluxo Crítico - Projeto Integrador (DayPlannio)
+    √ Login com credenciais inválidas mostra erro e permanece no login (4724ms)
+    √ Áreas restritas redirecionam para o login quando não há sessão (1415ms)
+
+
+  2 passing (6s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      2                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     6 seconds                                                                        │
+  │ Spec Ran:     teste_pi.cy.js                                                                   │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  teste_pi.cy.js                           00:06        2        2        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        00:06        2        2        -        -        -  
+

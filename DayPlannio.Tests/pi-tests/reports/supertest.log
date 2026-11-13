@@ -1,0 +1,12 @@
+PASS tests/api/api.supertest.test.js
+  API DayPlannio (Supertest)
+    √ cadastro com senhas diferentes retorna 400 e não grava nada (511 ms)
+    √ login inexistente retorna 401 (443 ms)
+    √ rota protegida sem login é recusada (442 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        1.977 s, estimated 2 s
+Ran all test suites matching /tests\\api/i.
+Test results written to: reports\jest-api.json

@@ -116,7 +116,7 @@
                                     Clicked="OnNoClienteClicked"/>
                             <Button x:Name="BotaoLonge"
                                     Grid.Column="1"
-                                    Text="Saí (1 km longe)"
+                                    Text="Saí (300 m longe)"
                                     FontSize="12"
                                     BackgroundColor="#E7E9E8"
                                     TextColor="#3E4948"

@@ -103,7 +103,7 @@ public partial class DemoGeofencing : ContentPage
         await AplicarPosicaoAsync(0, "no endereço do cliente");
 
     private async void OnLongeClicked(object? sender, EventArgs e) =>
-        await AplicarPosicaoAsync(1000, "a cerca de 1 km do cliente");
+        await AplicarPosicaoAsync(300, "a cerca de 300 m do cliente");
 
     private async Task AplicarPosicaoAsync(double distancia, string onde)
     {

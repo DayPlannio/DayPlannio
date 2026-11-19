@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DayPlannio.App.Models;
 using DayPlannio.App.Services;
@@ -309,8 +309,6 @@ namespace DayPlannio.App.ViewModels
 
             Recomendacoes.Clear();
 
-            // Mostra primeiro as recomendações calculadas pelas regras e, em seguida,
-            // troca pelo texto redigido pela IA (se a API responder).
             foreach (var r in regras)
                 Recomendacoes.Add(new RecomendacaoItem(r));
 

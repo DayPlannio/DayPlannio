@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using DayPlannio.Api.Settings;
@@ -10,11 +9,6 @@ namespace DayPlannio.Api.Services
     public record RecomendacaoEntrada(string Tipo, string Titulo, string Texto, bool Alerta, decimal? GanhoEstimado);
     public record RecomendacaoSaida(string Tipo, string Titulo, string Texto);
 
-    /// <summary>
-    /// Pede à IA (Gemini ou Azure OpenAI) para redigir o texto das recomendações calculadas pelo app.
-    /// A IA não escolhe recomendações nem calcula valores: só reescreve o texto.
-    /// Qualquer resposta que altere a quantidade, o tipo ou os números é descartada.
-    /// </summary>
     public class RecomendacaoIaService
     {
         private const string Sistema =
@@ -26,24 +20,20 @@ namespace DayPlannio.Api.Services
             "{\"recomendacoes\":[{\"tipo\":\"...\",\"titulo\":\"...\",\"texto\":\"...\"}]}.";
 
         private readonly HttpClient _http;
-        private readonly AzureOpenAISettings _config;
         private readonly GeminiSettings _gemini;
         private readonly ILogger<RecomendacaoIaService> _logger;
 
         public RecomendacaoIaService(
             HttpClient http,
-            IOptions<AzureOpenAISettings> config,
             IOptions<GeminiSettings> gemini,
             ILogger<RecomendacaoIaService> logger)
         {
             _http = http;
-            _config = config.Value;
             _gemini = gemini.Value;
             _logger = logger;
         }
 
-        // Gemini tem prioridade; se não estiver configurado, usa o Azure OpenAI.
-        public bool Disponivel => _gemini.Configurado || _config.Configurado;
+        public bool Disponivel => _gemini.Configurado;
 
         public async Task<List<RecomendacaoSaida>?> RedigirAsync(
             string periodo, IReadOnlyList<RecomendacaoEntrada> recomendacoes, CancellationToken ct)
@@ -55,9 +45,7 @@ namespace DayPlannio.Api.Services
 
             try
             {
-                var conteudo = _gemini.Configurado
-                    ? await ChamarGeminiAsync(entradaJson, ct)
-                    : await ChamarAzureAsync(entradaJson, ct);
+                var conteudo = await ChamarGeminiAsync(entradaJson, ct);
 
                 if (string.IsNullOrWhiteSpace(conteudo))
                     return null;
@@ -108,41 +96,6 @@ namespace DayPlannio.Api.Services
                 .GetProperty("text").GetString();
         }
 
-        private async Task<string?> ChamarAzureAsync(string entrada, CancellationToken ct)
-        {
-            var url = $"{_config.Endpoint.TrimEnd('/')}/openai/deployments/{_config.Deployment}" +
-                      $"/chat/completions?api-version={_config.ApiVersion}";
-
-            var corpo = new
-            {
-                messages = new object[]
-                {
-                    new { role = "system", content = Sistema },
-                    new { role = "user", content = entrada }
-                },
-                temperature = 0.3,
-                max_tokens = 900,
-                response_format = new { type = "json_object" }
-            };
-
-            using var req = new HttpRequestMessage(HttpMethod.Post, url)
-            {
-                Content = new StringContent(JsonSerializer.Serialize(corpo), Encoding.UTF8, "application/json")
-            };
-            req.Headers.Add("api-key", _config.ApiKey);
-
-            using var resp = await _http.SendAsync(req, ct);
-            if (!resp.IsSuccessStatusCode)
-            {
-                _logger.LogWarning("Azure OpenAI respondeu {Status}", (int)resp.StatusCode);
-                return null;
-            }
-
-            using var doc = JsonDocument.Parse(await resp.Content.ReadAsStringAsync(ct));
-            return doc.RootElement.GetProperty("choices")[0]
-                .GetProperty("message").GetProperty("content").GetString();
-        }
-
         private static List<RecomendacaoSaida>? Extrair(string json)
         {
             using var doc = JsonDocument.Parse(json);
@@ -176,8 +129,6 @@ namespace DayPlannio.Api.Services
                     || saida[i].Titulo.Length > 120
                     || saida[i].Texto.Length > 600)
                     return false;
-
-                // Todo número do texto original precisa continuar presente no texto da IA.
                 var originais = Numeros(entrada[i].Titulo + " " + entrada[i].Texto);
                 var novos = Numeros(saida[i].Titulo + " " + saida[i].Texto);
                 if (originais.Except(novos).Any())

@@ -1,13 +1,8 @@
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace DayPlannio.App.Services;
 
-/// <summary>
-/// Pede à API (que usa o Azure OpenAI) para redigir em linguagem natural as recomendações
-/// já calculadas por RecomendacaoService. Os números continuam vindo das regras; a IA só
-/// escreve o texto. Se a chamada falhar, as recomendações originais são mantidas.
-/// </summary>
 public static class RecomendacaoIaService
 {
     private static readonly JsonSerializerOptions Json = new() { PropertyNameCaseInsensitive = true };

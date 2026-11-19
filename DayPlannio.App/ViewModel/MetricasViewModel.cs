@@ -128,6 +128,8 @@ namespace DayPlannio.App.ViewModels
 
         public event Action? DadosAtualizados;
 
+        private int _versaoCarga;
+
         public MetricasViewModel(INavigation navigation)
         {
             _navigation = navigation;
@@ -156,16 +158,22 @@ namespace DayPlannio.App.ViewModels
         [RelayCommand]
         public async Task Inicializar()
         {
-            await CarregarAsync("mensal");
+            var i = PeriodoIndice;
+            await CarregarAsync(ChavesPeriodo[i >= 0 && i < ChavesPeriodo.Length ? i : 0]);
         }
 
         private async Task CarregarAsync(string periodo)
         {
+            var versao = ++_versaoCarga;
+
             try
             {
                 Carregando = true;
 
                 var metricas = await MetricasService.GetMetricas(_userId, periodo);
+
+                if (versao != _versaoCarga)
+                    return;
 
                 if (metricas == null)
                 {
@@ -254,7 +262,7 @@ namespace DayPlannio.App.ViewModels
 
                 TemDados = metricas.Atendimentos > 0 || metricas.PorServico.Count > 0 || metricas.Cancelamentos > 0;
 
-                await AtualizarRecomendacoesAsync(metricas, periodo);
+                await AtualizarRecomendacoesAsync(metricas, periodo, versao);
 
                 if (!TemDados)
                 {
@@ -280,12 +288,15 @@ namespace DayPlannio.App.ViewModels
             }
             finally
             {
-                Carregando = false;
-                DadosAtualizados?.Invoke();
+                if (versao == _versaoCarga)
+                {
+                    Carregando = false;
+                    DadosAtualizados?.Invoke();
+                }
             }
         }
 
-        private async Task AtualizarRecomendacoesAsync(MetricasPrestador metricas, string periodo)
+        private async Task AtualizarRecomendacoesAsync(MetricasPrestador metricas, string periodo, int versao)
         {
             IReadOnlyDictionary<string, int>? tempoEstimado = null;
 
@@ -305,6 +316,9 @@ namespace DayPlannio.App.ViewModels
             {
             }
 
+            if (versao != _versaoCarga)
+                return;
+
             var regras = RecomendacaoService.Gerar(metricas, tempoEstimado);
 
             Recomendacoes.Clear();
@@ -318,6 +332,9 @@ namespace DayPlannio.App.ViewModels
                 return;
 
             var comIa = await RecomendacaoIaService.RedigirAsync(_userId, periodo, regras);
+
+            if (versao != _versaoCarga)
+                return;
 
             if (comIa.Any(r => r.GeradaPorIa))
             {

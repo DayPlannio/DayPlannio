@@ -387,10 +387,8 @@
                                            BorderColor="Transparent"
                                            VerticalOptions="Start"
                                            BackgroundColor="{Binding CorFundo}">
-                                        <Image Source="icon_saco_dinheiro.png"
-                                               WidthRequest="26"
-                                               HeightRequest="26"
-                                               Aspect="AspectFit"
+                                        <Label Text="{Binding Icone}"
+                                               FontSize="20"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"/>
                                     </Frame>

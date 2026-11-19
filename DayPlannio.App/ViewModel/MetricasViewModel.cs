@@ -93,32 +93,35 @@ namespace DayPlannio.App.ViewModels
         [ObservableProperty]
         private string resumoTotal = "-";
 
-    [ObservableProperty]
-    private string cancelamentos = "0";
+        [ObservableProperty]
+        private string cancelamentos = "0";
 
-    [ObservableProperty]
-    private string taxaCancelamento = "0%";
+        [ObservableProperty]
+        private string taxaCancelamento = "0%";
 
-    [ObservableProperty]
-    private string totalFinalizados = "0";
+        [ObservableProperty]
+        private string totalFinalizados = "0";
 
-    [ObservableProperty]
-    private string principalMotivoCancelamento = "—";
+        [ObservableProperty]
+        private string principalMotivoCancelamento = "—";
 
-    [ObservableProperty]
-    private bool semCancelamentos;
+        [ObservableProperty]
+        private bool semCancelamentos;
 
-    [ObservableProperty]
-    private bool semMotivos;
+        [ObservableProperty]
+        private bool semMotivos;
 
-    [ObservableProperty]
-    private ObservableCollection<MotivoCancelamentoMetrica> motivosCancelamento = new();
+        [ObservableProperty]
+        private ObservableCollection<MotivoCancelamentoMetrica> motivosCancelamento = new();
 
         [ObservableProperty]
         private ObservableCollection<RecomendacaoItem> recomendacoes = new();
 
         [ObservableProperty]
         private bool temRecomendacoes;
+
+        [ObservableProperty]
+        private bool mostrarSecaoRecomendacoes = true;
 
         [ObservableProperty]
         private bool temDados;
@@ -298,6 +301,15 @@ namespace DayPlannio.App.ViewModels
 
         private async Task AtualizarRecomendacoesAsync(MetricasPrestador metricas, string periodo, int versao)
         {
+            MostrarSecaoRecomendacoes = periodo == "mensal";
+
+            if (!MostrarSecaoRecomendacoes)
+            {
+                Recomendacoes.Clear();
+                TemRecomendacoes = false;
+                return;
+            }
+
             IReadOnlyDictionary<string, int>? tempoEstimado = null;
 
             try

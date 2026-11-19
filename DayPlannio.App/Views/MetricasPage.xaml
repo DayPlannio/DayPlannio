@@ -357,28 +357,29 @@
 
                 </Grid>
 
-                <Label Text="Recomendações"
+                <VerticalStackLayout Spacing="16" IsVisible="{Binding MostrarSecaoRecomendacoes}">
+                    <Label Text="Recomendações"
                        FontSize="15"
                        FontAttributes="Bold"
                        TextColor="#1D1D1D"/>
 
-                <Label Text="Sugestões calculadas a partir do seu faturamento, do tempo gasto em cada serviço e dos cancelamentos do período, com texto redigido por inteligência artificial."
+                    <Label Text="Sugestões calculadas a partir do seu faturamento, do tempo gasto em cada serviço e dos cancelamentos do período, com texto redigido por inteligência artificial."
                        FontSize="11"
                        LineBreakMode="WordWrap"
                        TextColor="#4DB6AC"/>
 
-                <CollectionView ItemsSource="{Binding Recomendacoes}"
+                    <CollectionView ItemsSource="{Binding Recomendacoes}"
                                 SelectionMode="None"
                                 IsVisible="{Binding TemRecomendacoes}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame BackgroundColor="White" CornerRadius="16" Padding="14" HasShadow="True" BorderColor="Transparent">
-                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="12"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="White" CornerRadius="16" Padding="14" HasShadow="True" BorderColor="Transparent">
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
 
-                                    <Frame Grid.Column="0"
+                                        <Frame Grid.Column="0"
                                            WidthRequest="40"
                                            HeightRequest="40"
                                            CornerRadius="20"
@@ -391,39 +392,40 @@
                                                FontSize="20"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"/>
-                                    </Frame>
+                                        </Frame>
 
-                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
-                                        <Label Text="{Binding Titulo}"
+                                        <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                            <Label Text="{Binding Titulo}"
                                                FontSize="14"
                                                FontAttributes="Bold"
                                                LineBreakMode="WordWrap"
                                                TextColor="{Binding Cor}"/>
-                                        <Label Text="{Binding Texto}"
+                                            <Label Text="{Binding Texto}"
                                                FontSize="12"
                                                LineBreakMode="WordWrap"
                                                TextColor="#1D1D1D"/>
-                                        <Label Text="✨ Redigido por inteligência artificial"
+                                            <Label Text="✨ Redigido por inteligência artificial"
                                                FontSize="10"
                                                TextColor="#6E7978"
                                                IsVisible="{Binding GeradaPorIa}"/>
-                                        <Label Text="{Binding GanhoTexto}"
+                                            <Label Text="{Binding GanhoTexto}"
                                                FontSize="12"
                                                FontAttributes="Bold"
                                                TextColor="#2E7D32"
                                                IsVisible="{Binding TemGanho}"/>
-                                    </VerticalStackLayout>
+                                        </VerticalStackLayout>
 
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                <Label Text="Conclua alguns atendimentos no período para receber recomendações."
+                    <Label Text="Conclua alguns atendimentos no período para receber recomendações."
                        FontSize="12"
                        TextColor="#6E7978"
                        IsVisible="{Binding TemRecomendacoes, Converter={StaticResource InvertedBoolConverter}}"/>
+                </VerticalStackLayout>
 
                 <Label Text="Nenhum atendimento concluído no período."
                        FontSize="13"

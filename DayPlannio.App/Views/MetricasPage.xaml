@@ -363,7 +363,7 @@
                        FontAttributes="Bold"
                        TextColor="#1D1D1D"/>
 
-                    <Label Text="Sugestões calculadas a partir do seu faturamento, do tempo gasto em cada serviço e dos cancelamentos do período, com texto redigido por inteligência artificial."
+                    <Label Text="Uma sugestão simples, calculada a partir do quanto cada serviço rende por hora no mês."
                        FontSize="11"
                        LineBreakMode="WordWrap"
                        TextColor="#4DB6AC"/>
@@ -388,7 +388,7 @@
                                            BorderColor="Transparent"
                                            VerticalOptions="Start"
                                            BackgroundColor="{Binding CorFundo}">
-                                        <Label Text="{Binding Icone}"
+                                            <Label Text="{Binding Icone}"
                                                FontSize="20"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"/>

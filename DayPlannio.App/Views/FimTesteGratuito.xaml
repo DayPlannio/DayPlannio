@@ -46,7 +46,7 @@
                     TextColor="#B26A00"/>
 
                 <Label
-                    Text="Básico - R$ 9,90"
+                    Text="Básico - R$ 12,90"
                     FontSize="18"
                     FontAttributes="Bold"
                     TextColor="#6E7978"/>
@@ -66,7 +66,7 @@
                     CommandParameter="Basico"/>
 
                 <Label
-                    Text="Profissional - R$ 19,90"
+                    Text="Profissional - R$ 29,90"
                     FontSize="18"
                     FontAttributes="Bold"
                     TextColor="#1E88E5"/>
@@ -93,7 +93,7 @@
                 </Button>
 
                 <Label
-                    Text="Full - R$ 29,90"
+                    Text="Full - R$ 39,90"
                     FontSize="18"
                     FontAttributes="Bold"
                     TextColor="#006260"/>

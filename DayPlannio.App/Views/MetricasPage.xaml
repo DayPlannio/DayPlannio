@@ -241,40 +241,6 @@
                     </VerticalStackLayout>
                 </Frame>
 
-                <Label Text="Maiores Atendimentos"
-                       FontSize="15"
-                       FontAttributes="Bold"
-                       TextColor="#1D1D1D"/>
-
-                <Label Text="Calculado automaticamente pela entrada e saída"
-                       FontSize="11"
-                       TextColor="#4DB6AC"/>
-
-                <Frame BackgroundColor="White" CornerRadius="16" Padding="14" HasShadow="True" BorderColor="Transparent">
-                    <VerticalStackLayout>
-                        <CollectionView ItemsSource="{Binding MaioresAtendimentos}" SelectionMode="None">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Padding="0,6">
-                                        <Label Grid.Column="0" Text="{Binding Servico}" FontSize="13" TextColor="#1D1D1D"/>
-                                        <Label Grid.Column="1" Text="{Binding DuracaoTexto}" FontSize="13" TextColor="#006260" FontAttributes="Bold"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                        <Label Text="Sem atendimentos no período."
-                               FontSize="12"
-                               TextColor="#6E7978"
-                               IsVisible="False">
-                            <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding TemDados}" Value="False">
-                                    <Setter Property="IsVisible" Value="True"/>
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
-                    </VerticalStackLayout>
-                </Frame>
-
                 <Label Text="Cancelamentos"
                        FontSize="15"
                        FontAttributes="Bold"

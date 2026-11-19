@@ -131,7 +131,7 @@ public partial class CadastroUsuarioViewModel : ObservableObject
         OpcoesPlano.Add(new OpcaoPlanoCadastro
         {
             Nome = "Básico",
-            Preco = "R$ 9,90/mês",
+            Preco = "R$ 12,90/mês",
             Selo = "Para quem está começando",
             Descricao = "O essencial para organizar sua agenda.",
             Caracteristicas = "• Criar, editar e cancelar agendamentos\n• Ver a agenda\n• Cadastrar clientes\n• Histórico de clientes\n• Cadastrar tipos de serviço\n• Perfil do profissional",
@@ -143,7 +143,7 @@ public partial class CadastroUsuarioViewModel : ObservableObject
         OpcoesPlano.Add(new OpcaoPlanoCadastro
         {
             Nome = "Profissional",
-            Preco = "R$ 19,90/mês",
+            Preco = "R$ 29,90/mês",
             Selo = "Para quem usa o app no dia a dia",
             Descricao = "Tudo do Básico mais o controle financeiro.",
             Caracteristicas = "• Tudo do Básico\n• Entradas e saídas financeiras\n• Cálculo de lucro\n• Lucro geral\n• Relatórios financeiros\n• Métricas de serviços",
@@ -155,7 +155,7 @@ public partial class CadastroUsuarioViewModel : ObservableObject
         OpcoesPlano.Add(new OpcaoPlanoCadastro
         {
             Nome = "Full",
-            Preco = "R$ 29,90/mês",
+            Preco = "R$ 39,90/mês",
             Selo = "Para aproveitar toda a plataforma",
             Descricao = "Tudo do Profissional, com as ferramentas que seu cliente enxerga.",
             Caracteristicas = "• Tudo do Profissional\n• Portfólio público\n• Upload de fotos dos serviços\n• Área/acesso do cliente\n• Métricas para o cliente\n• Geolocalização/geofencing",

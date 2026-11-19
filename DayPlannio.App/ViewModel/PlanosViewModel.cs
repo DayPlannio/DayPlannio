@@ -255,7 +255,7 @@ public partial class PlanosViewModel : ObservableObject
         var catalogo = new[]
         {
             new {
-                nome = "Basico", preco = "R$ 9,90",
+                nome = "Basico", preco = "R$ 12,90",
                 desc = "Para quem está começando:",
                 feats = new[]
                 {
@@ -269,7 +269,7 @@ public partial class PlanosViewModel : ObservableObject
                 cor = "#6E7978"
             },
             new {
-                nome = "Profissional", preco = "R$ 19,90",
+                nome = "Profissional", preco = "R$ 29,90",
                 desc = "Para quem já utiliza o aplicativo no dia a dia:",
                 feats = new[]
                 {
@@ -283,7 +283,7 @@ public partial class PlanosViewModel : ObservableObject
                 cor = "#1E88E5"
             },
             new {
-                nome = "Full", preco = "R$ 29,90",
+                nome = "Full", preco = "R$ 39,90",
                 desc = "Para aproveitar praticamente toda a plataforma:",
                 feats = new[]
                 {

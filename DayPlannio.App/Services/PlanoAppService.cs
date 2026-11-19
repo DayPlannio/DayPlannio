@@ -158,9 +158,9 @@ public static class PlanoAppService
 
     public static string PrecoMensal(string plano) => Normalizar(plano) switch
     {
-        Full => "R$ 29,90/mês",
-        Profissional => "R$ 19,90/mês",
-        _ => "R$ 9,90/mês"
+        Full => "R$ 39,90/mês",
+        Profissional => "R$ 29,90/mês",
+        _ => "R$ 12,90/mês"
     };
 
     public static string PlanoEfetivo(Usuario? perfil)

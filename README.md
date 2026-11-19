@@ -9,6 +9,7 @@ O DayPlannio é um sistema de agendamento e gestão para prestadores de serviço
 - Azure Blob Storage para armazenar as fotos
 - Envio de e-mails via SMTP (Gmail)
 - Geração de relatórios em PDF
+- IA generativa (Gemini, do Google) para redigir as recomendações das métricas do prestador; sem a chave configurada, o app usa o texto gerado por regras
 
 ### Web
 - ASP.NET Core MVC (Razor)

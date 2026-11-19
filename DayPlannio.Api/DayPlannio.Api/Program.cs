@@ -50,6 +50,9 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 builder.Services.Configure<AdminSettings>(builder.Configuration.GetSection("AdminSettings"));
 builder.Services.AddTransient<EmailService>();
 builder.Services.AddScoped<RelatorioPdfService>();
+builder.Services.Configure<AzureOpenAISettings>(builder.Configuration.GetSection("AzureOpenAI"));
+builder.Services.Configure<GeminiSettings>(builder.Configuration.GetSection("Gemini"));
+builder.Services.AddHttpClient<RecomendacaoIaService>(c => c.Timeout = TimeSpan.FromSeconds(10));
 builder.Services.AddScoped<LogService>();
 builder.Services.AddScoped<GeofencingService>();
 GeofenceRegras.Configurar(

@@ -17,11 +17,13 @@ namespace DayPlannio.Api.Controllers
         private readonly ContextMongodb _context = new ContextMongodb();
         private readonly LogService _logService;
         private readonly GeofencingService _geofencing;
+        private readonly RecomendacaoIaService _recomendacaoIa;
 
-        public AgendamentosController(LogService logService, GeofencingService geofencing)
+        public AgendamentosController(LogService logService, GeofencingService geofencing, RecomendacaoIaService recomendacaoIa)
         {
             _logService = logService;
             _geofencing = geofencing;
+            _recomendacaoIa = recomendacaoIa;
         }
 
         [HttpGet("{usuarioId}")]
@@ -606,6 +608,37 @@ namespace DayPlannio.Api.Controllers
             };
         }
 
+        [HttpPost("metricas/{usuarioId}/recomendacoes-ia")]
+        public async Task<IActionResult> RecomendacoesIa(Guid usuarioId, [FromBody] RecomendacoesIaRequest request, CancellationToken ct)
+        {
+            if (!User.EhDonoOuAdmin(usuarioId)) return AcessoHelper.Negado();
+
+            var acesso = await PlanoService.VerificarAsync(usuarioId, PlanoService.Profissional, _context);
+            if (!acesso.autorizado)
+                return StatusCode(403, new { message = acesso.mensagem });
+
+            if (request?.Recomendacoes == null || request.Recomendacoes.Count is 0 or > 4)
+                return BadRequest(new { message = "Informe de 1 a 4 recomendações." });
+
+            if (request.Recomendacoes.Any(r => (r.Titulo?.Length ?? 0) > 200 || (r.Texto?.Length ?? 0) > 1000))
+                return BadRequest(new { message = "Recomendação inválida." });
+
+            var entrada = request.Recomendacoes
+                .Select(r => new RecomendacaoEntrada(r.Tipo ?? "", r.Titulo ?? "", r.Texto ?? "", r.Alerta, r.GanhoEstimado))
+                .ToList();
+
+            var resultado = await _recomendacaoIa.RedigirAsync(request.Periodo ?? "mensal", entrada, ct);
+
+            if (resultado == null)
+                return StatusCode(502, new { message = "Não foi possível redigir as recomendações com a IA." });
+
+            await _logService.RegistrarAsync(
+                "recomendacoes_ia", $"Recomendações redigidas por IA ({resultado.Count}) - período {request.Periodo}",
+                "mobile", usuarioId.ToString());
+
+            return Ok(resultado);
+        }
+
         [HttpGet("metricas-cliente/{clienteId}")]
         public async Task<IActionResult> MetricasCliente(
             Guid clienteId,
@@ -787,6 +820,21 @@ namespace DayPlannio.Api.Controllers
             return $"{min}min";
         }
 
+    }
+
+    public class RecomendacoesIaRequest
+    {
+        public string? Periodo { get; set; }
+        public List<RecomendacaoIaItemRequest> Recomendacoes { get; set; } = new();
+    }
+
+    public class RecomendacaoIaItemRequest
+    {
+        public string? Tipo { get; set; }
+        public string? Titulo { get; set; }
+        public string? Texto { get; set; }
+        public bool Alerta { get; set; }
+        public decimal? GanhoEstimado { get; set; }
     }
 
     public class CancelarAgendamentoRequest

@@ -115,6 +115,12 @@ namespace DayPlannio.App.ViewModels
     private ObservableCollection<MotivoCancelamentoMetrica> motivosCancelamento = new();
 
         [ObservableProperty]
+        private ObservableCollection<RecomendacaoItem> recomendacoes = new();
+
+        [ObservableProperty]
+        private bool temRecomendacoes;
+
+        [ObservableProperty]
         private bool temDados;
 
         [ObservableProperty]
@@ -164,6 +170,8 @@ namespace DayPlannio.App.ViewModels
                 if (metricas == null)
                 {
                     TemDados = false;
+                    Recomendacoes.Clear();
+                    TemRecomendacoes = false;
                     return;
                 }
 
@@ -246,6 +254,8 @@ namespace DayPlannio.App.ViewModels
 
                 TemDados = metricas.Atendimentos > 0 || metricas.PorServico.Count > 0 || metricas.Cancelamentos > 0;
 
+                await AtualizarRecomendacoesAsync(metricas, periodo);
+
                 if (!TemDados)
                 {
                     Atendimentos = "—";
@@ -272,6 +282,50 @@ namespace DayPlannio.App.ViewModels
             {
                 Carregando = false;
                 DadosAtualizados?.Invoke();
+            }
+        }
+
+        private async Task AtualizarRecomendacoesAsync(MetricasPrestador metricas, string periodo)
+        {
+            IReadOnlyDictionary<string, int>? tempoEstimado = null;
+
+            try
+            {
+                var servicos = await ServicoService.GetServicos(_userId);
+
+                if (servicos != null)
+                {
+                    tempoEstimado = servicos
+                        .Where(s => !string.IsNullOrWhiteSpace(s.Tipo) && s.TempoEstimado > 0)
+                        .GroupBy(s => s.Tipo, StringComparer.OrdinalIgnoreCase)
+                        .ToDictionary(g => g.Key, g => g.First().TempoEstimado, StringComparer.OrdinalIgnoreCase);
+                }
+            }
+            catch
+            {
+            }
+
+            var regras = RecomendacaoService.Gerar(metricas, tempoEstimado);
+
+            Recomendacoes.Clear();
+
+            // Mostra primeiro as recomendações calculadas pelas regras e, em seguida,
+            // troca pelo texto redigido pela IA (se a API responder).
+            foreach (var r in regras)
+                Recomendacoes.Add(new RecomendacaoItem(r));
+
+            TemRecomendacoes = Recomendacoes.Count > 0;
+
+            if (regras.Count == 0)
+                return;
+
+            var comIa = await RecomendacaoIaService.RedigirAsync(_userId, periodo, regras);
+
+            if (comIa.Any(r => r.GeradaPorIa))
+            {
+                Recomendacoes.Clear();
+                foreach (var r in comIa)
+                    Recomendacoes.Add(new RecomendacaoItem(r));
             }
         }
 
@@ -335,5 +389,37 @@ namespace DayPlannio.App.ViewModels
     {
         public string Servico { get; set; } = string.Empty;
         public string DuracaoTexto { get; set; } = string.Empty;
+    }
+
+    public class RecomendacaoItem
+    {
+        public RecomendacaoItem(Recomendacao recomendacao)
+        {
+            Titulo = recomendacao.Titulo;
+            Texto = recomendacao.Texto;
+            GeradaPorIa = recomendacao.GeradaPorIa;
+
+            (Icone, Cor, CorFundo) = recomendacao.Tipo switch
+            {
+                TipoRecomendacao.Foco => ("💰", Color.FromArgb("#006260"), Color.FromArgb("#E6F4F3")),
+                TipoRecomendacao.Preco => ("🏷️", Color.FromArgb("#B26A00"), Color.FromArgb("#FFF3E0")),
+                TipoRecomendacao.Cancelamento => ("⚠️", Color.FromArgb("#BA1A1A"), Color.FromArgb("#FDECEA")),
+                _ => recomendacao.Alerta
+                    ? ("📉", Color.FromArgb("#BA1A1A"), Color.FromArgb("#FDECEA"))
+                    : ("📈", Color.FromArgb("#2E7D32"), Color.FromArgb("#E8F5E9"))
+            };
+
+            if (recomendacao.GanhoEstimado is > 0)
+                GanhoTexto = $"Ganho estimado: +R$ {recomendacao.GanhoEstimado.Value:N2}";
+        }
+
+        public string Icone { get; }
+        public string Titulo { get; }
+        public string Texto { get; }
+        public bool GeradaPorIa { get; }
+        public Color Cor { get; }
+        public Color CorFundo { get; }
+        public string GanhoTexto { get; } = string.Empty;
+        public bool TemGanho => GanhoTexto.Length > 0;
     }
 }

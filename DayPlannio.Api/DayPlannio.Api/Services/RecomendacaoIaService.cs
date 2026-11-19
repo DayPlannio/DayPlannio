@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using DayPlannio.Api.Settings;
@@ -51,7 +51,11 @@ namespace DayPlannio.Api.Services
                     return null;
 
                 var lista = Extrair(conteudo);
-                return Validar(recomendacoes, lista) ? lista : null;
+                if (Validar(recomendacoes, lista))
+                    return lista;
+
+                _logger.LogWarning("Resposta da IA rejeitada na validação: {Conteudo}", conteudo);
+                return null;
             }
             catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException
                                           or JsonException or KeyNotFoundException or InvalidOperationException)
@@ -72,8 +76,9 @@ namespace DayPlannio.Api.Services
                 generationConfig = new
                 {
                     temperature = 0.3,
-                    maxOutputTokens = 2048,
-                    responseMimeType = "application/json"
+                    maxOutputTokens = 4096,
+                    responseMimeType = "application/json",
+                    thinkingConfig = new { thinkingBudget = 0 }
                 }
             };
 

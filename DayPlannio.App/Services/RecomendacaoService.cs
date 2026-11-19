@@ -14,7 +14,7 @@ public static class RecomendacaoService
     private const double LimiteCancelamento = 15;
     private const int MinimoFinalizadosParaCancelamento = 3;
     private const double LimiteTendencia = 10;
-    private const int MaximoRecomendacoes = 4;
+    private const int MaximoRecomendacoes = 1;
 
     private sealed record Desempenho(
         string Servico,
@@ -136,24 +136,12 @@ public static class RecomendacaoService
             };
         }
 
-        var horasRealocadas = pior.HorasTotais * FatiaRealocada;
-        var ganho = (decimal)horasRealocadas * (melhorHora - piorHora);
-
-        var texto = $"{melhor.Servico} rende {Dinheiro(melhorHora)} por hora, contra {Dinheiro(piorHora)} " +
-                    $"de {pior.Servico}.";
-
-        if (ganho >= 1)
-        {
-            texto += $" Se você trocar {Num(FatiaRealocada * 100, "0")}% do tempo gasto em {pior.Servico} por " +
-                     $"{melhor.Servico}, ganharia cerca de {Dinheiro(ganho)} a mais no mesmo período.";
-        }
-
         return new Recomendacao
         {
             Tipo = TipoRecomendacao.Foco,
-            Titulo = $"Foque em {melhor.Servico}",
-            Texto = texto,
-            GanhoEstimado = ganho >= 1 ? ganho : null
+            Titulo = $"Priorize {melhor.Servico}",
+            Texto = $"{melhor.Servico} é o serviço que mais rende por hora: {Dinheiro(melhorHora)}. " +
+                    $"{pior.Servico} rende {Dinheiro(piorHora)}. Se puder, dê mais espaço na agenda para {melhor.Servico}."
         };
     }
 
